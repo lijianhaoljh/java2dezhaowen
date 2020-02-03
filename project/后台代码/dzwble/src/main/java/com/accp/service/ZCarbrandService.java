@@ -9,13 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.domain.Carbrand;
 import com.accp.domain.CarbrandExample;
 import com.accp.domain.CarbrandExample.Criteria;
+import com.accp.domain.Motorcycle;
 import com.accp.mapper.CarbrandMapper;
+import com.accp.mapper.MaintenanceMapper;
+import com.accp.mapper.MotorcycleMapper;
 
 @Service
 @Transactional
 public class ZCarbrandService {
 			@Autowired
 			CarbrandMapper carbrandMapper;
+			@Autowired
+			MotorcycleMapper motorcycleMapper;
+			@Autowired
+			MaintenanceMapper maintenanceMapper;
 			
 			/*
 			 * 
@@ -37,5 +44,15 @@ public class ZCarbrandService {
 					}
 				}
 				return carbrandMapper.selectByExample(example);
+			}
+			
+			/**
+			 * 根据车型品牌查询信息
+			 * @param cbno
+			 * @return
+			 */
+			public List<Motorcycle> findQuery(int cbno){
+				
+				return null;
 			}
 }

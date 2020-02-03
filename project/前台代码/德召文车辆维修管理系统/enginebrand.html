@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
 	<body>
-		<div class="container-fluid" style="margin: 20px;">
+		<div class="container-fluid" style="margin: 20px;" id="ctx">
 			<div class="row">
 				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
@@ -30,20 +30,16 @@
 			</div>
 			
 			<div class="col-md-3">
+				
 				<table class="table table-hover">
 			 				<tr style="color: white; background-color: #31B0D5;">
 			 					<td>发动机品牌编码</td>
 			 					<td>发动机品牌名称</td>
 			 				</tr>
 			 				
-			 				<tr>
-			 					<td>12</td>
-			 					<td>中国重汽动力</td>
-			 				</tr>
-			 				
-			 				<tr>
-			 					<td>13</td>
-			 					<td>柯索发动机</td>
+			 				<tr v-for="item in Maintenance">
+			 					<td>{{item.mid}}</td>
+			 					<td>{{item.mname}}</td>
 			 				</tr>
 			 	</table>
 			</div>
@@ -51,5 +47,36 @@
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		
 	</body>
+<script type="text/javascript">
+		var vm=new Vue({
+            el:"#ctx",
+			data(){
+    			return {
+    				Maintenance:[]
+        		};
+			},
+			mounted:function() {
+            this.getData();
+       		},
+			methods: {
+				getData:function(){
+						$.ajax({
+						url: "http://localhost:8080/"+"MaintenanceRest",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.Maintenance=result;
+						},error:function(result){					
+							console.log(result+"1");
+						}
+					});
+				},
+			}
+		})
+</script>
 </html>
