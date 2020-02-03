@@ -2,10 +2,15 @@ package com.accp.mapper;
 
 import com.accp.domain.Maintenance;
 import com.accp.domain.MaintenanceExample;
+import com.accp.domain.Motorcycle;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MaintenanceMapper {
+	
+	List<Motorcycle> findMotorcyle(Integer id);
+	
     int countByExample(MaintenanceExample example);
 
     int deleteByExample(MaintenanceExample example);
