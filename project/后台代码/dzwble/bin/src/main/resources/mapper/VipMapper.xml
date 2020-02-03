@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.VipMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Vip" >
+    <id column="vno" property="vno" jdbcType="VARCHAR" />
+    <result column="vjoindate" property="vjoindate" jdbcType="TIMESTAMP" />
+    <result column="venddate" property="venddate" jdbcType="TIMESTAMP" />
+    <result column="cno" property="cno" jdbcType="VARCHAR" />
+    <result column="vlid" property="vlid" jdbcType="INTEGER" />
+    <result column="currentjifen" property="currentjifen" jdbcType="INTEGER" />
+    <result column="sumMoney" property="summoney" jdbcType="REAL" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vno, vjoindate, venddate, cno, vlid, currentjifen, sumMoney, remark1, remark2, remark3, 
+    remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.VipExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vip
+    where vno = #{vno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vip
+    where vno = #{vno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.VipExample" >
+    delete from vip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Vip" >
+    insert into vip (vno, vjoindate, venddate, 
+      cno, vlid, currentjifen, 
+      sumMoney, remark1, remark2, 
+      remark3, remark4, remark5
+      )
+    values (#{vno,jdbcType=VARCHAR}, #{vjoindate,jdbcType=TIMESTAMP}, #{venddate,jdbcType=TIMESTAMP}, 
+      #{cno,jdbcType=VARCHAR}, #{vlid,jdbcType=INTEGER}, #{currentjifen,jdbcType=INTEGER}, 
+      #{summoney,jdbcType=REAL}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Vip" >
+    insert into vip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vno != null" >
+        vno,
+      </if>
+      <if test="vjoindate != null" >
+        vjoindate,
+      </if>
+      <if test="venddate != null" >
+        venddate,
+      </if>
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="vlid != null" >
+        vlid,
+      </if>
+      <if test="currentjifen != null" >
+        currentjifen,
+      </if>
+      <if test="summoney != null" >
+        sumMoney,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vno != null" >
+        #{vno,jdbcType=VARCHAR},
+      </if>
+      <if test="vjoindate != null" >
+        #{vjoindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="venddate != null" >
+        #{venddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cno != null" >
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="vlid != null" >
+        #{vlid,jdbcType=INTEGER},
+      </if>
+      <if test="currentjifen != null" >
+        #{currentjifen,jdbcType=INTEGER},
+      </if>
+      <if test="summoney != null" >
+        #{summoney,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.VipExample" resultType="java.lang.Integer" >
+    select count(*) from vip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vip
+    <set >
+      <if test="record.vno != null" >
+        vno = #{record.vno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vjoindate != null" >
+        vjoindate = #{record.vjoindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.venddate != null" >
+        venddate = #{record.venddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cno != null" >
+        cno = #{record.cno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlid != null" >
+        vlid = #{record.vlid,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentjifen != null" >
+        currentjifen = #{record.currentjifen,jdbcType=INTEGER},
+      </if>
+      <if test="record.summoney != null" >
+        sumMoney = #{record.summoney,jdbcType=REAL},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vip
+    set vno = #{record.vno,jdbcType=VARCHAR},
+      vjoindate = #{record.vjoindate,jdbcType=TIMESTAMP},
+      venddate = #{record.venddate,jdbcType=TIMESTAMP},
+      cno = #{record.cno,jdbcType=VARCHAR},
+      vlid = #{record.vlid,jdbcType=INTEGER},
+      currentjifen = #{record.currentjifen,jdbcType=INTEGER},
+      sumMoney = #{record.summoney,jdbcType=REAL},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Vip" >
+    update vip
+    <set >
+      <if test="vjoindate != null" >
+        vjoindate = #{vjoindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="venddate != null" >
+        venddate = #{venddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cno != null" >
+        cno = #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="vlid != null" >
+        vlid = #{vlid,jdbcType=INTEGER},
+      </if>
+      <if test="currentjifen != null" >
+        currentjifen = #{currentjifen,jdbcType=INTEGER},
+      </if>
+      <if test="summoney != null" >
+        sumMoney = #{summoney,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vno = #{vno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Vip" >
+    update vip
+    set vjoindate = #{vjoindate,jdbcType=TIMESTAMP},
+      venddate = #{venddate,jdbcType=TIMESTAMP},
+      cno = #{cno,jdbcType=VARCHAR},
+      vlid = #{vlid,jdbcType=INTEGER},
+      currentjifen = #{currentjifen,jdbcType=INTEGER},
+      sumMoney = #{summoney,jdbcType=REAL},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where vno = #{vno,jdbcType=VARCHAR}
+  </update>
+</mapper>

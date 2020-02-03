@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.RescueBillMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.RescueBill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="VARCHAR" />
+    <result column="rbname" property="rbname" jdbcType="VARCHAR" />
+    <result column="current_mileage" property="currentMileage" jdbcType="REAL" />
+    <result column="Dispatching_time" property="dispatchingTime" jdbcType="TIMESTAMP" />
+    <result column="ecompletion_date" property="ecompletionDate" jdbcType="TIMESTAMP" />
+    <result column="clearing_form" property="clearingForm" jdbcType="VARCHAR" />
+    <result column="inid" property="inid" jdbcType="INTEGER" />
+    <result column="go_off" property="goOff" jdbcType="TIMESTAMP" />
+    <result column="go_address" property="goAddress" jdbcType="VARCHAR" />
+    <result column="cno" property="cno" jdbcType="VARCHAR" />
+    <result column="road_haul" property="roadHaul" jdbcType="REAL" />
+    <result column="construction_time" property="constructionTime" jdbcType="TIMESTAMP" />
+    <result column="raddress" property="raddress" jdbcType="VARCHAR" />
+    <result column="time_completion" property="timeCompletion" jdbcType="TIMESTAMP" />
+    <result column="ecompletion_money" property="ecompletionMoney" jdbcType="REAL" />
+    <result column="maintain_remark" property="maintainRemark" jdbcType="VARCHAR" />
+    <result column="rescue" property="rescue" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bid, rbname, current_mileage, Dispatching_time, ecompletion_date, clearing_form, 
+    inid, go_off, go_address, cno, road_haul, construction_time, raddress, time_completion, 
+    ecompletion_money, maintain_remark, rescue, remark1, remark2, remark3, remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.RescueBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rescue_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rescue_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rescue_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.RescueBillExample" >
+    delete from rescue_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.RescueBill" >
+    insert into rescue_bill (id, bid, rbname, 
+      current_mileage, Dispatching_time, ecompletion_date, 
+      clearing_form, inid, go_off, 
+      go_address, cno, road_haul, 
+      construction_time, raddress, time_completion, 
+      ecompletion_money, maintain_remark, rescue, 
+      remark1, remark2, remark3, 
+      remark4, remark5)
+    values (#{id,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR}, #{rbname,jdbcType=VARCHAR}, 
+      #{currentMileage,jdbcType=REAL}, #{dispatchingTime,jdbcType=TIMESTAMP}, #{ecompletionDate,jdbcType=TIMESTAMP}, 
+      #{clearingForm,jdbcType=VARCHAR}, #{inid,jdbcType=INTEGER}, #{goOff,jdbcType=TIMESTAMP}, 
+      #{goAddress,jdbcType=VARCHAR}, #{cno,jdbcType=VARCHAR}, #{roadHaul,jdbcType=REAL}, 
+      #{constructionTime,jdbcType=TIMESTAMP}, #{raddress,jdbcType=VARCHAR}, #{timeCompletion,jdbcType=TIMESTAMP}, 
+      #{ecompletionMoney,jdbcType=REAL}, #{maintainRemark,jdbcType=VARCHAR}, #{rescue,jdbcType=VARCHAR}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.RescueBill" >
+    insert into rescue_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="rbname != null" >
+        rbname,
+      </if>
+      <if test="currentMileage != null" >
+        current_mileage,
+      </if>
+      <if test="dispatchingTime != null" >
+        Dispatching_time,
+      </if>
+      <if test="ecompletionDate != null" >
+        ecompletion_date,
+      </if>
+      <if test="clearingForm != null" >
+        clearing_form,
+      </if>
+      <if test="inid != null" >
+        inid,
+      </if>
+      <if test="goOff != null" >
+        go_off,
+      </if>
+      <if test="goAddress != null" >
+        go_address,
+      </if>
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="roadHaul != null" >
+        road_haul,
+      </if>
+      <if test="constructionTime != null" >
+        construction_time,
+      </if>
+      <if test="raddress != null" >
+        raddress,
+      </if>
+      <if test="timeCompletion != null" >
+        time_completion,
+      </if>
+      <if test="ecompletionMoney != null" >
+        ecompletion_money,
+      </if>
+      <if test="maintainRemark != null" >
+        maintain_remark,
+      </if>
+      <if test="rescue != null" >
+        rescue,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="rbname != null" >
+        #{rbname,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMileage != null" >
+        #{currentMileage,jdbcType=REAL},
+      </if>
+      <if test="dispatchingTime != null" >
+        #{dispatchingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecompletionDate != null" >
+        #{ecompletionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clearingForm != null" >
+        #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="inid != null" >
+        #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="goOff != null" >
+        #{goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goAddress != null" >
+        #{goAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cno != null" >
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="roadHaul != null" >
+        #{roadHaul,jdbcType=REAL},
+      </if>
+      <if test="constructionTime != null" >
+        #{constructionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="raddress != null" >
+        #{raddress,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCompletion != null" >
+        #{timeCompletion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecompletionMoney != null" >
+        #{ecompletionMoney,jdbcType=REAL},
+      </if>
+      <if test="maintainRemark != null" >
+        #{maintainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rescue != null" >
+        #{rescue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.RescueBillExample" resultType="java.lang.Integer" >
+    select count(*) from rescue_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rescue_bill
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rbname != null" >
+        rbname = #{record.rbname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentMileage != null" >
+        current_mileage = #{record.currentMileage,jdbcType=REAL},
+      </if>
+      <if test="record.dispatchingTime != null" >
+        Dispatching_time = #{record.dispatchingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ecompletionDate != null" >
+        ecompletion_date = #{record.ecompletionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clearingForm != null" >
+        clearing_form = #{record.clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inid != null" >
+        inid = #{record.inid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goOff != null" >
+        go_off = #{record.goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.goAddress != null" >
+        go_address = #{record.goAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cno != null" >
+        cno = #{record.cno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roadHaul != null" >
+        road_haul = #{record.roadHaul,jdbcType=REAL},
+      </if>
+      <if test="record.constructionTime != null" >
+        construction_time = #{record.constructionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.raddress != null" >
+        raddress = #{record.raddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeCompletion != null" >
+        time_completion = #{record.timeCompletion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ecompletionMoney != null" >
+        ecompletion_money = #{record.ecompletionMoney,jdbcType=REAL},
+      </if>
+      <if test="record.maintainRemark != null" >
+        maintain_remark = #{record.maintainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rescue != null" >
+        rescue = #{record.rescue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rescue_bill
+    set id = #{record.id,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=VARCHAR},
+      rbname = #{record.rbname,jdbcType=VARCHAR},
+      current_mileage = #{record.currentMileage,jdbcType=REAL},
+      Dispatching_time = #{record.dispatchingTime,jdbcType=TIMESTAMP},
+      ecompletion_date = #{record.ecompletionDate,jdbcType=TIMESTAMP},
+      clearing_form = #{record.clearingForm,jdbcType=VARCHAR},
+      inid = #{record.inid,jdbcType=INTEGER},
+      go_off = #{record.goOff,jdbcType=TIMESTAMP},
+      go_address = #{record.goAddress,jdbcType=VARCHAR},
+      cno = #{record.cno,jdbcType=VARCHAR},
+      road_haul = #{record.roadHaul,jdbcType=REAL},
+      construction_time = #{record.constructionTime,jdbcType=TIMESTAMP},
+      raddress = #{record.raddress,jdbcType=VARCHAR},
+      time_completion = #{record.timeCompletion,jdbcType=TIMESTAMP},
+      ecompletion_money = #{record.ecompletionMoney,jdbcType=REAL},
+      maintain_remark = #{record.maintainRemark,jdbcType=VARCHAR},
+      rescue = #{record.rescue,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.RescueBill" >
+    update rescue_bill
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="rbname != null" >
+        rbname = #{rbname,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMileage != null" >
+        current_mileage = #{currentMileage,jdbcType=REAL},
+      </if>
+      <if test="dispatchingTime != null" >
+        Dispatching_time = #{dispatchingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecompletionDate != null" >
+        ecompletion_date = #{ecompletionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clearingForm != null" >
+        clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="inid != null" >
+        inid = #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="goOff != null" >
+        go_off = #{goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goAddress != null" >
+        go_address = #{goAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cno != null" >
+        cno = #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="roadHaul != null" >
+        road_haul = #{roadHaul,jdbcType=REAL},
+      </if>
+      <if test="constructionTime != null" >
+        construction_time = #{constructionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="raddress != null" >
+        raddress = #{raddress,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCompletion != null" >
+        time_completion = #{timeCompletion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecompletionMoney != null" >
+        ecompletion_money = #{ecompletionMoney,jdbcType=REAL},
+      </if>
+      <if test="maintainRemark != null" >
+        maintain_remark = #{maintainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rescue != null" >
+        rescue = #{rescue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.RescueBill" >
+    update rescue_bill
+    set bid = #{bid,jdbcType=VARCHAR},
+      rbname = #{rbname,jdbcType=VARCHAR},
+      current_mileage = #{currentMileage,jdbcType=REAL},
+      Dispatching_time = #{dispatchingTime,jdbcType=TIMESTAMP},
+      ecompletion_date = #{ecompletionDate,jdbcType=TIMESTAMP},
+      clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      inid = #{inid,jdbcType=INTEGER},
+      go_off = #{goOff,jdbcType=TIMESTAMP},
+      go_address = #{goAddress,jdbcType=VARCHAR},
+      cno = #{cno,jdbcType=VARCHAR},
+      road_haul = #{roadHaul,jdbcType=REAL},
+      construction_time = #{constructionTime,jdbcType=TIMESTAMP},
+      raddress = #{raddress,jdbcType=VARCHAR},
+      time_completion = #{timeCompletion,jdbcType=TIMESTAMP},
+      ecompletion_money = #{ecompletionMoney,jdbcType=REAL},
+      maintain_remark = #{maintainRemark,jdbcType=VARCHAR},
+      rescue = #{rescue,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

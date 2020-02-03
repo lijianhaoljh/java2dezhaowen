@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.InvoiceMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Invoice" >
+    <id column="invid" property="invid" jdbcType="VARCHAR" />
+    <result column="invdate" property="invdate" jdbcType="TIMESTAMP" />
+    <result column="invmoney" property="invmoney" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    invid, invdate, invmoney
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.InvoiceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from invoice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from invoice
+    where invid = #{invid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from invoice
+    where invid = #{invid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.InvoiceExample" >
+    delete from invoice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Invoice" >
+    insert into invoice (invid, invdate, invmoney
+      )
+    values (#{invid,jdbcType=VARCHAR}, #{invdate,jdbcType=TIMESTAMP}, #{invmoney,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Invoice" >
+    insert into invoice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="invid != null" >
+        invid,
+      </if>
+      <if test="invdate != null" >
+        invdate,
+      </if>
+      <if test="invmoney != null" >
+        invmoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="invid != null" >
+        #{invid,jdbcType=VARCHAR},
+      </if>
+      <if test="invdate != null" >
+        #{invdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invmoney != null" >
+        #{invmoney,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.InvoiceExample" resultType="java.lang.Integer" >
+    select count(*) from invoice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update invoice
+    <set >
+      <if test="record.invid != null" >
+        invid = #{record.invid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invdate != null" >
+        invdate = #{record.invdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invmoney != null" >
+        invmoney = #{record.invmoney,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update invoice
+    set invid = #{record.invid,jdbcType=VARCHAR},
+      invdate = #{record.invdate,jdbcType=TIMESTAMP},
+      invmoney = #{record.invmoney,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Invoice" >
+    update invoice
+    <set >
+      <if test="invdate != null" >
+        invdate = #{invdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invmoney != null" >
+        invmoney = #{invmoney,jdbcType=REAL},
+      </if>
+    </set>
+    where invid = #{invid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Invoice" >
+    update invoice
+    set invdate = #{invdate,jdbcType=TIMESTAMP},
+      invmoney = #{invmoney,jdbcType=REAL}
+    where invid = #{invid,jdbcType=VARCHAR}
+  </update>
+</mapper>

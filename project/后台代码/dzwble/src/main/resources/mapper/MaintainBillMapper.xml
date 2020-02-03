@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.MaintainBillMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.MaintainBill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="VARCHAR" />
+    <result column="mbname" property="mbname" jdbcType="VARCHAR" />
+    <result column="mile_factory" property="mileFactory" jdbcType="REAL" />
+    <result column="oil_factory" property="oilFactory" jdbcType="REAL" />
+    <result column="mile" property="mile" jdbcType="REAL" />
+    <result column="efactory_time" property="efactoryTime" jdbcType="TIMESTAMP" />
+    <result column="ecompletion_date" property="ecompletionDate" jdbcType="TIMESTAMP" />
+    <result column="clearing_form" property="clearingForm" jdbcType="VARCHAR" />
+    <result column="inid" property="inid" jdbcType="INTEGER" />
+    <result column="time_completion" property="timeCompletion" jdbcType="TIMESTAMP" />
+    <result column="factory" property="factory" jdbcType="TIMESTAMP" />
+    <result column="report" property="report" jdbcType="VARCHAR" />
+    <result column="ecompletion_money" property="ecompletionMoney" jdbcType="REAL" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bid, mbname, mile_factory, oil_factory, mile, efactory_time, ecompletion_date, 
+    clearing_form, inid, time_completion, factory, report, ecompletion_money, remark1, 
+    remark2, remark3, remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.MaintainBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from maintain_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from maintain_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from maintain_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.MaintainBillExample" >
+    delete from maintain_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.MaintainBill" >
+    insert into maintain_bill (id, bid, mbname, 
+      mile_factory, oil_factory, mile, 
+      efactory_time, ecompletion_date, clearing_form, 
+      inid, time_completion, factory, 
+      report, ecompletion_money, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{id,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR}, #{mbname,jdbcType=VARCHAR}, 
+      #{mileFactory,jdbcType=REAL}, #{oilFactory,jdbcType=REAL}, #{mile,jdbcType=REAL}, 
+      #{efactoryTime,jdbcType=TIMESTAMP}, #{ecompletionDate,jdbcType=TIMESTAMP}, #{clearingForm,jdbcType=VARCHAR}, 
+      #{inid,jdbcType=INTEGER}, #{timeCompletion,jdbcType=TIMESTAMP}, #{factory,jdbcType=TIMESTAMP}, 
+      #{report,jdbcType=VARCHAR}, #{ecompletionMoney,jdbcType=REAL}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.MaintainBill" >
+    insert into maintain_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="mbname != null" >
+        mbname,
+      </if>
+      <if test="mileFactory != null" >
+        mile_factory,
+      </if>
+      <if test="oilFactory != null" >
+        oil_factory,
+      </if>
+      <if test="mile != null" >
+        mile,
+      </if>
+      <if test="efactoryTime != null" >
+        efactory_time,
+      </if>
+      <if test="ecompletionDate != null" >
+        ecompletion_date,
+      </if>
+      <if test="clearingForm != null" >
+        clearing_form,
+      </if>
+      <if test="inid != null" >
+        inid,
+      </if>
+      <if test="timeCompletion != null" >
+        time_completion,
+      </if>
+      <if test="factory != null" >
+        factory,
+      </if>
+      <if test="report != null" >
+        report,
+      </if>
+      <if test="ecompletionMoney != null" >
+        ecompletion_money,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="mbname != null" >
+        #{mbname,jdbcType=VARCHAR},
+      </if>
+      <if test="mileFactory != null" >
+        #{mileFactory,jdbcType=REAL},
+      </if>
+      <if test="oilFactory != null" >
+        #{oilFactory,jdbcType=REAL},
+      </if>
+      <if test="mile != null" >
+        #{mile,jdbcType=REAL},
+      </if>
+      <if test="efactoryTime != null" >
+        #{efactoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecompletionDate != null" >
+        #{ecompletionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clearingForm != null" >
+        #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="inid != null" >
+        #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="timeCompletion != null" >
+        #{timeCompletion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factory != null" >
+        #{factory,jdbcType=TIMESTAMP},
+      </if>
+      <if test="report != null" >
+        #{report,jdbcType=VARCHAR},
+      </if>
+      <if test="ecompletionMoney != null" >
+        #{ecompletionMoney,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.MaintainBillExample" resultType="java.lang.Integer" >
+    select count(*) from maintain_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update maintain_bill
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbname != null" >
+        mbname = #{record.mbname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mileFactory != null" >
+        mile_factory = #{record.mileFactory,jdbcType=REAL},
+      </if>
+      <if test="record.oilFactory != null" >
+        oil_factory = #{record.oilFactory,jdbcType=REAL},
+      </if>
+      <if test="record.mile != null" >
+        mile = #{record.mile,jdbcType=REAL},
+      </if>
+      <if test="record.efactoryTime != null" >
+        efactory_time = #{record.efactoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ecompletionDate != null" >
+        ecompletion_date = #{record.ecompletionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clearingForm != null" >
+        clearing_form = #{record.clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inid != null" >
+        inid = #{record.inid,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCompletion != null" >
+        time_completion = #{record.timeCompletion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.factory != null" >
+        factory = #{record.factory,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.report != null" >
+        report = #{record.report,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecompletionMoney != null" >
+        ecompletion_money = #{record.ecompletionMoney,jdbcType=REAL},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update maintain_bill
+    set id = #{record.id,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=VARCHAR},
+      mbname = #{record.mbname,jdbcType=VARCHAR},
+      mile_factory = #{record.mileFactory,jdbcType=REAL},
+      oil_factory = #{record.oilFactory,jdbcType=REAL},
+      mile = #{record.mile,jdbcType=REAL},
+      efactory_time = #{record.efactoryTime,jdbcType=TIMESTAMP},
+      ecompletion_date = #{record.ecompletionDate,jdbcType=TIMESTAMP},
+      clearing_form = #{record.clearingForm,jdbcType=VARCHAR},
+      inid = #{record.inid,jdbcType=INTEGER},
+      time_completion = #{record.timeCompletion,jdbcType=TIMESTAMP},
+      factory = #{record.factory,jdbcType=TIMESTAMP},
+      report = #{record.report,jdbcType=VARCHAR},
+      ecompletion_money = #{record.ecompletionMoney,jdbcType=REAL},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.MaintainBill" >
+    update maintain_bill
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="mbname != null" >
+        mbname = #{mbname,jdbcType=VARCHAR},
+      </if>
+      <if test="mileFactory != null" >
+        mile_factory = #{mileFactory,jdbcType=REAL},
+      </if>
+      <if test="oilFactory != null" >
+        oil_factory = #{oilFactory,jdbcType=REAL},
+      </if>
+      <if test="mile != null" >
+        mile = #{mile,jdbcType=REAL},
+      </if>
+      <if test="efactoryTime != null" >
+        efactory_time = #{efactoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecompletionDate != null" >
+        ecompletion_date = #{ecompletionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clearingForm != null" >
+        clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="inid != null" >
+        inid = #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="timeCompletion != null" >
+        time_completion = #{timeCompletion,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factory != null" >
+        factory = #{factory,jdbcType=TIMESTAMP},
+      </if>
+      <if test="report != null" >
+        report = #{report,jdbcType=VARCHAR},
+      </if>
+      <if test="ecompletionMoney != null" >
+        ecompletion_money = #{ecompletionMoney,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.MaintainBill" >
+    update maintain_bill
+    set bid = #{bid,jdbcType=VARCHAR},
+      mbname = #{mbname,jdbcType=VARCHAR},
+      mile_factory = #{mileFactory,jdbcType=REAL},
+      oil_factory = #{oilFactory,jdbcType=REAL},
+      mile = #{mile,jdbcType=REAL},
+      efactory_time = #{efactoryTime,jdbcType=TIMESTAMP},
+      ecompletion_date = #{ecompletionDate,jdbcType=TIMESTAMP},
+      clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      inid = #{inid,jdbcType=INTEGER},
+      time_completion = #{timeCompletion,jdbcType=TIMESTAMP},
+      factory = #{factory,jdbcType=TIMESTAMP},
+      report = #{report,jdbcType=VARCHAR},
+      ecompletion_money = #{ecompletionMoney,jdbcType=REAL},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.ManufacturerMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Manufacturer" >
+    <id column="mfid" property="mfid" jdbcType="INTEGER" />
+    <result column="mfname" property="mfname" jdbcType="VARCHAR" />
+    <result column="mfaddress" property="mfaddress" jdbcType="VARCHAR" />
+    <result column="mfsituation" property="mfsituation" jdbcType="VARCHAR" />
+    <result column="mfwebsite" property="mfwebsite" jdbcType="VARCHAR" />
+    <result column="mfopeningbank" property="mfopeningbank" jdbcType="VARCHAR" />
+    <result column="mfbankaccount" property="mfbankaccount" jdbcType="VARCHAR" />
+    <result column="pmid" property="pmid" jdbcType="INTEGER" />
+    <result column="lpid" property="lpid" jdbcType="INTEGER" />
+    <result column="mfmanagementbrand" property="mfmanagementbrand" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="mfcontacts" property="mfcontacts" jdbcType="VARCHAR" />
+    <result column="mfphone" property="mfphone" jdbcType="VARCHAR" />
+    <result column="mfemail" property="mfemail" jdbcType="VARCHAR" />
+    <result column="mftellphone" property="mftellphone" jdbcType="VARCHAR" />
+    <result column="mfaccount" property="mfaccount" jdbcType="VARCHAR" />
+    <result column="mfremark" property="mfremark" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mfid, mfname, mfaddress, mfsituation, mfwebsite, mfopeningbank, mfbankaccount, pmid, 
+    lpid, mfmanagementbrand, pid, mfcontacts, mfphone, mfemail, mftellphone, mfaccount, 
+    mfremark, remark1, remark2, remark3, remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ManufacturerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from manufacturer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manufacturer
+    where mfid = #{mfid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manufacturer
+    where mfid = #{mfid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ManufacturerExample" >
+    delete from manufacturer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Manufacturer" >
+    insert into manufacturer (mfid, mfname, mfaddress, 
+      mfsituation, mfwebsite, mfopeningbank, 
+      mfbankaccount, pmid, lpid, 
+      mfmanagementbrand, pid, mfcontacts, 
+      mfphone, mfemail, mftellphone, 
+      mfaccount, mfremark, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{mfid,jdbcType=INTEGER}, #{mfname,jdbcType=VARCHAR}, #{mfaddress,jdbcType=VARCHAR}, 
+      #{mfsituation,jdbcType=VARCHAR}, #{mfwebsite,jdbcType=VARCHAR}, #{mfopeningbank,jdbcType=VARCHAR}, 
+      #{mfbankaccount,jdbcType=VARCHAR}, #{pmid,jdbcType=INTEGER}, #{lpid,jdbcType=INTEGER}, 
+      #{mfmanagementbrand,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{mfcontacts,jdbcType=VARCHAR}, 
+      #{mfphone,jdbcType=VARCHAR}, #{mfemail,jdbcType=VARCHAR}, #{mftellphone,jdbcType=VARCHAR}, 
+      #{mfaccount,jdbcType=VARCHAR}, #{mfremark,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Manufacturer" >
+    insert into manufacturer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mfid != null" >
+        mfid,
+      </if>
+      <if test="mfname != null" >
+        mfname,
+      </if>
+      <if test="mfaddress != null" >
+        mfaddress,
+      </if>
+      <if test="mfsituation != null" >
+        mfsituation,
+      </if>
+      <if test="mfwebsite != null" >
+        mfwebsite,
+      </if>
+      <if test="mfopeningbank != null" >
+        mfopeningbank,
+      </if>
+      <if test="mfbankaccount != null" >
+        mfbankaccount,
+      </if>
+      <if test="pmid != null" >
+        pmid,
+      </if>
+      <if test="lpid != null" >
+        lpid,
+      </if>
+      <if test="mfmanagementbrand != null" >
+        mfmanagementbrand,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="mfcontacts != null" >
+        mfcontacts,
+      </if>
+      <if test="mfphone != null" >
+        mfphone,
+      </if>
+      <if test="mfemail != null" >
+        mfemail,
+      </if>
+      <if test="mftellphone != null" >
+        mftellphone,
+      </if>
+      <if test="mfaccount != null" >
+        mfaccount,
+      </if>
+      <if test="mfremark != null" >
+        mfremark,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mfid != null" >
+        #{mfid,jdbcType=INTEGER},
+      </if>
+      <if test="mfname != null" >
+        #{mfname,jdbcType=VARCHAR},
+      </if>
+      <if test="mfaddress != null" >
+        #{mfaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mfsituation != null" >
+        #{mfsituation,jdbcType=VARCHAR},
+      </if>
+      <if test="mfwebsite != null" >
+        #{mfwebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="mfopeningbank != null" >
+        #{mfopeningbank,jdbcType=VARCHAR},
+      </if>
+      <if test="mfbankaccount != null" >
+        #{mfbankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="pmid != null" >
+        #{pmid,jdbcType=INTEGER},
+      </if>
+      <if test="lpid != null" >
+        #{lpid,jdbcType=INTEGER},
+      </if>
+      <if test="mfmanagementbrand != null" >
+        #{mfmanagementbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="mfcontacts != null" >
+        #{mfcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="mfphone != null" >
+        #{mfphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mfemail != null" >
+        #{mfemail,jdbcType=VARCHAR},
+      </if>
+      <if test="mftellphone != null" >
+        #{mftellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mfaccount != null" >
+        #{mfaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="mfremark != null" >
+        #{mfremark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ManufacturerExample" resultType="java.lang.Integer" >
+    select count(*) from manufacturer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update manufacturer
+    <set >
+      <if test="record.mfid != null" >
+        mfid = #{record.mfid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mfname != null" >
+        mfname = #{record.mfname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfaddress != null" >
+        mfaddress = #{record.mfaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfsituation != null" >
+        mfsituation = #{record.mfsituation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfwebsite != null" >
+        mfwebsite = #{record.mfwebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfopeningbank != null" >
+        mfopeningbank = #{record.mfopeningbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfbankaccount != null" >
+        mfbankaccount = #{record.mfbankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pmid != null" >
+        pmid = #{record.pmid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lpid != null" >
+        lpid = #{record.lpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mfmanagementbrand != null" >
+        mfmanagementbrand = #{record.mfmanagementbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mfcontacts != null" >
+        mfcontacts = #{record.mfcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfphone != null" >
+        mfphone = #{record.mfphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfemail != null" >
+        mfemail = #{record.mfemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mftellphone != null" >
+        mftellphone = #{record.mftellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfaccount != null" >
+        mfaccount = #{record.mfaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mfremark != null" >
+        mfremark = #{record.mfremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update manufacturer
+    set mfid = #{record.mfid,jdbcType=INTEGER},
+      mfname = #{record.mfname,jdbcType=VARCHAR},
+      mfaddress = #{record.mfaddress,jdbcType=VARCHAR},
+      mfsituation = #{record.mfsituation,jdbcType=VARCHAR},
+      mfwebsite = #{record.mfwebsite,jdbcType=VARCHAR},
+      mfopeningbank = #{record.mfopeningbank,jdbcType=VARCHAR},
+      mfbankaccount = #{record.mfbankaccount,jdbcType=VARCHAR},
+      pmid = #{record.pmid,jdbcType=INTEGER},
+      lpid = #{record.lpid,jdbcType=INTEGER},
+      mfmanagementbrand = #{record.mfmanagementbrand,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=INTEGER},
+      mfcontacts = #{record.mfcontacts,jdbcType=VARCHAR},
+      mfphone = #{record.mfphone,jdbcType=VARCHAR},
+      mfemail = #{record.mfemail,jdbcType=VARCHAR},
+      mftellphone = #{record.mftellphone,jdbcType=VARCHAR},
+      mfaccount = #{record.mfaccount,jdbcType=VARCHAR},
+      mfremark = #{record.mfremark,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Manufacturer" >
+    update manufacturer
+    <set >
+      <if test="mfname != null" >
+        mfname = #{mfname,jdbcType=VARCHAR},
+      </if>
+      <if test="mfaddress != null" >
+        mfaddress = #{mfaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mfsituation != null" >
+        mfsituation = #{mfsituation,jdbcType=VARCHAR},
+      </if>
+      <if test="mfwebsite != null" >
+        mfwebsite = #{mfwebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="mfopeningbank != null" >
+        mfopeningbank = #{mfopeningbank,jdbcType=VARCHAR},
+      </if>
+      <if test="mfbankaccount != null" >
+        mfbankaccount = #{mfbankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="pmid != null" >
+        pmid = #{pmid,jdbcType=INTEGER},
+      </if>
+      <if test="lpid != null" >
+        lpid = #{lpid,jdbcType=INTEGER},
+      </if>
+      <if test="mfmanagementbrand != null" >
+        mfmanagementbrand = #{mfmanagementbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="mfcontacts != null" >
+        mfcontacts = #{mfcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="mfphone != null" >
+        mfphone = #{mfphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mfemail != null" >
+        mfemail = #{mfemail,jdbcType=VARCHAR},
+      </if>
+      <if test="mftellphone != null" >
+        mftellphone = #{mftellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mfaccount != null" >
+        mfaccount = #{mfaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="mfremark != null" >
+        mfremark = #{mfremark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mfid = #{mfid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Manufacturer" >
+    update manufacturer
+    set mfname = #{mfname,jdbcType=VARCHAR},
+      mfaddress = #{mfaddress,jdbcType=VARCHAR},
+      mfsituation = #{mfsituation,jdbcType=VARCHAR},
+      mfwebsite = #{mfwebsite,jdbcType=VARCHAR},
+      mfopeningbank = #{mfopeningbank,jdbcType=VARCHAR},
+      mfbankaccount = #{mfbankaccount,jdbcType=VARCHAR},
+      pmid = #{pmid,jdbcType=INTEGER},
+      lpid = #{lpid,jdbcType=INTEGER},
+      mfmanagementbrand = #{mfmanagementbrand,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      mfcontacts = #{mfcontacts,jdbcType=VARCHAR},
+      mfphone = #{mfphone,jdbcType=VARCHAR},
+      mfemail = #{mfemail,jdbcType=VARCHAR},
+      mftellphone = #{mftellphone,jdbcType=VARCHAR},
+      mfaccount = #{mfaccount,jdbcType=VARCHAR},
+      mfremark = #{mfremark,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where mfid = #{mfid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.CardataMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Cardata" >
+    <id column="cdlicense" property="cdlicense" jdbcType="VARCHAR" />
+    <result column="cdno" property="cdno" jdbcType="INTEGER" />
+    <result column="moid" property="moid" jdbcType="INTEGER" />
+    <result column="cddriver" property="cddriver" jdbcType="VARCHAR" />
+    <result column="cddriverphone" property="cddriverphone" jdbcType="VARCHAR" />
+    <result column="cddriverbirth" property="cddriverbirth" jdbcType="TIMESTAMP" />
+    <result column="clid" property="clid" jdbcType="INTEGER" />
+    <result column="cdlicenseend" property="cdlicenseend" jdbcType="TIMESTAMP" />
+    <result column="cdframe" property="cdframe" jdbcType="VARCHAR" />
+    <result column="mid" property="mid" jdbcType="INTEGER" />
+    <result column="cdyearprice" property="cdyearprice" jdbcType="VARCHAR" />
+    <result column="cdmileage" property="cdmileage" jdbcType="REAL" />
+    <result column="cdload" property="cdload" jdbcType="REAL" />
+    <result column="cdbuydate" property="cdbuydate" jdbcType="TIMESTAMP" />
+    <result column="cdgolicense" property="cdgolicense" jdbcType="TIMESTAMP" />
+    <result column="cdcarcheckdate" property="cdcarcheckdate" jdbcType="TIMESTAMP" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="inid" property="inid" jdbcType="INTEGER" />
+    <result column="indate" property="indate" jdbcType="TIMESTAMP" />
+    <result column="inid_business" property="inidBusiness" jdbcType="INTEGER" />
+    <result column="inid_bdate" property="inidBdate" jdbcType="TIMESTAMP" />
+    <result column="cdisinsure" property="cdisinsure" jdbcType="INTEGER" />
+    <result column="cdnextmileage" property="cdnextmileage" jdbcType="REAL" />
+    <result column="cdnextkeepdate" property="cdnextkeepdate" jdbcType="TIMESTAMP" />
+    <result column="cno" property="cno" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cdlicense, cdno, moid, cddriver, cddriverphone, cddriverbirth, clid, cdlicenseend, 
+    cdframe, mid, cdyearprice, cdmileage, cdload, cdbuydate, cdgolicense, cdcarcheckdate, 
+    fid, inid, indate, inid_business, inid_bdate, cdisinsure, cdnextmileage, cdnextkeepdate, 
+    cno, remark1, remark2, remark3, remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CardataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cardata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cardata
+    where cdlicense = #{cdlicense,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cardata
+    where cdlicense = #{cdlicense,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CardataExample" >
+    delete from cardata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Cardata" >
+    insert into cardata (cdlicense, cdno, moid, 
+      cddriver, cddriverphone, cddriverbirth, 
+      clid, cdlicenseend, cdframe, 
+      mid, cdyearprice, cdmileage, 
+      cdload, cdbuydate, cdgolicense, 
+      cdcarcheckdate, fid, inid, 
+      indate, inid_business, inid_bdate, 
+      cdisinsure, cdnextmileage, cdnextkeepdate, 
+      cno, remark1, remark2, 
+      remark3, remark4, remark5
+      )
+    values (#{cdlicense,jdbcType=VARCHAR}, #{cdno,jdbcType=INTEGER}, #{moid,jdbcType=INTEGER}, 
+      #{cddriver,jdbcType=VARCHAR}, #{cddriverphone,jdbcType=VARCHAR}, #{cddriverbirth,jdbcType=TIMESTAMP}, 
+      #{clid,jdbcType=INTEGER}, #{cdlicenseend,jdbcType=TIMESTAMP}, #{cdframe,jdbcType=VARCHAR}, 
+      #{mid,jdbcType=INTEGER}, #{cdyearprice,jdbcType=VARCHAR}, #{cdmileage,jdbcType=REAL}, 
+      #{cdload,jdbcType=REAL}, #{cdbuydate,jdbcType=TIMESTAMP}, #{cdgolicense,jdbcType=TIMESTAMP}, 
+      #{cdcarcheckdate,jdbcType=TIMESTAMP}, #{fid,jdbcType=INTEGER}, #{inid,jdbcType=INTEGER}, 
+      #{indate,jdbcType=TIMESTAMP}, #{inidBusiness,jdbcType=INTEGER}, #{inidBdate,jdbcType=TIMESTAMP}, 
+      #{cdisinsure,jdbcType=INTEGER}, #{cdnextmileage,jdbcType=REAL}, #{cdnextkeepdate,jdbcType=TIMESTAMP}, 
+      #{cno,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Cardata" >
+    insert into cardata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cdlicense != null" >
+        cdlicense,
+      </if>
+      <if test="cdno != null" >
+        cdno,
+      </if>
+      <if test="moid != null" >
+        moid,
+      </if>
+      <if test="cddriver != null" >
+        cddriver,
+      </if>
+      <if test="cddriverphone != null" >
+        cddriverphone,
+      </if>
+      <if test="cddriverbirth != null" >
+        cddriverbirth,
+      </if>
+      <if test="clid != null" >
+        clid,
+      </if>
+      <if test="cdlicenseend != null" >
+        cdlicenseend,
+      </if>
+      <if test="cdframe != null" >
+        cdframe,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="cdyearprice != null" >
+        cdyearprice,
+      </if>
+      <if test="cdmileage != null" >
+        cdmileage,
+      </if>
+      <if test="cdload != null" >
+        cdload,
+      </if>
+      <if test="cdbuydate != null" >
+        cdbuydate,
+      </if>
+      <if test="cdgolicense != null" >
+        cdgolicense,
+      </if>
+      <if test="cdcarcheckdate != null" >
+        cdcarcheckdate,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="inid != null" >
+        inid,
+      </if>
+      <if test="indate != null" >
+        indate,
+      </if>
+      <if test="inidBusiness != null" >
+        inid_business,
+      </if>
+      <if test="inidBdate != null" >
+        inid_bdate,
+      </if>
+      <if test="cdisinsure != null" >
+        cdisinsure,
+      </if>
+      <if test="cdnextmileage != null" >
+        cdnextmileage,
+      </if>
+      <if test="cdnextkeepdate != null" >
+        cdnextkeepdate,
+      </if>
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cdlicense != null" >
+        #{cdlicense,jdbcType=VARCHAR},
+      </if>
+      <if test="cdno != null" >
+        #{cdno,jdbcType=INTEGER},
+      </if>
+      <if test="moid != null" >
+        #{moid,jdbcType=INTEGER},
+      </if>
+      <if test="cddriver != null" >
+        #{cddriver,jdbcType=VARCHAR},
+      </if>
+      <if test="cddriverphone != null" >
+        #{cddriverphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cddriverbirth != null" >
+        #{cddriverbirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clid != null" >
+        #{clid,jdbcType=INTEGER},
+      </if>
+      <if test="cdlicenseend != null" >
+        #{cdlicenseend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdframe != null" >
+        #{cdframe,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="cdyearprice != null" >
+        #{cdyearprice,jdbcType=VARCHAR},
+      </if>
+      <if test="cdmileage != null" >
+        #{cdmileage,jdbcType=REAL},
+      </if>
+      <if test="cdload != null" >
+        #{cdload,jdbcType=REAL},
+      </if>
+      <if test="cdbuydate != null" >
+        #{cdbuydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdgolicense != null" >
+        #{cdgolicense,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdcarcheckdate != null" >
+        #{cdcarcheckdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="inid != null" >
+        #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="indate != null" >
+        #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inidBusiness != null" >
+        #{inidBusiness,jdbcType=INTEGER},
+      </if>
+      <if test="inidBdate != null" >
+        #{inidBdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdisinsure != null" >
+        #{cdisinsure,jdbcType=INTEGER},
+      </if>
+      <if test="cdnextmileage != null" >
+        #{cdnextmileage,jdbcType=REAL},
+      </if>
+      <if test="cdnextkeepdate != null" >
+        #{cdnextkeepdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cno != null" >
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CardataExample" resultType="java.lang.Integer" >
+    select count(*) from cardata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cardata
+    <set >
+      <if test="record.cdlicense != null" >
+        cdlicense = #{record.cdlicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdno != null" >
+        cdno = #{record.cdno,jdbcType=INTEGER},
+      </if>
+      <if test="record.moid != null" >
+        moid = #{record.moid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cddriver != null" >
+        cddriver = #{record.cddriver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cddriverphone != null" >
+        cddriverphone = #{record.cddriverphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cddriverbirth != null" >
+        cddriverbirth = #{record.cddriverbirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clid != null" >
+        clid = #{record.clid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cdlicenseend != null" >
+        cdlicenseend = #{record.cdlicenseend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cdframe != null" >
+        cdframe = #{record.cdframe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cdyearprice != null" >
+        cdyearprice = #{record.cdyearprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdmileage != null" >
+        cdmileage = #{record.cdmileage,jdbcType=REAL},
+      </if>
+      <if test="record.cdload != null" >
+        cdload = #{record.cdload,jdbcType=REAL},
+      </if>
+      <if test="record.cdbuydate != null" >
+        cdbuydate = #{record.cdbuydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cdgolicense != null" >
+        cdgolicense = #{record.cdgolicense,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cdcarcheckdate != null" >
+        cdcarcheckdate = #{record.cdcarcheckdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.inid != null" >
+        inid = #{record.inid,jdbcType=INTEGER},
+      </if>
+      <if test="record.indate != null" >
+        indate = #{record.indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inidBusiness != null" >
+        inid_business = #{record.inidBusiness,jdbcType=INTEGER},
+      </if>
+      <if test="record.inidBdate != null" >
+        inid_bdate = #{record.inidBdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cdisinsure != null" >
+        cdisinsure = #{record.cdisinsure,jdbcType=INTEGER},
+      </if>
+      <if test="record.cdnextmileage != null" >
+        cdnextmileage = #{record.cdnextmileage,jdbcType=REAL},
+      </if>
+      <if test="record.cdnextkeepdate != null" >
+        cdnextkeepdate = #{record.cdnextkeepdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cno != null" >
+        cno = #{record.cno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cardata
+    set cdlicense = #{record.cdlicense,jdbcType=VARCHAR},
+      cdno = #{record.cdno,jdbcType=INTEGER},
+      moid = #{record.moid,jdbcType=INTEGER},
+      cddriver = #{record.cddriver,jdbcType=VARCHAR},
+      cddriverphone = #{record.cddriverphone,jdbcType=VARCHAR},
+      cddriverbirth = #{record.cddriverbirth,jdbcType=TIMESTAMP},
+      clid = #{record.clid,jdbcType=INTEGER},
+      cdlicenseend = #{record.cdlicenseend,jdbcType=TIMESTAMP},
+      cdframe = #{record.cdframe,jdbcType=VARCHAR},
+      mid = #{record.mid,jdbcType=INTEGER},
+      cdyearprice = #{record.cdyearprice,jdbcType=VARCHAR},
+      cdmileage = #{record.cdmileage,jdbcType=REAL},
+      cdload = #{record.cdload,jdbcType=REAL},
+      cdbuydate = #{record.cdbuydate,jdbcType=TIMESTAMP},
+      cdgolicense = #{record.cdgolicense,jdbcType=TIMESTAMP},
+      cdcarcheckdate = #{record.cdcarcheckdate,jdbcType=TIMESTAMP},
+      fid = #{record.fid,jdbcType=INTEGER},
+      inid = #{record.inid,jdbcType=INTEGER},
+      indate = #{record.indate,jdbcType=TIMESTAMP},
+      inid_business = #{record.inidBusiness,jdbcType=INTEGER},
+      inid_bdate = #{record.inidBdate,jdbcType=TIMESTAMP},
+      cdisinsure = #{record.cdisinsure,jdbcType=INTEGER},
+      cdnextmileage = #{record.cdnextmileage,jdbcType=REAL},
+      cdnextkeepdate = #{record.cdnextkeepdate,jdbcType=TIMESTAMP},
+      cno = #{record.cno,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Cardata" >
+    update cardata
+    <set >
+      <if test="cdno != null" >
+        cdno = #{cdno,jdbcType=INTEGER},
+      </if>
+      <if test="moid != null" >
+        moid = #{moid,jdbcType=INTEGER},
+      </if>
+      <if test="cddriver != null" >
+        cddriver = #{cddriver,jdbcType=VARCHAR},
+      </if>
+      <if test="cddriverphone != null" >
+        cddriverphone = #{cddriverphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cddriverbirth != null" >
+        cddriverbirth = #{cddriverbirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clid != null" >
+        clid = #{clid,jdbcType=INTEGER},
+      </if>
+      <if test="cdlicenseend != null" >
+        cdlicenseend = #{cdlicenseend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdframe != null" >
+        cdframe = #{cdframe,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="cdyearprice != null" >
+        cdyearprice = #{cdyearprice,jdbcType=VARCHAR},
+      </if>
+      <if test="cdmileage != null" >
+        cdmileage = #{cdmileage,jdbcType=REAL},
+      </if>
+      <if test="cdload != null" >
+        cdload = #{cdload,jdbcType=REAL},
+      </if>
+      <if test="cdbuydate != null" >
+        cdbuydate = #{cdbuydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdgolicense != null" >
+        cdgolicense = #{cdgolicense,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdcarcheckdate != null" >
+        cdcarcheckdate = #{cdcarcheckdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="inid != null" >
+        inid = #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="indate != null" >
+        indate = #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inidBusiness != null" >
+        inid_business = #{inidBusiness,jdbcType=INTEGER},
+      </if>
+      <if test="inidBdate != null" >
+        inid_bdate = #{inidBdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cdisinsure != null" >
+        cdisinsure = #{cdisinsure,jdbcType=INTEGER},
+      </if>
+      <if test="cdnextmileage != null" >
+        cdnextmileage = #{cdnextmileage,jdbcType=REAL},
+      </if>
+      <if test="cdnextkeepdate != null" >
+        cdnextkeepdate = #{cdnextkeepdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cno != null" >
+        cno = #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cdlicense = #{cdlicense,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Cardata" >
+    update cardata
+    set cdno = #{cdno,jdbcType=INTEGER},
+      moid = #{moid,jdbcType=INTEGER},
+      cddriver = #{cddriver,jdbcType=VARCHAR},
+      cddriverphone = #{cddriverphone,jdbcType=VARCHAR},
+      cddriverbirth = #{cddriverbirth,jdbcType=TIMESTAMP},
+      clid = #{clid,jdbcType=INTEGER},
+      cdlicenseend = #{cdlicenseend,jdbcType=TIMESTAMP},
+      cdframe = #{cdframe,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=INTEGER},
+      cdyearprice = #{cdyearprice,jdbcType=VARCHAR},
+      cdmileage = #{cdmileage,jdbcType=REAL},
+      cdload = #{cdload,jdbcType=REAL},
+      cdbuydate = #{cdbuydate,jdbcType=TIMESTAMP},
+      cdgolicense = #{cdgolicense,jdbcType=TIMESTAMP},
+      cdcarcheckdate = #{cdcarcheckdate,jdbcType=TIMESTAMP},
+      fid = #{fid,jdbcType=INTEGER},
+      inid = #{inid,jdbcType=INTEGER},
+      indate = #{indate,jdbcType=TIMESTAMP},
+      inid_business = #{inidBusiness,jdbcType=INTEGER},
+      inid_bdate = #{inidBdate,jdbcType=TIMESTAMP},
+      cdisinsure = #{cdisinsure,jdbcType=INTEGER},
+      cdnextmileage = #{cdnextmileage,jdbcType=REAL},
+      cdnextkeepdate = #{cdnextkeepdate,jdbcType=TIMESTAMP},
+      cno = #{cno,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where cdlicense = #{cdlicense,jdbcType=VARCHAR}
+  </update>
+</mapper>

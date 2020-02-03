@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>离职定义</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css"/>
+		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css"/>
+		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/quit.css"/>
+	</head>
+	<body>
+		
+		<div id="ctx">
+			<div class="container-fluid">
+				<div class="row">
+					<div>
+						<span>离职定义</span>
+					</div>
+					<div>
+						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
+							<input type="text" placeholder="匹配工号/姓名" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
+							<button class="btn btn-default" style="width: 70px;">关闭</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
+						<ul>
+							<li @click="quitstaff"><span class="glyphicon glyphicon-user"></span>离职</li>
+							<li><span class="glyphicon glyphicon-cog"></span>回滚</li>
+							<li @click="open"><span class="glyphicon glyphicon-folder-open"></span>打开</li>
+							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>
+							<li><span class="glyphicon glyphicon-export"></span>导出</li>
+						</ul>
+					</div>
+					<div class="col-md-12 col-xs-12" style="border-left: 1px solid #E9E9E9;">
+						<table class="table table-bordered" style="width: 70%;">
+						  <thead>
+						  	<tr>
+						  		<td>         </td>
+						  		<td>部门</td>
+						  		<td>员工编号</td>
+						  		<td>姓名</td>
+						  		<td>性别</td>
+						  		<td>职位</td>
+						  		<td>离职日期</td>
+						  		<td>离职原因............</td>
+						  	</tr>
+						  </thead>
+						  <tbody>
+						  	<tr>
+						  		<td>   </td>
+						  		<td>1</td>
+						  		<td>1</td>
+						  		<td>1</td>
+						  		<td>1</td>
+						  		<td>1</td>
+						  		<td>1</td>
+						  		<td>1</td>
+						  	</tr>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
+					合计：<span>12</span>条记录
+				</div>
+			</div>
+			<div id="addstaff">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>
+				<div style="width: 980px;height: 630px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 960px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
+						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
+					</div>
+					<div style="width: 960px;height: 555px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+						<p style="padding-top: 10px;">
+							<label><span style="color: red;">*</span>员工编号</label><input />
+							<label><span style="color: red;">*</span>员工姓名</label><input />
+							<label><span style="color: red;">*</span>性别</label><input />
+						</p>
+						<p>
+							<label><span style="color: red;">*</span>所在门店</label><input />
+							<label><span style="color: red;">*</span>所在部门</label><input />
+						</p>
+						<p>
+							<label>登录账号</label><input />
+							<label>岗位</label><input />
+							<label>身体状况</label><input />
+						</p>
+						<p>
+							<label>身高</label><input />
+							<label>籍贯</label><input />
+							<label>名族</label><input />
+						</p>
+						<p>
+							<label>婚姻状况</label><input />
+							<label>学历</label><input />
+							<label>毕业学校</label><input />
+						</p>
+						<p>
+							<label>专业</label><input />
+							<label>专业资格</label><input />
+							<label><span style="color: red;">*</span>属性</label><input />
+							<label>学位</label><input />
+						</p>
+						<p>
+							<label>编制</label><input />
+							<label>身份证号</label><input />
+							<label>户口地址</label><input />
+						</p>
+						<p>
+							<label>现住地址</label><input />
+							<label>联系电话</label><input />
+							<label>手机</label><input />
+						</p>
+						<p>
+							<label>EMAIL</label><input />
+							<label>开户银行</label><input />
+							<label>银行账号</label><input />
+						</p>
+						<p style="padding-top: 20px;">
+							<label>紧急联系人</label><input />
+							<label>联系电话</label><input />
+						</p>
+						<p>
+							<label>入职日期</label><input />
+							<label>试用到期</label><input />
+							<label>出生日期</label><input />
+							<label>合同开始</label><input />
+						</p>
+						<p>
+							<label>合同结束</label><input />
+							<label>卡自编号</label><input />
+							<label>卡内部号</label><input />
+							<label>推荐人</label><input />
+						</p>
+						<p>
+							<label>整单折扣权%</label><input />
+							<label>工时折扣权%</label><input />
+							<label>商品折扣权%</label><input />
+							<label>减免权</label><input />
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="quitstaff">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">离职登记</p>
+				<div style="width: 680px;height: 350px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">离职登记</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+					</div>
+					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<p>
+							<label>员工姓名</label><input />
+							<label>离职日期</label><input />
+						</p>
+						<p><label>离职原因</label><input style="width: 500px;" /></p>
+					</div>
+				</div>
+			</div>
+			<div id="checkstaff">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工查询</p>
+				<div style="width: 880px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 860px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 30px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">员工查询</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+					</div>
+					<div style="width: 860px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+						<p style="padding-top: 10px;">
+							<label><span style="color: red;">*</span>员工编号</label><input />
+							<label><span style="color: red;">*</span>员工姓名</label><input />
+							<label><span style="color: red;">*</span>性别</label><input />
+						</p>
+						<p>
+							<label><span style="color: red;">*</span>岗位</label><input />
+							<label><span style="color: red;">*</span>所在部门</label><input />
+						</p>
+						<p>
+							<label>身体状况</label><input />
+							<label>身高</label><input />
+							<label>籍贯</label><input />
+						</p>
+						<p>
+							<label>名族</label><input />
+							<label>婚姻状况</label><input />
+							<label>学历</label><input />
+						</p>
+						<p>
+							<label>毕业学校</label><input />
+							<label>专业</label><input />
+							<label>专业资格</label><input />
+						</p>
+						<p>
+							<label>生日</label><input />
+							<label>学位</label><input />
+							<label>编制</label><input />
+						</p>
+						<p>
+							<label>身份证号</label><input />
+							<label>入职日期&nbsp;&nbsp;从</label><input />
+							<label style="text-align: left;">至</label><input />
+						</p>
+						<p>
+							<label>试用到期&nbsp;&nbsp;从</label><input />
+							<label style="text-align: left;">至</label><input />
+							<label>属性</label><input />
+						</p>
+						<p>
+							<label>合同开始&nbsp;&nbsp;从</label><input />
+							<label style="text-align: left;">至</label><input />
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		  
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#ctx",
+				data (){
+					return {}
+				},
+				methods:{
+					quitstaff:function(){
+						$("#quitstaff").show();
+					},
+					closeadd:function(){
+							$("#quitstaff").hide();
+							$("#addstaff").hide();
+							$("#checkstaff").hide();
+					},
+					open:function(){
+						$("#addstaff").show();
+					},
+					checkstaff:function(){
+						$("#checkstaff").show();
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

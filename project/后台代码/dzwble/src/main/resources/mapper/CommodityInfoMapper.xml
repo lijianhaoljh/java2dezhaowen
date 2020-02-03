@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.CommodityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.CommodityInfo" >
+    <id column="cno" property="cno" jdbcType="INTEGER" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="cbid" property="cbid" jdbcType="INTEGER" />
+    <result column="cuid" property="cuid" jdbcType="INTEGER" />
+    <result column="vehicletype" property="vehicletype" jdbcType="VARCHAR" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="toino" property="toino" jdbcType="INTEGER" />
+    <result column="coid" property="coid" jdbcType="INTEGER" />
+    <result column="gcid" property="gcid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="mfid" property="mfid" jdbcType="INTEGER" />
+    <result column="origin" property="origin" jdbcType="VARCHAR" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="packag" property="packag" jdbcType="VARCHAR" />
+    <result column="volume" property="volume" jdbcType="REAL" />
+    <result column="grossweight" property="grossweight" jdbcType="REAL" />
+    <result column="netweight" property="netweight" jdbcType="REAL" />
+    <result column="stockprice" property="stockprice" jdbcType="REAL" />
+    <result column="markup" property="markup" jdbcType="REAL" />
+    <result column="exchangecode" property="exchangecode" jdbcType="VARCHAR" />
+    <result column="standardprice" property="standardprice" jdbcType="REAL" />
+    <result column="memberprice" property="memberprice" jdbcType="REAL" />
+    <result column="vipprice" property="vipprice" jdbcType="REAL" />
+    <result column="agreementprice" property="agreementprice" jdbcType="REAL" />
+    <result column="Insuranceprice" property="insuranceprice" jdbcType="REAL" />
+    <result column="claimprice" property="claimprice" jdbcType="REAL" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cno, cname, cbid, cuid, vehicletype, gid, toino, coid, gcid, pid, mfid, origin, barcode, 
+    packag, volume, grossweight, netweight, stockprice, markup, exchangecode, standardprice, 
+    memberprice, vipprice, agreementprice, Insuranceprice, claimprice, remark1, remark2, 
+    remark3, remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CommodityInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from commodity_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from commodity_info
+    where cno = #{cno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from commodity_info
+    where cno = #{cno,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CommodityInfoExample" >
+    delete from commodity_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.CommodityInfo" >
+    insert into commodity_info (cno, cname, cbid, 
+      cuid, vehicletype, gid, 
+      toino, coid, gcid, 
+      pid, mfid, origin, 
+      barcode, packag, volume, 
+      grossweight, netweight, stockprice, 
+      markup, exchangecode, standardprice, 
+      memberprice, vipprice, agreementprice, 
+      Insuranceprice, claimprice, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{cno,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{cbid,jdbcType=INTEGER}, 
+      #{cuid,jdbcType=INTEGER}, #{vehicletype,jdbcType=VARCHAR}, #{gid,jdbcType=INTEGER}, 
+      #{toino,jdbcType=INTEGER}, #{coid,jdbcType=INTEGER}, #{gcid,jdbcType=INTEGER}, 
+      #{pid,jdbcType=INTEGER}, #{mfid,jdbcType=INTEGER}, #{origin,jdbcType=VARCHAR}, 
+      #{barcode,jdbcType=VARCHAR}, #{packag,jdbcType=VARCHAR}, #{volume,jdbcType=REAL}, 
+      #{grossweight,jdbcType=REAL}, #{netweight,jdbcType=REAL}, #{stockprice,jdbcType=REAL}, 
+      #{markup,jdbcType=REAL}, #{exchangecode,jdbcType=VARCHAR}, #{standardprice,jdbcType=REAL}, 
+      #{memberprice,jdbcType=REAL}, #{vipprice,jdbcType=REAL}, #{agreementprice,jdbcType=REAL}, 
+      #{insuranceprice,jdbcType=REAL}, #{claimprice,jdbcType=REAL}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.CommodityInfo" >
+    insert into commodity_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="cbid != null" >
+        cbid,
+      </if>
+      <if test="cuid != null" >
+        cuid,
+      </if>
+      <if test="vehicletype != null" >
+        vehicletype,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="toino != null" >
+        toino,
+      </if>
+      <if test="coid != null" >
+        coid,
+      </if>
+      <if test="gcid != null" >
+        gcid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="mfid != null" >
+        mfid,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="barcode != null" >
+        barcode,
+      </if>
+      <if test="packag != null" >
+        packag,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="grossweight != null" >
+        grossweight,
+      </if>
+      <if test="netweight != null" >
+        netweight,
+      </if>
+      <if test="stockprice != null" >
+        stockprice,
+      </if>
+      <if test="markup != null" >
+        markup,
+      </if>
+      <if test="exchangecode != null" >
+        exchangecode,
+      </if>
+      <if test="standardprice != null" >
+        standardprice,
+      </if>
+      <if test="memberprice != null" >
+        memberprice,
+      </if>
+      <if test="vipprice != null" >
+        vipprice,
+      </if>
+      <if test="agreementprice != null" >
+        agreementprice,
+      </if>
+      <if test="insuranceprice != null" >
+        Insuranceprice,
+      </if>
+      <if test="claimprice != null" >
+        claimprice,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        #{cno,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="cbid != null" >
+        #{cbid,jdbcType=INTEGER},
+      </if>
+      <if test="cuid != null" >
+        #{cuid,jdbcType=INTEGER},
+      </if>
+      <if test="vehicletype != null" >
+        #{vehicletype,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="toino != null" >
+        #{toino,jdbcType=INTEGER},
+      </if>
+      <if test="coid != null" >
+        #{coid,jdbcType=INTEGER},
+      </if>
+      <if test="gcid != null" >
+        #{gcid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="mfid != null" >
+        #{mfid,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="packag != null" >
+        #{packag,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=REAL},
+      </if>
+      <if test="grossweight != null" >
+        #{grossweight,jdbcType=REAL},
+      </if>
+      <if test="netweight != null" >
+        #{netweight,jdbcType=REAL},
+      </if>
+      <if test="stockprice != null" >
+        #{stockprice,jdbcType=REAL},
+      </if>
+      <if test="markup != null" >
+        #{markup,jdbcType=REAL},
+      </if>
+      <if test="exchangecode != null" >
+        #{exchangecode,jdbcType=VARCHAR},
+      </if>
+      <if test="standardprice != null" >
+        #{standardprice,jdbcType=REAL},
+      </if>
+      <if test="memberprice != null" >
+        #{memberprice,jdbcType=REAL},
+      </if>
+      <if test="vipprice != null" >
+        #{vipprice,jdbcType=REAL},
+      </if>
+      <if test="agreementprice != null" >
+        #{agreementprice,jdbcType=REAL},
+      </if>
+      <if test="insuranceprice != null" >
+        #{insuranceprice,jdbcType=REAL},
+      </if>
+      <if test="claimprice != null" >
+        #{claimprice,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CommodityInfoExample" resultType="java.lang.Integer" >
+    select count(*) from commodity_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update commodity_info
+    <set >
+      <if test="record.cno != null" >
+        cno = #{record.cno,jdbcType=INTEGER},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbid != null" >
+        cbid = #{record.cbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cuid != null" >
+        cuid = #{record.cuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicletype != null" >
+        vehicletype = #{record.vehicletype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.toino != null" >
+        toino = #{record.toino,jdbcType=INTEGER},
+      </if>
+      <if test="record.coid != null" >
+        coid = #{record.coid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gcid != null" >
+        gcid = #{record.gcid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mfid != null" >
+        mfid = #{record.mfid,jdbcType=INTEGER},
+      </if>
+      <if test="record.origin != null" >
+        origin = #{record.origin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.barcode != null" >
+        barcode = #{record.barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packag != null" >
+        packag = #{record.packag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volume != null" >
+        volume = #{record.volume,jdbcType=REAL},
+      </if>
+      <if test="record.grossweight != null" >
+        grossweight = #{record.grossweight,jdbcType=REAL},
+      </if>
+      <if test="record.netweight != null" >
+        netweight = #{record.netweight,jdbcType=REAL},
+      </if>
+      <if test="record.stockprice != null" >
+        stockprice = #{record.stockprice,jdbcType=REAL},
+      </if>
+      <if test="record.markup != null" >
+        markup = #{record.markup,jdbcType=REAL},
+      </if>
+      <if test="record.exchangecode != null" >
+        exchangecode = #{record.exchangecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standardprice != null" >
+        standardprice = #{record.standardprice,jdbcType=REAL},
+      </if>
+      <if test="record.memberprice != null" >
+        memberprice = #{record.memberprice,jdbcType=REAL},
+      </if>
+      <if test="record.vipprice != null" >
+        vipprice = #{record.vipprice,jdbcType=REAL},
+      </if>
+      <if test="record.agreementprice != null" >
+        agreementprice = #{record.agreementprice,jdbcType=REAL},
+      </if>
+      <if test="record.insuranceprice != null" >
+        Insuranceprice = #{record.insuranceprice,jdbcType=REAL},
+      </if>
+      <if test="record.claimprice != null" >
+        claimprice = #{record.claimprice,jdbcType=REAL},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update commodity_info
+    set cno = #{record.cno,jdbcType=INTEGER},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      cbid = #{record.cbid,jdbcType=INTEGER},
+      cuid = #{record.cuid,jdbcType=INTEGER},
+      vehicletype = #{record.vehicletype,jdbcType=VARCHAR},
+      gid = #{record.gid,jdbcType=INTEGER},
+      toino = #{record.toino,jdbcType=INTEGER},
+      coid = #{record.coid,jdbcType=INTEGER},
+      gcid = #{record.gcid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      mfid = #{record.mfid,jdbcType=INTEGER},
+      origin = #{record.origin,jdbcType=VARCHAR},
+      barcode = #{record.barcode,jdbcType=VARCHAR},
+      packag = #{record.packag,jdbcType=VARCHAR},
+      volume = #{record.volume,jdbcType=REAL},
+      grossweight = #{record.grossweight,jdbcType=REAL},
+      netweight = #{record.netweight,jdbcType=REAL},
+      stockprice = #{record.stockprice,jdbcType=REAL},
+      markup = #{record.markup,jdbcType=REAL},
+      exchangecode = #{record.exchangecode,jdbcType=VARCHAR},
+      standardprice = #{record.standardprice,jdbcType=REAL},
+      memberprice = #{record.memberprice,jdbcType=REAL},
+      vipprice = #{record.vipprice,jdbcType=REAL},
+      agreementprice = #{record.agreementprice,jdbcType=REAL},
+      Insuranceprice = #{record.insuranceprice,jdbcType=REAL},
+      claimprice = #{record.claimprice,jdbcType=REAL},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.CommodityInfo" >
+    update commodity_info
+    <set >
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="cbid != null" >
+        cbid = #{cbid,jdbcType=INTEGER},
+      </if>
+      <if test="cuid != null" >
+        cuid = #{cuid,jdbcType=INTEGER},
+      </if>
+      <if test="vehicletype != null" >
+        vehicletype = #{vehicletype,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="toino != null" >
+        toino = #{toino,jdbcType=INTEGER},
+      </if>
+      <if test="coid != null" >
+        coid = #{coid,jdbcType=INTEGER},
+      </if>
+      <if test="gcid != null" >
+        gcid = #{gcid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="mfid != null" >
+        mfid = #{mfid,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="packag != null" >
+        packag = #{packag,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=REAL},
+      </if>
+      <if test="grossweight != null" >
+        grossweight = #{grossweight,jdbcType=REAL},
+      </if>
+      <if test="netweight != null" >
+        netweight = #{netweight,jdbcType=REAL},
+      </if>
+      <if test="stockprice != null" >
+        stockprice = #{stockprice,jdbcType=REAL},
+      </if>
+      <if test="markup != null" >
+        markup = #{markup,jdbcType=REAL},
+      </if>
+      <if test="exchangecode != null" >
+        exchangecode = #{exchangecode,jdbcType=VARCHAR},
+      </if>
+      <if test="standardprice != null" >
+        standardprice = #{standardprice,jdbcType=REAL},
+      </if>
+      <if test="memberprice != null" >
+        memberprice = #{memberprice,jdbcType=REAL},
+      </if>
+      <if test="vipprice != null" >
+        vipprice = #{vipprice,jdbcType=REAL},
+      </if>
+      <if test="agreementprice != null" >
+        agreementprice = #{agreementprice,jdbcType=REAL},
+      </if>
+      <if test="insuranceprice != null" >
+        Insuranceprice = #{insuranceprice,jdbcType=REAL},
+      </if>
+      <if test="claimprice != null" >
+        claimprice = #{claimprice,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cno = #{cno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.CommodityInfo" >
+    update commodity_info
+    set cname = #{cname,jdbcType=VARCHAR},
+      cbid = #{cbid,jdbcType=INTEGER},
+      cuid = #{cuid,jdbcType=INTEGER},
+      vehicletype = #{vehicletype,jdbcType=VARCHAR},
+      gid = #{gid,jdbcType=INTEGER},
+      toino = #{toino,jdbcType=INTEGER},
+      coid = #{coid,jdbcType=INTEGER},
+      gcid = #{gcid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      mfid = #{mfid,jdbcType=INTEGER},
+      origin = #{origin,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      packag = #{packag,jdbcType=VARCHAR},
+      volume = #{volume,jdbcType=REAL},
+      grossweight = #{grossweight,jdbcType=REAL},
+      netweight = #{netweight,jdbcType=REAL},
+      stockprice = #{stockprice,jdbcType=REAL},
+      markup = #{markup,jdbcType=REAL},
+      exchangecode = #{exchangecode,jdbcType=VARCHAR},
+      standardprice = #{standardprice,jdbcType=REAL},
+      memberprice = #{memberprice,jdbcType=REAL},
+      vipprice = #{vipprice,jdbcType=REAL},
+      agreementprice = #{agreementprice,jdbcType=REAL},
+      Insuranceprice = #{insuranceprice,jdbcType=REAL},
+      claimprice = #{claimprice,jdbcType=REAL},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where cno = #{cno,jdbcType=INTEGER}
+  </update>
+</mapper>

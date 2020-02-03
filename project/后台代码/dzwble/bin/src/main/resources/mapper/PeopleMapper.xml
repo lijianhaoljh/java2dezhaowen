@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.PeopleMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.People" >
+    <id column="pno" property="pno" jdbcType="VARCHAR" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="psex" property="psex" jdbcType="CHAR" />
+    <result column="pidcard" property="pidcard" jdbcType="VARCHAR" />
+    <result column="paddress" property="paddress" jdbcType="VARCHAR" />
+    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+    <result column="ptellphone" property="ptellphone" jdbcType="VARCHAR" />
+    <result column="pemail" property="pemail" jdbcType="VARCHAR" />
+    <result column="spassword" property="spassword" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="pbank" property="pbank" jdbcType="VARCHAR" />
+    <result column="pbanknumber" property="pbanknumber" jdbcType="VARCHAR" />
+    <result column="presidenceaddress" property="presidenceaddress" jdbcType="VARCHAR" />
+    <result column="ptid" property="ptid" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="dimission" property="dimission" jdbcType="INTEGER" />
+    <result column="dcause" property="dcause" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pno, pname, psex, pidcard, paddress, pphone, ptellphone, pemail, spassword, salt, 
+    pbank, pbanknumber, presidenceaddress, ptid, img, rid, dimission, dcause, remark4, 
+    remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.PeopleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from people
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from people
+    where pno = #{pno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from people
+    where pno = #{pno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.PeopleExample" >
+    delete from people
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.People" >
+    insert into people (pno, pname, psex, 
+      pidcard, paddress, pphone, 
+      ptellphone, pemail, spassword, 
+      salt, pbank, pbanknumber, 
+      presidenceaddress, ptid, img, 
+      rid, dimission, dcause, 
+      remark4, remark5)
+    values (#{pno,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, #{psex,jdbcType=CHAR}, 
+      #{pidcard,jdbcType=VARCHAR}, #{paddress,jdbcType=VARCHAR}, #{pphone,jdbcType=VARCHAR}, 
+      #{ptellphone,jdbcType=VARCHAR}, #{pemail,jdbcType=VARCHAR}, #{spassword,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{pbank,jdbcType=VARCHAR}, #{pbanknumber,jdbcType=VARCHAR}, 
+      #{presidenceaddress,jdbcType=VARCHAR}, #{ptid,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, 
+      #{rid,jdbcType=INTEGER}, #{dimission,jdbcType=INTEGER}, #{dcause,jdbcType=VARCHAR}, 
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.People" >
+    insert into people
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pno != null" >
+        pno,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="psex != null" >
+        psex,
+      </if>
+      <if test="pidcard != null" >
+        pidcard,
+      </if>
+      <if test="paddress != null" >
+        paddress,
+      </if>
+      <if test="pphone != null" >
+        pphone,
+      </if>
+      <if test="ptellphone != null" >
+        ptellphone,
+      </if>
+      <if test="pemail != null" >
+        pemail,
+      </if>
+      <if test="spassword != null" >
+        spassword,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="pbank != null" >
+        pbank,
+      </if>
+      <if test="pbanknumber != null" >
+        pbanknumber,
+      </if>
+      <if test="presidenceaddress != null" >
+        presidenceaddress,
+      </if>
+      <if test="ptid != null" >
+        ptid,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="dimission != null" >
+        dimission,
+      </if>
+      <if test="dcause != null" >
+        dcause,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pno != null" >
+        #{pno,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psex != null" >
+        #{psex,jdbcType=CHAR},
+      </if>
+      <if test="pidcard != null" >
+        #{pidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="paddress != null" >
+        #{paddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pphone != null" >
+        #{pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="ptellphone != null" >
+        #{ptellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pemail != null" >
+        #{pemail,jdbcType=VARCHAR},
+      </if>
+      <if test="spassword != null" >
+        #{spassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="pbank != null" >
+        #{pbank,jdbcType=VARCHAR},
+      </if>
+      <if test="pbanknumber != null" >
+        #{pbanknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="presidenceaddress != null" >
+        #{presidenceaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ptid != null" >
+        #{ptid,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="dimission != null" >
+        #{dimission,jdbcType=INTEGER},
+      </if>
+      <if test="dcause != null" >
+        #{dcause,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.PeopleExample" resultType="java.lang.Integer" >
+    select count(*) from people
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update people
+    <set >
+      <if test="record.pno != null" >
+        pno = #{record.pno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psex != null" >
+        psex = #{record.psex,jdbcType=CHAR},
+      </if>
+      <if test="record.pidcard != null" >
+        pidcard = #{record.pidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paddress != null" >
+        paddress = #{record.paddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pphone != null" >
+        pphone = #{record.pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptellphone != null" >
+        ptellphone = #{record.ptellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pemail != null" >
+        pemail = #{record.pemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spassword != null" >
+        spassword = #{record.spassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pbank != null" >
+        pbank = #{record.pbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pbanknumber != null" >
+        pbanknumber = #{record.pbanknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presidenceaddress != null" >
+        presidenceaddress = #{record.presidenceaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptid != null" >
+        ptid = #{record.ptid,jdbcType=INTEGER},
+      </if>
+      <if test="record.img != null" >
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rid != null" >
+        rid = #{record.rid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimission != null" >
+        dimission = #{record.dimission,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcause != null" >
+        dcause = #{record.dcause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update people
+    set pno = #{record.pno,jdbcType=VARCHAR},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      psex = #{record.psex,jdbcType=CHAR},
+      pidcard = #{record.pidcard,jdbcType=VARCHAR},
+      paddress = #{record.paddress,jdbcType=VARCHAR},
+      pphone = #{record.pphone,jdbcType=VARCHAR},
+      ptellphone = #{record.ptellphone,jdbcType=VARCHAR},
+      pemail = #{record.pemail,jdbcType=VARCHAR},
+      spassword = #{record.spassword,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      pbank = #{record.pbank,jdbcType=VARCHAR},
+      pbanknumber = #{record.pbanknumber,jdbcType=VARCHAR},
+      presidenceaddress = #{record.presidenceaddress,jdbcType=VARCHAR},
+      ptid = #{record.ptid,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      rid = #{record.rid,jdbcType=INTEGER},
+      dimission = #{record.dimission,jdbcType=INTEGER},
+      dcause = #{record.dcause,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.People" >
+    update people
+    <set >
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psex != null" >
+        psex = #{psex,jdbcType=CHAR},
+      </if>
+      <if test="pidcard != null" >
+        pidcard = #{pidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="paddress != null" >
+        paddress = #{paddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pphone != null" >
+        pphone = #{pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="ptellphone != null" >
+        ptellphone = #{ptellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pemail != null" >
+        pemail = #{pemail,jdbcType=VARCHAR},
+      </if>
+      <if test="spassword != null" >
+        spassword = #{spassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="pbank != null" >
+        pbank = #{pbank,jdbcType=VARCHAR},
+      </if>
+      <if test="pbanknumber != null" >
+        pbanknumber = #{pbanknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="presidenceaddress != null" >
+        presidenceaddress = #{presidenceaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ptid != null" >
+        ptid = #{ptid,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="rid != null" >
+        rid = #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="dimission != null" >
+        dimission = #{dimission,jdbcType=INTEGER},
+      </if>
+      <if test="dcause != null" >
+        dcause = #{dcause,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pno = #{pno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.People" >
+    update people
+    set pname = #{pname,jdbcType=VARCHAR},
+      psex = #{psex,jdbcType=CHAR},
+      pidcard = #{pidcard,jdbcType=VARCHAR},
+      paddress = #{paddress,jdbcType=VARCHAR},
+      pphone = #{pphone,jdbcType=VARCHAR},
+      ptellphone = #{ptellphone,jdbcType=VARCHAR},
+      pemail = #{pemail,jdbcType=VARCHAR},
+      spassword = #{spassword,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      pbank = #{pbank,jdbcType=VARCHAR},
+      pbanknumber = #{pbanknumber,jdbcType=VARCHAR},
+      presidenceaddress = #{presidenceaddress,jdbcType=VARCHAR},
+      ptid = #{ptid,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      rid = #{rid,jdbcType=INTEGER},
+      dimission = #{dimission,jdbcType=INTEGER},
+      dcause = #{dcause,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where pno = #{pno,jdbcType=VARCHAR}
+  </update>
+</mapper>

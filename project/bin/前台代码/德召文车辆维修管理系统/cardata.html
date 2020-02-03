@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>车辆资料</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/cardata.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
+	</head>
+
+	<body>
+
+		<div id="ctx">
+			<div class="container-fluid">
+				<div class="row">
+					<div>
+						<span>车辆</span>
+					</div>
+					<div>
+						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
+							<input type="text" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
+							<button class="btn btn-default" style="width: 70px;">关闭</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
+						<ul>
+							<li>车牌号：<input /></li>
+							<li>车架号：<input /></li>
+						</ul>
+						<ul class="menue" style="padding: 0px;margin: 0px;float: right;">
+							<li @click="addcar"><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
+							<li><span class="glyphicon glyphicon-leaf"></span>修改</li>
+							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>
+							<li><span class="glyphicon glyphicon-lock"></span>保养</li>
+													
+							<li><span class="glyphicon glyphicon-export"></span>导出</li>
+							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
+						</ul>
+					</div>
+					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 400px;">
+						<table class="table table-bordered" style="width: 3000px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>车牌号码</td>
+									<td>车辆品牌</td>
+									<td>车辆型号</td>
+									<td>驾驶员</td>
+									<td>驾驶员电话</td>
+									<td>出生日期</td>
+									<td>车辆归属</td>
+									<td>驾证到期</td>
+									<td>车架号</td>
+									<td>发动机号</td>
+									<td>发动机品牌</td>
+									<td>车辆年款</td>
+									<td>里程</td>
+									<td>载重</td>
+									<td>购买日期</td>
+									<td>上牌日期</td>
+									<td>车检到期</td>
+									<td>交强险保险公司</td>
+									<td>交强险到期</td>
+									<td>商业险保险公司</td>
+									<td>商业险到期</td>
+									<td>在我投保车</td>
+									<td>燃油类别</td>
+									<td>下次保养里程</td>
+									<td>下次保养日期</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> </td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
+						<ul style="padding: 0px;margin: 0px;">
+							<li>车辆信息</li>
+							<li>历史消费</li>
+							<li>历史回访</li>
+						</ul>
+					</div>
+					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 190px;">
+						<table class="table table-bordered" style="width: 3000px;">
+							<thead>
+								<tr style="background-color: deepskyblue;">
+									<td></td>
+									<td v-for="item in carinfo">{{item}}</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> </td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 8px;background-color: gainsboro;">
+					合计：<span>2</span>条记录
+				</div>
+			</div>
+			<div id="checkstaff">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">客户查询</p>
+				<div style="width: 880px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 860px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 30px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">客户查询</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+					</div>
+					<div style="width: 860px;height: 490px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+						<p style="padding-top: 25px;">
+							<label>客户编号：</label>
+							<input type="text">
+							<label>客户名称：</label>
+							<input type="text">
+							<label>客户类别：</label>
+							<select style="width: 110px;">
+								<option></option>
+							</select>
+						</p>
+						<p>
+							<label>联系人：</label>
+							<input type="text">
+							<label>手机号码：</label>
+							<input type="text">
+							<label>客户地址：</label>
+							<input type="text">
+						</p>
+						<p>
+							<label style="width: 90px;">备注：</label>
+							<input type="text">
+							<label  style="width: 90px;">会员卡号：</label>
+							<input type="text">
+							<label  style="width: 90px;">客户生日：</label>
+							<input type="number">
+							<input type="checkbox">在我投保车
+						</p>
+						<p>
+							<label  style="width: 120px;">超过X月没自修：</label>
+							<input type="text">
+							<label>专属顾问：</label>
+							<select style="width: 110px;">
+							</select>
+							<label>顾问电话：</label>
+							<input type="text">
+						</p>
+						<p>
+							<label>省：</label><input type="text">
+							<select style="width: 30px;">
+
+							</select>
+							<label>市：</label><input type="text">
+							<select style="width: 30px;">
+								<option></option>
+							</select>
+							<label>区：</label><input type="text">
+							<select style="width: 30px;">
+								<option></option>
+							</select>
+						</p>
+						<p>
+							<label>车牌号码：</label>
+							<input type="text">
+							<label>车辆品牌：</label>
+							<select style="width: 110px;">
+
+							</select>
+							<label>车辆型号：</label>
+							<input type="text">
+						</p>
+						<p>
+							<label>车架号：</label>
+							<input type="text">
+							<label>发动机号：</label>
+							<input type="text">
+							<label>保险公司：</label>
+							<select style="width: 110px;">
+								<option>阳光保险</option>
+								<option>太平洋保险</option>
+							</select>
+						</p>
+						<p>
+							<label>发动机品牌：</label>
+							<select style="width: 110px;">
+								<option>所有</option>
+								<option>00-地洞</option>
+								<option>12-中国重汽动力</option>
+							</select>
+							<label>驾驶员：</label>
+							<input type="text">
+							<label>驾驶员电话：</label>
+							<input type="text">
+						</p>
+						<p>
+							<select style="width: 8	0px;">
+								<option>开户日期</option>
+								<option>入会日期</option>
+								<option>会员到期</option>
+							</select>
+							<input type="date">
+							<input type="date">
+							<select style="width: 80px;">
+								<option>购买日期</option>
+								<option>上牌日期</option>
+							</select>
+							<select style="width: 50px;">
+								<option>所有</option>
+							</select>
+							<label  style="width: 120px;">月 驾驶员生日：</label>
+							<input  style="width: 70px;" type="number">
+							<input style="width: 70px;" type="number">
+						</p>
+						<p>
+							<label>定金余额：</label>
+							<input style="width: 70px;" type="text">
+							<label>至：</label>
+							<input style="width: 70px;" type="text">
+							<label>储蓄卡余额：</label>
+							<input style="width: 70px;" type="text">
+							<label>至：</label>
+							<input style="width: 70px;" type="text">
+							<label>积分：</label>
+							<input style="width: 70px;" type="text">
+							<label>至：</label>
+							<input style="width: 70px;" type="text">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="addcar">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆资料编辑</p>
+				<div style="width: 1080px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 1060px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">车辆资料编辑</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+					</div>
+					<div style="width: 1060px;height: 490px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+						<p style="padding-top: 15px;">
+							<label>车牌号码：</label>
+							<select @click="opencarnumber()" style="width: 100px;">
+
+							</select>
+							<label>车辆品牌：</label>
+							<select @click="openbrandmodels()" style="width: 100px;">
+
+							</select>
+							<label>车辆型号：</label>
+							<input style="width: 145px;" type="text">
+							<label>驾驶员：</label>
+							<input style="width: 145px;" type="text">
+						</p>
+						<p style="padding-top: 10px;">
+							<label>驾驶员电话：</label><input type="text">
+							<label>出生日期：</label><input type="date" style="width: 120px;">
+							<label>车辆归属：</label>
+							<select @click="openfueltype()" style="width: 100px;">
+
+							</select>
+							<label>驾证到期：</label><input type="date" style="width: 120px;">
+						</p>
+						<p style="padding-top: 10px;">
+							<label>车架号：</label><input type="text">
+							<label>发动机号：</label><input type="text">
+							<label>车辆年款：</label><input type="text">
+							<label>里程：</label><input type="text">
+						</p>
+						<p style="padding-top: 10px;">
+							<label>发动机品牌：</label>
+							<select style="width: 100px;">
+								<option></option>
+							</select>
+							<label>载重：</label><input type="text">
+							<label>购买日期：</label><input type="date" style="width: 120px;">
+						</p>
+						<p style="padding-top: 10px;">
+							<label>上牌日期：</label><input type="date" style="width: 120px;">
+							<label>车检日期：</label><input type="date" style="width: 120px;">
+							<label>燃油类别：</label>
+							<select @click="openfueltype()" style="width: 100px;">
+							</select>
+							<label>车系：</label>
+							<input type="text">
+							
+						</p>
+						<p style="padding-top: 10px;">
+							<label>保险：交强险保险公司：</label>
+							<select style="width: 100px;">
+								<option></option>
+							</select>
+							<label>交强险到期：</label><input type="date" style="width: 120px;">
+							<label>在我投保车：</label>
+							<input type="checkbox">
+						</p>
+						<p style="padding-top: 10px;">
+							<label>商业险保险公司：</label>
+							<select style="width: 100px;">
+								<option></option>
+							</select>
+							<label>商业险到期：</label><input type="date" style="width: 120px;">
+						</p>
+						<p style="padding-top: 10px;">
+							<label>下次保养里程：</label>
+							<input type="text">
+							<label>下次保养日期：</label><input type="date" style="width: 120px;">
+							<label>客户名称：</label>
+							<input style="width: 255px;" type="text">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="setting">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">字段设置</p>
+				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">字段设置</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+					</div>
+					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<ul>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
+						</ul>
+						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>字段</td>
+									<td>字段名称</td>
+									<td>显示</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>   </td>
+									<td>id</td>
+									<td>编号</td>
+									<td><input type="checkbox" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				var vm = new Vue({
+					el:"#ctx",
+					data(){
+						return {
+							data: [],
+							carinfo: ["客户编码", "客户名称", "详细地址", "联系人", "手机", "客户生日", "客户类别", "会员卡号", "入会日期", "会员到期", "备注", "建档日期", "服务顾问", "业务员电话", "账期(天)", "挂账额度", "累计积分", "定金余额", "客户省", "客户市", "客户区", "纳税人识别号", "注册电话", "开户银行", "银行账号"],
+							pastbuy: ["单据类型", "销售单号", "车牌号", "进厂时间", "完工时间", "结算时间", "消费时间"]
+						}
+					},
+					methods:{
+						closeadd:function(){
+							$("#addcusandcar").hide();
+							$("#checkstaff").hide();
+							$("#addcus").hide();
+							$("#addcar").hide();
+							$("#setting").hide();
+						},
+						addcar:function(){
+							$("#addcar").show();
+						},
+						setting:function(){
+							$("#setting").show();
+						},
+						checkstaff:function(){
+							$("#checkstaff").show();
+						}
+					}
+				});
+				
+		
+		</script>
+	</body>
+
+</html>

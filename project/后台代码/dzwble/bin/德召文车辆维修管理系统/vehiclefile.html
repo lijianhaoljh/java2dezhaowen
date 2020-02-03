@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>德召文车辆维修管理系统-车型档案</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<style type="text/css">
+		#input1 input{
+			height: 35px;
+			width: 250px;
+			margin-bottom: 10px;
+		}
+		.metable td:first-of-type{
+			text-align: right;
+		}
+	</style>
+	<body>
+		 <div class="container-fluid">
+		 	<div class="row">
+		 		<div id="title"  style="padding: 20px;background: #C9E2B3;">
+				 	<span style="font-size: 30px;"> 
+				 		<strong>品牌车型</strong>
+				 	</span>
+				 	<button type="button" class="btn btn-warning" style="float: right;">关闭</button>
+			 	</div>
+			 </div>
+			 <div class="row">
+			 	<div class="col-md-3">
+			 		<div style="margin-bottom: 20px;">
+			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增品牌</button>
+			 			<button type="button" class="btn btn-success">修改</button>
+			 			<button type="button" class="btn btn-success">删除</button>
+			 		</div>
+			 		<div id="input1">
+			 			<input type="text" placeholder="匹配/品牌编码/品牌名称/首字母"/>
+			 			<button type="button" class="btn btn-warning">搜索</button>
+			 		</div>
+			 		<div>
+			 			<table class="table table-hover">
+			 				<tr style="color: white; background-color: #C1E2B3;">
+			 					<td>编码</td>
+			 					<td>品牌名称</td>
+			 					<td>首字母</td>
+			 				</tr>
+			 				
+			 				<tr>
+			 					<td>409</td>
+			 					<td>宝马</td>
+			 					<td>B</td>
+			 				</tr>
+			 				
+			 				<tr>
+			 					<td>500</td>
+			 					<td>大众</td>
+			 					<td>D</td>
+			 				</tr>
+			 			</table>
+			 		</div>
+			 	</div>
+			 	
+			 	<div class="col-md-9">
+			 		<div style="margin-bottom: 20px;">
+			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">新增车型</button>
+			 			<button type="button" class="btn btn-success">修改</button>
+			 			<button type="button" class="btn btn-success">删除</button>
+			 			<button type="button" class="btn btn-success">照片</button>
+			 		</div>
+			 		<div id="input1">
+			 			<input type="text" placeholder="匹配/车型编码/车型名称"/>
+			 			<button type="button" class="btn btn-warning">搜索</button>
+			 		</div>
+			 		<div>
+			 			<table class="table table-hover">
+			 				<tr style="color: white; background-color: #C1E2B3;">
+			 					<td>车型ID</td>
+			 					<td>车型名称</td>
+			 					<td>发动机品牌</td>
+			 					<td>价格参考</td>
+			 					<td>车辆年款</td>
+			 					<td>功率</td>
+			 					<td>进口国产</td>
+			 				</tr>
+			 				
+			 				<tr>
+			 					<td>409</td>
+			 					<td>中华V7</td>
+			 					<td>1.6T涡轮增压发动机</td>
+			 					<td>100000</td>
+			 					<td>2015</td>
+			 					<td>232马力</td>
+			 					<td>合资</td>
+			 				</tr>
+			 			</table>
+			 		</div>
+			 	</div>
+			 </div>
+			 
+			<!--
+            	作者：offline
+            	时间：2019-12-31
+            	描述：增加品牌模态框
+            -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">品牌定义</h4>
+				      </div>
+				      <div class="modal-body">
+				         	<table class="table table-hover metable">
+				         		<tr>
+				         			<td>品牌编号:</td>
+				         			<td><input type="text" /></td>
+				         		</tr>
+				         		<tr>
+				         			<td>品牌名称:</td>
+				         			<td><input type="text" /></td>
+				         		</tr>
+				         		<tr>
+				         			<td>首字母:</td>
+				         			<td><input type="text" /></td>
+				         		</tr>
+				         	</table>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				        <button type="button" class="btn btn-primary">保存</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+			<!--
+            	作者：offline
+            	时间：2019-12-31
+            	描述：新增车型模态框
+            -->
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content"  style="width:800px; height:500px;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" style="display: inline-block;">
+				       		 <strong>车型定义</strong>
+				        </h4>				 		
+				        <button type="button" class="btn btn-success" style="float: right;">保存</button>
+				      </div>
+				      <div class="modal-body">
+				         	<table class="table table-hover metable1">
+				         		<tr>
+				         			<td>车辆品牌:<input type="text" style="width: 100px; margin-right: 10px;"/><input type="text"/></td>
+				         		</tr>
+				         	</table>
+				      </div>
+				      <div class="modal-footer">
+				        
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+            
+		 </div>
+		 <script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+		 <script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		 <script type="text/javascript" src="js/vue.js" ></script>
+	</body>
+</html>

@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="VARCHAR" />
+    <result column="astate" property="astate" jdbcType="INTEGER" />
+    <result column="before_money" property="beforeMoney" jdbcType="REAL" />
+    <result column="total" property="total" jdbcType="REAL" />
+    <result column="materials_expenses" property="materialsExpenses" jdbcType="REAL" />
+    <result column="crash" property="crash" jdbcType="REAL" />
+    <result column="addition" property="addition" jdbcType="REAL" />
+    <result column="atime" property="atime" jdbcType="TIMESTAMP" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="cash" property="cash" jdbcType="REAL" />
+    <result column="bank" property="bank" jdbcType="REAL" />
+    <result column="bill" property="bill" jdbcType="REAL" />
+    <result column="buying" property="buying" jdbcType="REAL" />
+    <result column="at_card" property="atCard" jdbcType="REAL" />
+    <result column="at_deposit" property="atDeposit" jdbcType="REAL" />
+    <result column="Collect_taxes" property="collectTaxes" jdbcType="REAL" />
+    <result column="voucher" property="voucher" jdbcType="REAL" />
+    <result column="wipe_mantissa" property="wipeMantissa" jdbcType="REAL" />
+    <result column="Internal" property="internal" jdbcType="REAL" />
+    <result column="Points_deduction" property="pointsDeduction" jdbcType="REAL" />
+    <result column="profit_loss" property="profitLoss" jdbcType="REAL" />
+    <result column="itid" property="itid" jdbcType="INTEGER" />
+    <result column="invid" property="invid" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bid, astate, before_money, total, materials_expenses, crash, addition, atime, 
+    aname, cash, bank, bill, buying, at_card, at_deposit, Collect_taxes, voucher, wipe_mantissa, 
+    Internal, Points_deduction, profit_loss, itid, invid, remark1, remark2, remark3, 
+    remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.AccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.AccountExample" >
+    delete from account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Account" >
+    insert into account (id, bid, astate, 
+      before_money, total, materials_expenses, 
+      crash, addition, atime, 
+      aname, cash, bank, bill, 
+      buying, at_card, at_deposit, Collect_taxes, 
+      voucher, wipe_mantissa, Internal, 
+      Points_deduction, profit_loss, itid, 
+      invid, remark1, remark2, 
+      remark3, remark4, remark5
+      )
+    values (#{id,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR}, #{astate,jdbcType=INTEGER}, 
+      #{beforeMoney,jdbcType=REAL}, #{total,jdbcType=REAL}, #{materialsExpenses,jdbcType=REAL}, 
+      #{crash,jdbcType=REAL}, #{addition,jdbcType=REAL}, #{atime,jdbcType=TIMESTAMP}, 
+      #{aname,jdbcType=VARCHAR}, #{cash,jdbcType=REAL}, #{bank,jdbcType=REAL}, #{bill,jdbcType=REAL}, 
+      #{buying,jdbcType=REAL}, #{atCard,jdbcType=REAL}, #{atDeposit,jdbcType=REAL}, #{collectTaxes,jdbcType=REAL}, 
+      #{voucher,jdbcType=REAL}, #{wipeMantissa,jdbcType=REAL}, #{internal,jdbcType=REAL}, 
+      #{pointsDeduction,jdbcType=REAL}, #{profitLoss,jdbcType=REAL}, #{itid,jdbcType=INTEGER}, 
+      #{invid,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="astate != null" >
+        astate,
+      </if>
+      <if test="beforeMoney != null" >
+        before_money,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="materialsExpenses != null" >
+        materials_expenses,
+      </if>
+      <if test="crash != null" >
+        crash,
+      </if>
+      <if test="addition != null" >
+        addition,
+      </if>
+      <if test="atime != null" >
+        atime,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="cash != null" >
+        cash,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="bill != null" >
+        bill,
+      </if>
+      <if test="buying != null" >
+        buying,
+      </if>
+      <if test="atCard != null" >
+        at_card,
+      </if>
+      <if test="atDeposit != null" >
+        at_deposit,
+      </if>
+      <if test="collectTaxes != null" >
+        Collect_taxes,
+      </if>
+      <if test="voucher != null" >
+        voucher,
+      </if>
+      <if test="wipeMantissa != null" >
+        wipe_mantissa,
+      </if>
+      <if test="internal != null" >
+        Internal,
+      </if>
+      <if test="pointsDeduction != null" >
+        Points_deduction,
+      </if>
+      <if test="profitLoss != null" >
+        profit_loss,
+      </if>
+      <if test="itid != null" >
+        itid,
+      </if>
+      <if test="invid != null" >
+        invid,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="astate != null" >
+        #{astate,jdbcType=INTEGER},
+      </if>
+      <if test="beforeMoney != null" >
+        #{beforeMoney,jdbcType=REAL},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=REAL},
+      </if>
+      <if test="materialsExpenses != null" >
+        #{materialsExpenses,jdbcType=REAL},
+      </if>
+      <if test="crash != null" >
+        #{crash,jdbcType=REAL},
+      </if>
+      <if test="addition != null" >
+        #{addition,jdbcType=REAL},
+      </if>
+      <if test="atime != null" >
+        #{atime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="cash != null" >
+        #{cash,jdbcType=REAL},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=REAL},
+      </if>
+      <if test="bill != null" >
+        #{bill,jdbcType=REAL},
+      </if>
+      <if test="buying != null" >
+        #{buying,jdbcType=REAL},
+      </if>
+      <if test="atCard != null" >
+        #{atCard,jdbcType=REAL},
+      </if>
+      <if test="atDeposit != null" >
+        #{atDeposit,jdbcType=REAL},
+      </if>
+      <if test="collectTaxes != null" >
+        #{collectTaxes,jdbcType=REAL},
+      </if>
+      <if test="voucher != null" >
+        #{voucher,jdbcType=REAL},
+      </if>
+      <if test="wipeMantissa != null" >
+        #{wipeMantissa,jdbcType=REAL},
+      </if>
+      <if test="internal != null" >
+        #{internal,jdbcType=REAL},
+      </if>
+      <if test="pointsDeduction != null" >
+        #{pointsDeduction,jdbcType=REAL},
+      </if>
+      <if test="profitLoss != null" >
+        #{profitLoss,jdbcType=REAL},
+      </if>
+      <if test="itid != null" >
+        #{itid,jdbcType=INTEGER},
+      </if>
+      <if test="invid != null" >
+        #{invid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.AccountExample" resultType="java.lang.Integer" >
+    select count(*) from account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update account
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.astate != null" >
+        astate = #{record.astate,jdbcType=INTEGER},
+      </if>
+      <if test="record.beforeMoney != null" >
+        before_money = #{record.beforeMoney,jdbcType=REAL},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=REAL},
+      </if>
+      <if test="record.materialsExpenses != null" >
+        materials_expenses = #{record.materialsExpenses,jdbcType=REAL},
+      </if>
+      <if test="record.crash != null" >
+        crash = #{record.crash,jdbcType=REAL},
+      </if>
+      <if test="record.addition != null" >
+        addition = #{record.addition,jdbcType=REAL},
+      </if>
+      <if test="record.atime != null" >
+        atime = #{record.atime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aname != null" >
+        aname = #{record.aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cash != null" >
+        cash = #{record.cash,jdbcType=REAL},
+      </if>
+      <if test="record.bank != null" >
+        bank = #{record.bank,jdbcType=REAL},
+      </if>
+      <if test="record.bill != null" >
+        bill = #{record.bill,jdbcType=REAL},
+      </if>
+      <if test="record.buying != null" >
+        buying = #{record.buying,jdbcType=REAL},
+      </if>
+      <if test="record.atCard != null" >
+        at_card = #{record.atCard,jdbcType=REAL},
+      </if>
+      <if test="record.atDeposit != null" >
+        at_deposit = #{record.atDeposit,jdbcType=REAL},
+      </if>
+      <if test="record.collectTaxes != null" >
+        Collect_taxes = #{record.collectTaxes,jdbcType=REAL},
+      </if>
+      <if test="record.voucher != null" >
+        voucher = #{record.voucher,jdbcType=REAL},
+      </if>
+      <if test="record.wipeMantissa != null" >
+        wipe_mantissa = #{record.wipeMantissa,jdbcType=REAL},
+      </if>
+      <if test="record.internal != null" >
+        Internal = #{record.internal,jdbcType=REAL},
+      </if>
+      <if test="record.pointsDeduction != null" >
+        Points_deduction = #{record.pointsDeduction,jdbcType=REAL},
+      </if>
+      <if test="record.profitLoss != null" >
+        profit_loss = #{record.profitLoss,jdbcType=REAL},
+      </if>
+      <if test="record.itid != null" >
+        itid = #{record.itid,jdbcType=INTEGER},
+      </if>
+      <if test="record.invid != null" >
+        invid = #{record.invid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update account
+    set id = #{record.id,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=VARCHAR},
+      astate = #{record.astate,jdbcType=INTEGER},
+      before_money = #{record.beforeMoney,jdbcType=REAL},
+      total = #{record.total,jdbcType=REAL},
+      materials_expenses = #{record.materialsExpenses,jdbcType=REAL},
+      crash = #{record.crash,jdbcType=REAL},
+      addition = #{record.addition,jdbcType=REAL},
+      atime = #{record.atime,jdbcType=TIMESTAMP},
+      aname = #{record.aname,jdbcType=VARCHAR},
+      cash = #{record.cash,jdbcType=REAL},
+      bank = #{record.bank,jdbcType=REAL},
+      bill = #{record.bill,jdbcType=REAL},
+      buying = #{record.buying,jdbcType=REAL},
+      at_card = #{record.atCard,jdbcType=REAL},
+      at_deposit = #{record.atDeposit,jdbcType=REAL},
+      Collect_taxes = #{record.collectTaxes,jdbcType=REAL},
+      voucher = #{record.voucher,jdbcType=REAL},
+      wipe_mantissa = #{record.wipeMantissa,jdbcType=REAL},
+      Internal = #{record.internal,jdbcType=REAL},
+      Points_deduction = #{record.pointsDeduction,jdbcType=REAL},
+      profit_loss = #{record.profitLoss,jdbcType=REAL},
+      itid = #{record.itid,jdbcType=INTEGER},
+      invid = #{record.invid,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Account" >
+    update account
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="astate != null" >
+        astate = #{astate,jdbcType=INTEGER},
+      </if>
+      <if test="beforeMoney != null" >
+        before_money = #{beforeMoney,jdbcType=REAL},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=REAL},
+      </if>
+      <if test="materialsExpenses != null" >
+        materials_expenses = #{materialsExpenses,jdbcType=REAL},
+      </if>
+      <if test="crash != null" >
+        crash = #{crash,jdbcType=REAL},
+      </if>
+      <if test="addition != null" >
+        addition = #{addition,jdbcType=REAL},
+      </if>
+      <if test="atime != null" >
+        atime = #{atime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aname != null" >
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="cash != null" >
+        cash = #{cash,jdbcType=REAL},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=REAL},
+      </if>
+      <if test="bill != null" >
+        bill = #{bill,jdbcType=REAL},
+      </if>
+      <if test="buying != null" >
+        buying = #{buying,jdbcType=REAL},
+      </if>
+      <if test="atCard != null" >
+        at_card = #{atCard,jdbcType=REAL},
+      </if>
+      <if test="atDeposit != null" >
+        at_deposit = #{atDeposit,jdbcType=REAL},
+      </if>
+      <if test="collectTaxes != null" >
+        Collect_taxes = #{collectTaxes,jdbcType=REAL},
+      </if>
+      <if test="voucher != null" >
+        voucher = #{voucher,jdbcType=REAL},
+      </if>
+      <if test="wipeMantissa != null" >
+        wipe_mantissa = #{wipeMantissa,jdbcType=REAL},
+      </if>
+      <if test="internal != null" >
+        Internal = #{internal,jdbcType=REAL},
+      </if>
+      <if test="pointsDeduction != null" >
+        Points_deduction = #{pointsDeduction,jdbcType=REAL},
+      </if>
+      <if test="profitLoss != null" >
+        profit_loss = #{profitLoss,jdbcType=REAL},
+      </if>
+      <if test="itid != null" >
+        itid = #{itid,jdbcType=INTEGER},
+      </if>
+      <if test="invid != null" >
+        invid = #{invid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Account" >
+    update account
+    set bid = #{bid,jdbcType=VARCHAR},
+      astate = #{astate,jdbcType=INTEGER},
+      before_money = #{beforeMoney,jdbcType=REAL},
+      total = #{total,jdbcType=REAL},
+      materials_expenses = #{materialsExpenses,jdbcType=REAL},
+      crash = #{crash,jdbcType=REAL},
+      addition = #{addition,jdbcType=REAL},
+      atime = #{atime,jdbcType=TIMESTAMP},
+      aname = #{aname,jdbcType=VARCHAR},
+      cash = #{cash,jdbcType=REAL},
+      bank = #{bank,jdbcType=REAL},
+      bill = #{bill,jdbcType=REAL},
+      buying = #{buying,jdbcType=REAL},
+      at_card = #{atCard,jdbcType=REAL},
+      at_deposit = #{atDeposit,jdbcType=REAL},
+      Collect_taxes = #{collectTaxes,jdbcType=REAL},
+      voucher = #{voucher,jdbcType=REAL},
+      wipe_mantissa = #{wipeMantissa,jdbcType=REAL},
+      Internal = #{internal,jdbcType=REAL},
+      Points_deduction = #{pointsDeduction,jdbcType=REAL},
+      profit_loss = #{profitLoss,jdbcType=REAL},
+      itid = #{itid,jdbcType=INTEGER},
+      invid = #{invid,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

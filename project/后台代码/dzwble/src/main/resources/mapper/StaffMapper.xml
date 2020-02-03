@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.StaffMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Staff" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="pno" property="pno" jdbcType="VARCHAR" />
+    <result column="mid" property="mid" jdbcType="INTEGER" />
+    <result column="jid" property="jid" jdbcType="INTEGER" />
+    <result column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="shealth" property="shealth" jdbcType="VARCHAR" />
+    <result column="sheight" property="sheight" jdbcType="REAL" />
+    <result column="splace" property="splace" jdbcType="VARCHAR" />
+    <result column="snation" property="snation" jdbcType="VARCHAR" />
+    <result column="smarry" property="smarry" jdbcType="VARCHAR" />
+    <result column="seducation" property="seducation" jdbcType="VARCHAR" />
+    <result column="sschool" property="sschool" jdbcType="VARCHAR" />
+    <result column="smajor" property="smajor" jdbcType="VARCHAR" />
+    <result column="smajorlevel" property="smajorlevel" jdbcType="VARCHAR" />
+    <result column="sfiel" property="sfiel" jdbcType="VARCHAR" />
+    <result column="speople" property="speople" jdbcType="VARCHAR" />
+    <result column="speoplephone" property="speoplephone" jdbcType="VARCHAR" />
+    <result column="sindate" property="sindate" jdbcType="TIMESTAMP" />
+    <result column="sinterniship" property="sinterniship" jdbcType="TIMESTAMP" />
+    <result column="sbirthday" property="sbirthday" jdbcType="TIMESTAMP" />
+    <result column="sstarttime" property="sstarttime" jdbcType="TIMESTAMP" />
+    <result column="sendtime" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="srecommed" property="srecommed" jdbcType="VARCHAR" />
+    <result column="snonumber" property="snonumber" jdbcType="VARCHAR" />
+    <result column="sinnumber" property="sinnumber" jdbcType="VARCHAR" />
+    <result column="salldiscount" property="salldiscount" jdbcType="REAL" />
+    <result column="sworkdiscount" property="sworkdiscount" jdbcType="REAL" />
+    <result column="sshopdiscount" property="sshopdiscount" jdbcType="REAL" />
+    <result column="sdiscount" property="sdiscount" jdbcType="REAL" />
+    <result column="job_resume" property="jobResume" jdbcType="VARCHAR" />
+    <result column="education_experience" property="educationExperience" jdbcType="VARCHAR" />
+    <result column="family_member" property="familyMember" jdbcType="VARCHAR" />
+    <result column="Disciplinary_records" property="disciplinaryRecords" jdbcType="VARCHAR" />
+    <result column="Employment_advice" property="employmentAdvice" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sid, pno, mid, jid, rid, shealth, sheight, splace, snation, smarry, seducation, sschool, 
+    smajor, smajorlevel, sfiel, speople, speoplephone, sindate, sinterniship, sbirthday, 
+    sstarttime, sendtime, srecommed, snonumber, sinnumber, salldiscount, sworkdiscount, 
+    sshopdiscount, sdiscount, job_resume, education_experience, family_member, Disciplinary_records, 
+    Employment_advice, remark1, remark2, remark3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.StaffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from staff
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from staff
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.StaffExample" >
+    delete from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Staff" >
+    insert into staff (sid, pno, mid, 
+      jid, rid, shealth, 
+      sheight, splace, snation, 
+      smarry, seducation, sschool, 
+      smajor, smajorlevel, sfiel, 
+      speople, speoplephone, sindate, 
+      sinterniship, sbirthday, sstarttime, 
+      sendtime, srecommed, snonumber, 
+      sinnumber, salldiscount, sworkdiscount, 
+      sshopdiscount, sdiscount, job_resume, 
+      education_experience, family_member, Disciplinary_records, 
+      Employment_advice, remark1, remark2, 
+      remark3)
+    values (#{sid,jdbcType=INTEGER}, #{pno,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, 
+      #{jid,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER}, #{shealth,jdbcType=VARCHAR}, 
+      #{sheight,jdbcType=REAL}, #{splace,jdbcType=VARCHAR}, #{snation,jdbcType=VARCHAR}, 
+      #{smarry,jdbcType=VARCHAR}, #{seducation,jdbcType=VARCHAR}, #{sschool,jdbcType=VARCHAR}, 
+      #{smajor,jdbcType=VARCHAR}, #{smajorlevel,jdbcType=VARCHAR}, #{sfiel,jdbcType=VARCHAR}, 
+      #{speople,jdbcType=VARCHAR}, #{speoplephone,jdbcType=VARCHAR}, #{sindate,jdbcType=TIMESTAMP}, 
+      #{sinterniship,jdbcType=TIMESTAMP}, #{sbirthday,jdbcType=TIMESTAMP}, #{sstarttime,jdbcType=TIMESTAMP}, 
+      #{sendtime,jdbcType=TIMESTAMP}, #{srecommed,jdbcType=VARCHAR}, #{snonumber,jdbcType=VARCHAR}, 
+      #{sinnumber,jdbcType=VARCHAR}, #{salldiscount,jdbcType=REAL}, #{sworkdiscount,jdbcType=REAL}, 
+      #{sshopdiscount,jdbcType=REAL}, #{sdiscount,jdbcType=REAL}, #{jobResume,jdbcType=VARCHAR}, 
+      #{educationExperience,jdbcType=VARCHAR}, #{familyMember,jdbcType=VARCHAR}, #{disciplinaryRecords,jdbcType=VARCHAR}, 
+      #{employmentAdvice,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Staff" >
+    insert into staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="pno != null" >
+        pno,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="shealth != null" >
+        shealth,
+      </if>
+      <if test="sheight != null" >
+        sheight,
+      </if>
+      <if test="splace != null" >
+        splace,
+      </if>
+      <if test="snation != null" >
+        snation,
+      </if>
+      <if test="smarry != null" >
+        smarry,
+      </if>
+      <if test="seducation != null" >
+        seducation,
+      </if>
+      <if test="sschool != null" >
+        sschool,
+      </if>
+      <if test="smajor != null" >
+        smajor,
+      </if>
+      <if test="smajorlevel != null" >
+        smajorlevel,
+      </if>
+      <if test="sfiel != null" >
+        sfiel,
+      </if>
+      <if test="speople != null" >
+        speople,
+      </if>
+      <if test="speoplephone != null" >
+        speoplephone,
+      </if>
+      <if test="sindate != null" >
+        sindate,
+      </if>
+      <if test="sinterniship != null" >
+        sinterniship,
+      </if>
+      <if test="sbirthday != null" >
+        sbirthday,
+      </if>
+      <if test="sstarttime != null" >
+        sstarttime,
+      </if>
+      <if test="sendtime != null" >
+        sendtime,
+      </if>
+      <if test="srecommed != null" >
+        srecommed,
+      </if>
+      <if test="snonumber != null" >
+        snonumber,
+      </if>
+      <if test="sinnumber != null" >
+        sinnumber,
+      </if>
+      <if test="salldiscount != null" >
+        salldiscount,
+      </if>
+      <if test="sworkdiscount != null" >
+        sworkdiscount,
+      </if>
+      <if test="sshopdiscount != null" >
+        sshopdiscount,
+      </if>
+      <if test="sdiscount != null" >
+        sdiscount,
+      </if>
+      <if test="jobResume != null" >
+        job_resume,
+      </if>
+      <if test="educationExperience != null" >
+        education_experience,
+      </if>
+      <if test="familyMember != null" >
+        family_member,
+      </if>
+      <if test="disciplinaryRecords != null" >
+        Disciplinary_records,
+      </if>
+      <if test="employmentAdvice != null" >
+        Employment_advice,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="pno != null" >
+        #{pno,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="jid != null" >
+        #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="shealth != null" >
+        #{shealth,jdbcType=VARCHAR},
+      </if>
+      <if test="sheight != null" >
+        #{sheight,jdbcType=REAL},
+      </if>
+      <if test="splace != null" >
+        #{splace,jdbcType=VARCHAR},
+      </if>
+      <if test="snation != null" >
+        #{snation,jdbcType=VARCHAR},
+      </if>
+      <if test="smarry != null" >
+        #{smarry,jdbcType=VARCHAR},
+      </if>
+      <if test="seducation != null" >
+        #{seducation,jdbcType=VARCHAR},
+      </if>
+      <if test="sschool != null" >
+        #{sschool,jdbcType=VARCHAR},
+      </if>
+      <if test="smajor != null" >
+        #{smajor,jdbcType=VARCHAR},
+      </if>
+      <if test="smajorlevel != null" >
+        #{smajorlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="sfiel != null" >
+        #{sfiel,jdbcType=VARCHAR},
+      </if>
+      <if test="speople != null" >
+        #{speople,jdbcType=VARCHAR},
+      </if>
+      <if test="speoplephone != null" >
+        #{speoplephone,jdbcType=VARCHAR},
+      </if>
+      <if test="sindate != null" >
+        #{sindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sinterniship != null" >
+        #{sinterniship,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbirthday != null" >
+        #{sbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sstarttime != null" >
+        #{sstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srecommed != null" >
+        #{srecommed,jdbcType=VARCHAR},
+      </if>
+      <if test="snonumber != null" >
+        #{snonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sinnumber != null" >
+        #{sinnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="salldiscount != null" >
+        #{salldiscount,jdbcType=REAL},
+      </if>
+      <if test="sworkdiscount != null" >
+        #{sworkdiscount,jdbcType=REAL},
+      </if>
+      <if test="sshopdiscount != null" >
+        #{sshopdiscount,jdbcType=REAL},
+      </if>
+      <if test="sdiscount != null" >
+        #{sdiscount,jdbcType=REAL},
+      </if>
+      <if test="jobResume != null" >
+        #{jobResume,jdbcType=VARCHAR},
+      </if>
+      <if test="educationExperience != null" >
+        #{educationExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMember != null" >
+        #{familyMember,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplinaryRecords != null" >
+        #{disciplinaryRecords,jdbcType=VARCHAR},
+      </if>
+      <if test="employmentAdvice != null" >
+        #{employmentAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.StaffExample" resultType="java.lang.Integer" >
+    select count(*) from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update staff
+    <set >
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pno != null" >
+        pno = #{record.pno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jid != null" >
+        jid = #{record.jid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rid != null" >
+        rid = #{record.rid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shealth != null" >
+        shealth = #{record.shealth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sheight != null" >
+        sheight = #{record.sheight,jdbcType=REAL},
+      </if>
+      <if test="record.splace != null" >
+        splace = #{record.splace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snation != null" >
+        snation = #{record.snation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smarry != null" >
+        smarry = #{record.smarry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seducation != null" >
+        seducation = #{record.seducation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sschool != null" >
+        sschool = #{record.sschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smajor != null" >
+        smajor = #{record.smajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smajorlevel != null" >
+        smajorlevel = #{record.smajorlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfiel != null" >
+        sfiel = #{record.sfiel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speople != null" >
+        speople = #{record.speople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speoplephone != null" >
+        speoplephone = #{record.speoplephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sindate != null" >
+        sindate = #{record.sindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sinterniship != null" >
+        sinterniship = #{record.sinterniship,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sbirthday != null" >
+        sbirthday = #{record.sbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sstarttime != null" >
+        sstarttime = #{record.sstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendtime != null" >
+        sendtime = #{record.sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.srecommed != null" >
+        srecommed = #{record.srecommed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snonumber != null" >
+        snonumber = #{record.snonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sinnumber != null" >
+        sinnumber = #{record.sinnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salldiscount != null" >
+        salldiscount = #{record.salldiscount,jdbcType=REAL},
+      </if>
+      <if test="record.sworkdiscount != null" >
+        sworkdiscount = #{record.sworkdiscount,jdbcType=REAL},
+      </if>
+      <if test="record.sshopdiscount != null" >
+        sshopdiscount = #{record.sshopdiscount,jdbcType=REAL},
+      </if>
+      <if test="record.sdiscount != null" >
+        sdiscount = #{record.sdiscount,jdbcType=REAL},
+      </if>
+      <if test="record.jobResume != null" >
+        job_resume = #{record.jobResume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.educationExperience != null" >
+        education_experience = #{record.educationExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyMember != null" >
+        family_member = #{record.familyMember,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disciplinaryRecords != null" >
+        Disciplinary_records = #{record.disciplinaryRecords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employmentAdvice != null" >
+        Employment_advice = #{record.employmentAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update staff
+    set sid = #{record.sid,jdbcType=INTEGER},
+      pno = #{record.pno,jdbcType=VARCHAR},
+      mid = #{record.mid,jdbcType=INTEGER},
+      jid = #{record.jid,jdbcType=INTEGER},
+      rid = #{record.rid,jdbcType=INTEGER},
+      shealth = #{record.shealth,jdbcType=VARCHAR},
+      sheight = #{record.sheight,jdbcType=REAL},
+      splace = #{record.splace,jdbcType=VARCHAR},
+      snation = #{record.snation,jdbcType=VARCHAR},
+      smarry = #{record.smarry,jdbcType=VARCHAR},
+      seducation = #{record.seducation,jdbcType=VARCHAR},
+      sschool = #{record.sschool,jdbcType=VARCHAR},
+      smajor = #{record.smajor,jdbcType=VARCHAR},
+      smajorlevel = #{record.smajorlevel,jdbcType=VARCHAR},
+      sfiel = #{record.sfiel,jdbcType=VARCHAR},
+      speople = #{record.speople,jdbcType=VARCHAR},
+      speoplephone = #{record.speoplephone,jdbcType=VARCHAR},
+      sindate = #{record.sindate,jdbcType=TIMESTAMP},
+      sinterniship = #{record.sinterniship,jdbcType=TIMESTAMP},
+      sbirthday = #{record.sbirthday,jdbcType=TIMESTAMP},
+      sstarttime = #{record.sstarttime,jdbcType=TIMESTAMP},
+      sendtime = #{record.sendtime,jdbcType=TIMESTAMP},
+      srecommed = #{record.srecommed,jdbcType=VARCHAR},
+      snonumber = #{record.snonumber,jdbcType=VARCHAR},
+      sinnumber = #{record.sinnumber,jdbcType=VARCHAR},
+      salldiscount = #{record.salldiscount,jdbcType=REAL},
+      sworkdiscount = #{record.sworkdiscount,jdbcType=REAL},
+      sshopdiscount = #{record.sshopdiscount,jdbcType=REAL},
+      sdiscount = #{record.sdiscount,jdbcType=REAL},
+      job_resume = #{record.jobResume,jdbcType=VARCHAR},
+      education_experience = #{record.educationExperience,jdbcType=VARCHAR},
+      family_member = #{record.familyMember,jdbcType=VARCHAR},
+      Disciplinary_records = #{record.disciplinaryRecords,jdbcType=VARCHAR},
+      Employment_advice = #{record.employmentAdvice,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Staff" >
+    update staff
+    <set >
+      <if test="pno != null" >
+        pno = #{pno,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="jid != null" >
+        jid = #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null" >
+        rid = #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="shealth != null" >
+        shealth = #{shealth,jdbcType=VARCHAR},
+      </if>
+      <if test="sheight != null" >
+        sheight = #{sheight,jdbcType=REAL},
+      </if>
+      <if test="splace != null" >
+        splace = #{splace,jdbcType=VARCHAR},
+      </if>
+      <if test="snation != null" >
+        snation = #{snation,jdbcType=VARCHAR},
+      </if>
+      <if test="smarry != null" >
+        smarry = #{smarry,jdbcType=VARCHAR},
+      </if>
+      <if test="seducation != null" >
+        seducation = #{seducation,jdbcType=VARCHAR},
+      </if>
+      <if test="sschool != null" >
+        sschool = #{sschool,jdbcType=VARCHAR},
+      </if>
+      <if test="smajor != null" >
+        smajor = #{smajor,jdbcType=VARCHAR},
+      </if>
+      <if test="smajorlevel != null" >
+        smajorlevel = #{smajorlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="sfiel != null" >
+        sfiel = #{sfiel,jdbcType=VARCHAR},
+      </if>
+      <if test="speople != null" >
+        speople = #{speople,jdbcType=VARCHAR},
+      </if>
+      <if test="speoplephone != null" >
+        speoplephone = #{speoplephone,jdbcType=VARCHAR},
+      </if>
+      <if test="sindate != null" >
+        sindate = #{sindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sinterniship != null" >
+        sinterniship = #{sinterniship,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbirthday != null" >
+        sbirthday = #{sbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sstarttime != null" >
+        sstarttime = #{sstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srecommed != null" >
+        srecommed = #{srecommed,jdbcType=VARCHAR},
+      </if>
+      <if test="snonumber != null" >
+        snonumber = #{snonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sinnumber != null" >
+        sinnumber = #{sinnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="salldiscount != null" >
+        salldiscount = #{salldiscount,jdbcType=REAL},
+      </if>
+      <if test="sworkdiscount != null" >
+        sworkdiscount = #{sworkdiscount,jdbcType=REAL},
+      </if>
+      <if test="sshopdiscount != null" >
+        sshopdiscount = #{sshopdiscount,jdbcType=REAL},
+      </if>
+      <if test="sdiscount != null" >
+        sdiscount = #{sdiscount,jdbcType=REAL},
+      </if>
+      <if test="jobResume != null" >
+        job_resume = #{jobResume,jdbcType=VARCHAR},
+      </if>
+      <if test="educationExperience != null" >
+        education_experience = #{educationExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMember != null" >
+        family_member = #{familyMember,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplinaryRecords != null" >
+        Disciplinary_records = #{disciplinaryRecords,jdbcType=VARCHAR},
+      </if>
+      <if test="employmentAdvice != null" >
+        Employment_advice = #{employmentAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Staff" >
+    update staff
+    set pno = #{pno,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=INTEGER},
+      jid = #{jid,jdbcType=INTEGER},
+      rid = #{rid,jdbcType=INTEGER},
+      shealth = #{shealth,jdbcType=VARCHAR},
+      sheight = #{sheight,jdbcType=REAL},
+      splace = #{splace,jdbcType=VARCHAR},
+      snation = #{snation,jdbcType=VARCHAR},
+      smarry = #{smarry,jdbcType=VARCHAR},
+      seducation = #{seducation,jdbcType=VARCHAR},
+      sschool = #{sschool,jdbcType=VARCHAR},
+      smajor = #{smajor,jdbcType=VARCHAR},
+      smajorlevel = #{smajorlevel,jdbcType=VARCHAR},
+      sfiel = #{sfiel,jdbcType=VARCHAR},
+      speople = #{speople,jdbcType=VARCHAR},
+      speoplephone = #{speoplephone,jdbcType=VARCHAR},
+      sindate = #{sindate,jdbcType=TIMESTAMP},
+      sinterniship = #{sinterniship,jdbcType=TIMESTAMP},
+      sbirthday = #{sbirthday,jdbcType=TIMESTAMP},
+      sstarttime = #{sstarttime,jdbcType=TIMESTAMP},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      srecommed = #{srecommed,jdbcType=VARCHAR},
+      snonumber = #{snonumber,jdbcType=VARCHAR},
+      sinnumber = #{sinnumber,jdbcType=VARCHAR},
+      salldiscount = #{salldiscount,jdbcType=REAL},
+      sworkdiscount = #{sworkdiscount,jdbcType=REAL},
+      sshopdiscount = #{sshopdiscount,jdbcType=REAL},
+      sdiscount = #{sdiscount,jdbcType=REAL},
+      job_resume = #{jobResume,jdbcType=VARCHAR},
+      education_experience = #{educationExperience,jdbcType=VARCHAR},
+      family_member = #{familyMember,jdbcType=VARCHAR},
+      Disciplinary_records = #{disciplinaryRecords,jdbcType=VARCHAR},
+      Employment_advice = #{employmentAdvice,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>
