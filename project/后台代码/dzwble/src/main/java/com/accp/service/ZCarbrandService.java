@@ -12,10 +12,7 @@ import com.accp.domain.CarbrandExample.Criteria;
 import com.accp.domain.Motorcycle;
 import com.accp.mapper.CarbrandMapper;
 import com.accp.mapper.MaintenanceMapper;
-<<<<<<< HEAD
 import com.accp.mapper.MotorcycleMapper;
-=======
->>>>>>> branch 'zhongpenggen' of https://github.com/lijianhaoljh/java2dezhaowen.git
 
 @Service
 @Transactional
@@ -23,11 +20,8 @@ public class ZCarbrandService {
 			@Autowired
 			CarbrandMapper carbrandMapper;
 			@Autowired
-<<<<<<< HEAD
 			MotorcycleMapper motorcycleMapper;
 			@Autowired
-=======
->>>>>>> branch 'zhongpenggen' of https://github.com/lijianhaoljh/java2dezhaowen.git
 			MaintenanceMapper maintenanceMapper;
 			
 			/*
@@ -51,16 +45,7 @@ public class ZCarbrandService {
 				}
 				return carbrandMapper.selectByExample(example);
 			}
-			
-<<<<<<< HEAD
-			/**
-			 * 根据车型品牌查询信息
-			 * @param cbno
-			 * @return
-			 */
-			public List<Motorcycle> findQuery(int cbno){
-				
-=======
+
 			/*
 			 * 查询车型
 			 */
@@ -69,7 +54,6 @@ public class ZCarbrandService {
 				if(list!=null&&list.size()>0) {
 					return list;
 				}
->>>>>>> branch 'zhongpenggen' of https://github.com/lijianhaoljh/java2dezhaowen.git
 				return null;
 			}
 }
