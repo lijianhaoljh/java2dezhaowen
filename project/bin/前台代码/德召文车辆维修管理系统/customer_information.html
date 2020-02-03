@@ -105,38 +105,38 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr v-for="c in customers">
 									<td> </td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
+									<td>{{c.cno}}</td>
+									<td>{{c.cname}}</td>
+									<td>{{c.caddress}}</td>
+									<td>{{c.cpeople}}</td>
+									<td>{{c.cphone}}</td>
+									<td>{{c.cbirthday}}</td>
+									<td>{{c.ctno}}</td>
+									<td>会员卡号</td>
+									<td>入会日期</td>
+									<td>会员到期</td>
+									<td>{{c.cremark}}</td>
+									<td>建档日期</td>
+									<td>{{c.pno}}</td>
+									<td>业务员电话</td>
+									<td>{{c.cperiod}}</td>
+									<td>{{c.climit}}</td>
+									<td>累计积分</td>
+									<td>订单余额</td>
+									<td>{{c.province}}</td>
+									<td>{{c.city}}</td>
+									<td>{{c.district}}</td>
+									<td>{{c.ctaxes}}</td>
+									<td>{{c.cregistphone}}</td>
+									<td>{{c.cbank}}</td>
+									<td>{{c.cbanknumber}}</td>
+									<td>{{c.cregistaddress}}</td>
+									<td>{{c.other1}}</td>
+									<td>{{c.other2}}</td>
+									<td>{{c.other3}}</td>
+									<td>{{c.other4}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -498,15 +498,17 @@
 		</div>
 
 			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-			<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
 				var vm = new Vue({
 					el:"#ctx",
 					data(){
-						return {}
+						return {
+							customers:[]
+						}
 					},
 					methods:{
 						addcusandcar:function(){
@@ -531,6 +533,19 @@
 						setting:function(){
 							$("#setting").show();
 						}
+					},
+					created:function(){
+						$.ajax({
+							url:data.ip+"cus/queryCusAll",
+							data:"",
+							type:"get",
+							dataType:"json",
+							success:function(result){
+								vm.customers=result;
+							},error:function(result){
+								alert("发生错误"+result);
+							}
+						});
 					}
 				});
 				

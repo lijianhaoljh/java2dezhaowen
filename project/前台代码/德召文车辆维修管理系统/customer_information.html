@@ -89,7 +89,6 @@
 									<td>账期(天)</td>
 									<td>挂账额度</td>
 									<td>累计积分</td>
-									<td>订单余额</td>
 									<td>客户省</td>
 									<td>客户市</td>
 									<td>客户区</td>
@@ -113,18 +112,18 @@
 									<td>{{c.cpeople}}</td>
 									<td>{{c.cphone}}</td>
 									<td>{{c.cbirthday}}</td>
-									<td>{{c.ctno}}</td>
-									<td>会员卡号</td>
-									<td>入会日期</td>
-									<td>会员到期</td>
+									<td>{{c.ctname}}</td>
+									<td>{{c.vno}}</td>
+									<td>{{c.vjoindate}}</td>
+									<td>{{c.venddate}}</td>
 									<td>{{c.cremark}}</td>
-									<td>建档日期</td>
-									<td>{{c.pno}}</td>
-									<td>业务员电话</td>
+									<td>{{c.creatdate}}</td>
+									<td>{{c.pname}}</td>
+									<td>{{c.pphone}}</td>
 									<td>{{c.cperiod}}</td>
 									<td>{{c.climit}}</td>
-									<td>累计积分</td>
-									<td>订单余额</td>
+									<td v-if="c.isvip==0">{{c.jifen}}</td>
+									<td v-else>{{c.jifen}}+{{c.vjifen}}</td>
 									<td>{{c.province}}</td>
 									<td>{{c.city}}</td>
 									<td>{{c.district}}</td>
