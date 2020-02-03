@@ -20,7 +20,7 @@ public class CustomerAndCarService {
 	CardataMapper cardamapper;
 	
 	public List<Customer> queryAll(){
-		return cusmapper.selectByExample(null);
+		return cusmapper.queryCusAll();
 	}
 	
 }

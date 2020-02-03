@@ -17,6 +17,8 @@ public interface CustomerMapper {
     int insertSelective(Customer record);
 
     List<Customer> selectByExample(CustomerExample example);
+    
+    List<Customer> queryCusAll();
 
     Customer selectByPrimaryKey(String cno);
 

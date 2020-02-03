@@ -25,11 +25,19 @@
     <result column="other2" property="other2" jdbcType="VARCHAR" />
     <result column="other3" property="other3" jdbcType="VARCHAR" />
     <result column="other4" property="other4" jdbcType="VARCHAR" />
-    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
-    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="jifen" property="jifen" jdbcType="VARCHAR" />
+    <result column="creatdate" property="creatdate" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="ctname" property="ctname" jdbcType="VARCHAR" />
+    <result column="isvip" property="isvip" jdbcType="INTEGER" />
+    <result column="vno" property="vno" jdbcType="VARCHAR" />
+    <result column="vjoindate" property="vjoindate" jdbcType="TIMESTAMP" />
+    <result column="venddate" property="venddate" jdbcType="TIMESTAMP" />
+    <result column="vjifen" property="vjifen" jdbcType="VARCHAR" />
+    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -92,8 +100,16 @@
   <sql id="Base_Column_List" >
     cno, ctno, cname, cpeople, cphone, caddress, cbirthday, cperiod, climit, pno, province, 
     city, district, cremark, ctaxes, cregistphone, cbank, cbanknumber, cregistaddress, 
-    other1, other2, other3, other4, remark1, remark2, remark3, remark4, remark5
+    other1, other2, other3, other4, jifen, creatdate, remark3, remark4, remark5
   </sql>
+  
+  <select id="queryCusAll" resultMap="BaseResultMap">
+	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,peo.pname pname,vip.venddate venddate,vip.currentjifen vjifen,peo.pphone pphone FROM customer AS cus
+	LEFT JOIN customer_type AS custy ON cus.ctno = custy.ctno
+	LEFT JOIN vip AS vip ON vip.cno=cus.cno
+	LEFT JOIN people AS peo ON peo.pno=cus.pno
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CustomerExample" >
     select
     <if test="distinct" >
@@ -132,8 +148,8 @@
       district, cremark, ctaxes, 
       cregistphone, cbank, cbanknumber, 
       cregistaddress, other1, other2, 
-      other3, other4, remark1, 
-      remark2, remark3, remark4, 
+      other3, other4, jifen, 
+      creatdate, remark3, remark4, 
       remark5)
     values (#{cno,jdbcType=VARCHAR}, #{ctno,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, 
       #{cpeople,jdbcType=VARCHAR}, #{cphone,jdbcType=VARCHAR}, #{caddress,jdbcType=VARCHAR}, 
@@ -142,8 +158,8 @@
       #{district,jdbcType=VARCHAR}, #{cremark,jdbcType=VARCHAR}, #{ctaxes,jdbcType=VARCHAR}, 
       #{cregistphone,jdbcType=VARCHAR}, #{cbank,jdbcType=VARCHAR}, #{cbanknumber,jdbcType=VARCHAR}, 
       #{cregistaddress,jdbcType=VARCHAR}, #{other1,jdbcType=VARCHAR}, #{other2,jdbcType=VARCHAR}, 
-      #{other3,jdbcType=VARCHAR}, #{other4,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
-      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{other3,jdbcType=VARCHAR}, #{other4,jdbcType=VARCHAR}, #{jifen,jdbcType=VARCHAR}, 
+      #{creatdate,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
       #{remark5,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Customer" >
@@ -218,11 +234,11 @@
       <if test="other4 != null" >
         other4,
       </if>
-      <if test="remark1 != null" >
-        remark1,
+      <if test="jifen != null" >
+        jifen,
       </if>
-      <if test="remark2 != null" >
-        remark2,
+      <if test="creatdate != null" >
+        creatdate,
       </if>
       <if test="remark3 != null" >
         remark3,
@@ -304,11 +320,11 @@
       <if test="other4 != null" >
         #{other4,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
-        #{remark1,jdbcType=VARCHAR},
+      <if test="jifen != null" >
+        #{jifen,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null" >
-        #{remark2,jdbcType=VARCHAR},
+      <if test="creatdate != null" >
+        #{creatdate,jdbcType=VARCHAR},
       </if>
       <if test="remark3 != null" >
         #{remark3,jdbcType=VARCHAR},
@@ -399,11 +415,11 @@
       <if test="record.other4 != null" >
         other4 = #{record.other4,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark1 != null" >
-        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      <if test="record.jifen != null" >
+        jifen = #{record.jifen,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark2 != null" >
-        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      <if test="record.creatdate != null" >
+        creatdate = #{record.creatdate,jdbcType=VARCHAR},
       </if>
       <if test="record.remark3 != null" >
         remark3 = #{record.remark3,jdbcType=VARCHAR},
@@ -444,8 +460,8 @@
       other2 = #{record.other2,jdbcType=VARCHAR},
       other3 = #{record.other3,jdbcType=VARCHAR},
       other4 = #{record.other4,jdbcType=VARCHAR},
-      remark1 = #{record.remark1,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      jifen = #{record.jifen,jdbcType=VARCHAR},
+      creatdate = #{record.creatdate,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
       remark4 = #{record.remark4,jdbcType=VARCHAR},
       remark5 = #{record.remark5,jdbcType=VARCHAR}
@@ -522,11 +538,11 @@
       <if test="other4 != null" >
         other4 = #{other4,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
-        remark1 = #{remark1,jdbcType=VARCHAR},
+      <if test="jifen != null" >
+        jifen = #{jifen,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null" >
-        remark2 = #{remark2,jdbcType=VARCHAR},
+      <if test="creatdate != null" >
+        creatdate = #{creatdate,jdbcType=VARCHAR},
       </if>
       <if test="remark3 != null" >
         remark3 = #{remark3,jdbcType=VARCHAR},
@@ -564,8 +580,8 @@
       other2 = #{other2,jdbcType=VARCHAR},
       other3 = #{other3,jdbcType=VARCHAR},
       other4 = #{other4,jdbcType=VARCHAR},
-      remark1 = #{remark1,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR},
+      jifen = #{jifen,jdbcType=VARCHAR},
+      creatdate = #{creatdate,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
       remark4 = #{remark4,jdbcType=VARCHAR},
       remark5 = #{remark5,jdbcType=VARCHAR}

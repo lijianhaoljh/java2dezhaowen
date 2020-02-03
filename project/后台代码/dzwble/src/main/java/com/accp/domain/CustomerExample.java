@@ -1685,143 +1685,143 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemark1IsNull() {
-            addCriterion("remark1 is null");
+        public Criteria andJifenIsNull() {
+            addCriterion("jifen is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1IsNotNull() {
-            addCriterion("remark1 is not null");
+        public Criteria andJifenIsNotNull() {
+            addCriterion("jifen is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1EqualTo(String value) {
-            addCriterion("remark1 =", value, "remark1");
+        public Criteria andJifenEqualTo(String value) {
+            addCriterion("jifen =", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotEqualTo(String value) {
-            addCriterion("remark1 <>", value, "remark1");
+        public Criteria andJifenNotEqualTo(String value) {
+            addCriterion("jifen <>", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1GreaterThan(String value) {
-            addCriterion("remark1 >", value, "remark1");
+        public Criteria andJifenGreaterThan(String value) {
+            addCriterion("jifen >", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1GreaterThanOrEqualTo(String value) {
-            addCriterion("remark1 >=", value, "remark1");
+        public Criteria andJifenGreaterThanOrEqualTo(String value) {
+            addCriterion("jifen >=", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1LessThan(String value) {
-            addCriterion("remark1 <", value, "remark1");
+        public Criteria andJifenLessThan(String value) {
+            addCriterion("jifen <", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1LessThanOrEqualTo(String value) {
-            addCriterion("remark1 <=", value, "remark1");
+        public Criteria andJifenLessThanOrEqualTo(String value) {
+            addCriterion("jifen <=", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1Like(String value) {
-            addCriterion("remark1 like", value, "remark1");
+        public Criteria andJifenLike(String value) {
+            addCriterion("jifen like", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotLike(String value) {
-            addCriterion("remark1 not like", value, "remark1");
+        public Criteria andJifenNotLike(String value) {
+            addCriterion("jifen not like", value, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1In(List<String> values) {
-            addCriterion("remark1 in", values, "remark1");
+        public Criteria andJifenIn(List<String> values) {
+            addCriterion("jifen in", values, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotIn(List<String> values) {
-            addCriterion("remark1 not in", values, "remark1");
+        public Criteria andJifenNotIn(List<String> values) {
+            addCriterion("jifen not in", values, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1Between(String value1, String value2) {
-            addCriterion("remark1 between", value1, value2, "remark1");
+        public Criteria andJifenBetween(String value1, String value2) {
+            addCriterion("jifen between", value1, value2, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark1NotBetween(String value1, String value2) {
-            addCriterion("remark1 not between", value1, value2, "remark1");
+        public Criteria andJifenNotBetween(String value1, String value2) {
+            addCriterion("jifen not between", value1, value2, "jifen");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2IsNull() {
-            addCriterion("remark2 is null");
+        public Criteria andCreatdateIsNull() {
+            addCriterion("creatdate is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2IsNotNull() {
-            addCriterion("remark2 is not null");
+        public Criteria andCreatdateIsNotNull() {
+            addCriterion("creatdate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2EqualTo(String value) {
-            addCriterion("remark2 =", value, "remark2");
+        public Criteria andCreatdateEqualTo(String value) {
+            addCriterion("creatdate =", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotEqualTo(String value) {
-            addCriterion("remark2 <>", value, "remark2");
+        public Criteria andCreatdateNotEqualTo(String value) {
+            addCriterion("creatdate <>", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2GreaterThan(String value) {
-            addCriterion("remark2 >", value, "remark2");
+        public Criteria andCreatdateGreaterThan(String value) {
+            addCriterion("creatdate >", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2GreaterThanOrEqualTo(String value) {
-            addCriterion("remark2 >=", value, "remark2");
+        public Criteria andCreatdateGreaterThanOrEqualTo(String value) {
+            addCriterion("creatdate >=", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2LessThan(String value) {
-            addCriterion("remark2 <", value, "remark2");
+        public Criteria andCreatdateLessThan(String value) {
+            addCriterion("creatdate <", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2LessThanOrEqualTo(String value) {
-            addCriterion("remark2 <=", value, "remark2");
+        public Criteria andCreatdateLessThanOrEqualTo(String value) {
+            addCriterion("creatdate <=", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2Like(String value) {
-            addCriterion("remark2 like", value, "remark2");
+        public Criteria andCreatdateLike(String value) {
+            addCriterion("creatdate like", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotLike(String value) {
-            addCriterion("remark2 not like", value, "remark2");
+        public Criteria andCreatdateNotLike(String value) {
+            addCriterion("creatdate not like", value, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2In(List<String> values) {
-            addCriterion("remark2 in", values, "remark2");
+        public Criteria andCreatdateIn(List<String> values) {
+            addCriterion("creatdate in", values, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotIn(List<String> values) {
-            addCriterion("remark2 not in", values, "remark2");
+        public Criteria andCreatdateNotIn(List<String> values) {
+            addCriterion("creatdate not in", values, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2Between(String value1, String value2) {
-            addCriterion("remark2 between", value1, value2, "remark2");
+        public Criteria andCreatdateBetween(String value1, String value2) {
+            addCriterion("creatdate between", value1, value2, "creatdate");
             return (Criteria) this;
         }
 
-        public Criteria andRemark2NotBetween(String value1, String value2) {
-            addCriterion("remark2 not between", value1, value2, "remark2");
+        public Criteria andCreatdateNotBetween(String value1, String value2) {
+            addCriterion("creatdate not between", value1, value2, "creatdate");
             return (Criteria) this;
         }
 
