@@ -32,8 +32,18 @@ public class Motorcycle {
     private String remark4;
 
     private String remark5;
+    
+    private Maintenance m;
+    
+    public Maintenance getM() {
+		return m;
+	}
 
-    public Integer getMoid() {
+	public void setM(Maintenance m) {
+		this.m = m;
+	}
+
+	public Integer getMoid() {
         return moid;
     }
 

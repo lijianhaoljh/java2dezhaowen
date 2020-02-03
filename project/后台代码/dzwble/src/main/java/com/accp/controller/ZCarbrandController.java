@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.Carbrand;
+import com.accp.domain.Motorcycle;
 import com.accp.service.ZCarbrandService;
 
 @RestController
@@ -20,5 +21,11 @@ public class ZCarbrandController {
 		@GetMapping
 		public List<Carbrand> query(String condition){
 			return zCarbrandService.query(condition);
+		}
+		
+		
+		@GetMapping
+		public List<Motorcycle> findMotorcycle(Integer cbno){
+			return zCarbrandService.findMotorcycle(cbno);
 		}
 }
