@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Customer {
     private String cno;
 
@@ -14,7 +16,8 @@ public class Customer {
     private String cphone;
 
     private String caddress;
-
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date cbirthday;
 
     private Integer cperiod;
