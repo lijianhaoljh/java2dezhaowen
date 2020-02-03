@@ -19,8 +19,8 @@ public class CustomerAndCarController {
 	
 	@ResponseBody
 	@RequestMapping("/queryCusAll")
-	public List<Customer> queryAll(){
-		return ser.queryAll();
+	public List<Customer> queryAll(String cname,String cphone){
+		return ser.queryAll(cname,cphone);
 	}
 	
 }

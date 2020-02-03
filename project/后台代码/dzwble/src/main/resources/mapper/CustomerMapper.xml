@@ -104,10 +104,11 @@
   </sql>
   
   <select id="queryCusAll" resultMap="BaseResultMap">
-	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,peo.pname pname,vip.venddate venddate,vip.currentjifen vjifen,peo.pphone pphone FROM customer AS cus
+	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,vip.venddate venddate,vip.currentjifen vjifen,peo.pname pname,peo.pphone pphone FROM customer AS cus
 	LEFT JOIN customer_type AS custy ON cus.ctno = custy.ctno
 	LEFT JOIN vip AS vip ON vip.cno=cus.cno
 	LEFT JOIN people AS peo ON peo.pno=cus.pno
+	WHERE cus.cname LIKE '%${cn}%' AND cus.cphone LIKE '%${cp}%'
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CustomerExample" >

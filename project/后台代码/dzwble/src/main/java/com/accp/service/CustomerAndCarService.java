@@ -19,8 +19,8 @@ public class CustomerAndCarService {
 	@Autowired
 	CardataMapper cardamapper;
 	
-	public List<Customer> queryAll(){
-		return cusmapper.queryCusAll();
+	public List<Customer> queryAll(String cname,String cphone){
+		return cusmapper.queryCusAll(cname,cphone);
 	}
 	
 }

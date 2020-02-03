@@ -18,7 +18,7 @@ public interface CustomerMapper {
 
     List<Customer> selectByExample(CustomerExample example);
     
-    List<Customer> queryCusAll();
+    List<Customer> queryCusAll(@Param("cn") String cname,@Param("cp") String cphone);
 
     Customer selectByPrimaryKey(String cno);
 
