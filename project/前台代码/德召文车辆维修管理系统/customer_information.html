@@ -22,7 +22,7 @@
 					</div>
 					<div>
 						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
-							<input type="text" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<input type="text" placeholder="匹配名称/手机/会员卡号/车牌号" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
 							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
 							<button class="btn btn-default" style="width: 70px;">关闭</button>
 						</div>
@@ -536,8 +536,8 @@
 					created:function(){
 						$.ajax({
 							url:data.ip+"cus/queryCusAll",
-							data:"",
-							type:"get",
+							data:{cname:"",cphone:""},
+							type:"post",
 							dataType:"json",
 							success:function(result){
 								vm.customers=result;
