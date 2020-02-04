@@ -8,9 +8,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MaintenanceMapper {
-	
-	List<Motorcycle> findMotorcyle(Integer id);
-	
     int countByExample(MaintenanceExample example);
 
     int deleteByExample(MaintenanceExample example);

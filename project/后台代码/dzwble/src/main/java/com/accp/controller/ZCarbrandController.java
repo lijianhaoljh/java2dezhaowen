@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.Carbrand;
@@ -23,9 +26,14 @@ public class ZCarbrandController {
 			return zCarbrandService.query(condition);
 		}
 		
-		
-		@GetMapping
+		@ResponseBody
+		@PostMapping
 		public List<Motorcycle> findMotorcycle(Integer cbno){
 			return zCarbrandService.findMotorcycle(cbno);
+		}
+		
+		@GetMapping(value = "/query")
+		public List<Motorcycle> findMotorcyleTwo(Integer cbno,String cbnos){
+			return zCarbrandService.findMotorcyleTwo(cbno,cbnos);
 		}
 }

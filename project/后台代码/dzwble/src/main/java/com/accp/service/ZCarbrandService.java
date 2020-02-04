@@ -30,15 +30,14 @@ public class ZCarbrandService {
 			 */
 			public List<Carbrand> query(String condition){
 				CarbrandExample example =new CarbrandExample();
-				Criteria criteria=example.createCriteria();
-				if (condition != null && !"".equals(condition.trim()))
+				if (condition.trim() != null && !"".equals(condition.trim()))
 				{
 					//不为空
-					if(condition.matches("^[0-9]*$")) {
+					if(condition.trim().matches("^[0-9]*$")) {
 						//数字根据编号查
 						example.or().andCbnoEqualTo(Integer.valueOf(condition.trim()));
 					}else {
-						//非数字根据编号查或是名称或首字母
+						//非数字查名称或首字母
 						example.or().andCbnameLike("%"+condition.trim()+"%");
 						example.or().andCbfirstLike("%"+condition.trim()+"%");
 					}
@@ -50,7 +49,18 @@ public class ZCarbrandService {
 			 * 查询车型
 			 */
 			public List<Motorcycle> findMotorcycle(Integer cbno){
-				List<Motorcycle> list=maintenanceMapper.findMotorcyle(cbno);
+				List<Motorcycle> list=motorcycleMapper.findMotorcyle(cbno);
+				if(list!=null&&list.size()>0) {
+					return list;
+				}
+				return null;
+			}
+			
+			/**
+			 * 根据条件查询车型
+			 */
+			public List<Motorcycle> findMotorcyleTwo(Integer cbno,String cbnos){
+				List<Motorcycle> list=motorcycleMapper.findMotorcyleTwo(cbno, cbnos);
 				if(list!=null&&list.size()>0) {
 					return list;
 				}

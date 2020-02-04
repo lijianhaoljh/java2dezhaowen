@@ -33,9 +33,20 @@ public class Motorcycle {
 
     private String remark5;
     
+    private String mname;
+    
     private Maintenance m;
     
-    public Maintenance getM() {
+        
+    public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public Maintenance getM() {
 		return m;
 	}
 
