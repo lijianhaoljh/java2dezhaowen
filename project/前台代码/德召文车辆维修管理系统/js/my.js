@@ -1,5 +1,5 @@
 
 
 var data = {
-	ip:"http://localhost:8080/"
+	ip:"http://127.0.0.1:8080/"
 }
