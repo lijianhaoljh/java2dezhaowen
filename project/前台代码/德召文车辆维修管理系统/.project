@@ -16,6 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
+<<<<<<< HEAD
 			<id>1580718639507</id>
 			<name></name>
 			<type>26</type>
@@ -26,6 +27,9 @@
 		</filter>
 		<filter>
 			<id>1580731330550</id>
+=======
+			<id>1580729242916</id>
+>>>>>>> branch 'master' of https://github.com/lijianhaoljh/java2dezhaowen.git
 			<name></name>
 			<type>26</type>
 			<matcher>
