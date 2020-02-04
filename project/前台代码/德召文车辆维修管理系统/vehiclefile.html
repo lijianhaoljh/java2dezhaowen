@@ -44,7 +44,7 @@
 			 					<td>首字母</td>
 			 				</tr>
 			 				
-			 				<tr v-for="item in Carbrand">
+			 				<tr v-for="item in Carbrand" @click="getDataTwo(item.cbno)">
 			 					<td>{{item.cbno}}</td>
 			 					<td>{{item.cbname}}</td>
 			 					<td>{{item.cbfirst}}</td>
@@ -62,8 +62,8 @@
 			 			<button type="button" class="btn btn-success">照片</button>
 			 		</div>
 			 		<div id="input1">
-			 			<input type="text" placeholder="匹配/车型编码/车型名称"/>
-			 			<button type="button" class="btn btn-warning">搜索</button>
+			 			<input type="text" v-model="cbnos" placeholder="匹配/车型编码/车型名称"/>
+			 			<button type="button" class="btn btn-warning" @click="getDataThree">搜索</button>
 			 		</div>
 			 		<div>
 			 			<table class="table table-hover">
@@ -79,14 +79,15 @@
 			 					<td>载重</td>
 			 				</tr>
 			 				
-			 				<tr>
-			 					<td>409</td>
-			 					<td>中华V7</td>
-			 					<td>1.6T涡轮增压发动机</td>
-			 					<td>100000</td>
-			 					<td>2015</td>
-			 					<td>232马力</td>
-			 					<td>合资</td>
+			 				<tr v-for="item1 in Motorcycle">
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.moiname}}</td>
+			 					<td>{{item1.mname}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
 			 				</tr>
 			 			</table>
 			 		</div>
@@ -169,17 +170,19 @@
 			data(){
     			return {
     				Carbrand:[],
+    				Motorcycle:[],
+    				cbnos:"",
     				condition:""
         		};
 			},
-			mounted:function() {
+			created:function() {
             this.getData();
        		},
-			methods: {
+			methods: {	
 				getData:function(){
 						var that=this;
 						$.ajax({
-						url: "http://localhost:8080/"+"CarbrandRest",					
+						url: "http://localhost:8080/CarbrandRest",					
 						type: "get",
 						data:{
 							condition:that.condition
@@ -189,11 +192,62 @@
 						},
 						dataType: "json",
 						success: function(result) {
-							vm.Carbrand=result;
+								if(result){
+									that.Carbrand=result;
+									that.getDataTwo(that.Carbrand[0].cbno);
+								}else{
+									vm.Motorcycle=[];
+								}
+							console.log(result+"001");
 						},error:function(result){					
-							console.log(result+"1");
+							console.log(result+"002");
 						}
 					});
+				},
+				getDataTwo:function(cbno){						
+						var that=this;
+						$.ajax({
+						url: "http://localhost:8080/CarbrandRest",					
+						type: "post",
+						data:{cbno:cbno},
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "text",
+						success: function(result) {
+							if(result){
+								vm.Motorcycle=eval('('+result+')');	
+							}else{
+								vm.Motorcycle=[];
+							}
+						},error:function(result){					
+							console.log(result+"004");
+						}
+					});	
+				},
+				getDataThree:function(){
+					var that=this;
+						$.ajax({
+						url: "http://localhost:8080/CarbrandRest/query",					
+						type: "get",
+						data:{
+							cbno:that.Carbrand[0].cbno,
+							cbnos:that.cbnos
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "text",
+						success: function(result) {
+							if(result){
+								vm.Motorcycle=eval('('+result+')');	
+							}else{
+								vm.Motorcycle=[];
+							}
+						},error:function(result){					
+							console.log(result+"006");
+						}
+					});	
 				},
 			}
 		})
