@@ -11,6 +11,10 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="queryById" resultMap="BaseResultMap">
+  	SELECT * FROM price_type where ptid=#{ptid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

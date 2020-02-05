@@ -14,6 +14,13 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <select id="queryOneToMore" resultMap="BaseResultMap">
+  	SELECT ct.*,pt.ptname FROM customer_type AS ct
+LEFT JOIN price_type AS pt ON ct.ptid=pt.ptid 
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
