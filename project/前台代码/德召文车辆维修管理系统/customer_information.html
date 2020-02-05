@@ -38,8 +38,8 @@
 								<ul class="dropdown-menu">
 								    <li @click="addcusandcar"><a >增加客户和车</a></li>
 								    <li @click="addcus"><a>增加客户</a></li>
-								    <li><a href="#">修改客户</a></li>
-								    <li><a href="#">删除客户</a></li>
+								    <li @click="upcus"><a>修改客户</a></li>
+								    <li @click="delcus"><a>删除客户</a></li>
 								    <li><a href="#">设置密码</a></li>
 								 </ul>
 							</li>
@@ -54,8 +54,8 @@
 								 </ul>
 							</li>
 							<li class="btn-group">
-								<button  type="button" class="btn btn-default">
-								    客户分类 <span class="caret"></span>
+								<button @click="mmm" type="button" class="btn btn-default">
+								    客户分类 
 								</button>
 							</li>
 							<li @click="checkstaff" class="btn-group">
@@ -68,7 +68,7 @@
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 400px;">
-						<table class="table table-bordered" style="width: 3000px;">
+						<table id="onlyone" class="table table-bordered" style="width: 3000px;">
 							<thead>
 								<tr>
 									<td> </td>
@@ -105,8 +105,8 @@
 							</thead>
 							<tbody>
 								<tr v-for="c,index in customers" v-if="index==0" style="background-color: #C9E2B3;">
-									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
-									<td v-else><input type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
+									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="c.cno" name="cus" @click="chose($event,c)"  /> </td>
+									<td v-else><input type="radio" v-bind:id="c.cno" name="cus" @click="chose($event,c)" /> </td>
 									<td>{{c.cno}}</td>
 									<td>{{c.cname}}</td>
 									<td>{{c.caddress}}</td>
@@ -139,8 +139,8 @@
 									<td>{{c.other4}}</td>
 								</tr>
 								<tr v-else>
-									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
-									<td v-else><input type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
+									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="c.cno" name="cus" @click="chose($event,c)" /> </td>
+									<td v-else><input type="radio" v-bind:id="c.cno" name="cus"  @click="chose($event,c)" /> </td>
 									<td>{{c.cno}}</td>
 									<td>{{c.cname}}</td>
 									<td>{{c.caddress}}</td>
@@ -334,13 +334,13 @@
 				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加客户</p>
 				<div style="width: 980px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加客户</div>
+						<div class="changename" style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加客户</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
 						<button @click="addcustomer" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
 					</div>
 					<div style="width: 960px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p style="padding-top: 10px;" class="ddd">
-							<label><span style="color: red;">*</span>客户编码</label><input type="test" v-model="cus.cno" />
+							<label><span style="color: red;">*</span>客户编码</label><input type="test" readonly="readonly" v-model="cus.cno" />
 							<label><span style="color: red;">*</span>客户名称</label><input type="test" v-model="cus.cname" />
 							<label><span style="color: red;">*</span>联系人</label><input type="test" v-model="cus.cpeople" />
 							<label><span style="color: red;">*</span>手机号码</label><input type="test" v-model="cus.cphone" />
@@ -348,12 +348,13 @@
 						<p>
 							<label>客户地址</label><input style="width: 300px;" type="text" v-model="cus.caddress" />
 							<label>客户生日</label><input type="datetime"  v-model="cus.cbirthday" />
+							<label><span style="color: red;">*</span>客户类别</label><select v-model="cus.ctno"><option v-for="c in custype" :value="c.ctno">{{c.ctname}}</option></select>
 						</p>
 						<p>
 							<label>账期(天)</label><input type="text" v-model="cus.cperiod" />
 							<label>挂账额度</label><input type="text" v-model="cus.climit" />
-							<label>专属顾问</label><input type="text" v-model="cus.pno" /><span style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
-							<label>顾问电话</label><input type="text" v-model="cus.pphone"/>
+							<label :pno="cus.pno"><span style="color: red;">*</span>专属顾问</label><input type="text" v-model="cus.pname" readonly="readonly" /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
+							<label>顾问电话</label><input readonly="readonly" type="text" v-model="cus.pphone"/>
 						</p>
 						<p>
 							<label>省</label><input type="text" v-model="cus.province" />
@@ -446,52 +447,46 @@
 					</div>
 					<div style="width: 960px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p  style="padding-top: 10px;">
-							<label><span style="color: red;">*</span>车牌号码</label><input />
-							<label><span style="color: red;">*</span>车辆品牌</label><input />
-							<label><span style="color: red;">*</span>车辆型号</label><input />
-							<label><span style="color: red;">*</span>驾驶员</label><input />
+							<label><span style="color: red;">*</span>车牌号码</label><input type="text" v-model="car.cdlicense" />
+							<label><span style="color: red;">*</span>车辆品牌</label><select v-model="car.cdno"><option value=""></option></select>
+							<label><span style="color: red;">*</span>车辆型号</label><select v-model="car.moid"><option value=""></option></select>
+							<label><span style="color: red;">*</span>驾驶员</label><input type="text" v-model="car.cddriver" />
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>驾驶员电话</label><input />
-							<label>出生日期</label><input />
-							<label><span style="color: red;">*</span>车辆归属</label><input />
-							<label>驾照到期</label><input />
+							<label><span style="color: red;">*</span>驾驶员电话</label><input type="text" v-model="car.cddriverphone" />
+							<label>出生日期</label><input type="date" v-model="car.cddriverbirth" />
+							<label><span style="color: red;">*</span>车辆归属</label><select v-model="car.clid"><option value=""></option></select>
+							<label>驾照到期</label><input type="datetime" v-model="car.cdlicenseend" />
 						</p>
 						<p>
-							<label>车架号</label><input />
-							<label>发动机号</label><input />
-							<label>车辆年款</label><input />
-							<label>里程</label><input />
+							<label>车架号</label><input type="text" v-model="car.cdframe" />
+							<label>车辆年款</label><input type="text" v-model="car.cdyearprice" />
+							<label>里程</label><input type="text" v-model="car.cdmileage" />
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>发动机品牌</label><input />
-							<label>载重</label><input />
-							<label>购买日期</label><input />
+							<label><span style="color: red;">*</span>发动机品牌</label><select v-model="car.mid"><option value=""></option></select>
+							<label>载重</label><input type="text" v-model="car.cdload" />
+							<label>购买日期</label><input type="date" v-model="car.cdbuydate" />
+						</p>
+						
+						<p>
+							<label>上牌日期</label><input type="date" v-model="car.cdgolicense" />
+							<label>车险到期</label><input type="date" v-model="car.cdcarcheckdate" />
+							<label>燃油类别</label><select v-model="car.fid"><option value=""></option></select>
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>发动机品牌</label><input />
-							<label>载重</label><input />
-							<label>购买日期</label><input />
+							<label><span style="color: red;">保险：</span>交强保险公司</label><select v-model="car.inid"><option value=""></option></select>
+							<label>交强险到期</label><input type="date" v-model="car.indate" />
+							<input type="checkbox" v-model="car.cdisinsure" />在我投保车
 						</p>
 						<p>
-							<label>上牌日期</label><input />
-							<label>车险到期</label><input />
-							<label>燃油类别</label><input />
-							<label>车系</label><input />
+							<label><span style="color: red;">保险：</span>商业险保险公司</label><select v-model="car.inid_business"><option value=""></option></select>
+							<label>商业险到期</label><input type="date" v-model="car.inid_bdate" />
 						</p>
 						<p>
-							<label><span style="color: red;">保险：</span>交强保险公司</label><input />
-							<label>交强险到期</label><input />
-							<input type="checkbox" />在我投保车
-						</p>
-						<p>
-							<label><span style="color: red;">保险：</span>商业险保险公司</label><input />
-							<label>商业险到期</label><input />
-						</p>
-						<p>
-							<label>下次保养里程</label><input />
-							<label>下次保养日期</label><input />
-							<label>客户名称</label><input />
+							<label>下次保养里程</label><input type="text" v-model="car.cdnextmileage" />
+							<label>下次保养日期</label><input type="date" v-model="car.cdnextkeepdate" />
+							<label>客户名称</label><input type="text" v-model="car.cno" />
 						</p>
 					</div>
 				</div>
@@ -536,15 +531,14 @@
 					<div style="width: 560px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
 					</div>
 					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
-						<select style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
-							<option v-for="m1 in mechanismis1" value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
+						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
+							<option v-for="m1 in mechanismis1" :value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
 						</select>
-						<select style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
-							<option value="00">所有</option>
-							<option v-for="mn1 in mechanismnot1" value="mn1.mid">{{mn1.mid}}--{{mn1.mname}}</option>
+						<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
+							<option v-for="mn1 in mechanismnot1" :value="mn1.mid">{{mn1.mid}}--{{mn1.mname}}</option>
 						</select>
 						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
 							<thead>
@@ -556,17 +550,62 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>   </td>
-									<td>id</td>
-									<td>编号</td>
-									<td><input type="checkbox" /></td>
+								<tr v-for="s in staffs">
+									<td><input @click="peop($event)" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
+									<td>{{s.mname}}</td>
+									<td>{{s.pno}}</td>
+									<td>{{s.pname}}</td>
 								</tr>
+								
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
+			
+			<div id="custype">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">客户分类</p>
+				<div style="width: 680px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">客户分类</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button  class="btn-danger" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">保存</button>
+						<button  class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">删除</button>
+						<button  class="btn-success" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">添加</button>
+					</div>
+					<div style="width: 660px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<p><label>分类代码</label><input type="text" /> <label>客户类别</label><input type="text" /> <label>价格类型</label><select style="outline: none;width: 80px;height: 30px;"><option v-for="p in pricetype" :value="p.ptid">{{p.ptname}}</option></select></p>
+						<p><label>有效年限</label><input type="text" /> <label>会费</label><input type="text" /> <label>类别</label><select style="outline: none;width: 80px;height: 30px;"><option value="0">非会员</option><option value="1">会员</option></select></p>
+						<table class="table table-bordered" style="border: 1px solid white;width: 600px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>分类编码</td>
+									<td>客户类别</td>
+									<td>价格类型</td>
+									<td>有效期(年)</td>
+									<td>会费(元)</td>
+									<td>类别</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="c in custype">
+									<td><input @click="peop($event)" type="radio" /></td>
+									<td>{{c.ctno}}</td>
+									<td>{{c.ctname}}</td>
+									<td>{{c.ptname}}</td>
+									<td>{{c.cteffective}}</td>
+									<td>{{c.ctprice}}</td>
+									<td v-if="c.ctisvip==0">非会员</td>
+									<td v-else>会员</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 
 			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -604,53 +643,194 @@
 							}
 						});
 				}
+				function staff(mid){
+					//查询职工
+						$.ajax({
+							url:data.ip+"cus/queryPeopleByMid",
+							data:{mid:mid},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.staffs=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
+				}
+				//根据组织机构父级ID查询机构
+				function me(parentid){
+					//查询组织机构父级id不为1和0
+						$.ajax({
+							url:data.ip+"cus/queryParentidnot1",
+							data:{parentid:parentid},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.mechanismnot1=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
+				}
 				var vm = new Vue({
 					el:"#ctx",
 					data(){
 						return {
-							customers:[],
-							cars:[],
-							insu:[],
-							cus:{},
-							mechanismis1:[],
-							mechanismnot1:[]
+							customers:[],//所有客户集合
+							cars:[],//所有车辆集合
+							insu:[],//保险公司集合
+							cus:{pphone:"",pno:"",pname:"",cno:"",cars:[]},//增加客户中的客户对象
+							mechanismis1:[],//机构
+							mechanismnot1:[],//部门
+							staffs:[],//职工
+							pricetype:[],//价格类型
+							custype:[],//客户分类
+							demon:{},//储存选中的客户对象
+							car:{},//增加车辆的车辆对象
 						}
 					},
 					methods:{
+						delcus:function(){
+							//删除员工
+							$("#onlyone input[type=radio]").each(function(){
+								if($(this)[0].checked){
+									let cno = $(this).attr("id");
+									if(confirm("是否确认删除客户以及所拥有的车辆信息？")){
+										$.ajax({
+											url:data.ip+"cus/deleteCusAndCarByCno",
+											data:{cno:cno},
+											type:"post",
+											dataType:"json",
+											success:function(result){
+												if(result=="1"){
+													alert("删除成功");
+													query("");
+													$("#onlyone input[type=radio]:eq(0)")[0].checked=true;
+													$("#onlyone tbody tr:eq(0)").css("background-color","#C9E2B3").siblings().css("background-color","white");
+												}
+											},error:function(result){
+												alert("发生错误");
+											}
+										});
+									}
+									return;
+								}
+							});
+						},
+						upcus:function(){
+							//修改员工
+							$("#addcus p:eq(0)").text("修改客户");
+							$("#addcus .changename").text("修改客户");
+							$("#addcus").show();
+							vm.cus=vm.demon;
+							$("#addcus").show();
+							
+						},
+						chosecustomerOK:function(){
+							let sphone = "";
+							let spname = "";
+							let pno="";
+							//确定选择的员工
+							let sum = 0;
+							$("#chosecustomer input[type=radio]").each(function(){
+								if($(this)[0].checked){
+									sum=sum+1;
+									sphone=$(this).attr("phone");
+									spname=$(this).attr("pname");
+									pno = $(this).attr("pno");
+									vm.cus.pphone=sphone;
+									vm.cus.pname=spname;
+									vm.cus.pno=pno;
+									$("#chosecustomer").hide();
+									return;
+								}
+							})
+							if(sum==0){
+								alert("请选择员工");
+								return;
+							}
+						},
+						peop:function(e){
+							//选择员工
+							let checkeds = e.target.checked;
+							if(checkeds){
+								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
+							}else{
+								$(e.target).parent().parent().css("background-color","#D6D6CE");
+							}
+						},
+						changepeople:function(e){
+							//切换部门
+							let mid = $(e.target).val();
+							staff(mid);
+						},
+						changedepart:function(e){
+							//切换机构
+							let mid = $(e.target).val();
+							me(mid)
+						},
 						addcustomer:function(){
 							$(".ddd input").each(function(){
 								if($(this).val()==""){
 									alert("请填写完整重要信息");
 									return;
 								}
+							});
+							let message = $("#addcus p:eq(0)").text();
+							if(message=="增加客户"){
 								$.ajax({
 									url:data.ip+"cus/addCus",
-									data:vm.cus,
+									data:JSON.stringify(vm.cus),
 									type:"post",
+									contentType:"application/json;charset=utf-8",
 									dataType:"json",
 									success:function(result){
 										if(result=="1"){
 											alert("添加成功");
-											$(".ddd input").each(function(){
-												$(this).val("");
-											});
+											vm.cus={pphone:"",pno:"",pname:"",cno:""};
+											query("");
+											$("#onlyone input[type=radio]:eq(0)")[0].checked=true;
+											$("#onlyone tbody tr:eq(0)").css("background-color","#C9E2B3").siblings().css("background-color","white");
 										}
 									},error:function(result){
 										alert("发生错误");
 									}
 								});
-							});
+							}else{
+								$.ajax({
+									url:data.ip+"cus/updateCusByCno",
+									data:JSON.stringify(vm.cus),
+									type:"post",
+									contentType:"application/json;charset=utf-8",
+									dataType:"json",
+									success:function(result){
+										if(result=="1"){
+											alert("修改成功");
+											query("");
+											$("#onlyone input[type=radio]:eq(0)")[0].checked=true;
+											$("#onlyone tbody tr:eq(0)").css("background-color","#C9E2B3").siblings().css("background-color","white");
+										}
+									},error:function(result){
+										alert("发生错误");
+									}
+								});
+							}
+								
+							
 						},
-						chose:function(e){
+						chose:function(e,c){
+							
 							//复选框
 							let checkeds = e.target.checked;
 							if(checkeds){
 								let cno = $(e.target).attr("id");
 								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
 								car(cno);
+								vm.demon=c;
 							}else{
 								$(e.target).parent().parent().css("background-color","white");
 							}
+							
 						},
 						check:function(){
 							//查询按钮
@@ -667,12 +847,50 @@
 							$("#addcus").hide();
 							$("#addcar").hide();
 							$("#setting").hide();
+							$("#chosecustomer").hide();
+							$("#custype").hide();
+						},
+						mmm:function(){
+							$("#custype").show();
 						},
 						checkstaff:function(){
 							$("#checkstaff").show();
 						},
+						chosecustomer:function(){
+							$("#chosecustomer").show();
+						},
 						addcus:function(){
 							$("#addcus").show();
+							$("#addcus p:eq(0)").text("增加客户");
+							$("#addcus .changename").text("增加客户");
+							vm.cus={pphone:"",pno:"",pname:"",cno:""};
+							$.ajax({
+							url:data.ip+"cus/queryCusAll",
+							data:{cname:""},
+							type:"post",
+							dataType:"json",
+							success:function(result){
+								let cno = result[result.length-1].cno;
+								let no = cno.substring(0,7);
+								//alert(no+"..."+cno+"..."+cno.lastIndexOf("0")+"..."+cno.substring(7,cno.length));
+								if(cno.lastIndexOf("0")==6){
+									let num = parseInt(cno.substring(cno.lastIndexOf("0")+1,cno.length));
+									num+=1;
+									no=no+num;
+								}else if(cno.lastIndexOf("0")==7){
+									let num = parseInt(cno.substring(cno.lastIndexOf("0")+1,cno.length));
+									num+=1;
+									no=no+"0"+num;
+								}else if(cno.lastIndexOf("0")==8){
+									let num = parseInt(cno.substring(cno.lastIndexOf("0")+1,cno.length));
+									num+=1;
+									no=no+"00"+num;
+								}
+								vm.cus.cno=no;
+							},error:function(result){
+								alert("发生错误"+result);
+							}
+						});
 						},
 						addcar:function(){
 							$("#addcar").show();
@@ -708,20 +926,35 @@
 								alert("发生错误");
 							}
 						});
-						//查询组织机构父级id不为1和0
+						//查询价格类型
 						$.ajax({
-							url:data.ip+"cus/queryParentidnot1",
+							url:data.ip+"cus/queryPriceType",
 							data:{},
 							type:"post",
 							dataType:"json",
 							success:function(data){
-								vm.mechanismnot1=data;
+								vm.pricetype=data;
 							},error:function(data){
 								alert("发生错误");
 							}
 						});
 						
+						//查询价格类型
+							$.ajax({
+								url:data.ip+"cus/queryOneToMore",
+								data:{},
+								type:"post",
+								dataType:"json",
+								success:function(data){
+									vm.custype=data;
+								},error:function(data){
+									alert("发生错误");
+								}
+							});
 						
+						
+						me(2);
+						staff(3);
 					}
 						
 				});

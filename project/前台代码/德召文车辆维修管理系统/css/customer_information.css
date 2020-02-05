@@ -1,4 +1,5 @@
 /*头部*/
+input{color: black;}
 .row:nth-child(1){background-color:#F7FFFF;display: flex;}
 .row:nth-child(1)>div:nth-child(1){padding-bottom:13px;flex-grow: 1;box-sizing: border-box;width: 200px;text-align: center;font-size: 25px;padding-top: 15px;}
 .row:nth-child(1)>div:nth-child(2){padding-bottom:13px;flex-grow: 3;box-sizing: border-box;width: 600px;}
@@ -22,16 +23,24 @@
 #addcar{display: none; width: 1000px;height: 500px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 20%;background-color: #DEDEDE;}
 #addcar label{width: 100px;text-align: right;padding-right: 10px;}
 #addcar input{width:110px;}
+#addcar input[type=date]{width:130px;}
 #setting{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
 #setting ul{list-style-type: none;}
 #setting ul li{display: inline-block;text-align: center;font-size: 17px;}
 #setting td{border: 1px solid white;}
-#chosecustomer{ width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+#chosecustomer{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
 #chosecustomer ul{list-style-type: none;}
 #chosecustomer ul li{display: inline-block;text-align: center;font-size: 17px;}
 #chosecustomer td{border: 1px solid white;}
 #checkstaff{display: none; width: 900px;height: 500px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 20%;background-color: #DEDEDE;}
 #checkstaff label{width: 100px;text-align: right;padding-right: 10px;}
 #checkstaff input{width:110px;}
+#custype{display: none; width: 700px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 25%;background-color: #DEDEDE;}
+#custype ul{list-style-type: none;}
+#custype ul li{display: inline-block;text-align: center;font-size: 17px;}
+#custype td{border: 1px solid white;}
+
+#custype p label{width: 80px;text-align: right;padding-right: 10px;margin-top: 10px;}
+#custype p input{width:110px;margin-top: 10px;}
 /*尾部*/
 .row:nth-child(3){height: 40px;}
