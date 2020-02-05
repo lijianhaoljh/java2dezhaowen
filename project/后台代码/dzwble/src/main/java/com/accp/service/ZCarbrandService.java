@@ -66,4 +66,35 @@ public class ZCarbrandService {
 				}
 				return null;
 			}
+			
+			/**
+			 * 根据品牌id删除车品牌
+			 */
+			public int datele(Integer cbno) {		
+				return carbrandMapper.deleteByPrimaryKey(cbno);			
+			}
+			
+			/**
+			 * 新增车型
+			 * @param car
+			 * @return
+			 */
+			public int add(Carbrand car) {
+				return carbrandMapper.insert(car);
+			}
+			
+			/**
+			 * 根据id查询车型
+			 */
+			public Carbrand UpdaID(Integer cbnoid) {
+				System.out.println("22");
+				return carbrandMapper.selectByPrimaryKey(cbnoid);
+			}
+			
+			/**
+			 * 修改车型
+			 */
+			public int upda(Carbrand car) {
+				return carbrandMapper.updateByPrimaryKey(car);
+			}
 }
