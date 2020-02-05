@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PermissionMapper {
+	List<Permission> findPerm(String pno);
+	
     int countByExample(PermissionExample example);
 
     int deleteByExample(PermissionExample example);

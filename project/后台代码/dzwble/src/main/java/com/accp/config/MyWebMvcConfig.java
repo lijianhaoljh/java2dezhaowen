@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import com.accp.intercetor.MyInterceptor;
+import com.accp.intercetor.PermInterceptor;
 
 @Configuration
 public class MyWebMvcConfig extends WebMvcConfigurationSupport {
@@ -57,6 +58,7 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	protected void addInterceptors(InterceptorRegistry registry) {
 		//拦截登录
 		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new PermInterceptor()).addPathPatterns("/**").excludePathPatterns("/loginin");
 		super.addInterceptors(registry);
 	}
 }

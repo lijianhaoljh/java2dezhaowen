@@ -74,6 +74,10 @@
 				},
 				methods: {
 					loginin() {
+						if(vm.people){
+							alert("请输入员工编号和密码!");
+							return false;
+						}
 						var that = this;
 						$.ajax({
 							url: data.ip + "loginin",
@@ -84,9 +88,10 @@
 							},
 							dataType: "text",
 							success: function(response) {
-								if(response && response.token) {
-									//将数据保存在浏览器的session存储对象中.对象转型成字符串
-									sessionStorage.setItem("user",JSON.stringify(response.user));
+								if(response){
+									var j=eval('('+response+')');
+									console.log(j);
+									sessionStorage.setItem("user",JSON.stringify(j.user));
 									window.location.href = "index.html";
 								}else{
 									alert("员工编号或密码错误！");
