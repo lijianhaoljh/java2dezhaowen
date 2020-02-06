@@ -8,6 +8,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MaintenanceMapper {
+	
+	int addfdjtwo(Maintenance record);
+	
     int countByExample(MaintenanceExample example);
 
     int deleteByExample(MaintenanceExample example);

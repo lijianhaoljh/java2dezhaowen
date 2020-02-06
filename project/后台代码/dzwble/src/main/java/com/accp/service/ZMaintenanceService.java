@@ -16,11 +16,35 @@ public class ZMaintenanceService {
 		@Autowired
 		MaintenanceMapper zMaintenance;
 		
+		/**
+		 * 查询发动机
+		 * @return
+		 */
 		public List<Maintenance> query() {
-			MaintenanceExample example = new MaintenanceExample();
-			example.createCriteria().andParentidEqualTo(2);
-			return zMaintenance.selectByExample(example);
+			return zMaintenance.selectByExample(null);
 		}
+		
+		/**
+		 * 新增发动机
+		 */
+		public int addfdjtwo(Maintenance MaintenanceAdd) {
+			return zMaintenance.insert(MaintenanceAdd);
+		}
+		
+		/**
+		 * 修改发动机
+		 */
+		public int updafdjtwo(Maintenance MaintenanceAdd) {
+			return zMaintenance.updateByPrimaryKey(MaintenanceAdd);
+		}
+		
+		/**
+		 * 删除发动机
+		 */
+		public int deletetwo(Integer mids) {
+			return zMaintenance.deleteByPrimaryKey(mids);
+		}
+		
 		
 		
 }

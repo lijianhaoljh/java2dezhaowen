@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.Carbrand;
+import com.accp.domain.Maintenance;
 import com.accp.domain.Motorcycle;
 import com.accp.service.ZCarbrandService;
 
@@ -59,5 +60,20 @@ public class ZCarbrandController {
 		@PutMapping(value = "/upda")
 		public int upda(@RequestBody Carbrand car) {
 			return zCarbrandService.upda(car);
+		}
+		
+		@PostMapping(value = "/deletwo")
+		public int deletetwo(Integer moid){
+			return zCarbrandService.deletetwo(moid);
+		}
+		
+		@PostMapping(value = "/addtwo")
+		public int addtwo(@RequestBody Motorcycle motor) {
+			return zCarbrandService.addtwo(motor);
+		}
+		
+		@GetMapping(value = "/fdj")
+		public List<Maintenance> fdjquery() {
+			return zCarbrandService.fdjquery();
 		}
 }

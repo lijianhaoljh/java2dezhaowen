@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Carbrand;
 import com.accp.domain.CarbrandExample;
+import com.accp.domain.Maintenance;
+import com.accp.domain.MaintenanceExample;
 import com.accp.domain.CarbrandExample.Criteria;
 import com.accp.domain.Motorcycle;
 import com.accp.mapper.CarbrandMapper;
@@ -23,6 +25,8 @@ public class ZCarbrandService {
 			MotorcycleMapper motorcycleMapper;
 			@Autowired
 			MaintenanceMapper maintenanceMapper;
+			@Autowired
+			MaintenanceMapper zMaintenance;
 			
 			/*
 			 * 
@@ -75,7 +79,7 @@ public class ZCarbrandService {
 			}
 			
 			/**
-			 * 新增车型
+			 * 新增车品牌
 			 * @param car
 			 * @return
 			 */
@@ -84,7 +88,7 @@ public class ZCarbrandService {
 			}
 			
 			/**
-			 * 根据id查询车型
+			 * 根据id查询车品牌
 			 */
 			public Carbrand UpdaID(Integer cbnoid) {
 				System.out.println("22");
@@ -92,9 +96,32 @@ public class ZCarbrandService {
 			}
 			
 			/**
-			 * 修改车型
+			 * 修改车品牌
 			 */
 			public int upda(Carbrand car) {
 				return carbrandMapper.updateByPrimaryKey(car);
+			}
+			
+			/**
+			 * 删除车型
+			 */
+			public int deletetwo(Integer moid){
+				return motorcycleMapper.deleteByPrimaryKey(moid);
+			}
+			
+			/**
+			 * 新增车型
+			 */
+			public int addtwo(Motorcycle motor) {
+				return motorcycleMapper.insert(motor);
+			}
+			
+			/**
+			 * 查询发动机类
+			 */
+			public List<Maintenance> fdjquery() {
+				MaintenanceExample example = new MaintenanceExample();
+				example.createCriteria().andParentidEqualTo(2);
+				return zMaintenance.selectByExample(example);
 			}
 }
