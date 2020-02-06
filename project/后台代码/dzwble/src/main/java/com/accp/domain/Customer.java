@@ -20,6 +20,8 @@ public class Customer {
 
     private String caddress;
     
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cbirthday;
 
@@ -71,9 +73,13 @@ public class Customer {
     
     private String vno;//会员卡号
     
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date vjoindate;//入会时间
     
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date venddate;//会员到期时间
 

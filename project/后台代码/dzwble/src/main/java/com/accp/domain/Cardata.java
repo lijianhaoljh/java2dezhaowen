@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Cardata {
@@ -15,11 +17,15 @@ public class Cardata {
 
     private String cddriverphone;
     
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cddriverbirth;
 
     private Integer clid;
 
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdlicenseend;
 
@@ -32,25 +38,31 @@ public class Cardata {
     private Float cdmileage;
 
     private Float cdload;
+    
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdbuydate;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdgolicense;
 
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdcarcheckdate;
 
     private Integer fid;
 
     private Integer inid;
-
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date indate;
 
     private Integer inidBusiness;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date inidBdate;
 
@@ -58,6 +70,7 @@ public class Cardata {
 
     private Float cdnextmileage;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdnextkeepdate;
 

@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.domain.Carbelong;
 import com.accp.domain.Carbrand;
 import com.accp.domain.Cardata;
 import com.accp.domain.CardataExample;
 import com.accp.domain.Customer;
 import com.accp.domain.CustomerType;
+import com.accp.domain.Fuel;
 import com.accp.domain.Insurance;
+import com.accp.domain.Maintenance;
 import com.accp.domain.Mechanism;
 import com.accp.domain.MechanismExample;
 import com.accp.domain.Motorcycle;
@@ -135,5 +138,60 @@ public class CustomerAndCarController {
 		public List<Motorcycle> querymotoBycbno(Integer cbno){
 			return ser.querymotoBycbno(cbno);
 		}
+		
+		//查询车辆归属
+		@ResponseBody
+		@RequestMapping("/queryAllcarbelong")
+		public List<Carbelong> queryAllcarbelong(){
+			return ser.queryAllcarbelong();
+		}
+		
+		//查询发动机品牌
+		@ResponseBody
+		@RequestMapping("/queryAllMaintenance")
+		public List<Maintenance> queryAllMaintenance(){
+			return ser.queryAllMaintenance();
+		}
+		//查询燃油类别
+		@ResponseBody
+		@RequestMapping("/queryAllFuel")
+		public List<Fuel> queryAllFuel(){
+			return ser.queryAllFuel();
+		}
+		
+		//根据客户编号添加相关车辆
+				@ResponseBody
+				@RequestMapping("/updateCarBylicen")
+				public String updateCarBylicen(@RequestBody Cardata car) {
+					if(ser.updateCarBylicen(car)>0) {
+						return "1";
+					}else {
+						return "0";
+					}
+				}
+				//根据主键删除客户信息以及他拥有的车辆信息
+				@ResponseBody
+				@RequestMapping("/deleteCarBylicen")
+				public String deleteCarBylicen(String licen) {
+					if(ser.deleteCarBylicen(licen)>0) {
+						return "1";
+					}else {
+						return "0";
+					}
+				}
+				//增加客户和车辆
+				@ResponseBody
+				@RequestMapping("/addCusandCar")
+				public String addCusandCar(@RequestBody Customer cus) {
+					cus.getCars().get(0).setCno(cus.getCno());
+					System.out.println(cus.getCars().get(0).getCno());
+					int c = ser.addcarBycno(cus.getCars().get(0));
+					if(c>0) {
+						int a = ser.addCus(cus);
+						return "1";
+					}else {
+						return "0";
+					}
+				}
 		
 }

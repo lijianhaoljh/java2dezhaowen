@@ -18,6 +18,8 @@ public interface MotorcycleMapper {
 
     List<Motorcycle> selectByExample(MotorcycleExample example);
 
+    List<Motorcycle> queryByCbno(Integer cbno);
+
     Motorcycle selectByPrimaryKey(Integer moid);
 
     int updateByExampleSelective(@Param("record") Motorcycle record, @Param("example") MotorcycleExample example);

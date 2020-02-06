@@ -8,23 +8,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.domain.Carbelong;
 import com.accp.domain.Carbrand;
 import com.accp.domain.Cardata;
 import com.accp.domain.CardataExample;
 import com.accp.domain.Customer;
 import com.accp.domain.CustomerType;
+import com.accp.domain.Fuel;
 import com.accp.domain.Insurance;
+import com.accp.domain.Maintenance;
 import com.accp.domain.Mechanism;
 import com.accp.domain.MechanismExample;
 import com.accp.domain.Motorcycle;
 import com.accp.domain.MotorcycleExample;
 import com.accp.domain.PriceType;
 import com.accp.domain.Staff;
+import com.accp.mapper.CarbelongMapper;
 import com.accp.mapper.CarbrandMapper;
 import com.accp.mapper.CardataMapper;
 import com.accp.mapper.CustomerMapper;
 import com.accp.mapper.CustomerTypeMapper;
+import com.accp.mapper.FuelMapper;
 import com.accp.mapper.InsuranceMapper;
+import com.accp.mapper.MaintenanceMapper;
 import com.accp.mapper.MechanismMapper;
 import com.accp.mapper.MotorcycleMapper;
 import com.accp.mapper.PriceTypeMapper;
@@ -52,6 +58,12 @@ public class CustomerAndCarService {
 	CarbrandMapper cbmapper;
 	@Autowired
 	MotorcycleMapper momapper;
+	@Autowired
+	CarbelongMapper carbmapper;
+	@Autowired
+	MaintenanceMapper maintemapper;
+	@Autowired
+	FuelMapper fmapper;
 	
 	//查询全部客户
 	public List<Customer> queryAll(String cname){
@@ -119,9 +131,27 @@ public class CustomerAndCarService {
 	}
 	//根据车辆品牌查询车辆型号
 	public List<Motorcycle> querymotoBycbno(Integer cbno){
-		MotorcycleExample ex = new MotorcycleExample();
-		ex.createCriteria().andCbnoEqualTo(cbno);
-		return momapper.selectByExample(ex);
+		return momapper.queryByCbno(cbno);
+	}
+	//查询车辆归属
+	public List<Carbelong> queryAllcarbelong(){
+		return carbmapper.selectByExample(null);
+	}
+	//查询发动机品牌
+	public List<Maintenance> queryAllMaintenance(){
+		return maintemapper.selectByExample(null);
+	}
+	//查询燃油类别
+	public List<Fuel> queryAllFuel(){
+		return fmapper.selectByExample(null);
+	}
+	//根据车牌号修改车辆信息
+	public int updateCarBylicen(Cardata car) {
+		return cardamapper.updateByPrimaryKey(car);
+	}
+	//根据车牌号删除车资料
+	public int deleteCarBylicen(String licen) {
+		return cardamapper.deleteByPrimaryKey(licen);
 	}
 	
 	
