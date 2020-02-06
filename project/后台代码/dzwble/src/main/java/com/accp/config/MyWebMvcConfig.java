@@ -1,6 +1,12 @@
 package com.accp.config;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,7 +36,22 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	protected void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedMethods("*").allowedOrigins("*").allowedHeaders("*").allowCredentials(true);
 	}
-
+	
+	@Override
+	protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		//普通字符串转码
+		StringHttpMessageConverter shc = 
+				new StringHttpMessageConverter(StandardCharsets.UTF_8);
+		converters.add(shc);
+		//json格式转换器
+		MappingJackson2HttpMessageConverter jackson =
+				new MappingJackson2HttpMessageConverter();
+		converters.add(jackson);
+		//org.springframework.http.converter.ByteArrayHttpMessageConverter
+		
+		super.configureMessageConverters(converters);
+	}
+	
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");

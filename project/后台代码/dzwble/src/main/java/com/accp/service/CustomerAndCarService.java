@@ -153,6 +153,17 @@ public class CustomerAndCarService {
 	public int deleteCarBylicen(String licen) {
 		return cardamapper.deleteByPrimaryKey(licen);
 	}
-	
+	//添加客户类别
+	public int addCustype(CustomerType ctype) {
+		return ctmapper.insert(ctype);
+	}
+	//修改客户类别
+	public int updateCustype(CustomerType ctype) {
+		return ctmapper.updateByPrimaryKey(ctype);
+	}
+	//删除客户类别
+	public int deleteCustype(String ctno) {
+		return ctmapper.deleteByPrimaryKey(ctno);
+	}
 	
 }

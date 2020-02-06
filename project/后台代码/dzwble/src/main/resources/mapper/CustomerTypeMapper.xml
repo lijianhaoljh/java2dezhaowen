@@ -18,7 +18,7 @@
   
   <select id="queryOneToMore" resultMap="BaseResultMap">
   	SELECT ct.*,pt.ptname FROM customer_type AS ct
-LEFT JOIN price_type AS pt ON ct.ptid=pt.ptid 
+LEFT JOIN price_type AS pt ON ct.ptid=pt.ptid ORDER BY ct.ctno
   </select>
   
   <sql id="Example_Where_Clause" >

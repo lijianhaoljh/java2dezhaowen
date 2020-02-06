@@ -193,5 +193,38 @@ public class CustomerAndCarController {
 						return "0";
 					}
 				}
+				//增加客户类别
+				@ResponseBody
+				@RequestMapping("/addCustype")
+				public String addCustype(@RequestBody CustomerType ctype) {
+					int c = ser.addCustype(ctype);
+					if(c>0) {
+						return "1";
+					}else {
+						return "0";
+					}
+				}
+				//修改客户类别
+				@ResponseBody
+				@RequestMapping("/updateCustype")
+				public String updateCustype(@RequestBody CustomerType ctype) {
+					int c = ser.updateCustype(ctype);
+					if(c>0) {
+						return "1";
+					}else {
+						return "0";
+					}
+				}
+				//修改客户类别
+				@ResponseBody
+				@RequestMapping("/deleteCustype")
+				public String deleteCustype(String ctno) {
+					int c = ser.deleteCustype(ctno);
+					if(c>0) {
+						return "1";
+					}else {
+						return "0";
+					}
+				}
 		
 }
