@@ -3,7 +3,9 @@ package com.accp.config;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -25,11 +27,15 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 //	classpath:META-INF/public
 //	classpath:public
 //	覆盖原有的静态资源配置，必须重新配置
+	
+
+	@Value("${fileupload-url}")
+	private String fileuploadUrl;
 
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
-				.addResourceLocations("file:/Users/tangyong/images/");
+				.addResourceLocations("file:"+fileuploadUrl);
 		super.addResourceHandlers(registry);
 	}
 
@@ -50,7 +56,8 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 					new MappingJackson2HttpMessageConverter();
 			converters.add(jackson);
 			//org.springframework.http.converter.ByteArrayHttpMessageConverter
-			
+			ByteArrayHttpMessageConverter array = new ByteArrayHttpMessageConverter();
+			converters.add(array);
 			super.configureMessageConverters(converters);
 		}
 
