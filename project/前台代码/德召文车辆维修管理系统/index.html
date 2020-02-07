@@ -128,6 +128,7 @@
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/my.js" ></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
 			//菜单展开
@@ -139,11 +140,37 @@
 				}
 			});
 			
-			//收缩菜单
-			
-			
 		</script>
-		
+		<script>
+			//权限
+			var vm = new Vue({
+				el: "#ctx",
+				data() {
+					return {
+						perms: []
+					}
+				},methods:{
+					
+				},
+				created: function() {
+					var that = this;
+					$.ajax({
+						url: data.ip + "perms/findPerm",
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(response) {
+							console.log(111)
+						},
+						error: function(error) {
+							console.log(222)
+						}
+					});
+				}
+			});
+		</script>
 		
 	</body>
 </html>
