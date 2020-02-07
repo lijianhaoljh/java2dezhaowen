@@ -16,7 +16,7 @@
 		}
 	</style>
 	<body>
-		 <div class="container-fluid">
+		 <div class="container-fluid" id="ctx">
 		 	<div class="row">
 		 		<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
@@ -33,8 +33,8 @@
 			 			<button type="button" class="btn btn-success">删除</button>
 			 		</div>
 			 		<div id="input1">
-			 			<input type="text" placeholder="匹配/品牌编码/品牌名称/首字母"/>
-			 			<button type="button" class="btn btn-warning">搜索</button>
+			 			<input type="text" v-model="condition" placeholder="匹配/品牌编码/品牌名称/首字母"/>
+			 			<button type="button" class="btn btn-warning" @click="getData">搜索</button>
 			 		</div>
 			 		<div>
 			 			<table class="table table-hover">
@@ -44,17 +44,12 @@
 			 					<td>首字母</td>
 			 				</tr>
 			 				
-			 				<tr>
-			 					<td>409</td>
-			 					<td>宝马</td>
-			 					<td>B</td>
+			 				<tr v-for="item in Carbrand" @click="getDataTwo(item.cbno)">
+			 					<td>{{item.cbno}}</td>
+			 					<td>{{item.cbname}}</td>
+			 					<td>{{item.cbfirst}}</td>
 			 				</tr>
 			 				
-			 				<tr>
-			 					<td>500</td>
-			 					<td>大众</td>
-			 					<td>D</td>
-			 				</tr>
 			 			</table>
 			 		</div>
 			 	</div>
@@ -67,8 +62,8 @@
 			 			<button type="button" class="btn btn-success">照片</button>
 			 		</div>
 			 		<div id="input1">
-			 			<input type="text" placeholder="匹配/车型编码/车型名称"/>
-			 			<button type="button" class="btn btn-warning">搜索</button>
+			 			<input type="text" v-model="cbnos" placeholder="匹配/车型编码/车型名称"/>
+			 			<button type="button" class="btn btn-warning" @click="getDataThree">搜索</button>
 			 		</div>
 			 		<div>
 			 			<table class="table table-hover">
@@ -80,16 +75,19 @@
 			 					<td>车辆年款</td>
 			 					<td>功率</td>
 			 					<td>进口国产</td>
+			 					<td>燃油标号</td>
+			 					<td>载重</td>
 			 				</tr>
 			 				
-			 				<tr>
-			 					<td>409</td>
-			 					<td>中华V7</td>
-			 					<td>1.6T涡轮增压发动机</td>
-			 					<td>100000</td>
-			 					<td>2015</td>
-			 					<td>232马力</td>
-			 					<td>合资</td>
+			 				<tr v-for="item1 in Motorcycle">
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.moiname}}</td>
+			 					<td>{{item1.mname}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.cbno}}</td>
 			 				</tr>
 			 			</table>
 			 		</div>
@@ -166,4 +164,92 @@
 		 <script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		 <script type="text/javascript" src="js/vue.js" ></script>
 	</body>
+<script type="text/javascript">
+		var vm=new Vue({
+            el:"#ctx",
+			data(){
+    			return {
+    				Carbrand:[],
+    				Motorcycle:[],
+    				cbnos:"",
+    				condition:""
+        		};
+			},
+			created:function() {
+            this.getData();
+       		},
+			methods: {	
+				getData:function(){
+						var that=this;
+						$.ajax({
+						url: "http://localhost:8080/CarbrandRest",					
+						type: "get",
+						data:{
+							condition:that.condition
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+								if(result){
+									that.Carbrand=result;
+									that.getDataTwo(that.Carbrand[0].cbno);
+								}else{
+									vm.Motorcycle=[];
+								}
+							console.log(result+"001");
+						},error:function(result){					
+							console.log(result+"002");
+						}
+					});
+				},
+				getDataTwo:function(cbno){						
+						var that=this;
+						$.ajax({
+						url: "http://localhost:8080/CarbrandRest",					
+						type: "post",
+						data:{cbno:cbno},
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "text",
+						success: function(result) {
+							if(result){
+								vm.Motorcycle=eval('('+result+')');	
+							}else{
+								vm.Motorcycle=[];
+							}
+						},error:function(result){					
+							console.log(result+"004");
+						}
+					});	
+				},
+				getDataThree:function(){
+					var that=this;
+						$.ajax({
+						url: "http://localhost:8080/CarbrandRest/query",					
+						type: "get",
+						data:{
+							cbno:that.Carbrand[0].cbno,
+							cbnos:that.cbnos
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "text",
+						success: function(result) {
+							if(result){
+								vm.Motorcycle=eval('('+result+')');	
+							}else{
+								vm.Motorcycle=[];
+							}
+						},error:function(result){					
+							console.log(result+"006");
+						}
+					});	
+				},
+			}
+		})
+</script>
 </html>
