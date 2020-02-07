@@ -3,6 +3,7 @@ package com.accp.config;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -17,9 +18,8 @@ import com.accp.intercetor.PermInterceptor;
 
 @Configuration
 public class MyWebMvcConfig extends WebMvcConfigurationSupport {
-	
-	
-
+	@Autowired
+	PermInterceptor permInterceptor;
 //	classpath:static
 //	classpath:resources
 //	classpath:META-INF/public
@@ -58,7 +58,7 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	protected void addInterceptors(InterceptorRegistry registry) {
 		//拦截登录
 		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
-		registry.addInterceptor(new PermInterceptor()).addPathPatterns("/**").excludePathPatterns("/loginin");
+		registry.addInterceptor(permInterceptor).addPathPatterns("/**").excludePathPatterns("/loginin");
 		super.addInterceptors(registry);
 	}
 }
