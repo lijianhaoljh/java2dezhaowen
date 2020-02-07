@@ -18,11 +18,11 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div>
-						<span>车辆</span>
+						<span>车资料</span>
 					</div>
 					<div>
 						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
-							<input type="text" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<input type="text" placeholder="匹配驾驶员姓名/手机/车牌号" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
 							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
 							<button class="btn btn-default" style="width: 70px;">关闭</button>
 						</div>
@@ -49,7 +49,7 @@
 						<table class="table table-bordered" style="width: 3000px;">
 							<thead>
 								<tr>
-									<td></td>
+									<td> </td>
 									<td>车牌号码</td>
 									<td>车辆品牌</td>
 									<td>车辆型号</td>
@@ -57,7 +57,7 @@
 									<td>驾驶员电话</td>
 									<td>出生日期</td>
 									<td>车辆归属</td>
-									<td>驾证到期</td>
+									<td>驾照到期</td>
 									<td>车架号</td>
 									<td>发动机号</td>
 									<td>发动机品牌</td>
@@ -67,7 +67,7 @@
 									<td>购买日期</td>
 									<td>上牌日期</td>
 									<td>车检到期</td>
-									<td>交强险保险公司</td>
+									<td>交强保险公司</td>
 									<td>交强险到期</td>
 									<td>商业险保险公司</td>
 									<td>商业险到期</td>
@@ -78,34 +78,34 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td> </td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
+								<tr v-for="ca in cars">
+									<td><input type="radio" v-bind:id="ca.cdlicense" name="car" @click="chosecar($event,ca)"  /> </td>
+									<td>{{ca.cdlicense}}</td>
+									<td>{{ca.cbnam}}</td>
+									<td>{{ca.moiname}}</td>
+									<td>{{ca.cddriver}}</td>
+									<td>{{ca.cddriverphone}}</td>
+									<td>{{ca.cddriverbirth}}</td>
+									<td>{{ca.clname}}</td>
+									<td>{{ca.cdlicenseend}}</td>
+									<td>{{ca.cdframe}}</td>
+									<td>{{ca.mid}}</td>
+									<td>{{ca.mname}}</td>
+									<td>{{ca.cdyearprice}}</td>
+									<td>{{ca.cdmileage}}</td>
+									<td>{{ca.cdload}}</td>
+									<td>{{ca.cdbuydate}}</td>
+									<td>{{ca.cdgolicense}}</td>
+									<td>{{ca.cdcarcheckdate}}</td>
+									<td v-for="i in insu" v-if="i.inid==ca.inid">{{i.inname}}</td>
+									<td>{{ca.indate}}</td>
+									<td v-for="ins in insu" v-if="ins.inid==ca.inid_business">{{ins.inname}}</td>
+									<td>{{ca.inid_bdate}}</td>
+									<td v-if="ca.cdisinsure==0">否</td>
+									<td v-else>是</td>
+									<td>{{ca.fname}}</td>
+									<td>{{ca.cdnextmileage}}</td>
+									<td>{{ca.cdnextkeepdate}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -409,18 +409,36 @@
 		</div>
 
 			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-			<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
+				
+				//查询车辆
+				function car(cno){
+					$.ajax({
+							url:data.ip+"cus/queryCars",
+							data:{},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.cars=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
+				}
+				
 				var vm = new Vue({
 					el:"#ctx",
 					data(){
 						return {
 							data: [],
 							carinfo: ["客户编码", "客户名称", "详细地址", "联系人", "手机", "客户生日", "客户类别", "会员卡号", "入会日期", "会员到期", "备注", "建档日期", "服务顾问", "业务员电话", "账期(天)", "挂账额度", "累计积分", "定金余额", "客户省", "客户市", "客户区", "纳税人识别号", "注册电话", "开户银行", "银行账号"],
-							pastbuy: ["单据类型", "销售单号", "车牌号", "进厂时间", "完工时间", "结算时间", "消费时间"]
+							pastbuy: ["单据类型", "销售单号", "车牌号", "进厂时间", "完工时间", "结算时间", "消费时间"],
+							cars:[],//所有车辆集合
+							insu:[],//保险公司集合
 						}
 					},
 					methods:{
@@ -440,6 +458,22 @@
 						checkstaff:function(){
 							$("#checkstaff").show();
 						}
+					},
+					created:function(){
+						//查询车辆
+						car();
+						//查询保险公司
+						$.ajax({
+							url:data.ip+"cus/queryInsurance",
+							data:{},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.insu=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
 					}
 				});
 				
