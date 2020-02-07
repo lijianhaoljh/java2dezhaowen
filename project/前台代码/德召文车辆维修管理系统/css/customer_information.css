@@ -26,6 +26,10 @@
 #setting ul{list-style-type: none;}
 #setting ul li{display: inline-block;text-align: center;font-size: 17px;}
 #setting td{border: 1px solid white;}
+#chosecustomer{ width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+#chosecustomer ul{list-style-type: none;}
+#chosecustomer ul li{display: inline-block;text-align: center;font-size: 17px;}
+#chosecustomer td{border: 1px solid white;}
 #checkstaff{display: none; width: 900px;height: 500px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 20%;background-color: #DEDEDE;}
 #checkstaff label{width: 100px;text-align: right;padding-right: 10px;}
 #checkstaff input{width:110px;}

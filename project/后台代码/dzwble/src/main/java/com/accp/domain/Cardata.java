@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Cardata {
     private String cdlicense;
 
@@ -12,11 +14,13 @@ public class Cardata {
     private String cddriver;
 
     private String cddriverphone;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cddriverbirth;
 
     private Integer clid;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdlicenseend;
 
     private String cdframe;
@@ -29,26 +33,32 @@ public class Cardata {
 
     private Float cdload;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdbuydate;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdgolicense;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdcarcheckdate;
 
     private Integer fid;
 
     private Integer inid;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date indate;
 
     private Integer inidBusiness;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date inidBdate;
 
     private Integer cdisinsure;
 
     private Float cdnextmileage;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date cdnextkeepdate;
 
     private String cno;
@@ -62,8 +72,58 @@ public class Cardata {
     private String remark4;
 
     private String remark5;
+    
+    private String cbnam;//车品牌名称
+    
+    private String moiname;//车型号名称
+    
+    private String mname;//发动机名称
+    
+    private String clname;//车辆归属名称
+    
+    private String fname;//燃油名称
+    
+    public String getFname() {
+		return fname;
+	}
 
-    public String getCdlicense() {
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getClname() {
+		return clname;
+	}
+
+	public void setClname(String clname) {
+		this.clname = clname;
+	}
+
+	public String getCbnam() {
+		return cbnam;
+	}
+
+	public void setCbnam(String cbnam) {
+		this.cbnam = cbnam;
+	}
+
+	public String getMoiname() {
+		return moiname;
+	}
+
+	public void setMoiname(String moiname) {
+		this.moiname = moiname;
+	}
+
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public String getCdlicense() {
         return cdlicense;
     }
 

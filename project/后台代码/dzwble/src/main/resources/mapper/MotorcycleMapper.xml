@@ -19,6 +19,35 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Motorcycle" id="BaseResultMapTwo" extends="BaseResultMap">
+	  <association property="m" column="mid" javaType="com.accp.domain.Maintenance">
+	  	<id column="maid" property="mid" jdbcType="INTEGER" />
+	    <result column="mname" property="mname" jdbcType="VARCHAR" />
+	    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+	    <result column="catalog" property="catalog" jdbcType="INTEGER" />
+	    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+	    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+	    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+	    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+	    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+	  </association>
+  </resultMap>
+  
+  <select id="findMotorcyle" resultMap="BaseResultMapTwo" parameterType="java.lang.Integer">
+  	SELECT m.*,ma.mid maid,ma.mname mname,ma.parentid parentid,ma.catalog catalog FROM `motorcycle` m
+	INNER JOIN `maintenance` ma
+	ON ma.mid=m.mid
+	WHERE m.cbno=#{id}
+  </select>
+  
+  <select id="findMotorcyleTwo" resultMap="BaseResultMapTwo">
+ 	 	SELECT m.*,ma.mid maid,ma.mname mname,ma.parentid parentid,ma.catalog catalog FROM `motorcycle` m
+		INNER JOIN `maintenance` ma
+		ON ma.mid=m.mid
+		WHERE m.cbno=#{cbno} and (m.moid=#{cbnos} or m.moiname LIKE  CONCAT ('%',#{cbnos},'%'))
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

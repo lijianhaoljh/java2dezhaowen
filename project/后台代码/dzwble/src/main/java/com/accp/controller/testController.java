@@ -16,7 +16,7 @@ public class testController {
 	test test;
 	
 	@RequestMapping("/find")
-	public List<Carbrand> findLikeCarbrand(String condition){
+	public List<Carbrand> query(String condition){
 		return test.findLikeCarbrand(condition);
 	}
 }
