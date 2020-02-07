@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.domain.Bills;
 import com.accp.domain.Carbelong;
 import com.accp.domain.Carbrand;
 import com.accp.domain.Cardata;
@@ -226,6 +227,13 @@ public class CustomerAndCarController {
 					}else {
 						return "0";
 					}
+				}
+				
+				//根据客户编号查新单据号
+				@ResponseBody
+				@RequestMapping("/queryBillBycno")
+				public List<Bills> queryBillBycno(String cno){
+					return ser.queryBillBycno(cno);
 				}
 		
 }

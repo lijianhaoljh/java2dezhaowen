@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.domain.Bills;
 import com.accp.domain.Carbelong;
 import com.accp.domain.Carbrand;
 import com.accp.domain.Cardata;
@@ -23,6 +24,7 @@ import com.accp.domain.Motorcycle;
 import com.accp.domain.MotorcycleExample;
 import com.accp.domain.PriceType;
 import com.accp.domain.Staff;
+import com.accp.mapper.BillsMapper;
 import com.accp.mapper.CarbelongMapper;
 import com.accp.mapper.CarbrandMapper;
 import com.accp.mapper.CardataMapper;
@@ -40,6 +42,8 @@ import com.accp.mapper.StaffMapper;
 @Transactional
 public class CustomerAndCarService {
 	
+	@Autowired
+	BillsMapper bmapper;
 	@Autowired
 	CustomerMapper cusmapper;
 	@Autowired
@@ -165,5 +169,8 @@ public class CustomerAndCarService {
 	public int deleteCustype(String ctno) {
 		return ctmapper.deleteByPrimaryKey(ctno);
 	}
-	
+	//根据客户编号查新单据号
+	public List<Bills> queryBillBycno(String cno){
+		return bmapper.queryBillBycno(cno);
+	}
 }
