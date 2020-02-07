@@ -120,6 +120,7 @@ public class CustomerAndCarController {
 		@RequestMapping("/addcarBycno")
 		public String addcarBycno(@RequestBody Cardata car) {
 			if(ser.addcarBycno(car)>0) {
+				System.out.println("成功");
 				return "1";
 			}else {
 				return "0";
