@@ -26,18 +26,9 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1580731191826</id>
+			<id>1580731330550</id>
 =======
-			<id>1580729096492</id>
-			<name></name>
-			<type>26</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-node_modules</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1580729179686</id>
+			<id>1580729242916</id>
 >>>>>>> branch 'master' of https://github.com/lijianhaoljh/java2dezhaowen.git
 			<name></name>
 			<type>26</type>

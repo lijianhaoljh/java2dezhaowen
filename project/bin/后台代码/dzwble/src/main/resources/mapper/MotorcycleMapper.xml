@@ -81,6 +81,10 @@
     moid, cbno, moiname, moprice, moyearprice, modischarge, modomestic, mofuel, load, 
     mid, img, remark1, remark2, remark3, remark4, remark5
   </sql>
+  <select id="queryByCbno" resultMap="BaseResultMap">
+  	SELECT moid, cbno, moiname, moprice, moyearprice, modischarge, modomestic, mofuel, `load`, `mid`, img, remark1, remark2, remark3, remark4, remark5         
+  	FROM motorcycle    WHERE cbno = #{cbno}
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.MotorcycleExample" >
     select
     <if test="distinct" >

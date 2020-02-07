@@ -32,6 +32,11 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="cbnam" property="cbnam" jdbcType="VARCHAR" />
+    <result column="moiname" property="moiname" jdbcType="VARCHAR" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="clname" property="clname" jdbcType="VARCHAR" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -97,6 +102,23 @@
     fid, inid, indate, inid_business, inid_bdate, cdisinsure, cdnextmileage, cdnextkeepdate, 
     cno, remark1, remark2, remark3, remark4, remark5
   </sql>
+  
+  <select id="queryCarBycno" resultMap="BaseResultMap">
+  		SELECT card.*,
+	carb.cbname cbnam,
+	moto.moiname moiname,
+	mainte.mname mname,
+	cl.clname clname,
+	fu.fname fname
+	FROM cardata AS card
+	LEFT JOIN carbrand AS carb ON card.cdno=carb.cbno
+	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
+	LEFT JOIN maintenance AS mainte ON mainte.mid=moto.mid
+	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
+	LEFT JOIN fuel AS fu ON card.fid=fu.fid
+	WHERE card.cno=#{cno}
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CardataExample" >
     select
     <if test="distinct" >
