@@ -21,11 +21,9 @@ public class PermissionController {
 	PermissionService permissionService;
 	
 	@GetMapping("/findPerm")
-	@ResponseBody
 	public List<Permission> findPerm(HttpSession sessions){
 		People user = (People)sessions.getAttribute("user");
 		List<Permission> lists = permissionService.findPerm(user.getPno());
-		System.out.println(lists.toString());
 		return lists;
 	}
 	

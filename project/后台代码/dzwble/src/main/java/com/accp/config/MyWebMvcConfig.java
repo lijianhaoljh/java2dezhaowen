@@ -64,8 +64,8 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
 		//拦截登录
-		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
-		registry.addInterceptor(permInterceptor).addPathPatterns("/**").excludePathPatterns("/loginin");
+//		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
+//		registry.addInterceptor(permInterceptor).addPathPatterns("/**").excludePathPatterns("/loginin");
 		super.addInterceptors(registry);
 	}
 }

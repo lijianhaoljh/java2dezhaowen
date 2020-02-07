@@ -67,8 +67,8 @@
 					<div class="" style="position: absolute;bottom: 0;height: 30px;width: 100%;border-top: 2px solid;" >
 						<table class="metable" style="width: 100%; margin-top: 5px;">
 							<tr>
-								<td colspan="2">用户:&nbsp;&nbsp;</td>
-								<td>&nbsp;&nbsp;钟鹏根</td>
+								<td colspan="2">工作人员:&nbsp;&nbsp;</td>
+								<td>&nbsp;&nbsp;{{user.pname}}</td>
 							</tr>
 						</table>
 					</div>
@@ -86,8 +86,8 @@
 							  <div class="container-fluid">
 							    <!-- Collect the nav links, forms, and other content for toggling -->
 							    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							      <ul class="nav navbar-nav">
-							        <li><a href="#">维修</a></li>
+							      <ul class="nav navbar-nav my-tab">
+							        <li><a href="#" data-toggle="tab">维修</a></li>
 							        <li><a href="#">前台</a></li>
 							        <li><a href="#">客服</a></li>
 							        <li><a href="#">数据</a></li>
@@ -142,12 +142,24 @@
 			
 		</script>
 		<script>
+			var permsTree = Vue.component("ptree", {
+				props: ["list"],
+				template: `
+					
+				`,
+				methods: {
+					openHTML(item) {
+						openIFM(item);
+					}
+				}
+			});
 			//权限
 			var vm = new Vue({
 				el: "#ctx",
 				data() {
 					return {
-						perms: []
+						perms: [],
+						user:{}
 					}
 				},methods:{
 					
@@ -162,7 +174,11 @@
 						},
 						dataType: "json",
 						success: function(response) {
-							console.log(111)
+							vm.perms=response;
+							let user=sessionStorage.getItem("user")
+							vm.user=eval('('+user+')');
+							console.log(vm.user);
+							console.log(response);
 						},
 						error: function(error) {
 							console.log(222)
