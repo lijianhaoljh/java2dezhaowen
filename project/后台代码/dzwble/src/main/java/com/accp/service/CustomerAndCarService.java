@@ -77,6 +77,10 @@ public class CustomerAndCarService {
 	public List<Cardata> queryCarBycno(String cno){
 		return cardamapper.queryCarBycno(cno);
 	}
+	//查询所有汽车
+	public List<Cardata> queryCars(){
+		return cardamapper.queryCars();
+	}
 	//查询保险公司
 	public List<Insurance> queryInsurance(){
 		return insurmapper.selectByExample(null);

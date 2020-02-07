@@ -45,6 +45,11 @@ public class CustomerAndCarController {
 	public List<Cardata> queryCarBycno(String cno){
 		return ser.queryCarBycno(cno);
 	}
+	@ResponseBody
+	@RequestMapping("/queryCars")
+	public List<Cardata> queryCars(){
+		return ser.queryCars();
+	}
 	
 	@ResponseBody
 	@RequestMapping("/queryInsurance")
