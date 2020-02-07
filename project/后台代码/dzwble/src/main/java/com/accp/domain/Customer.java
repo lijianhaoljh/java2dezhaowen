@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -82,7 +83,17 @@ public class Customer {
     
     private String pphone;//顾问电话
     
-    public String getPname() {
+    private List<Cardata> cars;//汽车集合
+    
+    public List<Cardata> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Cardata> cars) {
+		this.cars = cars;
+	}
+
+	public String getPname() {
 		return pname;
 	}
 
