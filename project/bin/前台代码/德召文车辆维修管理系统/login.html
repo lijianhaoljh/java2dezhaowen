@@ -69,16 +69,17 @@
 				el: "#mydiv",
 				data() {
 					return {
-						people: {}
+						people: {},
+						user:{}
 					}
 				},
 				methods: {
 					loginin() {
-						if(vm.people){
-							alert("请输入员工编号和密码!");
+						var that = this;
+						if(!vm.people.pno||!vm.people.spassword){
+							alert("请输入账号或密码!");
 							return false;
 						}
-						var that = this;
 						$.ajax({
 							url: data.ip + "loginin",
 							data: that.people,
