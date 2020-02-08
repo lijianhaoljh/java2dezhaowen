@@ -70,6 +70,7 @@
   <sql id="Base_Column_List">
     ckid, cdlicense, plandate, planmillage, remark, ckname
   </sql>
+  
   <select id="selectByExample" parameterType="com.accp.domain.CarkeepExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

@@ -2,11 +2,18 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Carkeep {
     private Integer ckid;
 
     private String cdlicense;
 
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date plandate;
 
     private Integer planmillage;

@@ -97,7 +97,17 @@ public class Cardata {
     
     private String fname;//燃油名称
     
-    public String getFname() {
+    private String cname;//客户名称
+    
+    public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getFname() {
 		return fname;
 	}
 

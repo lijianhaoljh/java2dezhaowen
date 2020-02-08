@@ -99,6 +99,15 @@ LEFT JOIN maintenance AS mt ON mt.mid=b.mid
 WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
   </select>
   
+  <select id="queryBillBycdlicense" resultMap="BaseResultMap">
+  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
+LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
+LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
+LEFT JOIN account AS ac ON ac.bid = b.bid
+LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+WHERE cdlicense = #{cdlicense}
+  </select>
+  
   <sql id="Base_Column_List" >
     bid, bstate, tid, cdlicense, pno, mid, person, delays_reason, quality, qualified, 
     n_rework, p_amount, rid, remark1, remark2, remark3, remark4, remark5

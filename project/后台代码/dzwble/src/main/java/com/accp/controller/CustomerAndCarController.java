@@ -14,6 +14,8 @@ import com.accp.domain.Carbelong;
 import com.accp.domain.Carbrand;
 import com.accp.domain.Cardata;
 import com.accp.domain.CardataExample;
+import com.accp.domain.Carkeep;
+import com.accp.domain.CarkeepExample;
 import com.accp.domain.Customer;
 import com.accp.domain.CustomerType;
 import com.accp.domain.Fuel;
@@ -47,8 +49,8 @@ public class CustomerAndCarController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryCars")
-	public List<Cardata> queryCars(){
-		return ser.queryCars();
+	public List<Cardata> queryCars(String cddriver){
+		return ser.queryCars(cddriver);
 	}
 	
 	@ResponseBody
@@ -239,6 +241,55 @@ public class CustomerAndCarController {
 				@RequestMapping("/queryBillBycno")
 				public List<Bills> queryBillBycno(String cno){
 					return ser.queryBillBycno(cno);
+				}
+				
+				//根据车牌编号查新单据号
+				@ResponseBody
+				@RequestMapping("/queryBillBycdlicense")
+				public List<Bills> queryBillBycdlicense(String cdlicense){
+					return ser.queryBillBycdlicense(cdlicense);
+				}
+				
+				//根据客户编号查询客户
+				@ResponseBody
+				@RequestMapping("/queryCusByCno")
+				public Customer queryCusByCno(String cno) {
+					return ser.queryCusByCno(cno);
+				}
+				//根据车牌删除
+				@ResponseBody
+				@RequestMapping("/deleCar")
+				public String deleCar(String cdlicense) {
+					int count = ser.deleCar(cdlicense);
+					if(count>0) {
+						return "1";
+					}else {
+						return "0";
+					}
+				}
+				//根据车牌查询保养记录
+				@ResponseBody
+				@RequestMapping("/queryKeepBycdlicense")
+				public List<Carkeep> queryKeepBycdlicense(String cdlicense){
+					return ser.queryKeepBycdlicense(cdlicense);
+				}
+				//添加车辆保养记录
+				@ResponseBody
+				@RequestMapping("/addCarkeep")
+				public int addCarkeep(@RequestBody Carkeep ck) {
+					return ser.addCarkeep(ck);
+				}
+				//修改车辆保养记录
+				@ResponseBody
+				@RequestMapping("/upCarkeep")
+				public int upCarkeep(@RequestBody Carkeep ck) {
+					return ser.upCarkeep(ck);
+				}
+				//删除车辆保养记录
+				@ResponseBody
+				@RequestMapping("/deleCarkeep")
+				public int deleCarkeep(Integer ckid) {
+					return ser.deleCarkeep(ckid);
 				}
 		
 }

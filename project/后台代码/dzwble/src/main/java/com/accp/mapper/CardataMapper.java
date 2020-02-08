@@ -20,7 +20,7 @@ public interface CardataMapper {
 
     List<Cardata> queryCarBycno(String cno);
 
-    List<Cardata> queryCars();
+    List<Cardata> queryCars(String cddriver);
 
     Cardata selectByPrimaryKey(String cdlicense);
 

@@ -13,6 +13,8 @@ import com.accp.domain.Carbelong;
 import com.accp.domain.Carbrand;
 import com.accp.domain.Cardata;
 import com.accp.domain.CardataExample;
+import com.accp.domain.Carkeep;
+import com.accp.domain.CarkeepExample;
 import com.accp.domain.Customer;
 import com.accp.domain.CustomerType;
 import com.accp.domain.Fuel;
@@ -28,6 +30,7 @@ import com.accp.mapper.BillsMapper;
 import com.accp.mapper.CarbelongMapper;
 import com.accp.mapper.CarbrandMapper;
 import com.accp.mapper.CardataMapper;
+import com.accp.mapper.CarkeepMapper;
 import com.accp.mapper.CustomerMapper;
 import com.accp.mapper.CustomerTypeMapper;
 import com.accp.mapper.FuelMapper;
@@ -68,6 +71,8 @@ public class CustomerAndCarService {
 	MaintenanceMapper maintemapper;
 	@Autowired
 	FuelMapper fmapper;
+	@Autowired
+	CarkeepMapper ckmapper;
 	
 	//查询全部客户
 	public List<Customer> queryAll(String cname){
@@ -78,8 +83,8 @@ public class CustomerAndCarService {
 		return cardamapper.queryCarBycno(cno);
 	}
 	//查询所有汽车
-	public List<Cardata> queryCars(){
-		return cardamapper.queryCars();
+	public List<Cardata> queryCars(String cddriver){
+		return cardamapper.queryCars(cddriver);
 	}
 	//查询保险公司
 	public List<Insurance> queryInsurance(){
@@ -176,5 +181,35 @@ public class CustomerAndCarService {
 	//根据客户编号查新单据号
 	public List<Bills> queryBillBycno(String cno){
 		return bmapper.queryBillBycno(cno);
+	}
+	//根据车牌编号查新单据号
+		public List<Bills> queryBillBycdlicense(String cdlicense){
+			return bmapper.queryBillBycdlicense(cdlicense);
+		}
+	//根据客户编号查询客户
+	public Customer queryCusByCno(String cno) {
+		return cusmapper.queryCusByCno(cno);
+	}
+	//根据车牌删除
+	public int deleCar(String cdlicense) {
+		return cardamapper.deleteByPrimaryKey(cdlicense);
+	}
+	//根据车牌查询保养记录
+	public List<Carkeep> queryKeepBycdlicense(String cdlicense){
+		CarkeepExample ex = new CarkeepExample();
+		ex.createCriteria().andCdlicenseEqualTo(cdlicense);
+		return ckmapper.selectByExample(ex);
+	}
+	//添加车辆保养记录
+	public int addCarkeep(Carkeep ck) {
+		return ckmapper.insert(ck);
+	}
+	//修改车辆保养记录
+	public int upCarkeep(Carkeep ck) {
+		return ckmapper.updateByPrimaryKey(ck);
+	}
+	//删除车辆保养记录
+	public int deleCarkeep(Integer ckid) {
+		return ckmapper.deleteByPrimaryKey(ckid);
 	}
 }
