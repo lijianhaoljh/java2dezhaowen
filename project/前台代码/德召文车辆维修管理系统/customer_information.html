@@ -254,7 +254,7 @@
 					</div>
 				</div>
 				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 8px;background-color: gainsboro;">
-					合计：<span>2</span>条记录
+					合计：<span id="total">2</span>条记录
 				</div>
 			</div>
 			<div id="addcusandcar">
@@ -565,7 +565,6 @@
 			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
-				
 				function queryBill(cno){
 					//根据客户编号查询历史单据
 					$.ajax({
@@ -649,6 +648,7 @@
 							dataType:"json",
 							success:function(result){
 								vm.customers=result;
+								$("#total").text(result.length);
 							},error:function(result){
 								alert("发生错误"+result);
 							}
@@ -722,6 +722,7 @@
 							historypayhead:["单据类型","销售单号","车牌号","维修业务","进厂时间","完工时间","结算时间","消费金额"],
 							visitor:["回访时间","客户编码","客户名称","地址","车牌号","联系电话","回放效果","服务顾问","详细说明","开单人"],
 							bills:[],//历史单据
+							kk:"0",
 						}
 					},
 					methods:{
@@ -1032,11 +1033,14 @@
 							let checkeds = e.target.checked;
 							if(checkeds){
 								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
-								vm.ctype=c;
+								if(vm.kk=="1"){
+									vm.ctype=c;
+									console.log(vm.ctype);
+								}
 							}else{
 								$(e.target).parent().parent().css("background-color","#D6D6CE");
 							}
-							console.log(vm.ctype);
+							
 						},
 						changepeople:function(e){
 							//切换部门
@@ -1165,7 +1169,7 @@
 						},
 						mmm:function(){
 							$("#custype").show();
-							
+							vm.kk="1";
 							
 						},
 						checkstaff:function(){
