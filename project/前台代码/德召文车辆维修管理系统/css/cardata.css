@@ -15,8 +15,10 @@
 .btn{padding: 2px;}
 
 #addcar{display: none; width: 1100px;height:600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 15%;background-color: #DEDEDE;}
-#addcar label{width: 110px;text-align: right;padding-right: 10px;}
+#addcar label{width: 130px;text-align: right;padding-right: 10px;}
 #addcar input{width:110px;}
+#addcar input[type=date]{width:130px;}
+#lll p{margin-bottom: 20px;}
 #setting{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
 #setting ul{list-style-type: none;}
 #setting ul li{display: inline-block;text-align: center;font-size: 17px;}
