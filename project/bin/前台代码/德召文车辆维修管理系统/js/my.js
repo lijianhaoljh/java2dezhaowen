@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //全局参数定义
 var data = {
 	ip:"http://localhost:8080/",
@@ -40,4 +41,10 @@ function openIFM(item){
 				</div>`;
 	$(".my-tab").append(nav_li);
 	$(".tab-content").append(tab_div);
+=======
+
+
+var data = {
+	ip:"http://localhost:8080/"
+>>>>>>> refs/remotes/origin/pengyumei
 }

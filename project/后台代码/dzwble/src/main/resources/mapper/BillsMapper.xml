@@ -20,6 +20,16 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    
+    <result column="mbname" property="mbname" jdbcType="VARCHAR" />
+    <result column="etime" property="etime" jdbcType="VARCHAR" />
+    <result column="edate" property="edate" jdbcType="VARCHAR" />
+    <result column="rbname" property="rbname" jdbcType="VARCHAR" />
+    <result column="contime" property="contime" jdbcType="VARCHAR" />
+    <result column="comtime" property="comtime" jdbcType="VARCHAR" />
+    <result column="atime" property="atime" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="VARCHAR" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,6 +89,25 @@
       </foreach>
     </where>
   </sql>
+  
+  <select id="queryBillBycno" resultMap="BaseResultMap">
+  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
+LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
+LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
+LEFT JOIN account AS ac ON ac.bid = b.bid
+LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  </select>
+  
+  <select id="queryBillBycdlicense" resultMap="BaseResultMap">
+  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
+LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
+LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
+LEFT JOIN account AS ac ON ac.bid = b.bid
+LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+WHERE cdlicense = #{cdlicense}
+  </select>
+  
   <sql id="Base_Column_List" >
     bid, bstate, tid, cdlicense, pno, mid, person, delays_reason, quality, qualified, 
     n_rework, p_amount, rid, remark1, remark2, remark3, remark4, remark5

@@ -18,6 +18,8 @@ public interface CustomerTypeMapper {
 
     List<CustomerType> selectByExample(CustomerTypeExample example);
 
+    List<CustomerType> queryOneToMore();
+
     CustomerType selectByPrimaryKey(String ctno);
 
     int updateByExampleSelective(@Param("record") CustomerType record, @Param("example") CustomerTypeExample example);

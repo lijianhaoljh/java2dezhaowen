@@ -39,6 +39,28 @@
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="psex" property="psex" jdbcType="CHAR" />
+    <result column="pidcard" property="pidcard" jdbcType="VARCHAR" />
+    <result column="paddress" property="paddress" jdbcType="VARCHAR" />
+    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+    <result column="ptellphone" property="ptellphone" jdbcType="VARCHAR" />
+    <result column="pemail" property="pemail" jdbcType="VARCHAR" />
+    <result column="spassword" property="spassword" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="pbank" property="pbank" jdbcType="VARCHAR" />
+    <result column="pbanknumber" property="pbanknumber" jdbcType="VARCHAR" />
+    <result column="presidenceaddress" property="presidenceaddress" jdbcType="VARCHAR" />
+    <result column="ptid" property="ptid" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="dimission" property="dimission" jdbcType="INTEGER" />
+    <result column="dcause" property="dcause" jdbcType="VARCHAR" />
+    
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+    
+    <result column="jname" property="jname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -105,6 +127,15 @@
     sshopdiscount, sdiscount, job_resume, education_experience, family_member, Disciplinary_records, 
     Employment_advice, remark1, remark2, remark3
   </sql>
+  
+  <select id="queryPeopleByMid" resultMap="BaseResultMap">
+	  	SELECT me.parentid parentid,me.mid,me.mname mname,peo.*,job.jname jname,sta.*  FROM staff AS sta
+	LEFT JOIN people AS peo ON sta.pno=peo.pno
+	LEFT JOIN mechanism AS me ON sta.mid=me.mid
+	LEFT JOIN job AS job ON sta.jid=job.jid
+	WHERE me.mid=#{mid}
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.StaffExample" >
     select
     <if test="distinct" >

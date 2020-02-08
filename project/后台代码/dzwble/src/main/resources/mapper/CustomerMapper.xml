@@ -111,10 +111,19 @@
 	LEFT JOIN people AS peo ON peo.pno=cus.pno
 	LEFT JOIN cardata AS card ON card.cno=cus.cno
 	WHERE cus.cname LIKE concat('%',#{cn},'%') OR cus.cphone LIKE concat('%',#{cn},'%') OR vip.vno LIKE concat('%',#{cn},'%') OR card.cdlicense LIKE concat('%',#{cn},'%')
-	GROUP BY cus.cno
+	GROUP BY cus.cno ORDER BY cus.cno
   </select>
   
-
+	<select id="queryCusByCno" resultMap="BaseResultMap">
+	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,
+	vip.venddate venddate,vip.currentjifen vjifen,peo.pname pname,peo.pphone pphone,card.* FROM customer AS cus
+	LEFT JOIN customer_type AS custy ON cus.ctno = custy.ctno
+	LEFT JOIN vip AS vip ON vip.cno=cus.cno
+	LEFT JOIN people AS peo ON peo.pno=cus.pno
+	LEFT JOIN cardata AS card ON card.cno=cus.cno
+	WHERE cus.cno=#{cno}
+	GROUP BY cus.cno
+  </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CustomerExample" >
     select
@@ -154,7 +163,7 @@
       district, cremark, ctaxes, 
       cregistphone, cbank, cbanknumber, 
       cregistaddress, other1, other2, 
-      other3, other4, jifen, 
+      other3, other4, 
       creatdate, remark3, remark4, 
       remark5)
     values (#{cno,jdbcType=VARCHAR}, #{ctno,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, 
@@ -164,7 +173,7 @@
       #{district,jdbcType=VARCHAR}, #{cremark,jdbcType=VARCHAR}, #{ctaxes,jdbcType=VARCHAR}, 
       #{cregistphone,jdbcType=VARCHAR}, #{cbank,jdbcType=VARCHAR}, #{cbanknumber,jdbcType=VARCHAR}, 
       #{cregistaddress,jdbcType=VARCHAR}, #{other1,jdbcType=VARCHAR}, #{other2,jdbcType=VARCHAR}, 
-      #{other3,jdbcType=VARCHAR}, #{other4,jdbcType=VARCHAR}, #{jifen,jdbcType=VARCHAR}, 
+      #{other3,jdbcType=VARCHAR}, #{other4,jdbcType=VARCHAR},  
       #{creatdate,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
       #{remark5,jdbcType=VARCHAR})
   </insert>
