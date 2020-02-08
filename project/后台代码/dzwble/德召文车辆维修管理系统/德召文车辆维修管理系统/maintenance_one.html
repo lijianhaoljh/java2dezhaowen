@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>德召文车辆维修管理系统-维修</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div id="ctx" class="container-fluid" style="margin: 20px;">
+			<div class="row">
+				
+				<div class="panel panel-success">
+				  <div class="panel-heading">
+				   	<span class="glyphicon glyphicon-globe"></span> 接车登记
+				   	<span style="position:relative;top:-7px;float: right;" >
+				   			<div class="form-inline">
+				   				<input type="text" class="form-control" placeholder="Text input">
+					   			<button class="btn btn-success">搜索</button>
+					   			<button class="btn btn-danger">关闭</button>
+					   		</div>
+					</span>
+				  </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel panel-success" >
+				  <div class="panel-heading" style="overflow: hidden;">
+				   		<div class="form-inline" style="float: right;">
+				   			<button class="btn btn-success">维修开单</button>
+				   			<button class="btn btn-success">救援开单</button>
+				   			<button class="btn btn-success">关注公众号</button>
+				   		</div>
+				  </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel panel-success" >
+				  <div class="panel-heading">
+				   		<div class="form-inline" >
+				   			<input type="text" class="form-control" placeholder="Text input">
+					   		<div class="btn-group" role="group" >
+								<button type="button" class="btn btn-success" >选择</button>
+								<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="caret" ></span>
+								</button>
+								<ul class="dropdown-menu" style="position: absolute;left: -80px;">
+									<li><a href="#" >查询</a></li>
+									<li><a href="#" >like</a></li>
+								</ul>
+							</div>
+							<div class="btn-group" role="group" >
+								<button disabled="disabled" type="button" class="btn btn-warning" >level:</button>
+								<button disabled="disabled" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									一般客户
+								</button>
+							</div>
+				   		</div>
+				   		<table class="table table-hover table-condensed">
+				   			<thead>
+					   			<tr>
+					   				<th colspan="5">车主信息:</th>
+					   			</tr>
+					   			<tr>
+					   				<td>#</td>
+					   				<td>车主</td>
+					   				<td>地址</td>
+					   				<td>驾驶员</td>
+					   				<td>手机</td>
+					   			</tr>
+				   			</thead>
+				   			<tbody>
+				   				<tr>
+					   				<td>dzw001</td>
+					   				<td>李顺</td>
+					   				<td>湖南</td>
+					   				<td>李顺</td>
+					   				<td>438</td>
+					   			</tr>
+				   			</tbody>
+				   		</table>
+				   		<table class="table table-hover table-condensed">
+				   			<thead>
+					   			<tr>
+					   				<th colspan="5">车辆信息:</th>
+					   			</tr>
+					   			<tr>
+					   				<td>#</td>
+					   				<td>品牌</td>
+					   				<td>车型</td>
+					   				<td>发动机品牌</td>
+					   				<td>发动机号</td>
+					   				<td>发动机</td>
+					   				<td>保险日期</td>
+					   				<td>保养日期</td>
+					   			</tr>
+				   			</thead>
+				   			<tbody>
+				   				<tr>
+					   				<td>001</td>
+					   				<td>大众</td>
+					   				<td>大众</td>
+					   				<td>发动机品牌</td>
+					   				<td>发动机号</td>
+					   				<td>发动机</td>
+					   				<td>保险日期</td>
+					   				<td>保养日期</td>
+					   			</tr>
+				   			</tbody>
+				   		</table>
+				  </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel panel-success" >
+				  <div class="panel-heading" style="overflow: hidden;">
+				   		<ul class="nav nav-pills" >
+							<li role="presentation" class="active"><a href="#">作业中车辆</a></li>
+							<li role="presentation"><a href="#">维修历史</a></li>
+							<li role="presentation"><a href="#">维修项目</a></li>
+							<li role="presentation"><a href="#">领料情况</a></li>
+							<li role="presentation"><a href="#">历史回访</a></li>
+						</ul>
+						<div class="tab-pane active" id="index" style="height: 100%;">
+							<table class="table">
+								<thead>
+									<tr>
+										<td>111</td>
+										<td>111</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>111</td>
+										<td>111</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+	</body>
+</html>
