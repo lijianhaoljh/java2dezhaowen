@@ -25,7 +25,7 @@ public class PermissionService {
 		Permission parentPerms = new Permission();
 		parentPerms.setId(0);
 		each(parentPerms, lists);
-		return parentPerms.getChildrens();
+		return parentPerms.getChildren();
 	}
 	
 	/**
@@ -37,10 +37,10 @@ public class PermissionService {
 		List<Permission> lists = permissionMapper.findPerm(pno);
 		return lists;
 	}
-//	
-//	public Permission findById(Integer pid) {
-//		return permissionMapper.selectByPrimaryKey(pid);
-//	}
+	
+	public Permission findById(Integer pid) {
+		return permissionMapper.selectByPrimaryKey(pid);
+	}
 	
 	/**
 	 * 递归将权限变成树形结构
@@ -57,10 +57,27 @@ public class PermissionService {
 				newPerms.setName(p.getName());
 				newPerms.setParentid(p.getParentid());
 				newPerms.setPath(p.getPath());
-				parentPerms.getChildrens().add(newPerms);
+				parentPerms.getChildren().add(newPerms);
 				each(newPerms,perms);
 			}
 		}
 	}
 	
+	/**
+	 * 查询全部权限内容并迭代为树状
+	 */
+	public List<Permission> findAllPermission(){
+		List<Permission> lists=permissionMapper.selectByExample(null);
+		Permission parentPerms = new Permission();
+		parentPerms.setId(0);
+		each(parentPerms, lists);
+		return parentPerms.getChildren();
+	}
+	
+	/**
+	 * 查询角色的权限
+	 */
+	public List<Permission> findRolePerms(Integer rid){
+		return permissionMapper.findRolePerms(rid);
+	}
 }

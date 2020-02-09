@@ -53,10 +53,10 @@
 						<div class="row">
 							<ul class="nav nav-pills nav-stacked text-center menav">
 					     		<li role="presentation" class="me_menu1 active" @click="openHTML(0)"><a href="#" data-toggle="tab">首页</a></li>
-								<li role="presentation" class="me_menu1"  v-for='item in p.childrens' v-if="item.catalog==0">
+								<li role="presentation" class="me_menu1"  v-for='item in p.children' v-if="item.catalog==0">
 									  	<a href="#" @click="slideChildrens($event)" data-toggle="tab">{{item.name}}</a>
 									  	<ul class="nav nav-stacked text-center" >
-											<li role="presentation" class="me_menu2" v-for='it in item.childrens' v-if="it.catalog==0">
+											<li role="presentation" class="me_menu2" v-for='it in item.children' v-if="it.catalog==0">
 												<a v-if="it.path" @click="openHTML(it)">{{it.name}}</a>
 												<a v-else>{{it.name}}</a>
 											</li>
@@ -113,9 +113,7 @@
 								<div id="index" style="height: 100%;" class="active tab-pane">
 									<iframe src="home.html"></iframe>
 								</div>
-								
 							</div>
-						  	
 						</div>
 					</div>
 				</div>
