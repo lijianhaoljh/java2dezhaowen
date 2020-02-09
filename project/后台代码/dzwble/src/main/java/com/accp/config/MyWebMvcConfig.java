@@ -1,6 +1,13 @@
 package com.accp.config;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -36,4 +43,21 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
 		super.addInterceptors(registry);
 	}
+	
+	@Override
+	 protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	  //普通字符串转码
+	  StringHttpMessageConverter shc = 
+	    new StringHttpMessageConverter(StandardCharsets.UTF_8);
+	  converters.add(shc);
+	  //json格式转换器
+	  MappingJackson2HttpMessageConverter jackson =
+	    new MappingJackson2HttpMessageConverter();
+	  converters.add(jackson);
+	  //org.springframework.http.converter.ByteArrayHttpMessageConverter
+	  //配置字节转换器
+	  ByteArrayHttpMessageConverter array = new ByteArrayHttpMessageConverter();
+	  converters.add(array);
+	  super.configureMessageConverters(converters);
+	 }
 }
