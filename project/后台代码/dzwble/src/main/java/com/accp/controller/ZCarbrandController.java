@@ -68,12 +68,25 @@ public class ZCarbrandController {
 		}
 		
 		@PostMapping(value = "/addtwo")
-		public int addtwo(@RequestBody Motorcycle motor) {
-			return zCarbrandService.addtwo(motor);
+		public String addtwo(@RequestBody Motorcycle cbbr) {
+			return "result"+zCarbrandService.addtwo(cbbr);
+		}
+		
+		
+		@GetMapping(value = "updaQuery")
+		public Motorcycle MotoByid(Integer moid) {
+			return zCarbrandService.MotoByid(moid);
+		}
+		
+		@PutMapping(value = "updaTwo")
+		public int updaTwo(@RequestBody Motorcycle cbbr) {
+			return zCarbrandService.updaTwo(cbbr);
 		}
 		
 		@GetMapping(value = "/fdj")
 		public List<Maintenance> fdjquery() {
 			return zCarbrandService.fdjquery();
 		}
+		
+		
 }

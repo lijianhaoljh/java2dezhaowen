@@ -71,4 +71,6 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 //		registry.addInterceptor(permInterceptor).addPathPatterns("/**").excludePathPatterns("/loginin");
 		super.addInterceptors(registry);
 	}
+	
+	
 }

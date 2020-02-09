@@ -112,8 +112,24 @@ public class ZCarbrandService {
 			/**
 			 * 新增车型
 			 */
-			public int addtwo(Motorcycle motor) {
-				return motorcycleMapper.insert(motor);
+			public int addtwo(Motorcycle cbbr) {
+				return motorcycleMapper.insert(cbbr);
+			}
+			
+			
+			/**
+			 * 通过id查询车型
+			 */
+			public Motorcycle MotoByid(Integer moid) {
+				return motorcycleMapper.selectByPrimaryKey(moid);
+			}
+			
+			
+			/**
+			 * 修改车型
+			 */
+			public int updaTwo(Motorcycle cbbr) {
+				return motorcycleMapper.updateByPrimaryKey(cbbr);
 			}
 			
 			/**
@@ -123,5 +139,6 @@ public class ZCarbrandService {
 				MaintenanceExample example = new MaintenanceExample();
 				example.createCriteria().andParentidEqualTo(2);
 				return zMaintenance.selectByExample(example);
-			}
+			}		
+			
 }
