@@ -5,9 +5,6 @@
 		<meta charset="utf-8" />
 		<title>组织结构定义</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css" />
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css" />
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/organization_structure.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
 	</head>
@@ -32,20 +29,20 @@
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
 						<ul>
 							<li @click="addstaff"><span class="glyphicon glyphicon-plus-sign"></span>增加员工</li>
-							<li><span class="glyphicon glyphicon-leaf"></span>修改</li>
-							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
-							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>
-							<li><span class="glyphicon glyphicon-lock"></span>置空密码</li>
+							<li @click="upStaff"><span class="glyphicon glyphicon-leaf"></span>修改</li>
+							<li @click="delStaff"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							
+							<li @click="nonepwd"><span class="glyphicon glyphicon-lock"></span>置空密码</li>
 							<li><span class="glyphicon glyphicon-export"></span>导出</li>
 							<li><span class="glyphicon glyphicon-import"></span>导入</li>
 							<li @click="staffrole"><span class="glyphicon glyphicon-user"></span>员工角色</li>
 							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
 						</ul>
 					</div>
-					<div class="col-md-3 col-xs-3">
-						<ul id="treeDemo" class="ztree"></ul>
+					<div class="col-md-2 col-xs-2" style="padding-top: 25px;">
+						<ul id="treeDemo" class="ztree"></ul> 
 					</div>
-					<div class="col-md-9 col-xs-9" style="border-left: 1px solid #E9E9E9;">
+					<div class="col-md-10 col-xs-10" style="border-left: 1px solid #E9E9E9;">
 						<table class="table table-bordered" style="width: 3000px;">
 							<thead>
 								<tr>
@@ -66,67 +63,90 @@
 									<td>毕业学校</td>
 									<td>专业</td>
 									<td>专业资格</td>
-									<td>学位</td>
-									<td>编制</td>
 									<td>身份证号</td>
 									<td>户口地址</td>
 									<td>邮编</td>
 									<td>现住地址</td>
-									<td>邮编</td>
 									<td>联系电话</td>
 									<td>手机</td>
 									<td>EMail</td>
 									<td>紧急情况联系人</td>
 									<td>联系电话</td>
-									<td>现在何处</td>
 									<td>试用到期</td>
 									<td>入职日期</td>
 									<td>出生日期</td>
 									<td>合同开始日期</td>
 									<td>合同结束日期</td>
-									<td>生日</td>
-									<td>年龄</td>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td> </td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
+								<tr v-for="s,index in staffs" v-if="index==0" style="background-color:#C9E2B3 ;">
+									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="s.pno" name="staff" @click="chosestaff($event,s)"  /> </td>
+									<td v-else><input  type="radio" v-bind:id="s.pno" name="staff" @click="chosestaff($event,s)"  /> </td>
+									<td v-for="m in mechanismPa" v-if="m.mid==s.parentid">{{m.mname}}</td>
+									<td>{{s.mid}}</td>
+									<td>{{s.mname}}</td>
+									<td>{{s.pno}}</td>
+									<td>{{s.pname}}</td>
+									<td>{{s.psex}}</td>
+									<td>{{s.jname}}</td>
+									<td>{{s.shealth}}</td>
+									<td>{{s.sheight}}</td>
+									<td>{{s.splace}}</td>
+									<td>{{s.snation}}</td>
+									<td>{{s.smarry}}</td>
+									<td>{{s.seducation}}</td>
+									<td>{{s.sschool}}</td>
+									<td>{{s.smajor}}</td>
+									<td>{{s.smajorlevel}}</td>
+									<td>{{s.pidcard}}</td>
+									<td>{{s.presidenceaddress}}</td>
+									<td>{{s.pemail}}</td>
+									<td>{{s.paddress}}</td>
+									<td>{{s.pphone}}</td>
+									<td>{{s.ptellphone}}</td>
+									<td>{{s.pemail}}</td>
+									<td>{{s.speople}}</td>
+									<td>{{s.speoplephone}}</td>
+									<td>{{s.sinterniship}}</td>
+									<td>{{s.sindate}}</td>
+									<td>{{s.sbirthday}}</td>
+									<td>{{s.sstarttime}}</td>
+									<td>{{s.sendtime}}</td>
+								</tr>
+								<tr v-else>
+									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="s.pno" name="staff" @click="chosestaff($event,s)"  /> </td>
+									<td v-else><input  type="radio" v-bind:id="s.pno" name="staff" @click="chosestaff($event,s)"  /> </td>
+									<td v-for="m in mechanismPa" v-if="m.mid==s.parentid">{{m.mname}}</td>
+									<td>{{s.mid}}</td>
+									<td>{{s.mname}}</td>
+									<td>{{s.pno}}</td>
+									<td>{{s.pname}}</td>
+									<td>{{s.psex}}</td>
+									<td>{{s.rname}}</td>
+									<td>{{s.shealth}}</td>
+									<td>{{s.sheight}}</td>
+									<td>{{s.splace}}</td>
+									<td>{{s.snation}}</td>
+									<td>{{s.smarry}}</td>
+									<td>{{s.seducation}}</td>
+									<td>{{s.sschool}}</td>
+									<td>{{s.smajor}}</td>
+									<td>{{s.smajorlevel}}</td>
+									<td>{{s.pidcard}}</td>
+									<td>{{s.presidenceaddress}}</td>
+									<td>{{s.pemail}}</td>
+									<td>{{s.paddress}}</td>
+									<td>{{s.pphone}}</td>
+									<td>{{s.ptellphone}}</td>
+									<td>{{s.pemail}}</td>
+									<td>{{s.speople}}</td>
+									<td>{{s.speoplephone}}</td>
+									<td>{{s.sinterniship}}</td>
+									<td>{{s.sindate}}</td>
+									<td>{{s.sbirthday}}</td>
+									<td>{{s.sstarttime}}</td>
+									<td>{{s.sendtime}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -142,75 +162,90 @@
 					<div style="width: 960px;height: 60px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
-						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
+						<button @click="addStaffOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
 					</div>
 					<div style="width: 960px;height: 555px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
-						<p style="padding-top: 10px;">
-							<label><span style="color: red;">*</span>员工编号</label><input />
-							<label><span style="color: red;">*</span>员工姓名</label><input />
-							<label><span style="color: red;">*</span>性别</label><input />
+						<p class="ddd" style="padding-top: 10px;">
+							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.people.pno"  />
+							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.people.pname" />
+							<label><span style="color: red;">*</span>性别</label><input type="text" v-model="staf.people.psex"  />
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>所在门店</label><input />
-							<label><span style="color: red;">*</span>所在部门</label><input />
+							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="demonMech.parentid==m.mid" :value="m.mname"  />
+							<label :mid="staf.mid"><span style="color: red;">*</span>所在部门</label><input readonly="readonly" type="text" v-model="demonMech.mname"  />
 						</p>
 						<p>
-							<label>登录账号</label><input />
-							<label>岗位</label><input />
-							<label>身体状况</label><input />
+							<label>岗位</label><select v-model="staf.jid"><option v-for="j in jobs" :value="j.jid">{{j.jname}}</option></select>
+							<label>身体状况</label><input type="text" v-model="staf.shealth"  />
 						</p>
 						<p>
-							<label>身高</label><input />
-							<label>籍贯</label><input />
-							<label>名族</label><input />
+							<label>身高</label><input type="text" v-model="staf.sheight"  />
+							<label>籍贯</label><input type="text" v-model="staf.splace"  />
+							<label>民族</label><input type="text" v-model="staf.snation"  />
 						</p>
 						<p>
-							<label>婚姻状况</label><input />
-							<label>学历</label><input />
-							<label>毕业学校</label><input />
+							<label>婚姻状况</label><input type="text" v-model="staf.smarry"  />
+							<label>学历</label>
+							<select v-model="staf.seducation" >
+								<option selected="selected" value="博士">博士</option>
+								<option value="本科">本科</option>
+								<option value="大专">大专</option>
+								<option value="高中">高中</option>
+							</select>
+							<label>毕业学校</label><input type="text" v-model="staf.sschool"  />
+						</p>
+						<p class="ddd">
+							<label>专业</label><select v-model="staf.smajor" >
+								<option selected="selected" value="计算机软件">计算机软件</option>
+								<option value="网络工程">网络工程</option>
+							</select>
+							<label>专业资格</label><select v-model="staf.smajorlevel" >
+								<option selected="selected" value="初级工程师">中级工程师</option>
+								<option value="中级工程师">中级工程师</option>
+								<option value="高级工程师">高级工程师</option>
+							</select>
+							<label><span style="color: red;">*</span>属性</label><select v-model="staf.sfiel" >
+								<option selected="selected" value="计考勤计薪">计考勤计薪</option>
+								<option value="不计考勤计薪">不计考勤计薪</option>
+								<option value="计考勤不计薪">计考勤不计薪</option>
+								<option value="不计考勤不计薪">不计考勤不计薪</option>
+							</select>
 						</p>
 						<p>
-							<label>专业</label><input />
-							<label>专业资格</label><input />
-							<label><span style="color: red;">*</span>属性</label><input />
-							<label>学位</label><input />
+							<label>身份证号</label><input type="text" v-model="staf.people.pidcard"  />
+							<label>户口地址</label><input type="text" v-model="staf.people.presidenceaddress"  />
 						</p>
 						<p>
-							<label>编制</label><input />
-							<label>身份证号</label><input />
-							<label>户口地址</label><input />
+							<label>现住地址</label><input  type="text" v-model="staf.people.paddress" />
+							<label>联系电话</label><input type="text" v-model="staf.people.pphone"  />
+							<label>手机</label><input type="text" v-model="staf.people.ptellphone"  />
 						</p>
 						<p>
-							<label>现住地址</label><input />
-							<label>联系电话</label><input />
-							<label>手机</label><input />
-						</p>
-						<p>
-							<label>EMAIL</label><input />
-							<label>开户银行</label><input />
-							<label>银行账号</label><input />
+							<label>EMAIL</label><input type="text" v-model="staf.people.pemail"  />
+							<label>开户银行</label><input type="text" v-model="staf.people.pbank"  />
+							<label>银行账号</label><input type="text" v-model="staf.people.pbanknumber"  />
 						</p>
 						<p style="padding-top: 20px;">
-							<label>紧急联系人</label><input />
-							<label>联系电话</label><input />
+							<label>紧急联系人</label><input type="text" v-model="staf.speople"  />
+							<label>联系电话</label><input type="text" v-model="staf.speoplephone" />
 						</p>
 						<p>
-							<label>入职日期</label><input />
-							<label>试用到期</label><input />
-							<label>出生日期</label><input />
-							<label>合同开始</label><input />
+							<label>入职日期</label><input type="date" v-model="staf.sindate" />
+							<label>试用到期</label><input type="date" v-model="staf.sinterniship" />
+							<label>出生日期</label><input type="date" v-model="staf.sbirthday" />
+							<label>合同开始</label><input type="date" v-model="staf.sstarttime" />
 						</p>
 						<p>
-							<label>合同结束</label><input />
-							<label>卡自编号</label><input />
-							<label>卡内部号</label><input />
-							<label>推荐人</label><input />
+							<label>合同结束</label><input type="date" v-model="staf.sendtime" />
+							<label>卡自编号</label><input type="text" v-model="staf.snonumber" />
+							<label>卡内部号</label><input type="text" v-model="staf.sinnumber" />
+							<label>推荐人</label><input type="text" v-model="staf.srecommed"/>
 						</p>
 						<p>
-							<label>整单折扣权%</label><input />
-							<label>工时折扣权%</label><input />
-							<label>商品折扣权%</label><input />
-							<label>减免权</label><input />
+							<label>整单折扣权%</label><input type="text" v-model="staf.salldiscount"/>
+							<label>工时折扣权%</label><input type="text" v-model="staf.sworkdiscount"/>
+							<label>商品折扣权%</label><input type="text" v-model="staf.sshopdiscount"/>
+							<label>减免权</label><input type="text" v-model="staf.sdiscount"/>
 						</p>
 					</div>
 				</div>
@@ -339,7 +374,6 @@
 		</div>
 
 			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-			<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
@@ -347,14 +381,299 @@
 			<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
+				function queryJob(){
+					$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryAllJob",
+						data:{},
+						dateType:"json",
+						success:function(response){
+							vm.jobs=response;
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+				function queryPeopleByMid(mid){
+					$.ajax({
+						type:"post",
+						url:data.ip+"cus/queryPeopleByMid",
+						data:{mid:mid},
+						dateType:"json",
+						success:function(response){
+							vm.staffs = response;
+							console.log("全部职工")
+							console.log(vm.staffs);
+							
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+				function queryAllStaff(){
+					$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryAllStaff",
+						data:{},
+						dateType:"json",
+						success:function(response){
+							let pno = response[response.length-1].pno;
+							let no = "dzw";
+							//alert(no+"..."+pno+"..."+pno.lastIndexOf("0")+"..."+pno.substring(5,pno.length));
+							if(pno.lastIndexOf("0")=="4"){
+								let num = parseInt(pno.substring(pno.lastIndexOf("0")+1,pno.length));
+								num = num+1;
+								no = no+"00"+num;
+							}else if(pno.lastIndexOf("0")=="3"){
+								let num = parseInt(pno.substring(pno.lastIndexOf("0")+1,pno.length));
+								num = num+1;
+								no = no+"0"+num;
+							}else if(pno.lastIndexOf("0")=="2"){
+								let num = parseInt(pno.substring(pno.lastIndexOf("0")+1,pno.length));
+								num = num+1;
+								no = no+num;
+							}
+							vm.staf.pno=no;
+							vm.staf.people.pno=no;
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+				function queryPeopleByParentid(parentid){
+					$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryPeopleByParentid",
+						data:{parentid:parentid},
+						dateType:"json",
+						success:function(response){
+							vm.staffs = response;
+							console.log("全部职工")
+							console.log(vm.staffs);
+							
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+				
+				function queryMechanByparentid(parentid){
+					$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryMechanByparentid",
+						data:{parentid:parentid},
+						dateType:"json",
+						success:function(response){
+							vm.mechanismPa = response;
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+				
 				var vm = new Vue({
 					el:"#ctx",
 					data(){
-						return {}
+						return {
+							kk:"0",
+							roles:[],//树状结构节点
+							staffs:[],//根据机构编号查询到的所有职工
+							mechanismPa:[],//机构
+							demon:{pno:"",mid:"",people:{ptid:1,pno:""}},//选中的职工对象
+							demonMech:{},//选中的部门
+							staf:{pno:"",mid:"",rid:2,people:{ptid:1,pno:"",rid:2,spassword:"88888"},salt:"951753"},//新增的员工
+							jobs:[],//所有岗位
+						}
 					},
 					methods:{
+						nonepwd:function(){
+							//置空密码
+							if(confirm("是否确认置空")){
+								$.ajax({
+										url:data.ip+"staff/updateStaffPwd",
+										data:JSON.stringify(vm.demon),
+										type:"post",
+										dataType:"json",
+										contentType:"application/json;charset=utf-8",
+										success:function(result){
+											if(result=="1"){
+												alert("置空成功");
+												queryPeopleByMid(vm.demonMech.mid);
+												
+											}
+										},error:function(result){
+											alert("发生错误");
+										}
+									});
+							}
+						},
+						chosestaff:function(e,c){
+							//客户单选框
+							let checkeds = e.target.checked;
+							if(checkeds){
+								let cno = $(e.target).attr("id");
+								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
+								
+								vm.demon.people.pno=c.pno;
+								vm.demon.people.pname=c.pname;
+								vm.demon.people.psex=c.psex;
+								vm.demon.people.pidcard=c.pidcard;
+								vm.demon.people.paddress=c.paddress;
+								vm.demon.people.pphone=c.pphone;
+								vm.demon.people.ptellphone=c.ptellphone;
+								vm.demon.people.pemail=c.pemail;
+								vm.demon.people.spassword=c.spassword;
+								vm.demon.people.salt=c.salt;
+								vm.demon.people.pbank=c.pbank;
+								vm.demon.people.pbanknumber=c.pbanknumber;
+								vm.demon.people.presidenceaddress=c.presidenceaddress;
+								vm.demon.people.ptid=c.ptid;
+								vm.demon.people.img=c.img;
+								vm.demon.people.rid=c.rid;
+								vm.demon.people.dimission=c.dimission;
+								vm.demon.people.dcause=c.dcause;
+								
+								
+								
+								vm.demon.sid=c.sid;
+								vm.demon.pno=c.pno;
+								vm.demon.mid=c.mid;
+								vm.demon.mname=c.mname;
+								vm.demon.jid = c.jid;
+								vm.demon.rid = c.rid;
+								vm.demon.shealth = c.shealth;
+								vm.demon.splace = c.splace;
+								vm.demon.snation = c.snation;
+								vm.demon.smarry = c.smarry;
+								vm.demon.seducation = c.seducation;
+								vm.demon.sschool = c.sschool;
+								vm.demon.smajor = c.smajor;
+								vm.demon.smajorlevel = c.smajorlevel;
+								vm.demon.sfiel = c.sfiel;
+								vm.demon.speople = c.speople;
+								vm.demon.speoplephone = c.speoplephone;
+								vm.demon.sindate = c.sindate;
+								vm.demon.sinterniship = c.sinterniship;
+								vm.demon.sbirthday = c.sbirthday;
+								vm.demon.sstarttime = c.sstarttime;
+								vm.demon.sendtime = c.sendtime;
+								vm.demon.srecommed = c.srecommed;
+								vm.demon.snonumber = c.snonumber;
+								vm.demon.sinnumber = c.sinnumber;
+								vm.demon.salldiscount = c.salldiscount;
+								vm.demon.sworkdiscount = c.sworkdiscount;
+								vm.demon.sshopdiscount = c.sshopdiscount;
+								vm.demon.sdiscount = c.sdiscount;
+								
+								console.log(vm.demon);
+								
+							}else{
+								$(e.target).parent().parent().css("background-color","white");
+							}
+							
+						},
+						delStaff:function(){
+							//删除选中职工
+							
+							if(vm.demon=="undefined"){
+								alert("请选中需要删除的职工");
+								return;
+							}
+							
+								if(confirm("是否确认删除此职工?")){
+									$.ajax({
+										url:data.ip+"staff/deleteStaff",
+										data:JSON.stringify(vm.demon),
+										type:"post",
+										dataType:"json",
+										contentType:"application/json;charset=utf-8",
+										success:function(result){
+											if(result=="1"){
+												alert("删除成功");
+												queryPeopleByParentid(2);
+											}
+										},error:function(result){
+											alert("发生错误");
+										}
+									});
+								}
+							
+						},
+						upStaff:function(){
+							//修改职工
+							vm.kk="6";
+							if(vm.demon=="undefined"){
+								alert("请选中需要修改的职工");
+								return;
+							}else{
+								vm.staf = vm.demon;
+								$("#addstaff").show();
+							}
+						},
+						addStaffOK:function(){
+							//确定修改/新增职工
+							vm.staf.mid = vm.demonMech.mid;
+							$("#addstaff .ddd input").each(function(){
+								if($(this).val()==""){
+									alert("请填写重要信息")
+									return false;
+								}
+							});
+							$("#addstaff .ddd select").each(function(){
+								if($(this).val()==""){
+									alert("请填写重要信息")
+									return false;
+								}
+							});
+							if(vm.kk=="5"){
+								vm.staf.people.spassword="88888888";
+								$.ajax({
+										url:data.ip+"staff/addStaff",
+										data:JSON.stringify(vm.staf),
+										type:"post",
+										dataType:"json",
+										contentType:"application/json;charset=utf-8",
+										success:function(result){
+											if(result=="1"){
+												alert("添加成功");
+												queryPeopleByMid(vm.demonMech.mid);
+												vm.staf={pno:"",mid:"",rid:2,people:{ptid:1,pno:"",rid:2,spassword:"88888"},salt:"951753"};
+												queryAllStaff();
+											}
+										},error:function(result){
+											alert("发生错误");
+										}
+									});
+							}else if(vm.kk=="6"){
+								$.ajax({
+										url:data.ip+"staff/updateStaff",
+										data:JSON.stringify(vm.staf),
+										type:"put",
+										dataType:"json",
+										contentType:"application/json;charset=utf-8",
+										success:function(result){
+											if(result=="1"){
+												alert("修改成功");
+												queryPeopleByMid(vm.demonMech.mid);
+												
+											}
+										},error:function(result){
+											alert("发生错误");
+										}
+									});
+							}
+						},
 						addstaff:function(){
-							$("#addstaff").show();
+							//新增职工
+							if(vm.kk=="0"){
+								alert("请选择要增加员工的部门");
+							}else{
+								queryAllStaff();
+								console.log(vm.demonMech)
+								vm.kk="5";
+								$("#addstaff").show();
+							}
+							
 						},
 						closeadd:function(){
 							$("#addstaff").hide();
@@ -371,59 +690,86 @@
 						setting:function(){
 							$("#setting").show();
 						}
-					}
-				});
-				var setting = {
-					check: {
+					},
+					created:function(){
 						
-						enable: true
-					},
-					data: {
-						simpleData: {
-							enable: true
+						queryMechanByparentid(1);
+						queryPeopleByParentid(2);
+						queryJob();
+						$.ajax({
+							type:"get",
+							url:data.ip+"staff/queryAllMechanism",
+							dateType:"json",
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								console.log(response);
+								$.fn.zTree.init($("#treeDemo"), setting, response);//初始化节点数据
+								$.fn.zTree.init($("#treeDemo"), setting, response).expandAll(true);
+							}
+						});	
+						
+						var setting = {
+							  view: {
+							         selectedMulti: true,
+							         showIcon:false
+							     },
+							  check: {
+							   enable: false
+							  },
+							  data: {
+								   key: {
+								        name: "mname",//树节点名称
+								   },
+								   simpleData: {
+								    enable: true,//是否采用简单数据模式
+								        idKey: "mid",//树节点ID名称
+								        pIdKey: "parentid",//父节点ID名称
+								        rootPId: 1,//根节点ID
+								   }
+							  },
+							  callback:{
+							  	onClick:chooseNode,
+							  }
+						};
+							 
+						function chooseNode(event, treeId, treeNode) {
+						    if (treeNode.mid == "1") {
+						       	vm.kk=0;
+						        return;
+						    }else if(treeNode.parentid=="1"){
+						       	vm.kk=0;
+						       	queryPeopleByParentid(treeNode.mid)
+						    }else{
+						       	vm.kk=parseInt(vm.kk)+1;
+						       	vm.demonMech = treeNode;
+						       	queryPeopleByMid(treeNode.mid)
+						    }
+						    return;
 						}
-					},
-					edit: {
-						enable: true
+						
 					}
-				};
-			//数据结构，从后台查询数据进行赋值就可使用
-			var zNodes =[
-				{id:1, pId:0, name:"[core] 基本功能 演示", open:true},
-			{id:101, pId:1, name:"最简单的树 --  标准 JSON 数据"},
-			{id:10101, pId:101, name:"最简单的树 --  标准 JSON 数据"},
-			{id:1010101, pId:10101, name:"最简单的树 --  简单 JSON 数据"},
-			{id:101010101, pId:1010101, name:"最简单的树 --  简单 JSON 数据"},
-			{id:102, pId:1, name:"最简单的树 --  简单 JSON 数据"},
-			{id:103, pId:1, name:"不显示 连接线"},
-			{id:104, pId:1, name:"不显示 节点 图标"},
-			{id:108, pId:1, name:"异步加载 节点数据"},
-			{id:109, pId:1, name:"用 zTree 方法 异步加载 节点数据"},
-			{id:110, pId:1, name:"用 zTree 方法 更新 节点数据"},
-			{id:111, pId:1, name:"单击 节点 控制"},
-			{id:112, pId:1, name:"展开 / 折叠 父节点 控制"},
-			{id:113, pId:1, name:"根据 参数 查找 节点"},
-			{id:114, pId:1, name:"其他 鼠标 事件监听"},
+					
+				});
+				
 			
-			{id:2, pId:0, name:"[excheck] 复/单选框功能 演示", open:false},
-			{id:201, pId:2, name:"Checkbox 勾选操作"},
-			{id:206, pId:2, name:"Checkbox nocheck 演示"},
-			{id:207, pId:2, name:"Checkbox chkDisabled 演示"},
-			{id:208, pId:2, name:"Checkbox halfCheck 演示"},
-			{id:202, pId:2, name:"Checkbox 勾选统计"},
-			{id:203, pId:2, name:"用 zTree 方法 勾选 Checkbox"},
-			{id:204, pId:2, name:"Radio 勾选操作"},
-			{id:209, pId:2, name:"Radio nocheck 演示"},
-			{id:210, pId:2, name:"Radio chkDisabled 演示"},
-			{id:211, pId:2, name:"Radio halfCheck 演示"},
-			{id:205, pId:2, name:"用 zTree 方法 勾选 Radio"},
-		
-			];
-		
-			$(document).ready(function(){
-				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			$(function(){
+				
+						
+//				$.ajax({
+//					type:"get",
+//					url:data.ip+"per/findRoles",
+//					dateType:"json",
+//					xhrFields:{
+//						withCredentials:true
+//					},
+//					success:function(response){
+//						vm.roles=response;
+//					}
+//				});
 			});
-		
+			
 		</script>
 	</body>
 
