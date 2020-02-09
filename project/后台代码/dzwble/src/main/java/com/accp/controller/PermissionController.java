@@ -27,4 +27,19 @@ public class PermissionController {
 		return lists;
 	}
 	
+	@GetMapping("/findPerms")
+	public List<Permission> findPermssions(HttpSession sessions){
+		People user = (People)sessions.getAttribute("user");
+		return permissionService.findByUid(user.getPno());
+	}
+	
+	@GetMapping("/findAllPermission")
+	public List<Permission> findAllPermission(){
+		return permissionService.findAllPermission();
+	}
+	
+	@GetMapping("/findRolePerms")
+	public List<Permission> findRolePerms(Integer rid){
+		return permissionService.findRolePerms(rid);
+	}
 }

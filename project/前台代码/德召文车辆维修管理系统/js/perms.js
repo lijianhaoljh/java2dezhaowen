@@ -14,7 +14,7 @@ Vue.directive("perms",{
 		
 	},
 	inserted:function(el,binding,vnode){
-		let item = top.data.perms.filter(item => item.ename == binding.value);
+		let item = top.data.perms.filter(item => item.cename == binding.value);
 		if(item && item.length>0){
 			el.setAttribute("path",item[0].path)
 		}else{
@@ -27,8 +27,7 @@ Vue.directive("perms",{
 })
 //自定义vue api - 用于脚本判断权限
 Vue.prototype.$perms = function(perms){
-	console.log(top.data.perms);
-	let item = top.data.perms.filter(item => item.ename == perms);
+	let item = top.data.perms.filter(item => item.cename == perms);
 	if(item && item.length>0){
 		return item[0];
 	}

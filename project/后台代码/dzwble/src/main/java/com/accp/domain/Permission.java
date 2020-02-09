@@ -26,17 +26,17 @@ public class Permission {
 
     private String remark5;
     
-    private List<Permission> childrens = new ArrayList<Permission>();
+    private List<Permission> children = new ArrayList<Permission>();
 
-	public void setChildrens(List<Permission> childrens) {
-		this.childrens = childrens;
+    public List<Permission> getChildren() {
+		return children;
 	}
 
-	public List<Permission> getChildrens() {
-		return childrens;
+	public void setChildren(List<Permission> children) {
+		this.children = children;
 	}
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
 
