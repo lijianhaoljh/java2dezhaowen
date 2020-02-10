@@ -63,6 +63,7 @@ public class StaffService {
 		//添加职工
 		public int addStaff(Staff staf) {
 			People peo = staf.getPeople();
+			peo.setDimission(0);
 			int a = pmapper.insert(peo);
 			if(a>0) {
 				PeopleRoles pr = new PeopleRoles();
