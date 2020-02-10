@@ -11,11 +11,13 @@ import com.accp.domain.Mechanism;
 import com.accp.domain.MechanismExample;
 import com.accp.domain.People;
 import com.accp.domain.PeopleRoles;
+import com.accp.domain.Role;
 import com.accp.domain.Staff;
 import com.accp.mapper.JobMapper;
 import com.accp.mapper.MechanismMapper;
 import com.accp.mapper.PeopleMapper;
 import com.accp.mapper.PeopleRolesMapper;
+import com.accp.mapper.RoleMapper;
 import com.accp.mapper.StaffMapper;
 
 @Service
@@ -32,14 +34,16 @@ public class StaffService {
 	PeopleMapper pmapper;
 	@Autowired
 	PeopleRolesMapper prmapper;
+	@Autowired
+	RoleMapper rmapper;
 	
 	public List<Mechanism> queryAll(){
 		return mmmapper.selectByExample(null);
 	}
 	
 	//根据组织机构编号查询职工
-		public List<Staff> queryPeopleByParentid(Integer parentid){
-			return stamapper.queryPeopleByParentid(parentid);
+		public List<Staff> queryPeopleByParentid(String pno,Integer parentid){
+			return stamapper.queryPeopleByParentid(pno,parentid);
 		}
 		
 		//查询机构
@@ -92,6 +96,22 @@ public class StaffService {
 			peo.setSpassword("");
 			int a = pmapper.updateByPrimaryKey(peo);
 			return a;
+		}
+		//添加部门
+		public int addMech(Mechanism addMechanism) {
+			return mmmapper.insert(addMechanism);
+		}
+		//修改部门
+		public int upMech(Mechanism addMechanism) {
+			return mmmapper.updateByPrimaryKey(addMechanism);
+		}
+		//删除部门以及部门下的员工
+		public int deleMech(Integer mid) {
+			return mmmapper.deleteByPrimaryKey(mid);
+		}
+		//查询所有角色
+		public List<Role> queryAllRole(){
+			return rmapper.selectByExample(null);
 		}
 	
 }

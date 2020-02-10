@@ -136,7 +136,7 @@
 	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
 	LEFT JOIN job AS j ON j.jid = st.jid
 	LEFT JOIN role AS r ON r.rid = st.rid
-	WHERE st.mid = #{mid}
+	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND st.mid=#{mid}
 	ORDER BY st.pno
   </select>
   
@@ -146,7 +146,7 @@
 	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
 	LEFT JOIN job AS j ON j.jid = st.jid
 	LEFT JOIN role AS r ON r.rid = st.rid
-	WHERE mech.parentid = #{parentid}
+	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND mech.parentid=#{parentid}
 	ORDER BY st.pno
   </select>
   

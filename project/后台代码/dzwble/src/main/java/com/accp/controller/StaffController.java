@@ -14,6 +14,7 @@ import com.accp.domain.Job;
 import com.accp.domain.Mechanism;
 import com.accp.domain.MechanismExample;
 import com.accp.domain.People;
+import com.accp.domain.Role;
 import com.accp.domain.Staff;
 import com.accp.service.StaffService;
 
@@ -31,9 +32,9 @@ public class StaffController {
 	
 	//根据组织机构编号查询职工
 	@GetMapping(value="/queryPeopleByParentid")
-	public List<Staff> queryPeopleByParentid(Integer parentid){
-		System.out.println("大小："+ser.queryPeopleByParentid(parentid).size());
-		return ser.queryPeopleByParentid(parentid);
+	public List<Staff> queryPeopleByParentid(String pno,Integer parentid){
+		System.out.println("大小："+ser.queryPeopleByParentid(pno,parentid).size());
+		return ser.queryPeopleByParentid(pno,parentid);
 	}
 	//查询机构
 	@GetMapping(value="/queryMechanByparentid")
@@ -81,4 +82,35 @@ public class StaffController {
 			return "0";
 		}
 	}
+	
+	//添加部门
+		@PostMapping(value="/addMech")
+		public String addMech(@RequestBody Mechanism addMechanism ) {
+			if(ser.addMech(addMechanism)>0) {
+				return "1";
+			}
+		   return "0";
+		}
+		//修改部门
+		@PutMapping(value="/upMech")
+		public String upMech(@RequestBody Mechanism addMechanism) {
+			if(ser.upMech(addMechanism)>0) {
+				return "1";
+			}
+		   return "0";
+		}
+		
+		@PostMapping(value="/deleMech")
+		public String deleMech(Integer mid) {
+			if(ser.deleMech(mid)>0) {
+				return "1";
+			}
+		   return "0";
+		}
+		
+		@GetMapping(value="/queryAllRole")
+		public List<Role> queryAllRole(){
+			return ser.queryAllRole();
+		}
+	
 }
