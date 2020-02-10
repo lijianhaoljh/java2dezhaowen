@@ -19,7 +19,7 @@
 			 	</div>
 			 	
 			 	<div class="row" style="padding: 20px;">
-				 		<button type="button" class="btn btn-default">增加</button>
+				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">增加</button>
 				 		<button type="button" class="btn btn-default">修改</button>
 				 		<button type="button" class="btn btn-default">删除</button>
 				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
@@ -86,10 +86,89 @@
 				 					<td>{{item.markup}}</td>
 				 					<td>{{item.exchangecode}}</td>
 				 				</tr>	
-				 	</table>	
-				 	
-				 	
+				 </table>		 	
 				</div>
+				
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content" style="width:800px; height:700;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">品牌定义</h4>
+				      </div>
+				      <div class="modal-body">
+				         	商品名称:<input type="text" id="input_1"/>
+				         	商品品牌:<select>
+									  <option v-for="item in query" :value ="item.cbid">{{item.cbname}}</option>
+									</select>
+									<button data-toggle="modal" data-target="#myModal">点点</button>
+							适用车辆:<input type="text" id="input_2"/>		
+				         	<br/><br/><br/>
+				         	
+				         	数量单位:<select>
+									  <option v-for="item1 in querya" :value ="item1.cuid">{{item1.cuname}}</option>
+									</select>
+									<button>点点</button>
+							商品大类:<select>
+									  <option v-for="item2 in queryab" :value ="item2.gid">{{item2.gname}}</option>
+									</select>
+									<button>点点</button>
+							收入分类:<select>
+									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
+									</select>
+									<button>点点</button>
+							原厂副厂:<select>
+									  <option v-for="item4 in queryad" :value ="item4.coid">{{item4.coname}}</option>
+									</select>
+									<button>点点</button>
+							<br/><br/><br/>
+							
+							商品等级:<select>
+									  <option v-for="item5 in querye" :value ="item5.gcid">{{item5.gcname}}</option>
+									</select>
+									<button>点点</button>
+							商品产地:<select>
+									  <option v-for="item6 in queryef" :value ="item6.pid">{{item6.pname}}</option>
+									</select>
+									<button>点点</button>
+							厂商名称:<select>
+									  <option v-for="item7 in queryeg" :value ="item7.mfid">{{item7.mfname}}</option>
+									</select>
+									<button>点点</button>
+							<br/><br/><br/>
+							
+							原厂编码:<input type="text" id="input_3"/>
+							条形码:<input type="text" id="input_4"/>
+							包装规格:<input type="text" id="input_5"/>
+							
+							<br/><br/><br/>
+							体积A:<input type="text" id="input_6"/>
+							毛重:<input type="text" id="input_7"/>
+							净重:<input type="text" id="input_8"/>
+							<br/><br/><br/>
+							
+							进货价:<input type="text" id="input_9"/>				
+							加价率:<input type="text" id="input_10"/>
+							互换码:<input type="text" id="input_11"/>
+							<br/><br/><br/>
+							
+							标准价:<input type="text" id="input_12"/>
+							会员价:<input type="text" id="input_13"/>
+							VIP价:<input type="text" id="input_14"/>
+							<br/><br/><br/>
+							
+							协议价:<input type="text" id="input_15"/>
+							索赔价:<input type="text" id="input_16"/>
+							保险价:<input type="text" id="input_16"/>				         	
+				      </div>
+				      <div class="modal-footer">
+				        
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+				
+				
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
@@ -101,11 +180,27 @@
 			data(){
     			return {
     				CommodityInfo:[], //table集合
-    				cbno:""          //查询
+    				cbno:"",         //查询
+    				query:[],         //商品品牌
+    				querya:[],		  //商品单位
+    				queryab:[],		  //商品大类
+    				queryac:[],		  //收入分类
+    				queryad:[],		  //原厂副厂
+    				querye:[],         //商品等级
+    				queryef:[],         //商品产地
+    				queryeg:[]          //产商名称
         		};
 			},
 			mounted:function() {
             this.getData();
+            this.Query();
+            this.Querya();
+            this.Queryab();
+            this.Queryac();
+            this.Queryad();
+            this.Querye();
+            this.Queryef();
+            this.Queryeg();
        		},
 			methods: {
 				getData:function(){
@@ -124,7 +219,6 @@
 					});
 				},	
 				FindQuery:function(){
-					alert(vm.cbno)
 						$.ajax({
 						url: "http://localhost:8080/CommodityInfoRest/FindQuery",					
 						type: "get",
@@ -141,6 +235,150 @@
 							}else{
 								vm.CommodityInfo=[];
 							}
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 商品品牌下拉框
+				 */	
+				Query:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/query",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.query=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 商品单位
+				 */
+				Querya:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/querya",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.querya=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 商品大类
+				 */
+				Queryab:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/queryab",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.queryab=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 *  收入分类 
+				 */
+				Queryac:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/queryac",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.queryac=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 原厂副厂
+				 */
+				Queryad:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/queryad",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.queryad=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 商品等级
+				 */
+				Querye:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/querye",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.querye=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 商品产地
+				 */
+				Queryef:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/queryef",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.queryef=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+				/**
+				 * 产商名称
+				 */
+				Queryeg:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/queryeg",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.queryeg=result;
 						},error:function(result){					
 							console.log(result+"101");
 						}
