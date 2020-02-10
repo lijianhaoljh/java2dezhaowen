@@ -27,5 +27,16 @@ input{color: black}
 #setting ul{list-style-type: none;}
 #setting ul li{display: inline-block;text-align: center;font-size: 17px;}
 #setting td{border: 1px solid white;}
+
+#mmm{display: none; width: 500px;height:300px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 20%;left: 35%;background-color: #DEDEDE;}
+#mmm ul{list-style-type: none;}
+#mmm ul li{display: inline-block;text-align: center;font-size: 17px;}
+#mmm td{border: 1px solid white;}
+
+#mmm p label{width: 80px;text-align: right;padding-right: 10px;margin-top: 10px;}
+#mmm p input{width:110px;margin-top: 10px;}
+
 /*尾部*/
 .row:nth-child(3){height: 50px;}
+
+.row:nth-child(2)>div:nth-child(1)>ul li{font-size: 14px;}

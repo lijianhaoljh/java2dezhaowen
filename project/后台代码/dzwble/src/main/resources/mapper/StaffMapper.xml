@@ -136,7 +136,16 @@
 	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
 	LEFT JOIN job AS j ON j.jid = st.jid
 	LEFT JOIN role AS r ON r.rid = st.rid
-	WHERE st.mid = #{mid}
+	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND st.mid=#{mid} AND peo.dimission =0
+	ORDER BY st.pno
+  </select>
+  
+   <select id="queryPeople" resultMap="BaseResultMap">
+	  	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
 	ORDER BY st.pno
   </select>
   
@@ -146,7 +155,7 @@
 	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
 	LEFT JOIN job AS j ON j.jid = st.jid
 	LEFT JOIN role AS r ON r.rid = st.rid
-	WHERE mech.parentid = #{parentid}
+	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND mech.parentid=#{parentid} AND peo.dimission =0
 	ORDER BY st.pno
   </select>
   

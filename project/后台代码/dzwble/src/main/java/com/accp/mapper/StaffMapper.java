@@ -18,9 +18,11 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
-    List<Staff> queryPeopleByMid(Integer mid);
+    List<Staff> queryPeople();
+
+    List<Staff> queryPeopleByMid(@Param("pno") String pno,@Param("mid") Integer mid);
     
-    List<Staff> queryPeopleByParentid(Integer parentid);
+    List<Staff> queryPeopleByParentid(@Param("pno") String pno,@Param("parentid") Integer parentid);
 
     Staff selectByPrimaryKey(Integer sid);
 
