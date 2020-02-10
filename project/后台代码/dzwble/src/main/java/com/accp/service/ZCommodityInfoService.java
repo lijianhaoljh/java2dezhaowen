@@ -90,4 +90,34 @@ public class ZCommodityInfoService {
 				return zCommodityInfoMapper.DataQueryFind(cbno);
 			}
 			
+			/**
+			 * 新增
+			 */
+			public int addCommd(CommodityInfo comc) {
+				return zCommodityInfoMapper.insert(comc);
+			}
+			
+			/**
+			 * 删除
+			 * @param cno
+			 * @return
+			 */
+			public int deleteByid(Integer cno) {
+				return zCommodityInfoMapper.deleteByPrimaryKey(cno);
+			}
+			
+			/**
+			 * 根据id查询对象
+			 */
+			public CommodityInfo QueryByid(Integer cno) {
+				return zCommodityInfoMapper.selectByPrimaryKey(cno);
+			}
+			
+			/**
+			 * 修改
+			 */
+			public int updaCommd(CommodityInfo comc) {
+				return zCommodityInfoMapper.updateByPrimaryKey(comc);
+			}
+			
 }

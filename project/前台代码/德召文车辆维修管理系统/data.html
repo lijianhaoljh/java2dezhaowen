@@ -19,25 +19,17 @@
 			 	</div>
 			 	
 			 	<div class="row" style="padding: 20px;">
-				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">增加</button>
-				 		<button type="button" class="btn btn-default">修改</button>
-				 		<button type="button" class="btn btn-default">删除</button>
+				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" >增加</button>
+				 		<button type="button" class="btn btn-default" @click="QueryByid" data-toggle="modal" data-target="#myModal">修改</button>
+				 		<button type="button" class="btn btn-default" @click="DeleteByid">删除</button>
 				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
 		 		
-				 		<button type="button" class="btn btn-default">下页</button>
 				 		<button type="button" class="btn btn-default">导出</button>
-				 		<button type="button" class="btn btn-default">照片</button>
-				 		<button type="button" class="btn btn-default">条码</button>
-				 		<button type="button" class="btn btn-default">套件商品</button>
-				 		<button type="button" class="btn btn-default">分类设置</button>
-				 		<button type="button" class="btn btn-default">字段设置</button>
 				</div>
 				
 				<div style="width: 1700px; height:780px;overflow:scroll;">
 					<table class="table table-bordered">
 				 				<tr style="color: white; background-color: #C1E2B3;" >
-				 					<td>登记门店</td>
-				 					<td>照片名</td>
 				 					<td>商品编号</td>
 				 					<td>商品名称</td>
 				 					<td>商品品牌</td>
@@ -61,9 +53,7 @@
 				 					<td>互换码</td>
 				 				</tr>
 				 				
-				 				<tr v-for="item in CommodityInfo">
-				 					<td>{{item.remark2}}</td>
-				 					<td>{{item.remark1}}</td>
+				 				<tr v-for="item in CommodityInfo" @click="jihe(item)">
 				 					<td>{{item.cno}}</td>
 				 					<td>{{item.cname}}</td>
 				 					<td>{{item.zcbname}}</td>
@@ -96,78 +86,71 @@
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				        <h4 class="modal-title">品牌定义</h4>
 				      </div>
-				      <div class="modal-body">
-				         	商品名称:<input type="text" id="input_1"/>
-				         	商品品牌:<select>
+				      <div class="modal-body" id="inputx">
+				         	商品名称:<input type="text" id="input_1" v-model="comc.cname"/>
+				         	商品品牌:<select id="sel1" v-model="comc.cbid">
 									  <option v-for="item in query" :value ="item.cbid">{{item.cbname}}</option>
 									</select>
-									<button data-toggle="modal" data-target="#myModal">点点</button>
-							适用车辆:<input type="text" id="input_2"/>		
+							适用车辆:<input type="text" id="input_2" v-model="comc.vehicletype"/>		
 				         	<br/><br/><br/>
 				         	
-				         	数量单位:<select>
+				         	数量单位:<select id="sel2" v-model="comc.cuid">
 									  <option v-for="item1 in querya" :value ="item1.cuid">{{item1.cuname}}</option>
 									</select>
-									<button>点点</button>
-							商品大类:<select>
+							商品大类:<select v-model="comc.gid">
 									  <option v-for="item2 in queryab" :value ="item2.gid">{{item2.gname}}</option>
-									</select>
-									<button>点点</button>
-							收入分类:<select>
+								</select>
+							收入分类:<select v-model="comc.toino">
 									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
-									</select>
-									<button>点点</button>
-							原厂副厂:<select>
+								</select>
+							原厂副厂:<select v-model="comc.coid">
 									  <option v-for="item4 in queryad" :value ="item4.coid">{{item4.coname}}</option>
-									</select>
-									<button>点点</button>
+								</select>
 							<br/><br/><br/>
 							
-							商品等级:<select>
+							商品等级:<select v-model="comc.gcid">
 									  <option v-for="item5 in querye" :value ="item5.gcid">{{item5.gcname}}</option>
-									</select>
-									<button>点点</button>
-							商品产地:<select>
+								</select>
+							商品产地:<select v-model="comc.pid">
 									  <option v-for="item6 in queryef" :value ="item6.pid">{{item6.pname}}</option>
-									</select>
-									<button>点点</button>
-							厂商名称:<select>
+								</select>
+							厂商名称:<select v-model="comc.mfid">
 									  <option v-for="item7 in queryeg" :value ="item7.mfid">{{item7.mfname}}</option>
-									</select>
-									<button>点点</button>
+								</select>
 							<br/><br/><br/>
 							
-							原厂编码:<input type="text" id="input_3"/>
-							条形码:<input type="text" id="input_4"/>
-							包装规格:<input type="text" id="input_5"/>
+							原厂编码:<input type="text" id="input_3" v-model="comc.origin"/>
+							条形码:<input type="text" id="input_4" v-model="comc.barcode"/>
+							包装规格:<input type="text" id="input_5" v-model="comc.package"/>
 							
 							<br/><br/><br/>
-							体积A:<input type="text" id="input_6"/>
-							毛重:<input type="text" id="input_7"/>
-							净重:<input type="text" id="input_8"/>
+							体积A:<input type="text" id="input_6" v-model="comc.volume"/>
+							毛重:<input type="text" id="input_7" v-model="comc.grossweight"/>
+							净重:<input type="text" id="input_8" v-model="comc.netweight"/>
 							<br/><br/><br/>
 							
-							进货价:<input type="text" id="input_9"/>				
-							加价率:<input type="text" id="input_10"/>
-							互换码:<input type="text" id="input_11"/>
+							进货价:<input type="text" id="input_9" v-model="comc.stockprice"/>				
+							加价率:<input type="text" id="input_10" v-model="comc.markup"/>
+							互换码:<input type="text" id="input_11" v-model="comc.exchangecode"/>
 							<br/><br/><br/>
 							
-							标准价:<input type="text" id="input_12"/>
-							会员价:<input type="text" id="input_13"/>
-							VIP价:<input type="text" id="input_14"/>
+							标准价:<input type="text" id="input_12" v-model="comc.standardprice"/>
+							会员价:<input type="text" id="input_13" v-model="comc.memberprice"/>
+							VIP价:<input type="text" id="input_14" v-model="comc.vipprice"/>
 							<br/><br/><br/>
 							
-							协议价:<input type="text" id="input_15"/>
-							索赔价:<input type="text" id="input_16"/>
-							保险价:<input type="text" id="input_16"/>				         	
+							协议价:<input type="text" id="input_15" v-model="comc.agreementprice"/>
+							索赔价:<input type="text" id="input_16" v-model="comc.insuranceprice"/>
+							保险价:<input type="text" id="input_17" v-model="comc.claimprice"/>				         	
 				      </div>
 				      <div class="modal-footer">
-				        
+				        	<button @click="UpdaCommd" v-if="isok" type="button" class="btn btn-default">修改</button>
+				        	<button @click="addCommd" v-else="isok"   type="button" class="btn btn-default">新增</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-				
+		
 				
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
@@ -188,7 +171,9 @@
     				queryad:[],		  //原厂副厂
     				querye:[],         //商品等级
     				queryef:[],         //商品产地
-    				queryeg:[]          //产商名称
+    				queryeg:[],          //产商名称
+    				comc:{},          //新增
+    				isok:false
         		};
 			},
 			mounted:function() {
@@ -240,6 +225,38 @@
 						}
 					});
 				},
+				/**
+				 * 新增商品信息
+				 */
+				addCommd:function(){
+					if($("#input_1").val()==""){
+						alert("商品名称不能为空!")
+						return false;
+					}else if($("#sel1").val()==""){
+						alert("商品品牌不能为空")
+						return false;
+					}else if($("#sel2").val()==""){
+						alert("商品单位不能为空")
+						return false;
+					}else{
+						$.ajax({
+							url:"http://localhost:8080/CommodityInfoRest/addCommd",
+							data:JSON.stringify(vm.comc),						
+							type:"post",
+							xhrFields: {
+									withCredentials: true
+								},
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								alert("新增成功")
+								vm.getData();
+							},error:function(result){
+								console.log(result+"add")
+							}
+						})
+					}
+				},
+				
 				/**
 				 * 商品品牌下拉框
 				 */	
@@ -383,6 +400,79 @@
 							console.log(result+"101");
 						}
 					});
+				},
+				/**
+				 * 删除
+				 */
+				jihe:function(item){
+					vm.CommodityInfo.cno=item.cno;
+				},	
+				DeleteByid:function(){
+					if (confirm("你确定要删除"+vm.CommodityInfo.cno+"么?")) {
+						$.ajax({
+								url:"http://localhost:8080/CommodityInfoRest/deleteid",
+								data:{
+									cno:vm.CommodityInfo.cno
+								},
+								type:"post",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType:"json",
+								success:function(result){
+											alert("删除成功")
+											vm.getData();																				
+									},error:function(result){
+										console.log(result);
+									},
+							})
+						}
+				},
+				QueryByid:function(){
+						vm.isok=true;
+						$.ajax({
+							url:"http://localhost:8080/CommodityInfoRest/QueryByid",
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							data:{cno:vm.CommodityInfo.cno},
+							dataType:"json",
+							success:function(result){
+								vm.comc=result;
+							}
+						})
+				},
+				/**
+				 * 修改商品信息
+				 */
+				UpdaCommd:function(){
+					if($("#input_1").val()==""){
+						alert("商品名称不能为空!")
+						return false;
+					}else if($("#sel1").val()==""){
+						alert("商品品牌不能为空")
+						return false;
+					}else if($("#sel2").val()==""){
+						alert("商品单位不能为空")
+						return false;
+					}else{
+						$.ajax({
+							url:"http://localhost:8080/CommodityInfoRest/updaCommd",
+							data:JSON.stringify(vm.comc),						
+							type:"put",
+							xhrFields: {
+									withCredentials: true
+								},
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								alert("修改成功")
+								vm.getData();
+							},error:function(result){
+								console.log(result+"add")
+							}
+						})
+					}
 				},
 			}
 		})
