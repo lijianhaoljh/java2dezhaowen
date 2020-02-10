@@ -1,7 +1,28 @@
 package com.accp.domain;
 
 public class CustomerType {
-    private String ctno;
+	
+	private PriceType pricetype;
+	
+    public PriceType getPricetype() {
+		return pricetype;
+	}
+
+	public void setPricetype(PriceType pricetype) {
+		this.pricetype = pricetype;
+	}
+
+	private String ptname;
+	
+	public String getPtname() {
+		return ptname;
+	}
+
+	public void setPtname(String ptname) {
+		this.ptname = ptname;
+	}
+
+	private String ctno;
 
     private String ctname;
 

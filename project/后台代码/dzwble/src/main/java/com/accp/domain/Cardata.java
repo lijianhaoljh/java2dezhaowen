@@ -2,6 +2,10 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Cardata {
     private String cdlicense;
 
@@ -12,11 +16,17 @@ public class Cardata {
     private String cddriver;
 
     private String cddriverphone;
+    
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cddriverbirth;
 
     private Integer clid;
 
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdlicenseend;
 
     private String cdframe;
@@ -28,27 +38,41 @@ public class Cardata {
     private Float cdmileage;
 
     private Float cdload;
+    
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdbuydate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdgolicense;
 
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdcarcheckdate;
 
     private Integer fid;
 
     private Integer inid;
-
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date indate;
 
     private Integer inidBusiness;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date inidBdate;
 
     private Integer cdisinsure;
 
     private Float cdnextmileage;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdnextkeepdate;
 
     private String cno;
@@ -62,8 +86,68 @@ public class Cardata {
     private String remark4;
 
     private String remark5;
+    
+    private String cbnam;//车品牌名称
+    
+    private String moiname;//车型号名称
+    
+    private String mname;//发动机名称
+    
+    private String clname;//车辆归属名称
+    
+    private String fname;//燃油名称
+    
+    private String cname;//客户名称
+    
+    public String getCname() {
+		return cname;
+	}
 
-    public String getCdlicense() {
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getClname() {
+		return clname;
+	}
+
+	public void setClname(String clname) {
+		this.clname = clname;
+	}
+
+	public String getCbnam() {
+		return cbnam;
+	}
+
+	public void setCbnam(String cbnam) {
+		this.cbnam = cbnam;
+	}
+
+	public String getMoiname() {
+		return moiname;
+	}
+
+	public void setMoiname(String moiname) {
+		this.moiname = moiname;
+	}
+
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public String getCdlicense() {
         return cdlicense;
     }
 

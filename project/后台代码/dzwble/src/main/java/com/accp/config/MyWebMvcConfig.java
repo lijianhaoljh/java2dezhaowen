@@ -3,6 +3,8 @@ package com.accp.config;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -14,22 +16,29 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import com.accp.intercetor.MyInterceptor;
+import com.accp.intercetor.PermInterceptor;
 
 @Configuration
 public class MyWebMvcConfig extends WebMvcConfigurationSupport {
-	
-	
-
+	@Autowired
+	PermInterceptor permInterceptor;
 //	classpath:static
 //	classpath:resources
 //	classpath:META-INF/public
 //	classpath:public
 //	覆盖原有的静态资源配置，必须重新配置
+	
+
+	@Value("${fileupload-url}")
+	private String fileuploadUrl;
 
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
-				.addResourceLocations("file:/Users/tangyong/images/");
+				.addResourceLocations("file:"+fileuploadUrl);
+		registry.addResourceHandler("/**")
+		.addResourceLocations("classpath:/static/")//jar包里面的路径
+				.addResourceLocations("file:"+fileuploadUrl);//盘符目录，本地目录
 		super.addResourceHandlers(registry);
 	}
 
@@ -37,27 +46,31 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	protected void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedMethods("*").allowedOrigins("*").allowedHeaders("*").allowCredentials(true);
 	}
+	//重写此方法后会覆盖原有的默认消息转换器，所以需要的其它转换器
+		//都需要重写构建
+		@Override
+		protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+			//普通字符串转码
+			StringHttpMessageConverter shc = 
+					new StringHttpMessageConverter(StandardCharsets.UTF_8);
+			converters.add(shc);
+			//json格式转换器
+			MappingJackson2HttpMessageConverter jackson =
+					new MappingJackson2HttpMessageConverter();
+			converters.add(jackson);
+			//org.springframework.http.converter.ByteArrayHttpMessageConverter
+			ByteArrayHttpMessageConverter array = new ByteArrayHttpMessageConverter();
+			converters.add(array);
+			super.configureMessageConverters(converters);
+		}
 
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
+		//拦截登录
+//		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
+//		registry.addInterceptor(permInterceptor).addPathPatterns("/**").excludePathPatterns("/loginin");
 		super.addInterceptors(registry);
 	}
 	
-	@Override
-	 protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-	  //普通字符串转码
-	  StringHttpMessageConverter shc = 
-	    new StringHttpMessageConverter(StandardCharsets.UTF_8);
-	  converters.add(shc);
-	  //json格式转换器
-	  MappingJackson2HttpMessageConverter jackson =
-	    new MappingJackson2HttpMessageConverter();
-	  converters.add(jackson);
-	  //org.springframework.http.converter.ByteArrayHttpMessageConverter
-	  //配置字节转换器
-	  ByteArrayHttpMessageConverter array = new ByteArrayHttpMessageConverter();
-	  converters.add(array);
-	  super.configureMessageConverters(converters);
-	 }
+	
 }

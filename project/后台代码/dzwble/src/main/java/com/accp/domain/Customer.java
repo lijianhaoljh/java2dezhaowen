@@ -1,6 +1,11 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Customer {
     private String cno;
@@ -14,7 +19,10 @@ public class Customer {
     private String cphone;
 
     private String caddress;
+    
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cbirthday;
 
     private Integer cperiod;
@@ -49,17 +57,113 @@ public class Customer {
 
     private String other4;
 
-    private String remark1;
+    private String jifen;
 
-    private String remark2;
+    private String creatdate;
 
     private String remark3;
 
     private String remark4;
 
     private String remark5;
+    
+    private String ctname;//客户类型名称
+    
+    private Integer isvip;//是否为会员
+    
+    private String vno;//会员卡号
+    
 
-    public String getCno() {
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date vjoindate;//入会时间
+    
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date venddate;//会员到期时间
+
+    private Integer vjifen;//会员积分
+    
+    private String pname;//服务顾问
+    
+    private String pphone;//顾问电话
+    
+    private List<Cardata> cars;//汽车集合
+    
+    public List<Cardata> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Cardata> cars) {
+		this.cars = cars;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getCtname() {
+		return ctname;
+	}
+
+	public void setCtname(String ctname) {
+		this.ctname = ctname;
+	}
+
+	public Integer getIsvip() {
+		return isvip;
+	}
+
+	public void setIsvip(Integer isvip) {
+		this.isvip = isvip;
+	}
+
+	public String getVno() {
+		return vno;
+	}
+
+	public void setVno(String vno) {
+		this.vno = vno;
+	}
+
+	public Date getVjoindate() {
+		return vjoindate;
+	}
+
+	public void setVjoindate(Date vjoindate) {
+		this.vjoindate = vjoindate;
+	}
+
+	public Date getVenddate() {
+		return venddate;
+	}
+
+	public void setVenddate(Date venddate) {
+		this.venddate = venddate;
+	}
+
+	public Integer getVjifen() {
+		return vjifen;
+	}
+
+	public void setVjifen(Integer vjifen) {
+		this.vjifen = vjifen;
+	}
+
+	public String getPphone() {
+		return pphone;
+	}
+
+	public void setPphone(String pphone) {
+		this.pphone = pphone;
+	}
+
+	public String getCno() {
         return cno;
     }
 
@@ -243,20 +347,20 @@ public class Customer {
         this.other4 = other4;
     }
 
-    public String getRemark1() {
-        return remark1;
+    public String getJifen() {
+        return jifen;
     }
 
-    public void setRemark1(String remark1) {
-        this.remark1 = remark1;
+    public void setJifen(String jifen) {
+        this.jifen = jifen;
     }
 
-    public String getRemark2() {
-        return remark2;
+    public String getCreatdate() {
+        return creatdate;
     }
 
-    public void setRemark2(String remark2) {
-        this.remark2 = remark2;
+    public void setCreatdate(String creatdate) {
+        this.creatdate = creatdate;
     }
 
     public String getRemark3() {

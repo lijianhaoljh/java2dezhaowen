@@ -18,6 +18,10 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
+    List<Staff> queryPeopleByMid(Integer mid);
+    
+    List<Staff> queryPeopleByParentid(Integer parentid);
+
     Staff selectByPrimaryKey(Integer sid);
 
     int updateByExampleSelective(@Param("record") Staff record, @Param("example") StaffExample example);

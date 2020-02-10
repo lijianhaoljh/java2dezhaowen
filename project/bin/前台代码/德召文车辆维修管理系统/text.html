@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="ctx">
+			<div>文件上传</div>	
+		</div>
+		<div>
+			<form method="post" enctype="multipart/form-data">
+				<input name="file" multiple="multiple" type="file" />
+				<input name="cno" type="text" />
+				<input name="cname" type="text" />
+				<input type="button" value="文件上传" />
+			</form>
+			<a href="http://localhost:8080/download?fileName=newFile.jpg">文件下载</a>
+		</div>
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("[type=button]").click(function(){
+					//获取表单，将表单通过jquery获取在将jquery对象转换为dom
+					var formDate = new FormData($("form")[0]);
+					$.ajax({
+						url:"http://localhost:8080/fileUpload",
+						type:"post",
+						async:true,//默认异步(true)
+						data:formDate,
+						contentType:false,//不修改传递数据的类型，（就是form表单里面的类型）
+						processData:false//不对传递的数据进行转换
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

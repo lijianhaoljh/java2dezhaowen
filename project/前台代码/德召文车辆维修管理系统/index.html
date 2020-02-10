@@ -28,7 +28,7 @@
 			}
 			.megly{
 				position: absolute;
-				right: -16px;
+				right: -20px;
 				background: #204d74;
 				z-index: 9999;
 				padding: 20px 3px;
@@ -52,23 +52,24 @@
 						</div>
 						<div class="row">
 							<ul class="nav nav-pills nav-stacked text-center menav">
-							  <li role="presentation" class="me_menu1 active"><a href="#">首页</a></li>
-							  <li role="presentation" class="me_menu1">
-							  	<a href="#">Home</a>
-							  	<ul class="nav nav-stacked text-center">
-								  <li role="presentation" class="me_menu2"><a href="#">1</a></li>
-								  <li role="presentation" class="me_menu2"><a href="#">2</a></li>
-								  <li role="presentation" class="me_menu2"><a href="#">3</a></li>
-								</ul>
-							  </li>
+					     		<li role="presentation" class="me_menu1 active" @click="openHTML(0)"><a href="#" data-toggle="tab">首页</a></li>
+								<li role="presentation" class="me_menu1"  v-for='item in p.children' v-if="item.catalog==0">
+									  	<a href="#" @click="slideChildrens($event)" data-toggle="tab">{{item.name}}</a>
+									  	<ul class="nav nav-stacked text-center" >
+											<li role="presentation" class="me_menu2" v-for='it in item.children' v-if="it.catalog==0">
+												<a v-if="it.path" @click="openHTML(it)">{{it.name}}</a>
+												<a v-else>{{it.name}}</a>
+											</li>
+										</ul>
+								</li>  
 							</ul>
 						</div>
 					</div>
 					<div class="" style="position: absolute;bottom: 0;height: 30px;width: 100%;border-top: 2px solid;" >
 						<table class="metable" style="width: 100%; margin-top: 5px;">
 							<tr>
-								<td colspan="2">用户:&nbsp;&nbsp;</td>
-								<td>&nbsp;&nbsp;钟鹏根</td>
+								<td colspan="2">工作人员:&nbsp;&nbsp;</td>
+								<td>&nbsp;&nbsp;{{user.pname}}</td>
 							</tr>
 						</table>
 					</div>
@@ -87,12 +88,7 @@
 							    <!-- Collect the nav links, forms, and other content for toggling -->
 							    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							      <ul class="nav navbar-nav">
-							        <li><a href="#">维修</a></li>
-							        <li><a href="#">前台</a></li>
-							        <li><a href="#">客服</a></li>
-							        <li><a href="#">数据</a></li>
-							        <li><a href="#">人事</a></li>
-							        <li><a href="#">系统</a></li>
+							        <li v-for="item in perms" @click="moduleSwitch(item)"><a href="#">{{item.name}}</a></li>
 							      </ul>
 							      <div class="btn-group mebtn" role="group" style="float: right;margin: 8px; position: relative;">
 								      <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-bell"></span></button>
@@ -102,24 +98,22 @@
 								    <ul class="dropdown-menu" style="position: absolute;left: -80px;">
 								      <li><a href="#" ><span class="glyphicon glyphicon-cog"></span> 设置</a></li>
 								      <li><a href="#"><span class="glyphicon glyphicon-th"></span> EPC</a></li>
-								      <li><a href="#"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
+								      <li @click="signOut"><a href="#"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
 								    </ul>
 								  </div>
 							    </div>
 							  </div>
 							</nav>
 						</div>
-						<div class="tab-content me_content" style="height: 92.8%;overflow: scroll;">
-							<ul class="nav nav-tabs metab" >
-							  <li role="presentation" class="active"><a href="#">Home</a></li>
-							  <li role="presentation"><a href="#">Profile</a></li>
-							  <li role="presentation"><a href="#">Messages</a></li>
+						<div class="me_content" style="height: 92.8%;overflow: scroll;">
+							<ul class="nav nav-tabs metab my-tab" >
+							  <li role="presentation" class="active"><a href="#index" data-toggle="tab">首页</a></li>
 							</ul>
-						  	<div class="tab-pane active" id="index" style="height: 100%;">
-						  		<iframe src="data.html">
-						  		
-						  		</iframe>
-						  	</div>
+							<div class="tab-content" style="height: 100%;">
+								<div id="index" style="height: 100%;" class="active tab-pane">
+									<iframe src="home.html"></iframe>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -128,21 +122,64 @@
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/my.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
-			//菜单展开
-			$(".me_menu1>a").click(function(){
-				if($(this).next().css("display")=="none"){
-					$(this).next().slideDown();
-				}else{
-					$(this).next().slideUp();
+			//权限
+			var vm = new Vue({
+				el: "#ctx",
+				data() {
+					return {
+						perms: [],
+						user:{},
+						p:{}
+					}
+				},methods:{
+					signOut(){
+						//退出登录
+						sessionStorage.removeItem("user");
+						location.reload()
+					},slideChildrens(e){
+//						目录展开
+						if($(e.target).next().css("display")=="none"){
+							$(e.target).next().slideDown();
+						}else{
+							$(e.target).next().slideUp();
+						}
+					},moduleSwitch(p){
+//						切换模块
+						$(".me_menu1").removeClass("active").eq(0).addClass("active");
+						$(".me_menu2").parent().slideUp();
+						vm.p=p;
+					},openHTML(it){
+						openIFM(it);
+					}
+				},
+				created: function() {
+					var that = this;
+					$.ajax({
+						url: data.ip + "perms/findPerm",
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(response) {
+							vm.perms=response;
+							let user=sessionStorage.getItem("user");
+							vm.user=eval('('+user+')');
+							vm.p=response[0];
+							console.log(vm.user);
+							console.log(response);
+						},
+						error: function(error) {
+							console.log(222)
+						}
+					});
 				}
 			});
 			
-			//收缩菜单
-			
-			
 		</script>
-		
 		
 	</body>
 </html>

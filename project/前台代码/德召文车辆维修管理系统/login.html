@@ -21,25 +21,16 @@
 						    	<h3>登录</h3>
 						  </div>
 						  <div class="panel-footer">
-						  		<div class="form-group">
-						  			<label>门店:</label>
-									<select class="form-control">
-										<option value="">请选择</option>
-										<option >111</option>
-										<option >111</option>
-										<option >111</option>
-									</select>
-								</div>
 								<div class="form-group">
 									<label>用户:</label>
-									<input type="text" class="form-control"  placeholder="user">
+									<input type="text" class="form-control" v-model="people.pno"  placeholder="user">
 								</div>
 								<div class="form-group">
 									<label>密码:</label>
-									<input type="password" class="form-control" placeholder="Password">
+									<input type="password" class="form-control" v-model="people.spassword" placeholder="Password">
 								</div>
 								<div class="form-group text-center">
-									<a href="index.html" class="btn btn-success btn-lg">登录 <span class="glyphicon glyphicon-arrow-right"></span></a>
+									<a class="btn btn-success btn-lg" @click="loginin">登录 <span class="glyphicon glyphicon-arrow-right"></span></a>
 								</div>
 						  </div>
 						</div>
@@ -52,6 +43,7 @@
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/canvas-particle.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/my.js" ></script>
 		<script type="text/javascript">
 			window.onload = function() {
 			    //配置
@@ -70,6 +62,46 @@
 			    //调用
 			    CanvasParticle(config);
 			}
+		</script>
+		<script>
+			
+			var vm = new Vue({
+				el: "#mydiv",
+				data() {
+					return {
+						people: {},
+						user:{}
+					}
+				},
+				methods: {
+					loginin() {
+						var that = this;
+						if(!vm.people.pno||!vm.people.spassword){
+							alert("请输入账号或密码!");
+							return false;
+						}
+						$.ajax({
+							url: data.ip + "loginin",
+							data: that.people,
+							type: "post",
+							xhrFields: {
+								withCredentials: true
+							},
+							dataType: "text",
+							success: function(response) {
+								if(response){
+									var j=eval('('+response+')');
+									console.log(j);
+									sessionStorage.setItem("user",JSON.stringify(j.user));
+									window.location.href = "index.html";
+								}else{
+									alert("员工编号或密码错误！");
+								}
+							}
+						});
+					}
+				}
+			});
 		</script>
 	</body>
 </html>

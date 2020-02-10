@@ -37,7 +37,91 @@ public class Bills {
 
     private String remark5;
 
-    public String getBid() {
+    private String mbname;
+    private String etime;
+    private String edate;
+    private String rbname;
+    private String contime;
+    private String comtime;
+    private String atime;
+    private String total;
+    private String mname;
+    
+    
+    
+    public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public String getMbname() {
+		return mbname;
+	}
+
+	public void setMbname(String mbname) {
+		this.mbname = mbname;
+	}
+
+	public String getEtime() {
+		return etime;
+	}
+
+	public void setEtime(String etime) {
+		this.etime = etime;
+	}
+
+	public String getEdate() {
+		return edate;
+	}
+
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
+
+	public String getRbname() {
+		return rbname;
+	}
+
+	public void setRbname(String rbname) {
+		this.rbname = rbname;
+	}
+
+	public String getContime() {
+		return contime;
+	}
+
+	public void setContime(String contime) {
+		this.contime = contime;
+	}
+
+	public String getComtime() {
+		return comtime;
+	}
+
+	public void setComtime(String comtime) {
+		this.comtime = comtime;
+	}
+
+	public String getAtime() {
+		return atime;
+	}
+
+	public void setAtime(String atime) {
+		this.atime = atime;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getBid() {
         return bid;
     }
 
