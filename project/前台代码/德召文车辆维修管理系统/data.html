@@ -6,14 +6,14 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
 	<body>
-		<div class="container-fluid" style="margin: 20px;">
+		<div class="container-fluid" style="margin: 20px;" id="ctx">
 				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>商品资料</strong>
 				 	</span>
 				 	<div style="float: right;">
-				 		<input style="width: 400px; height: 37px;" type="text" placeholder="匹配编码/名称/简码/品牌/大类+号实现双条件查询"/>
-				 		<button type="button" class="btn btn-success">搜索</button>
+				 		<input style="width: 400px; height: 37px;" type="text" v-model="cbno" placeholder="匹配编码/名称/简码/品牌/大类+号实现双条件查询"/>
+				 		<button type="button" class="btn btn-success" @click="FindQuery">搜索</button>
 				 		<button type="button" class="btn btn-warning">关闭</button>
 				 	</div>
 			 	</div>
@@ -33,9 +33,9 @@
 				 		<button type="button" class="btn btn-default">字段设置</button>
 				</div>
 				
-				<div>
-					<table class="table table-hover">
-				 				<tr style="color: white; background-color: #C1E2B3;">
+				<div style="width: 1700px; height:780px;overflow:scroll;">
+					<table class="table table-bordered">
+				 				<tr style="color: white; background-color: #C1E2B3;" >
 				 					<td>登记门店</td>
 				 					<td>照片名</td>
 				 					<td>商品编号</td>
@@ -46,26 +46,107 @@
 				 					<td>商品大类</td>
 				 					<td>商品中类</td>
 				 					<td>商品小类</td>
-				 					
+				 					<td>收入分类</td>
+				 					<td>原厂副厂</td>
+				 					<td>商品等级</td>
+				 					<td>商品产地</td>
+				 					<td>厂商名称</td>
+				 					<td>原厂编码</td>
+				 					<td>条形码</td>
+				 					<td>包装规格</td>
+				 					<td>体积A</td>
+				 					<td>毛重</td>
+				 					<td>净重</td>
+				 					<td>加价率</td>
+				 					<td>互换码</td>
 				 				</tr>
 				 				
-				 				<tr>
-				 					<td>成高</td>
-				 					<td>Z20</td>
-				 					<td>090</td>
-				 					<td>节气门</td>
-				 					<td>嘉实多</td>
-				 					<td>J.8T</td>
-				 					<td>台</td>
-				 					<td>发动机</td>
-				 					<td></td>
-				 					<td>BOSCH</td>
+				 				<tr v-for="item in CommodityInfo">
+				 					<td>{{item.remark2}}</td>
+				 					<td>{{item.remark1}}</td>
+				 					<td>{{item.cno}}</td>
+				 					<td>{{item.cname}}</td>
+				 					<td>{{item.zcbname}}</td>
+				 					<td>{{item.vehicletype}}</td>
+				 					<td>{{item.zcuname}}</td>
+				 					<td><span v-if="item.zparentid==0">{{item.zgame}}</span></td>
+				 					<td><span v-if="item.zparentid>0 && item.zparentid<=10">{{item.zgame}}</span></td>
+				 					<td><span v-if="item.zparentid>10">{{item.zgame}}</span></td>
+				 					<td>{{item.ztoname}}</td>
+				 					<td>{{item.zconame}}</td>
+				 					<td>{{item.zgcname}}</td>
+				 					<td>{{item.zpname}}</td>
+				 					<td>{{item.zmfname}}</td>
+				 					<td>{{item.origin}}</td>
+				 					<td>{{item.barcode}}</td>
+				 					<td>{{item.packag}}</td> 
+				 					<td>{{item.volume}}</td>
+				 					<td>{{item.grossweight}}</td>
+				 					<td>{{item.netweight}}</td>
+				 					<td>{{item.markup}}</td>
+				 					<td>{{item.exchangecode}}</td>
 				 				</tr>	
-				 	</table>					
+				 	</table>	
+				 	
+				 	
 				</div>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
 	</body>
-</html>
+<script type="text/javascript">
+		var vm=new Vue({
+            el:"#ctx",
+			data(){
+    			return {
+    				CommodityInfo:[], //table集合
+    				cbno:""          //查询
+        		};
+			},
+			mounted:function() {
+            this.getData();
+       		},
+			methods: {
+				getData:function(){
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.CommodityInfo=result;
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},	
+				FindQuery:function(){
+					alert(vm.cbno)
+						$.ajax({
+						url: "http://localhost:8080/CommodityInfoRest/FindQuery",					
+						type: "get",
+						data:{
+							cbno:vm.cbno
+						},
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "text",
+						success: function(result) {
+							if(result){
+								vm.CommodityInfo=eval('('+result+')');	
+							}else{
+								vm.CommodityInfo=[];
+							}
+						},error:function(result){					
+							console.log(result+"101");
+						}
+					});
+				},
+			}
+		})
+</script>
+	</html>

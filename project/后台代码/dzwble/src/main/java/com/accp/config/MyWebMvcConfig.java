@@ -36,6 +36,9 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
 				.addResourceLocations("file:"+fileuploadUrl);
+		registry.addResourceHandler("/**")
+		.addResourceLocations("classpath:/static/")//jar包里面的路径
+				.addResourceLocations("file:"+fileuploadUrl);//盘符目录，本地目录
 		super.addResourceHandlers(registry);
 	}
 
@@ -68,4 +71,6 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 //		registry.addInterceptor(permInterceptor).addPathPatterns("/**").excludePathPatterns("/loginin");
 		super.addInterceptors(registry);
 	}
+	
+	
 }

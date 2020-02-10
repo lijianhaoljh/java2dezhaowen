@@ -20,6 +20,8 @@ public interface CardataMapper {
 
     List<Cardata> queryCarBycno(String cno);
 
+    List<Cardata> queryCars(String cddriver);
+
     Cardata selectByPrimaryKey(String cdlicense);
 
     int updateByExampleSelective(@Param("record") Cardata record, @Param("example") CardataExample example);

@@ -37,6 +37,7 @@
     <result column="mname" property="mname" jdbcType="VARCHAR" />
     <result column="clname" property="clname" jdbcType="VARCHAR" />
     <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -117,6 +118,24 @@
 	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
 	WHERE card.cno=#{cno}
+  </select>
+  
+  <select id="queryCars" resultMap="BaseResultMap">
+  	SELECT card.*,
+	carb.cbname cbnam,
+	moto.moiname moiname,
+	mainte.mname mname,
+	cl.clname clname,
+	fu.fname fname,
+	cus.cname cname 
+	FROM cardata AS card
+	LEFT JOIN carbrand AS carb ON card.cdno=carb.cbno
+	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
+	LEFT JOIN maintenance AS mainte ON mainte.mid=moto.mid
+	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
+	LEFT JOIN fuel AS fu ON card.fid=fu.fid
+	LEFT JOIN customer AS cus ON card.cno=cus.cno
+	WHERE card.cddriver LIKE concat('%',#{cddriver},'%') OR card.cddriverphone LIKE concat('%',#{cddriver},'%') OR card.cdlicense LIKE concat('%',#{cddriver},'%') OR card.cdframe LIKE CONCAT('%',#{cddriver},'%')
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CardataExample" >

@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +22,20 @@ public class ZMaintenanceController {
 		@GetMapping
 		public List<Maintenance> query() {
 			return zMaintenanceService.query();
+		}
+		
+		@PostMapping(value = "/add")
+		public int addfdjtwo(@RequestBody Maintenance MaintenanceAdd) {
+			return zMaintenanceService.addfdjtwo(MaintenanceAdd);
+		}
+		
+		@PutMapping(value = "/upda")
+		public int updafdjtwo(@RequestBody Maintenance MaintenanceAdd) {
+			return zMaintenanceService.updafdjtwo(MaintenanceAdd);
+		}
+		
+		@PostMapping(value = "/dele")
+		public int deletetwo(Integer mids) {
+			return zMaintenanceService.deletetwo(mids);
 		}
 }

@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Cardata {
@@ -15,12 +17,16 @@ public class Cardata {
 
     private String cddriverphone;
     
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cddriverbirth;
 
     private Integer clid;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdlicenseend;
 
     private String cdframe;
@@ -32,33 +38,41 @@ public class Cardata {
     private Float cdmileage;
 
     private Float cdload;
+    
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdbuydate;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdgolicense;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdcarcheckdate;
 
     private Integer fid;
 
     private Integer inid;
-
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date indate;
 
     private Integer inidBusiness;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date inidBdate;
 
     private Integer cdisinsure;
 
     private Float cdnextmileage;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cdnextkeepdate;
 
     private String cno;
@@ -83,7 +97,17 @@ public class Cardata {
     
     private String fname;//燃油名称
     
-    public String getFname() {
+    private String cname;//客户名称
+    
+    public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getFname() {
 		return fname;
 	}
 
