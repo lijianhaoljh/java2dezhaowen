@@ -6,6 +6,7 @@
 		<title>客户资料</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="css/customer_information.css"/>
 	</head>
 
 	<body>
@@ -668,7 +669,7 @@
 					//查询职工
 						$.ajax({
 							url:data.ip+"cus/queryPeopleByMid",
-							data:{mid:mid},
+							data:{pno:"",mid:mid},
 							type:"post",
 							dataType:"json",
 							success:function(data){
@@ -1287,7 +1288,7 @@
 					}
 						
 				});
-				
+				//结尾
 		</script>
 	</body>
 
