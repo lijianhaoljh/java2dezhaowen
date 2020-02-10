@@ -47,7 +47,7 @@ public class StaffController {
 		return ser.queryAllStaff();
 	}
 	//查询所有岗位
-	@GetMapping(value="queryAllJob")
+	@GetMapping(value="/queryAllJob")
 	public List<Job> queryAllJob(){
 		return ser.queryAllJob();
 	}
