@@ -17,6 +17,7 @@ public class VipService {
 	 * 查询会员
 	 */
 	
+	
 	/*
 	 * 新增会员
 	 */
