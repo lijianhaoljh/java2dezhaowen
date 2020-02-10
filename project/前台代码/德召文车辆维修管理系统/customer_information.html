@@ -499,7 +499,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="s in staffs">
-									<td><input @click="peop($event)" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
+									<td><input @click="peop($event)" name="ss" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
 									<td>{{s.mname}}</td>
 									<td>{{s.pno}}</td>
 									<td>{{s.pname}}</td>

@@ -4,9 +4,6 @@
 		<meta charset="utf-8" />
 		<title>离职定义</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/quit.css"/>
 	</head>
 	<body>
@@ -32,12 +29,11 @@
 							<li><span class="glyphicon glyphicon-cog"></span>回滚</li>
 							<li @click="open"><span class="glyphicon glyphicon-folder-open"></span>打开</li>
 							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
-							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>
 							<li><span class="glyphicon glyphicon-export"></span>导出</li>
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="border-left: 1px solid #E9E9E9;">
-						<table class="table table-bordered" style="width: 70%;">
+						<table class="table table-hover" style="width: 70%;">
 						  <thead>
 						  	<tr>
 						  		<td>         </td>
@@ -51,15 +47,15 @@
 						  	</tr>
 						  </thead>
 						  <tbody>
-						  	<tr>
+						  	<tr v-for="q in quits">
 						  		<td>   </td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
+						  		<td>{{q.mname}}</td>
+						  		<td>{{q.sno}}</td>
+						  		<td>{{q.pname}}</td>
+						  		<td>{{q.psex}}</td>
+						  		<td>{{q.jname}}</td>
+						  		<td>{{q.rdate}}</td>
+						  		<td>{{q.rreason}}</td>
 						  	</tr>
 						  </tbody>
 						</table>
@@ -156,15 +152,54 @@
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
 						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
 					</div>
-					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
 						<p>
-							<label>员工姓名</label><input />
+							<label>员工姓名</label><input /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
 							<label>离职日期</label><input />
 						</p>
 						<p><label>离职原因</label><input style="width: 500px;" /></p>
 					</div>
 				</div>
 			</div>
+			
+			<div id="chosecustomer">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>
+				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
+					</div>
+					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
+							<option v-for="m1 in mechanismis1" :value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
+						</select>
+						<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
+							<option v-for="mn1 in mechanismnot1" :value="mn1.mid">{{mn1.mid}}--{{mn1.mname}}</option>
+						</select>
+						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>部门</td>
+									<td>工号</td>
+									<td>姓名</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="s in staffs">
+									<td><input @click="peop($event)" name="ss" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
+									<td>{{s.mname}}</td>
+									<td>{{s.pno}}</td>
+									<td>{{s.pname}}</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
 			<div id="checkstaff">
 				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工查询</p>
 				<div style="width: 880px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
@@ -225,13 +260,113 @@
 		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			//根据组织机构父级ID查询机构
+				function me(parentid){
+					//查询组织机构父级id不为1和0
+						$.ajax({
+							url:data.ip+"cus/queryParentidnot1",
+							data:{parentid:parentid},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.mechanismnot1=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
+				}
+			//查询所有在职员工
+			function queryAllStaff(pno,mid){
+					$.ajax({
+							url:data.ip+"cus/queryPeopleByMid",
+							data:{pno:"",mid:mid},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.staffs=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
+				}
+			function queryAllResign(){
+				$.ajax({
+							type:"get",
+							url:data.ip+"quit/queryAllResign",
+							dateType:"json",
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								vm.quits = response;
+							}
+						});	
+			}
+			
 			var vm = new Vue({
 				el:"#ctx",
 				data (){
-					return {}
+					return {
+						quits:[],//所有离职员工
+						staffs:[],//所有在职员工
+						mechanismis1:[],//机构
+						mechanismnot1:[],//部门
+						
+					}
 				},
 				methods:{
+					changepeople:function(e){
+							//切换部门
+							let mid = $(e.target).val();
+							queryAllStaff("",mid);
+						},
+					changedepart:function(e){
+							//切换机构
+							let mid = $(e.target).val();
+							me(mid)
+						},
+					peop:function(e,c){
+							//选择员工
+							let checkeds = e.target.checked;
+							if(checkeds){
+								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
+//								if(vm.kk=="1"){
+//									//console.log(vm.ctype);
+//								}
+							}else{
+								$(e.target).parent().parent().css("background-color","#D6D6CE");
+							}
+							
+						},
+					chosecustomerOK:function(){
+							let sphone = "";
+							let spname = "";
+							let pno="";
+							//确定选择的员工
+							let sum = 0;
+							$("#chosecustomer input[type=radio]").each(function(){
+								if($(this)[0].checked){
+									sum=sum+1;
+//									sphone=$(this).attr("phone");
+//									spname=$(this).attr("pname");
+//									pno = $(this).attr("pno");
+//									vm.cus.pphone=sphone;
+//									vm.cus.pname=spname;
+//									vm.cus.pno=pno;
+									$("#chosecustomer").hide();
+									return;
+								}
+							})
+							if(sum==0){
+								alert("请选择员工");
+								return;
+							}
+						},
+					chosecustomer:function(){
+						$("#chosecustomer").show();
+					},
 					quitstaff:function(){
 						$("#quitstaff").show();
 					},
@@ -239,6 +374,7 @@
 							$("#quitstaff").hide();
 							$("#addstaff").hide();
 							$("#checkstaff").hide();
+							$("#chosecustomer").hide();
 					},
 					open:function(){
 						$("#addstaff").show();
@@ -246,6 +382,26 @@
 					checkstaff:function(){
 						$("#checkstaff").show();
 					}
+				},
+				created:function(){
+					
+					queryAllStaff("",3);
+					//alert("12")
+					//查询组织机构父级id为1
+						$.ajax({
+							url:data.ip+"cus/queryParentideq1",
+							data:{},
+							type:"post",
+							dataType:"json",
+							success:function(data){
+								vm.mechanismis1=data;
+							},error:function(data){
+								alert("发生错误");
+							}
+						});
+						me(2);
+						
+					
 				}
 			});
 		</script>
