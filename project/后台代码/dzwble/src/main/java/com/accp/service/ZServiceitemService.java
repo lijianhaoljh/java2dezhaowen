@@ -76,8 +76,38 @@ public class ZServiceitemService {
 				return Income.selectByExample(null);
 			}
 			
-			public Maintenance addaid(Integer mid){
-				return zMaintenanceMapper.selectByPrimaryKey(mid);
+			/**
+			 * 类别下拉
+			 * @return
+			 */
+			public List<Maintenance> quertm(){
+				return zMaintenanceMapper.selectByExample(null);
+			}
+			
+			
+			/**
+			 * 查询对象
+			 * @param sidno
+			 * @return
+			 */
+			public ServiceItem addaid(Integer sidno){
+				return zServiceItemMapper.selectByPrimaryKey(sidno);
+			}
+			
+			/**
+			 * 新增
+			 * @param sitem
+			 * @return
+			 */
+			public int addtwo(ServiceItem sitem) {
+				return zServiceItemMapper.insert(sitem);
+			}
+			
+			/**
+			 * 修改
+			 */
+			public int updatwo(ServiceItem sitem) {
+				return zServiceItemMapper.updateByPrimaryKey(sitem);
 			}
 			
 }

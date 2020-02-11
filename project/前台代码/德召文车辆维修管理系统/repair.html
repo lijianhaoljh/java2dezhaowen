@@ -25,8 +25,8 @@
 			 	<div class="row" id="button_1" style="padding: 20px;">
 				 		<button type="button" class="btn btn-default">导入</button>
 				 		<button type="button" class="btn btn-default" @click="deleteid">删除</button>
-				 		<button type="button" class="btn btn-default">修改</button>
-				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">新增</button>
+				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">修改</button>
+				 		<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#myModal">新增</button>
 				</div>	
 			 	
 				 <div class="row">
@@ -77,32 +77,34 @@
 				        <h4 class="modal-title">品牌定义</h4>
 				      </div>
 				      <div class="modal-body" id="inputx">
-				         	项目编码:<input type="text" id="input_1"/>
-				         	项目名称:<input type="text" id="input_2"/>
+				         	项目名称:<input type="text" v-model="sitem.sidname" id="input_2"/>
 				         	<br /> <br /><br /> <br />
-				         	收入分类:<select>
+				         	收入分类:<select v-model="sitem.toino">
 									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
 									</select>
-							项目类别:<select>
-									  <option></option>
+							项目类别:<select v-model="sitem.mid">
+									  <option v-for="item4 in mainquery" :value="item4.mid" v-if="item4.parentid>0">{{item4.mname}}</option>
 									</select>	
 							<br /> <br /><br /> <br />
-							备注:<input type="text" id="input_3"/>
-							备注:<input type="text" id="input_4"/>
+							
+							备注:<input type="text" v-model="sitem.remark1" id="input_4"/>
+							按售价:<select v-model="sitem.cbno">
+									  <option v-for="item4 in mainquery" :value="item4.mid" v-if="item4.parentid==0">{{item4.mname}}</option>
+									</select>
 							<br /> <br /><br /> <br />
-							标准价:<input type="text" />
-							会员价:<input type="text" />
+							标准价:<input type="text"  v-model="sitem.standardprice" @input="Price()"/>
+							会员价:<input type="text"  v-model="sitem.memberprice" />
 							<br /> <br /><br /> <br />
-							VIP价:<input type="text" >
-							协议价:<input type="text" />
+							VIP价:<input type="text"  v-model="sitem.vipprice" >
+							协议价:<input type="text" v-model="sitem.agreementprice"/>
 							<br /> <br /><br /> <br />
-							索赔价:<input type="text" />
-							保险价:<input type="text" />
+							索赔价:<input type="text" v-model="sitem.insuranceprice" />
+							保险价:<input type="text" v-model="sitem.claimprice"/>
 				           	     	
 				      </div>
 				      <div class="modal-footer">
-				        	<button  type="button" class="btn btn-default">修改</button>
-				        	<button    type="button" class="btn btn-default">新增</button>
+				       		<span><button   @click="uptatwo" type="button" class="btn btn-default">修改</button></span> 	
+				        	<span><button   @click="Addtwo"   type="button" class="btn btn-default">新增</button></span>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -192,14 +194,25 @@
 							ServiceItem:[],
 							name:"",
 							queryac:[],
+							mainquery:[],
+							sitem:{},
+							isok:false
 						}
 					},
-					created:function() { //
+					created:function() { 
 						queryTree();
 						this.Querytwo();
 						this.Queryac();
+						this.Mainquery();
 					},
 					methods: {
+						Price(){
+							vm.sitem.memberprice=vm.sitem.standardprice*0.8;
+							vm.sitem.vipprice=vm.sitem.standardprice*0.8;
+							vm.sitem.agreementprice=vm.sitem.standardprice*0.9;
+							vm.sitem.insuranceprice=vm.sitem.standardprice*0.9;
+							vm.sitem.claimprice=vm.sitem.standardprice*0.9;
+						},
 						Querytwo:function(){
 							$.ajax({
 								url: "http://localhost:8080/ServiceItemRest/querytwo",					
@@ -215,6 +228,9 @@
 								}
 							});
 						},
+						/**
+						 * 模糊查询
+						 */
 						Queryname:function(){
 							var that=this;
 							$.ajax({
@@ -273,24 +289,97 @@
 								dataType: "json",
 								success: function(result) {
 									vm.queryac=result;
+									vm.sitem.toino=result[0].toino;
 								},error:function(result){					
 									console.log(result+"101");
 								}
 							});
 						},
+						
+						/**
+						 * 项目类别
+						 */
+						Mainquery:function(){
+						$.ajax({
+								url: "http://localhost:8080/ServiceItemRest/mainquery",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.mainquery=result;
+									vm.sitem.mid=result[5].mid;
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						
+						
+						/**
+						 * 新增
+						 */
+						Addtwo:function(){
+							if($("#input_2").val()==""){
+							alert("项目名称名称不能为空!")
+							return false;
+						}else{	
+								$.ajax({
+									url:"http://localhost:8080/ServiceItemRest/addtwo",
+									data:JSON.stringify(vm.sitem),						
+									type:"post",
+									xhrFields: {
+											withCredentials: true
+										},
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										alert("新增成功")
+										vm.Querytwo();
+									},error:function(result){
+										console.log(result+"add")
+									}
+								})
+							}
+						},
+						
 						Addaid:function(){
 								$.ajax({
-								url:"http://localhost:8080/ServiceItemRest/addaid",
+								url:"http://localhost:8080/ServiceItemRest/updaid",
 								type:"get",
 								xhrFields: {
 									withCredentials: true
 								},
-								data:{mid:vm.ServiceItem.mid},
+								data:{sidno:vm.ServiceItem.sidno},
 								dataType:"json",
 								success:function(result){
-									vm.comc=result;
+									vm.sitem=result;
+								},error:function(result){					
+									console.log(result+"110");
 								}
 							})
+						},
+						uptatwo:function(){
+							if($("#input_2").val()==""){
+							alert("项目名称名称不能为空!")
+							return false;
+						}else{	
+								$.ajax({
+									url:"http://localhost:8080/ServiceItemRest/updatwo",
+									data:JSON.stringify(vm.sitem),						
+									type:"put",
+									xhrFields: {
+											withCredentials: true
+										},
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										alert("修改成功")
+										vm.Querytwo();
+									},error:function(result){
+										console.log(result+"add")
+									}
+								})
+							}	
 						},
 					}
 				});

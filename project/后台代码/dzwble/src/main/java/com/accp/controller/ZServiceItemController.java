@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,8 +51,25 @@ public class ZServiceItemController {
 				return zservice.queryac();
 			}
 			
-			@GetMapping(value = "addaid")
-			public Maintenance addaid(Integer mid){
-				return zservice.addaid(mid);
+			
+			@GetMapping(value = "mainquery")
+			public List<Maintenance> quertm(){
+				return zservice.quertm();
+			}
+					
+			
+			@GetMapping(value = "updaid")
+			public ServiceItem addaid(Integer sidno){
+				return zservice.addaid(sidno);
+			}
+			
+			@PostMapping(value = "addtwo")
+			public int addtwo(@RequestBody ServiceItem sitem) {
+				return zservice.addtwo(sitem);
+			}
+			
+			@PutMapping(value = "updatwo")
+			public int updatwo(@RequestBody ServiceItem sitem) {
+				return zservice.updatwo(sitem);
 			}
 }
