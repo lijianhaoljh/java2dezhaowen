@@ -116,5 +116,10 @@ public class StaffService {
 		public List<Role> queryAllRole(){
 			return rmapper.selectByExample(null);
 		}
+		
+		//查询所有在职员工和技工
+		public List<People> queryunion(String pno){
+			return pmapper.queryunion(pno);
+		}
 	
 }
