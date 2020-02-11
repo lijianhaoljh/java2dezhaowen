@@ -50,7 +50,7 @@
 				  </div>
 				</div>
 			</div>
-			<div id="insertModal" class="modal fade" tabindex="-1" role="dialog">
+			<div id="insertModal" style="display: none;">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
@@ -67,7 +67,7 @@
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-			<div id="updateModal" class="modal fade" tabindex="-1" role="dialog">
+			<div id="updateModal" style="display: none;">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
@@ -185,8 +185,8 @@
 							success:function(response){
 								vm.findRole=response;
 								var dialog=$("#updateModal");
-								dialog.appendTo(fatherBody);
-								dialog.modal("show");
+								fatherBody.find("#publicModal").html(dialog.html());
+								fatherBody.find("#publicModal").modal("show");
 							},error:function(error){
 								console.log(error);
 							}
@@ -195,8 +195,8 @@
 						f(this.condition);
 					},opAddModal(){
 						var dialog=$("#insertModal");
-						dialog.appendTo(fatherBody);
-						dialog.modal("show");
+						fatherBody.find("#publicModal").html(dialog.html());
+						fatherBody.find("#publicModal").modal("show");
 					},closeThis(){
 						
 					}

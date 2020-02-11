@@ -33,7 +33,7 @@
 						    <div class="input-group">
 						    	<button class="btn btn-success" type="button" @click="findVip"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</button>
 						    </div>
-						    <button class="btn btn-success" type="button" @click="insertVip"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button>
+						    <button class="btn btn-success" type="button" @click="openInsertVip"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button>
 						    <button class="btn btn-success" type="button"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
 						    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
 						    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-refresh"></span>&nbsp;积分清零</button>
@@ -71,58 +71,89 @@
 			</div>
 			
 			<!-- Modal -->
-			<div class="modal fade" data-backdrop="static" data-keyboard="false" id="AddVipModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div id="AddVipModal" style="display: none;">
 			  <div class="modal-dialog" style="width: 1000px;" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn btn-default">关闭</span></button>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title" id="myModalLabel">新增会员</h4>
 			      </div>
 			      <div class="modal-body">
 			      	<form class="form-inline">
 			      		<div class="form-group">
-			      			
+			      			<label for="vno">会员编号:</label>
+    						<input type="text" class="form-control" v-model="vno"  id="vno" placeholder="vno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vjoindate">入会日期:</label>
+    						<input type="date" class="form-control" id="vjoindate"  placeholder="vjoindate">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="venddate">到期时间:</label>
+    						<input type="date" class="form-control" id="venddate"  placeholder="venddate">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="cno">客户编号:</label>
+    						<input type="text" class="form-control" id="cno"   placeholder="cno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="cname">客户名称:</label>
+    						<input type="text" class="form-control" id="cname"  placeholder="cname">
+    						<button class="btn btn-success" @click="chooseCus">选择客户</button>
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="remark2">联系电话:</label>
+    						<input type="text" class="form-control" id="remark2" placeholder="联系电话">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vlid">会员等级:</label>
+    						<select class="form-control">
+    						</select>
 			      		</div>
 			      	</form>
 			      </div>
 			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			        <button type="button" class="btn btn-primary">新增</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>
 			
-			<!-- Modal -->
-			<div class="modal fade" data-backdrop="static" data-keyboard="false" id="upVipModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div style="display: none;" id="findModal">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn btn-default">关闭</span></button>
-			        <h4 class="modal-title" id="myModalLabel">修改会员</h4>
+			        <h4 class="modal-title" id="myModalLabel">选择客户</h4>
 			      </div>
 			      <div class="modal-body">
-					
+			      		<div class="form-inline">
+			      			<div class="form-group">
+			      				<input v-model="cCondition" placeholder="编号/手机号/名称"/>
+			      				<button ><span class="glyphicon glyphicon-search"></span></button>
+			      			</div>
+			      		</div>
+						<table class="table table-hover">
+							<tr class="danger">
+								<td>#</td>
+								<td>##</td>
+								<td>客户编号</td>
+								<td>客户名称</td>
+								<td>联系方式</td>
+							</tr>
+							<tr class="success" v-for="item,index in customers">
+								<td><input type="radio" name="cus"/></td>
+								<td>{{index+1}}</td>
+								<td>{{item.cno}}</td>
+								<td>{{item.cname}}</td>
+								<td>{{item.cphone}}</td>
+							</tr>
+						</table>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary">修改</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			
-			<!-- Modal -->
-			<div class="modal fade" data-backdrop="static" data-keyboard="false" id="PayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn btn-default">关闭</span></button>
-			        <h4 class="modal-title" id="myModalLabel">会员充值</h4>
-			      </div>
-			      <div class="modal-body">
-					
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary">确定充值</button>
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary">确定</button>
 			      </div>
 			    </div>
 			  </div>
@@ -144,25 +175,55 @@
 						vips:[],
 						condition:"",
 						startTime:"",
-						endTime:""
+						endTime:"",
+						cCondition:"",
+						vipLevel:[],
+						customers:[],
+						vno:"",
+						vlid:""
 					}
 				},methods:{
 					findVip(){
 						//会员查询
 						findVips(this);
 					},
-					insertVip(){
-						//会员新增
+					openInsertVip(){
+						//打开会员新增模态框
 						let dialog=$("#AddVipModal");
-						dialog.appendTo(fatherBody);
-						dialog.modal("show");
+						fatherBody.find("#publicModal").html(dialog.html());
+						fatherBody.find("#publicModal").modal("show");
+					},
+					insertVip(){
 						
-						
+					},chooseCus(){
+						let dialog=$("#findModal");
+						fatherBody.find("#publicModal").html(dialog.html());
+						fatherBody.find("#publicModal").modal("show");
 					}
 				},created:function(){
 					findVips(this);
+					findVipLevel(this);
+					findByCno(this);
+					newVno(this);
 				}
 			});
+			//新会员编号
+			function newVno(t){
+				$.ajax({
+							type:"get",
+							url:data.ip+"vipLevel/newVno",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"text",
+							success:function(response){
+								t.vno=response;
+								console.log(t.vip);
+							},error:function(error){
+								console.log(error);
+							}
+						});
+			}
 			//查询全部会员
 			function findVips(t){
 				$.ajax({
@@ -181,10 +242,45 @@
 					}
 				});
 			}
-			//查询客户
-			vipLevel/findViplevels
 			//查询会员等级
-			vipLevel/findViplevels
+			function findVipLevel(t){
+				$.ajax({
+					type:"get",
+					url:data.ip+"vipLevel/findViplevels",
+					xhrFields:{
+						withCredentials:true
+					},
+					dataType:"json",
+					success:function(response){
+						t.vipLevel=response;
+						t.vlid=t.vipLevel[0].vlid;
+						console.log(t.vipLevel);
+					},error:function(error){
+						console.log(error);
+					}
+				});
+			}
+			
+			//查询客户
+			function findByCno(t){
+				$.ajax({
+					type:"get",
+					url:data.ip+"vipLevel/findByCno",
+					xhrFields:{
+						withCredentials:true
+					},
+					data:{
+						condition:t.cCondition
+					},
+					dataType:"json",
+					success:function(response){
+						t.customers=response;
+						console.log(t.customers);
+					},error:function(error){
+						console.log(error);
+					}
+				});
+			}
 			
 		</script>
 	</body>
