@@ -4,42 +4,39 @@
 		<meta charset="UTF-8">
 		<title>德召文车辆维修管理系统-维修项目</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
 	</head>
-	<style type="text/css">
-			#button_1 button{
-				float: right;		
-				margin-right: 10px;		
-			}
-	</style>
+	<style type="text/css">#button_1 button {
+	float: right;
+	margin-right: 10px;
+}</style>
 	<body>
-			<div class="container-fluid" style="margin: 20px;">
+			<div class="container-fluid" style="margin: 20px;" id="ctx">
 				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>维修项目</strong>
 				 	</span>
 				 	<div style="float: right;">
-				 		<input style="width: 300px; height: 37px;" type="text" placeholder="匹配编码/名称/名称简码"/>
-				 		<button type="button" class="btn btn-success">搜索</button>
+				 		<input style="width: 300px; height: 37px;" v-model="name" type="text" placeholder="匹配编码/名称/名称简码"/>
+				 		<button type="button" class="btn btn-success" @click="Queryname">搜索</button>
 				 		<button type="button" class="btn btn-warning">关闭</button>
 				 	</div>
 			 	</div>
 			 	<div class="row" id="button_1" style="padding: 20px;">
 				 		<button type="button" class="btn btn-default">导入</button>
-				 		<button type="button" class="btn btn-default">保存</button>
-				 		<button type="button" class="btn btn-default">调价</button>
-				 		<button type="button" class="btn btn-default">删除</button>
+				 		<button type="button" class="btn btn-default" @click="deleteid">删除</button>
 				 		<button type="button" class="btn btn-default">修改</button>
-				 		<button type="button" class="btn btn-default">新增</button>
+				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">新增</button>
 				</div>	
 			 	
 				 <div class="row">
-				 	<div class="col-md-3">
-				111
-				    </div>
+				 	<div class="col-md-2">
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
 				 
-					<div class="col-md-9">
+					<div class="col-md-10">
 					 	<div>
-					 		<table class="table table-hover">
+					 		<table class="table table-bordered">
 				 				<tr style="color: white; background-color: #C1E2B3;">
 				 					<td>项目类别</td>
 				 					<td>项目编码</td>
@@ -49,33 +46,255 @@
 				 					<td>标准价</td>
 				 					<td>会员价</td>
 				 					<td>VIP价</td>
-				 					<td>协议价</td>
-				 					<td>索赔价</td>
+				 					<td>协议价</td>			 					
 				 					<td>保险价</td>
+				 					<td>索赔价</td>
 				 				</tr>
 				 				
-				 				<tr>
-				 					<td>中国重汽</td>
-				 					<td>1001</td>
-				 					<td>综合检测报告</td>
-				 					<td>车型</td>
-				 					<td></td>
-				 					<td>260.00</td>
-				 					<td>247.00</td>
-				 					<td>234.00</td>
-				 					<td>286.00</td>
-				 					<td>0.00</td>
-				 					<td>338.00</td>
+				 				<tr v-for="item in ServiceItem" @click="byid(item)">
+				 					<td>{{item.zmnames}}</td>
+				 					<td>{{item.sidno}}</td>
+				 					<td>{{item.sidname}}</td>
+				 					<td>{{item.zmname}}</td>
+				 					<td>{{item.toname}}</td>
+				 					<td>{{item.standardprice}}</td>
+				 					<td>{{item.memberprice}}</td>
+				 					<td>{{item.vipprice}}</td>
+				 					<td>{{item.agreementprice}}</td>
+				 					<td>{{item.insuranceprice}}</td>
+				 					<td>{{item.claimprice}}</td>
 				 				</tr>
 				 		</table>
 					 	</div>					 	
 					</div>
 				 </div>
 				 
+				 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content" style="width:800px; height:700;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">品牌定义</h4>
+				      </div>
+				      <div class="modal-body" id="inputx">
+				         	项目编码:<input type="text" id="input_1"/>
+				         	项目名称:<input type="text" id="input_2"/>
+				         	<br /> <br /><br /> <br />
+				         	收入分类:<select>
+									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
+									</select>
+							项目类别:<select>
+									  <option></option>
+									</select>	
+							<br /> <br /><br /> <br />
+							备注:<input type="text" id="input_3"/>
+							备注:<input type="text" id="input_4"/>
+							<br /> <br /><br /> <br />
+							标准价:<input type="text" />
+							会员价:<input type="text" />
+							<br /> <br /><br /> <br />
+							VIP价:<input type="text" >
+							协议价:<input type="text" />
+							<br /> <br /><br /> <br />
+							索赔价:<input type="text" />
+							保险价:<input type="text" />
+				           	     	
+				      </div>
+				      <div class="modal-footer">
+				        	<button  type="button" class="btn btn-default">修改</button>
+				        	<button    type="button" class="btn btn-default">新增</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+				 
 				 			 	
 			</div>
 			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 			<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-			<script type="text/javascript" src="js/vue.js" ></script>
+			<script type="text/javascript" src="js/jquery.ztree.core.js" ></script>
+			<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" src="js/vue.js" ></script>	
+			<script type="text/javascript">
+				
+				function queryTree(){
+					//树状结构
+				     $.ajax({
+				       type:"get",
+				       url:"http://localhost:8080/ServiceItemRest",
+				       dateType:"json",
+				       xhrFields:{
+				        withCredentials:true
+				       },
+				       success:function(response){
+				        console.log(response);
+				        $.fn.zTree.init($("#treeDemo"), setting, response);//初始化节点数据
+				        $.fn.zTree.init($("#treeDemo"), setting, response).expandAll(true);
+				       }
+				      }); 
+				      
+				      var setting = {
+				         view: {
+				                selectedMulti: true,
+				                showIcon:false
+				            },
+				         check: {
+				          enable: false
+				         },
+				         data: {
+				           key: {
+				                name: "mname",//树节点名称
+				           },
+				           simpleData: {
+				            enable: true,//是否采用简单数据模式
+				                idKey: "mid",//树节点ID名称
+				                pIdKey: "parentid",//父节点ID名称
+				                rootPId: 0,//根节点ID
+				           }
+				         },
+				         callback:{
+				          	onClick:chooseNode,
+				         }
+				      };
+				      
+				     function chooseNode(event, treeId, treeNode) {
+				          if (treeNode.parentid == "0") {
+				              return;
+				          }
+				          	$.ajax({
+								url: "http://localhost:8080/ServiceItemRest/queryid",					
+								type: "get",
+								data:{mid:treeNode.mid},
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "text",
+								success: function(result) {
+									if(result){							
+										vm.ServiceItem=eval('('+result+')');
+									}else{
+										vm.ServiceItem=[];
+									}
+								},error:function(result){					
+									console.log(result+"004");
+								}
+							});							
+				         	console.log(treeNode)
+				      }
+				     
+				      
+				}
+				var vm = new Vue({
+					el: "#ctx",
+					data() {
+						return {
+							ServiceItem:[],
+							name:"",
+							queryac:[],
+						}
+					},
+					created:function() { //
+						queryTree();
+						this.Querytwo();
+						this.Queryac();
+					},
+					methods: {
+						Querytwo:function(){
+							$.ajax({
+								url: "http://localhost:8080/ServiceItemRest/querytwo",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.ServiceItem=result;
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						Queryname:function(){
+							var that=this;
+							$.ajax({
+								url: "http://localhost:8080/ServiceItemRest/queryname",					
+								type: "get",
+								data:{name:that.name},
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "text",
+								success: function(result) {
+									if(result){
+									vm.ServiceItem=eval('('+result+')');	
+								}else{
+									vm.ServiceItem=[];
+								}
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						byid:function(item){
+							vm.ServiceItem.sidno=item.sidno;
+						},
+						deleteid:function(){
+							if (confirm("你确定要删除"+vm.ServiceItem.sidno+"么?")) {
+							$.ajax({
+									url:"http://localhost:8080/ServiceItemRest/deleteid",
+									data:{
+										mid:vm.ServiceItem.sidno
+									},
+									type:"post",
+									xhrFields: {
+										withCredentials: true
+									},
+									dataType:"json",
+									success:function(result){
+												alert("删除成功")
+												vm.Querytwo();																			
+										},error:function(result){
+											console.log(result);
+										},
+								})
+							}
+						},
+						/**
+						 *  收入分类 
+						 */
+						Queryac:function(){
+						$.ajax({
+								url: "http://localhost:8080/ServiceItemRest/queryac",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.queryac=result;
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						Addaid:function(){
+								$.ajax({
+								url:"http://localhost:8080/ServiceItemRest/addaid",
+								type:"get",
+								xhrFields: {
+									withCredentials: true
+								},
+								data:{mid:vm.ServiceItem.mid},
+								dataType:"json",
+								success:function(result){
+									vm.comc=result;
+								}
+							})
+						},
+					}
+				});
+			</script>
 	</body>
 </html>
+

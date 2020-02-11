@@ -1,19 +1,24 @@
 /*
-SQLyog Ultimate
-MySQL - 5.7.18-log : Database - dezhaowen
+SQLyog Ultimate v12.08 (64 bit)
+MySQL - 5.5.60 : Database - dezhaowen
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`dezhaowen` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`dezhaowen` /*!40100 DEFAULT CHARACTER SET gbk */;
+
+USE `dezhaowen`;
 
 /*Table structure for table `account` */
+
+DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -52,6 +57,8 @@ CREATE TABLE `account` (
 
 /*Table structure for table `bills` */
 
+DROP TABLE IF EXISTS `bills`;
+
 CREATE TABLE `bills` (
   `bid` varchar(20) NOT NULL COMMENT '单号',
   `bstate` int(11) NOT NULL COMMENT '单据状态',
@@ -78,6 +85,8 @@ CREATE TABLE `bills` (
 
 /*Table structure for table `car` */
 
+DROP TABLE IF EXISTS `car`;
+
 CREATE TABLE `car` (
   `cno` varchar(10) NOT NULL COMMENT '车牌号码',
   `cbno` int(11) NOT NULL COMMENT '车品牌编号(外联车品牌表)',
@@ -96,6 +105,8 @@ CREATE TABLE `car` (
 
 /*Table structure for table `carbelong` */
 
+DROP TABLE IF EXISTS `carbelong`;
+
 CREATE TABLE `carbelong` (
   `clid` int(11) NOT NULL AUTO_INCREMENT COMMENT '车辆归属编号',
   `clname` varchar(20) NOT NULL COMMENT '车辆归属名称',
@@ -109,12 +120,11 @@ CREATE TABLE `carbelong` (
 
 /*Data for the table `carbelong` */
 
-insert  into `carbelong`(`clid`,`clname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'公司车',NULL,NULL,NULL,NULL,NULL),
-(2,'个人车',NULL,NULL,NULL,NULL,NULL),
-(3,'租赁车',NULL,NULL,NULL,NULL,NULL);
+insert  into `carbelong`(`clid`,`clname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'公司车',NULL,NULL,NULL,NULL,NULL),(2,'个人车',NULL,NULL,NULL,NULL,NULL),(3,'租赁车',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `carbrand` */
+
+DROP TABLE IF EXISTS `carbrand`;
 
 CREATE TABLE `carbrand` (
   `cbno` int(11) NOT NULL AUTO_INCREMENT COMMENT '品牌编号',
@@ -130,12 +140,11 @@ CREATE TABLE `carbrand` (
 
 /*Data for the table `carbrand` */
 
-insert  into `carbrand`(`cbno`,`cbname`,`cbfirst`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'中国重汽','Z',NULL,NULL,NULL,NULL,NULL),
-(2,'上汽红岩','S',NULL,NULL,NULL,NULL,NULL),
-(3,'丰田','F',NULL,NULL,NULL,NULL,NULL);
+insert  into `carbrand`(`cbno`,`cbname`,`cbfirst`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'大众','D',NULL,NULL,NULL,NULL,NULL),(2,'丰田','F',NULL,NULL,NULL,NULL,NULL),(3,'田','t',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `cardata` */
+
+DROP TABLE IF EXISTS `cardata`;
 
 CREATE TABLE `cardata` (
   `cdlicense` varchar(10) NOT NULL COMMENT '车牌号',
@@ -173,10 +182,11 @@ CREATE TABLE `cardata` (
 
 /*Data for the table `cardata` */
 
-insert  into `cardata`(`cdlicense`,`cdno`,`moid`,`cddriver`,`cddriverphone`,`cddriverbirth`,`clid`,`cdlicenseend`,`cdframe`,`mid`,`cdyearprice`,`cdmileage`,`cdload`,`cdbuydate`,`cdgolicense`,`cdcarcheckdate`,`fid`,`inid`,`indate`,`inid_business`,`inid_bdate`,`cdisinsure`,`cdnextmileage`,`cdnextkeepdate`,`cno`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-('湘A66666',1,1,'小彭','13117331801','2000-10-12 14:55:05',1,'2020-02-20 14:55:46','54345345',2,'200',250,250,'2019-03-21 15:02:50','2019-03-29 15:03:07','2020-02-21 15:03:27',2,1,'2021-06-09 15:06:43',2,'2021-07-16 15:07:27',0,500,'2021-03-21 15:07:50','cus2020001',NULL,NULL,NULL,NULL,NULL);
+insert  into `cardata`(`cdlicense`,`cdno`,`moid`,`cddriver`,`cddriverphone`,`cddriverbirth`,`clid`,`cdlicenseend`,`cdframe`,`mid`,`cdyearprice`,`cdmileage`,`cdload`,`cdbuydate`,`cdgolicense`,`cdcarcheckdate`,`fid`,`inid`,`indate`,`inid_business`,`inid_bdate`,`cdisinsure`,`cdnextmileage`,`cdnextkeepdate`,`cno`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values ('湘A66666',1,1,'小彭','13117331801','2000-10-12 14:55:05',1,'2020-02-20 14:55:46','54345345',2,'200',250,250,'2019-03-21 15:02:50','2019-03-29 15:03:07','2020-02-21 15:03:27',2,1,'2021-06-09 15:06:43',2,'2021-07-16 15:07:27',0,500,'2021-03-21 15:07:50','cus2020001',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `commodity_brand` */
+
+DROP TABLE IF EXISTS `commodity_brand`;
 
 CREATE TABLE `commodity_brand` (
   `cbid` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品品牌编号',
@@ -193,6 +203,8 @@ CREATE TABLE `commodity_brand` (
 
 /*Table structure for table `commodity_info` */
 
+DROP TABLE IF EXISTS `commodity_info`;
+
 CREATE TABLE `commodity_info` (
   `cno` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
   `cname` varchar(20) NOT NULL COMMENT '商品名称',
@@ -207,7 +219,7 @@ CREATE TABLE `commodity_info` (
   `mfid` int(11) DEFAULT NULL COMMENT '产商表',
   `origin` varchar(20) DEFAULT NULL COMMENT '原产编码',
   `barcode` varchar(20) DEFAULT NULL COMMENT '条形编码',
-  `package` varchar(20) DEFAULT NULL COMMENT '包装规格',
+  `packag` varchar(20) DEFAULT NULL COMMENT '包装规格',
   `volume` float DEFAULT NULL COMMENT '体积',
   `grossweight` float DEFAULT NULL COMMENT '毛重',
   `netweight` float DEFAULT NULL COMMENT '净重',
@@ -232,6 +244,8 @@ CREATE TABLE `commodity_info` (
 
 /*Table structure for table `commodity_unit` */
 
+DROP TABLE IF EXISTS `commodity_unit`;
+
 CREATE TABLE `commodity_unit` (
   `cuid` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品单位编号',
   `cuname` varchar(20) NOT NULL COMMENT '商品单位名称',
@@ -247,6 +261,8 @@ CREATE TABLE `commodity_unit` (
 
 /*Table structure for table `country_origin` */
 
+DROP TABLE IF EXISTS `country_origin`;
+
 CREATE TABLE `country_origin` (
   `coid` int(11) NOT NULL AUTO_INCREMENT COMMENT '原厂副厂编号',
   `coname` varchar(20) NOT NULL COMMENT '原厂副厂名称',
@@ -261,6 +277,8 @@ CREATE TABLE `country_origin` (
 /*Data for the table `country_origin` */
 
 /*Table structure for table `customer` */
+
+DROP TABLE IF EXISTS `customer`;
 
 CREATE TABLE `customer` (
   `cno` varchar(10) NOT NULL COMMENT '客户编号',
@@ -296,11 +314,11 @@ CREATE TABLE `customer` (
 
 /*Data for the table `customer` */
 
-insert  into `customer`(`cno`,`ctno`,`cname`,`cpeople`,`cphone`,`caddress`,`cbirthday`,`cperiod`,`climit`,`pno`,`province`,`city`,`district`,`cremark`,`ctaxes`,`cregistphone`,`cbank`,`cbanknumber`,`cregistaddress`,`other1`,`other2`,`other3`,`other4`,`jifen`,`creatdate`,`remark3`,`remark4`,`remark5`) values 
-('cus2020001','OCT001','一只大鹅','ocean','13117331801','火星','2000-10-12 15:19:59',15,2000,'dzw001','湖南省','株洲市','石峰区','无','65765876','13236798801','中国银行','4313212056','就在这里',NULL,NULL,NULL,NULL,'20',NULL,NULL,NULL,NULL),
-('cus2020002','OCT002','易燃物品','_4444x_','5325426','封闭货车','2000-11-28 18:12:15',20,3000,'dzw001','湖南省','怀化市','前夕区','无','65354356','13112345677','中国银行','6676756347','在那里哦',NULL,NULL,NULL,NULL,'20',NULL,NULL,NULL,NULL);
+insert  into `customer`(`cno`,`ctno`,`cname`,`cpeople`,`cphone`,`caddress`,`cbirthday`,`cperiod`,`climit`,`pno`,`province`,`city`,`district`,`cremark`,`ctaxes`,`cregistphone`,`cbank`,`cbanknumber`,`cregistaddress`,`other1`,`other2`,`other3`,`other4`,`jifen`,`creatdate`,`remark3`,`remark4`,`remark5`) values ('cus2020001','OCT001','一只大鹅','ocean','13117331801','火星','2000-10-12 15:19:59',15,2000,'dzw001','湖南省','株洲市','石峰区','无','65765876','13236798801','中国银行','4313212056','就在这里',NULL,NULL,NULL,NULL,'20',NULL,NULL,NULL,NULL),('cus2020002','OCT002','易燃物品','_4444x_','5325426','封闭货车','2000-11-28 18:12:15',20,3000,'dzw001','湖南省','怀化市','前夕区','无','65354356','13112345677','中国银行','6676756347','在那里哦',NULL,NULL,NULL,NULL,'20',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `customer_type` */
+
+DROP TABLE IF EXISTS `customer_type`;
 
 CREATE TABLE `customer_type` (
   `ctno` varchar(10) NOT NULL COMMENT '客户类型编号',
@@ -319,11 +337,11 @@ CREATE TABLE `customer_type` (
 
 /*Data for the table `customer_type` */
 
-insert  into `customer_type`(`ctno`,`ctname`,`ptid`,`cteffective`,`ctisvip`,`ctprice`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-('OCT001','一般客户',1,1,0,0,NULL,NULL,NULL,NULL,NULL),
-('OCT002','会员客户',2,1,1,1,NULL,NULL,NULL,NULL,NULL);
+insert  into `customer_type`(`ctno`,`ctname`,`ptid`,`cteffective`,`ctisvip`,`ctprice`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values ('OCT001','一般客户',1,1,0,0,NULL,NULL,NULL,NULL,NULL),('OCT002','会员客户',2,1,1,1,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `fuel` */
+
+DROP TABLE IF EXISTS `fuel`;
 
 CREATE TABLE `fuel` (
   `fid` int(11) NOT NULL AUTO_INCREMENT COMMENT '燃油类别编号',
@@ -338,11 +356,11 @@ CREATE TABLE `fuel` (
 
 /*Data for the table `fuel` */
 
-insert  into `fuel`(`fid`,`fname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'火鸡油',NULL,NULL,NULL,NULL,NULL),
-(2,'柴油',NULL,NULL,NULL,NULL,NULL);
+insert  into `fuel`(`fid`,`fname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'火鸡油',NULL,NULL,NULL,NULL,NULL),(2,'柴油',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `goods_category` */
+
+DROP TABLE IF EXISTS `goods_category`;
 
 CREATE TABLE `goods_category` (
   `gid` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品类型编号',
@@ -361,6 +379,8 @@ CREATE TABLE `goods_category` (
 
 /*Table structure for table `grade_commodity` */
 
+DROP TABLE IF EXISTS `grade_commodity`;
+
 CREATE TABLE `grade_commodity` (
   `gcid` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品等级编号',
   `gcname` varchar(20) NOT NULL COMMENT '商品等级名称',
@@ -375,6 +395,8 @@ CREATE TABLE `grade_commodity` (
 /*Data for the table `grade_commodity` */
 
 /*Table structure for table `income_type` */
+
+DROP TABLE IF EXISTS `income_type`;
 
 CREATE TABLE `income_type` (
   `toino` int(11) NOT NULL AUTO_INCREMENT COMMENT '收入类型编号',
@@ -391,6 +413,8 @@ CREATE TABLE `income_type` (
 
 /*Table structure for table `insurance` */
 
+DROP TABLE IF EXISTS `insurance`;
+
 CREATE TABLE `insurance` (
   `inid` int(11) NOT NULL AUTO_INCREMENT COMMENT '保险公司编号',
   `inname` varchar(20) NOT NULL COMMENT '保险公司名称',
@@ -404,11 +428,11 @@ CREATE TABLE `insurance` (
 
 /*Data for the table `insurance` */
 
-insert  into `insurance`(`inid`,`inname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'李健豪保险公司',NULL,NULL,NULL,NULL,NULL),
-(2,'胖子保险公司',NULL,NULL,NULL,NULL,NULL);
+insert  into `insurance`(`inid`,`inname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'李健豪保险公司',NULL,NULL,NULL,NULL,NULL),(2,'胖子保险公司',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `invoice` */
+
+DROP TABLE IF EXISTS `invoice`;
 
 CREATE TABLE `invoice` (
   `invid` varchar(20) NOT NULL COMMENT '发票号',
@@ -421,6 +445,8 @@ CREATE TABLE `invoice` (
 
 /*Table structure for table `invoice_type` */
 
+DROP TABLE IF EXISTS `invoice_type`;
+
 CREATE TABLE `invoice_type` (
   `itid` int(11) NOT NULL AUTO_INCREMENT COMMENT '发票种类编号',
   `itname` varchar(20) NOT NULL COMMENT '发票种类名称',
@@ -430,6 +456,8 @@ CREATE TABLE `invoice_type` (
 /*Data for the table `invoice_type` */
 
 /*Table structure for table `job` */
+
+DROP TABLE IF EXISTS `job`;
 
 CREATE TABLE `job` (
   `jid` int(11) NOT NULL AUTO_INCREMENT COMMENT '岗位编号',
@@ -445,15 +473,11 @@ CREATE TABLE `job` (
 
 /*Data for the table `job` */
 
-insert  into `job`(`jid`,`jname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`,`remark6`) values 
-(1,'服务经理',NULL,NULL,NULL,NULL,NULL,NULL),
-(2,'服务总监',NULL,NULL,NULL,NULL,NULL,NULL),
-(3,'服务顾问',NULL,NULL,NULL,NULL,NULL,NULL),
-(4,'车间主任',NULL,NULL,NULL,NULL,NULL,NULL),
-(5,'索赔员',NULL,NULL,NULL,NULL,NULL,NULL),
-(6,'保险经理',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `job`(`jid`,`jname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`,`remark6`) values (1,'服务经理',NULL,NULL,NULL,NULL,NULL,NULL),(2,'服务总监',NULL,NULL,NULL,NULL,NULL,NULL),(3,'服务顾问',NULL,NULL,NULL,NULL,NULL,NULL),(4,'车间主任',NULL,NULL,NULL,NULL,NULL,NULL),(5,'索赔员',NULL,NULL,NULL,NULL,NULL,NULL),(6,'保险经理',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `level` */
+
+DROP TABLE IF EXISTS `level`;
 
 CREATE TABLE `level` (
   `lid` int(11) NOT NULL AUTO_INCREMENT COMMENT '技工星级编号',
@@ -469,14 +493,11 @@ CREATE TABLE `level` (
 
 /*Data for the table `level` */
 
-insert  into `level`(`lid`,`lname`,`lprofit`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'一星',1,NULL,NULL,NULL,NULL,NULL),
-(2,'二星',2,NULL,NULL,NULL,NULL,NULL),
-(3,'三星',3,NULL,NULL,NULL,NULL,NULL),
-(4,'四星',4,NULL,NULL,NULL,NULL,NULL),
-(5,'五星',5,NULL,NULL,NULL,NULL,NULL);
+insert  into `level`(`lid`,`lname`,`lprofit`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'一星',1,NULL,NULL,NULL,NULL,NULL),(2,'二星',2,NULL,NULL,NULL,NULL,NULL),(3,'三星',3,NULL,NULL,NULL,NULL,NULL),(4,'四星',4,NULL,NULL,NULL,NULL,NULL),(5,'五星',5,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `level_producers` */
+
+DROP TABLE IF EXISTS `level_producers`;
 
 CREATE TABLE `level_producers` (
   `lpid` int(11) NOT NULL AUTO_INCREMENT COMMENT '产商等级编号',
@@ -492,6 +513,8 @@ CREATE TABLE `level_producers` (
 /*Data for the table `level_producers` */
 
 /*Table structure for table `linkman` */
+
+DROP TABLE IF EXISTS `linkman`;
 
 CREATE TABLE `linkman` (
   `linkno` int(11) NOT NULL AUTO_INCREMENT COMMENT '联系人编号',
@@ -512,6 +535,8 @@ CREATE TABLE `linkman` (
 /*Data for the table `linkman` */
 
 /*Table structure for table `maintain_bill` */
+
+DROP TABLE IF EXISTS `maintain_bill`;
 
 CREATE TABLE `maintain_bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -540,6 +565,8 @@ CREATE TABLE `maintain_bill` (
 
 /*Table structure for table `maintenance` */
 
+DROP TABLE IF EXISTS `maintenance`;
+
 CREATE TABLE `maintenance` (
   `mid` int(11) NOT NULL AUTO_INCREMENT COMMENT '维修项目编号',
   `mname` varchar(10) NOT NULL COMMENT '维修项目名称',
@@ -551,16 +578,15 @@ CREATE TABLE `maintenance` (
   `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
   PRIMARY KEY (`mid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=gbk COMMENT='维修项目表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=gbk COMMENT='维修项目表';
 
 /*Data for the table `maintenance` */
 
-insert  into `maintenance`(`mid`,`mname`,`parentid`,`catalog`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'发动机',0,1,NULL,NULL,NULL,NULL,NULL),
-(2,'青鸟动机',1,0,NULL,NULL,NULL,NULL,NULL),
-(3,'胖子动机',1,0,NULL,NULL,NULL,NULL,NULL);
+insert  into `maintenance`(`mid`,`mname`,`parentid`,`catalog`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'车型',0,0,NULL,NULL,NULL,NULL,NULL),(2,'发动机',0,0,NULL,NULL,NULL,NULL,NULL),(3,'钣喷',0,0,NULL,NULL,NULL,NULL,NULL),(4,'保养',0,0,NULL,NULL,NULL,NULL,NULL),(5,'小修',0,0,NULL,NULL,NULL,NULL,NULL),(6,'大众',1,0,NULL,NULL,NULL,NULL,NULL),(7,'中国重汽',1,0,NULL,NULL,NULL,NULL,NULL),(8,'狗佳动力',2,0,NULL,NULL,NULL,NULL,NULL),(9,'青鸟动机',2,0,NULL,NULL,NULL,NULL,NULL),(10,'轻度',3,0,NULL,NULL,NULL,NULL,NULL),(11,'中度',3,0,NULL,NULL,NULL,NULL,NULL),(12,'重度',3,0,NULL,NULL,NULL,NULL,NULL),(13,'发烧保养',4,0,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `manufacturer` */
+
+DROP TABLE IF EXISTS `manufacturer`;
 
 CREATE TABLE `manufacturer` (
   `mfid` int(11) NOT NULL AUTO_INCREMENT COMMENT '产商编号',
@@ -592,6 +618,8 @@ CREATE TABLE `manufacturer` (
 
 /*Table structure for table `mechanic` */
 
+DROP TABLE IF EXISTS `mechanic`;
+
 CREATE TABLE `mechanic` (
   `pno` varchar(10) NOT NULL COMMENT '人员编号(外联人员表)',
   `tid` int(11) NOT NULL COMMENT '班组编号',
@@ -610,10 +638,11 @@ CREATE TABLE `mechanic` (
 
 /*Data for the table `mechanic` */
 
-insert  into `mechanic`(`pno`,`tid`,`jid`,`rid`,`mcisgroup`,`lid`,`mcworktype`,`mcbrand`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-('dzw002',5,4,13,0,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `mechanic`(`pno`,`tid`,`jid`,`rid`,`mcisgroup`,`lid`,`mcworktype`,`mcbrand`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values ('dzw002',5,4,13,0,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `mechanism` */
+
+DROP TABLE IF EXISTS `mechanism`;
 
 CREATE TABLE `mechanism` (
   `mid` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -630,14 +659,11 @@ CREATE TABLE `mechanism` (
 
 /*Data for the table `mechanism` */
 
-insert  into `mechanism`(`mid`,`mname`,`catalog`,`parentid`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'北京德召文卡车系统',0,0,NULL,NULL,NULL,NULL,NULL),
-(2,'成高',0,1,NULL,NULL,NULL,NULL,NULL),
-(3,'财务部',0,2,NULL,NULL,NULL,NULL,NULL),
-(4,'客服部',0,2,NULL,NULL,NULL,NULL,NULL),
-(5,'技术部',0,2,NULL,NULL,NULL,NULL,NULL);
+insert  into `mechanism`(`mid`,`mname`,`catalog`,`parentid`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'北京德召文卡车系统',0,0,NULL,NULL,NULL,NULL,NULL),(2,'成高',0,1,NULL,NULL,NULL,NULL,NULL),(3,'财务部',0,2,NULL,NULL,NULL,NULL,NULL),(4,'客服部',0,2,NULL,NULL,NULL,NULL,NULL),(5,'技术部',0,2,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `motorcycle` */
+
+DROP TABLE IF EXISTS `motorcycle`;
 
 CREATE TABLE `motorcycle` (
   `moid` int(11) NOT NULL AUTO_INCREMENT COMMENT '车型编号',
@@ -657,14 +683,15 @@ CREATE TABLE `motorcycle` (
   `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
   PRIMARY KEY (`moid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk COMMENT='车型表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk COMMENT='车型表';
 
 /*Data for the table `motorcycle` */
 
-insert  into `motorcycle`(`moid`,`cbno`,`moiname`,`moprice`,`moyearprice`,`modischarge`,`modomestic`,`mofuel`,`load`,`mid`,`img`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,1,'重汽汕德卡',200000,'20',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `motorcycle`(`moid`,`cbno`,`moiname`,`moprice`,`moyearprice`,`modischarge`,`modomestic`,`mofuel`,`load`,`mid`,`img`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,1,'上汽大众',200000,'2019',400,'国产','1',1000,8,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,'一汽大众',100000,'2019',400,'国产','1',1000,9,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `payment_method` */
+
+DROP TABLE IF EXISTS `payment_method`;
 
 CREATE TABLE `payment_method` (
   `pmid` int(11) NOT NULL AUTO_INCREMENT COMMENT '付款方式编号',
@@ -680,6 +707,8 @@ CREATE TABLE `payment_method` (
 /*Data for the table `payment_method` */
 
 /*Table structure for table `people` */
+
+DROP TABLE IF EXISTS `people`;
 
 CREATE TABLE `people` (
   `pno` varchar(10) NOT NULL COMMENT '人员编号',
@@ -700,29 +729,33 @@ CREATE TABLE `people` (
   `rid` int(11) DEFAULT NULL COMMENT '角色编号(默认1为普通员工)',
   `dimission` int(11) DEFAULT NULL COMMENT '是否离职',
   `dcause` varchar(100) DEFAULT NULL COMMENT '离职原因',
-  `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
+  `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   PRIMARY KEY (`pno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='人员表';
 
 /*Data for the table `people` */
 
-insert  into `people`(`pno`,`pname`,`psex`,`pidcard`,`paddress`,`pphone`,`ptellphone`,`pemail`,`spassword`,`salt`,`pbank`,`pbanknumber`,`presidenceaddress`,`ptid`,`img`,`rid`,`dimission`,`dcause`,`remark4`,`remark5`) values 
-('dzw001','彭玉媚','女','412345677777777777','株洲','10086','10086','10086@qq.com','88888888','951753','株洲支行','1234567891234567','湖南株洲',1,'1.jpg',NULL,NULL,NULL,NULL,NULL),
-('dzw002','钟鹏根','男','411111111111111111','株洲','13974123147','13974123147','871776974@qq.com','88888888','951753','株洲泰山路支行','1234567891234567','湖南株洲',2,'2.jpg',NULL,NULL,NULL,NULL,NULL);
+insert  into `people`(`pno`,`pname`,`psex`,`pidcard`,`paddress`,`pphone`,`ptellphone`,`pemail`,`spassword`,`salt`,`pbank`,`pbanknumber`,`presidenceaddress`,`ptid`,`img`,`rid`,`dimission`,`dcause`,`remark5`,`remark4`) values ('dzw001','彭玉媚','女','412345677777777777','株洲','10086','10086','10086@qq.com','88888888','951753','株洲支行','1234567891234567','湖南株洲',1,'1.jpg',NULL,NULL,NULL,NULL,NULL),('dzw002','钟鹏根','男','411111111111111111','株洲','13974123147','13974123147','871776974@qq.com','88888888','951753','株洲泰山路支行','1234567891234567','湖南株洲',2,'2.jpg',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `people_roles` */
+
+DROP TABLE IF EXISTS `people_roles`;
 
 CREATE TABLE `people_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `pno` varchar(10) NOT NULL COMMENT '人员表编号(外联人员表)',
   `rid` int(11) NOT NULL COMMENT '角色编号(外联角色表)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='用户角色中间表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk COMMENT='用户角色中间表';
 
 /*Data for the table `people_roles` */
 
+insert  into `people_roles`(`id`,`pno`,`rid`) values (1,'dzw001',1),(2,'dzw002',2);
+
 /*Table structure for table `peopletype` */
+
+DROP TABLE IF EXISTS `peopletype`;
 
 CREATE TABLE `peopletype` (
   `ptid` int(11) NOT NULL AUTO_INCREMENT COMMENT '人员类型编号',
@@ -738,11 +771,11 @@ CREATE TABLE `peopletype` (
 
 /*Data for the table `peopletype` */
 
-insert  into `peopletype`(`ptid`,`ptname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`,`remark6`) values 
-(1,'员工',NULL,NULL,NULL,NULL,NULL,NULL),
-(2,'技工',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `peopletype`(`ptid`,`ptname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`,`remark6`) values (1,'员工',NULL,NULL,NULL,NULL,NULL,NULL),(2,'技工',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `permission` */
+
+DROP TABLE IF EXISTS `permission`;
 
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '权限编号',
@@ -757,46 +790,15 @@ CREATE TABLE `permission` (
   `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=gbk COMMENT='权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=gbk COMMENT='权限表';
 
 /*Data for the table `permission` */
 
-insert  into `permission`(`id`,`name`,`cename`,`catalog`,`parentid`,`path`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'维修','Maintain',0,0,NULL,NULL,NULL,NULL,NULL,NULL),
-(2,'前台','Front',0,0,NULL,NULL,NULL,NULL,NULL,NULL),
-(3,'客服','Service',0,0,NULL,NULL,NULL,NULL,NULL,NULL),
-(4,'数据','Data',0,0,NULL,NULL,NULL,NULL,NULL,NULL),
-(5,'人事','Personnel',0,0,NULL,NULL,NULL,NULL,NULL,NULL),
-(6,'系统','System',0,0,NULL,NULL,NULL,NULL,NULL,NULL),
-(7,'维修救援','Maintenance',0,1,NULL,NULL,NULL,NULL,NULL,NULL),
-(8,'维修接车','Pick',1,7,NULL,NULL,NULL,NULL,NULL,NULL),
-(9,'竣工检验','completion',1,7,NULL,NULL,NULL,NULL,NULL,NULL),
-(10,'结算中心','Settlement',1,12,NULL,NULL,NULL,NULL,NULL,NULL),
-(11,'会员充值卡管理','Member',1,12,NULL,NULL,NULL,NULL,NULL,NULL),
-(12,'前台结算','front',0,2,NULL,NULL,NULL,NULL,NULL,NULL),
-(13,'客户档案','client',0,3,NULL,NULL,NULL,NULL,NULL,NULL),
-(14,'客户资料','material',1,13,NULL,NULL,NULL,NULL,NULL,NULL),
-(15,'车辆资料','vehicle',1,13,NULL,NULL,NULL,NULL,NULL,NULL),
-(16,'主数据','main_data',0,4,NULL,NULL,NULL,NULL,NULL,NULL),
-(17,'发动机品牌','engine ',1,16,NULL,NULL,NULL,NULL,NULL,NULL),
-(18,'车型档案','Model_file',1,16,NULL,NULL,NULL,NULL,NULL,NULL),
-(19,'维修项目','maintenance_items',1,16,NULL,NULL,NULL,NULL,NULL,NULL),
-(20,'商品资料','Commodity_unit',1,16,NULL,NULL,NULL,NULL,NULL,NULL),
-(21,'供货单位','supplier',1,16,NULL,NULL,NULL,NULL,NULL,NULL),
-(22,'员工资料','Employee_data',0,5,NULL,NULL,NULL,NULL,NULL,NULL),
-(23,'技工管理','mechanic_management',0,5,NULL,NULL,NULL,NULL,NULL,NULL),
-(24,'组织机构','institutional_framework',1,22,NULL,NULL,NULL,NULL,NULL,NULL),
-(25,'岗位定义','Job_definition',1,22,NULL,NULL,NULL,NULL,NULL,NULL),
-(26,'离职登记','Exit_registration',1,22,NULL,NULL,NULL,NULL,NULL,NULL),
-(27,'通讯名录','List_communication',1,22,NULL,NULL,NULL,NULL,NULL,NULL),
-(28,'技工星级','mechanic_star',1,23,NULL,NULL,NULL,NULL,NULL,NULL),
-(29,'班组技工','Shift_mechanic',1,23,NULL,NULL,NULL,NULL,NULL,NULL),
-(30,'外勤车辆','Field_vehicle',1,23,NULL,NULL,NULL,NULL,NULL,NULL),
-(31,'权限控制','right_control',0,6,NULL,NULL,NULL,NULL,NULL,NULL),
-(32,'员工权限控制','Employee_control',1,31,NULL,NULL,NULL,NULL,NULL,NULL),
-(33,'角色权限控制','Role_control',1,31,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `permission`(`id`,`name`,`cename`,`catalog`,`parentid`,`path`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'维修','Maintain',0,0,NULL,NULL,NULL,NULL,NULL,NULL),(2,'前台','Front',0,0,NULL,NULL,NULL,NULL,NULL,NULL),(3,'客服','Service',0,0,NULL,NULL,NULL,NULL,NULL,NULL),(4,'数据','Data',0,0,NULL,NULL,NULL,NULL,NULL,NULL),(5,'人事','Personnel',0,0,NULL,NULL,NULL,NULL,NULL,NULL),(6,'系统','System',0,0,NULL,NULL,NULL,NULL,NULL,NULL),(7,'维修救援','Maintenance',0,1,NULL,NULL,NULL,NULL,NULL,NULL),(8,'维修接车','Pick',0,7,'maintenance_one.html',NULL,NULL,NULL,NULL,NULL),(9,'竣工检验','completion',0,7,'completion.html',NULL,NULL,NULL,NULL,NULL),(10,'结算中心','Settlement',0,12,'settlement.html',NULL,NULL,NULL,NULL,NULL),(11,'会员充值卡管理','Member',0,12,'VipCenter.html',NULL,NULL,NULL,NULL,NULL),(12,'前台结算','front',0,2,NULL,NULL,NULL,NULL,NULL,NULL),(13,'客户档案','client',0,3,'customer_information.html',NULL,NULL,NULL,NULL,NULL),(14,'客户资料','material',0,13,'customer_information.html',NULL,NULL,NULL,NULL,NULL),(15,'车辆资料','vehicle',0,13,'cardata.html',NULL,NULL,NULL,NULL,NULL),(16,'主数据','main_data',0,4,NULL,NULL,NULL,NULL,NULL,NULL),(17,'发动机品牌','engine ',0,16,'enginebrand.html',NULL,NULL,NULL,NULL,NULL),(18,'车型档案','Model_file',0,16,'vehiclefile.html',NULL,NULL,NULL,NULL,NULL),(19,'维修项目','maintenance_items',0,16,'repair.html',NULL,NULL,NULL,NULL,NULL),(20,'商品资料','Commodity_unit',0,16,'data.html',NULL,NULL,NULL,NULL,NULL),(21,'供货单位','supplier',0,16,'supplyunit.html',NULL,NULL,NULL,NULL,NULL),(22,'员工资料','Employee_data',0,5,NULL,NULL,NULL,NULL,NULL,NULL),(23,'技工管理','mechanic_management',0,5,NULL,NULL,NULL,NULL,NULL,NULL),(24,'组织机构','institutional_framework',0,22,'organization_structure.html',NULL,NULL,NULL,NULL,NULL),(25,'岗位定义','Job_definition',0,22,'post.html',NULL,NULL,NULL,NULL,NULL),(26,'离职登记','Exit_registration',0,22,'quit.html',NULL,NULL,NULL,NULL,NULL),(27,'通讯名录','List_communication',0,22,'communication.html',NULL,NULL,NULL,NULL,NULL),(28,'技工星级','mechanic_star',0,23,'technician_level.html',NULL,NULL,NULL,NULL,NULL),(29,'班组技工','Shift_mechanic',0,23,'technician.html',NULL,NULL,NULL,NULL,NULL),(30,'外勤车辆','Field_vehicle',0,23,'gooutcar.html',NULL,NULL,NULL,NULL,NULL),(31,'权限控制','right_control',0,6,NULL,NULL,NULL,NULL,NULL,NULL),(32,'员工角色控制','Employee_control',0,31,'permissions.html',NULL,NULL,NULL,NULL,NULL),(33,'角色权限控制','Role_control',0,31,'role.html',NULL,NULL,NULL,NULL,NULL),(35,'角色查询','findRole',1,32,'/role/findRole',NULL,NULL,NULL,NULL,NULL),(36,'角色新增','addRole',1,32,'/role/addRole',NULL,NULL,NULL,NULL,NULL),(37,'角色修改','updateRole',1,32,'/role/updateRole',NULL,NULL,NULL,NULL,NULL),(38,'角色删除','deleteRole',1,32,'/role/deleteRole',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `place_origin` */
+
+DROP TABLE IF EXISTS `place_origin`;
 
 CREATE TABLE `place_origin` (
   `pid` int(11) NOT NULL AUTO_INCREMENT COMMENT '产地表',
@@ -815,6 +817,8 @@ CREATE TABLE `place_origin` (
 
 /*Table structure for table `price_type` */
 
+DROP TABLE IF EXISTS `price_type`;
+
 CREATE TABLE `price_type` (
   `ptid` int(11) NOT NULL AUTO_INCREMENT COMMENT '价格类型编号',
   `ptname` varchar(20) NOT NULL COMMENT '价格类型名称',
@@ -825,18 +829,13 @@ CREATE TABLE `price_type` (
   `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
   PRIMARY KEY (`ptid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=gbk COMMENT='价格类型表';
+) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='价格类型表';
 
 /*Data for the table `price_type` */
 
-insert  into `price_type`(`ptid`,`ptname`,`ptprice`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'标准价',1,NULL,NULL,NULL,NULL,NULL),
-(2,'会员价',0.75,NULL,NULL,NULL,NULL,NULL),
-(3,'协议价',0.9,NULL,NULL,NULL,NULL,NULL),
-(4,'索赔价',0.85,NULL,NULL,NULL,NULL,NULL),
-(5,'保险价',0.88,NULL,NULL,NULL,NULL,NULL);
-
 /*Table structure for table `rescue_bill` */
+
+DROP TABLE IF EXISTS `rescue_bill`;
 
 CREATE TABLE `rescue_bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -869,6 +868,8 @@ CREATE TABLE `rescue_bill` (
 
 /*Table structure for table `resign` */
 
+DROP TABLE IF EXISTS `resign`;
+
 CREATE TABLE `resign` (
   `rid` int(11) NOT NULL AUTO_INCREMENT COMMENT '离职编号',
   `sno` varchar(10) NOT NULL COMMENT '人员编号',
@@ -884,10 +885,11 @@ CREATE TABLE `resign` (
 
 /*Data for the table `resign` */
 
-insert  into `resign`(`rid`,`sno`,`rdate`,`rreason`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'dzw002','2020-01-02 08:20:58','太肥了,回家减肥',NULL,NULL,NULL,NULL,NULL);
+insert  into `resign`(`rid`,`sno`,`rdate`,`rreason`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'dzw002','2020-01-02 08:20:58','太肥了,回家减肥',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `rework_reason` */
+
+DROP TABLE IF EXISTS `rework_reason`;
 
 CREATE TABLE `rework_reason` (
   `rid` int(11) NOT NULL AUTO_INCREMENT COMMENT '返工原因编号',
@@ -899,6 +901,8 @@ CREATE TABLE `rework_reason` (
 
 /*Table structure for table `role` */
 
+DROP TABLE IF EXISTS `role`;
+
 CREATE TABLE `role` (
   `rid` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色编号',
   `rname` varchar(10) NOT NULL COMMENT '角色名称',
@@ -909,68 +913,30 @@ CREATE TABLE `role` (
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
   `remark6` varchar(10) DEFAULT NULL COMMENT '备注6',
   PRIMARY KEY (`rid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=gbk COMMENT='角色表';
 
 /*Data for the table `role` */
 
-insert  into `role`(`rid`,`rname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`,`remark6`) values 
-(1,'总经理',NULL,NULL,NULL,NULL,NULL,NULL),
-(2,'普通员工',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `role`(`rid`,`rname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`,`remark6`) values (1,'总经理',NULL,NULL,NULL,NULL,NULL,NULL),(2,'普通员工',NULL,NULL,NULL,NULL,NULL,NULL),(3,'保安队长',NULL,NULL,NULL,NULL,NULL,NULL),(4,'队长1',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `roles_perms` */
 
+DROP TABLE IF EXISTS `roles_perms`;
+
 CREATE TABLE `roles_perms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `pid` int(11) NOT NULL COMMENT '权限编号(外联权限表)',
-  `rid` int(11) NOT NULL COMMENT '角色编号(外联角色表)',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `rid` int(11) DEFAULT NULL COMMENT '关联角色编号',
+  `pid` int(11) DEFAULT NULL COMMENT '关联权限编号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=gbk COMMENT='角色权限中间表';
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 /*Data for the table `roles_perms` */
 
-insert  into `roles_perms`(`id`,`pid`,`rid`) values 
-(1,1,1),
-(2,2,1),
-(3,3,1),
-(4,4,1),
-(5,5,1),
-(6,6,1),
-(7,7,1),
-(8,8,1),
-(9,9,1),
-(10,10,1),
-(11,11,1),
-(12,12,1),
-(13,13,1),
-(14,14,1),
-(15,15,1),
-(16,16,1),
-(17,17,1),
-(18,18,1),
-(19,19,1),
-(20,20,1),
-(21,21,1),
-(22,22,1),
-(23,23,1),
-(24,24,1),
-(25,25,1),
-(26,26,1),
-(27,27,1),
-(28,28,1),
-(29,29,1),
-(30,30,1),
-(31,31,1),
-(32,32,1),
-(33,33,1),
-(34,1,2),
-(35,2,2),
-(36,3,2),
-(37,4,2),
-(38,5,2),
-(39,6,2),
-(40,7,2);
+insert  into `roles_perms`(`id`,`rid`,`pid`) values (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,9),(11,1,11),(12,1,12),(13,1,13),(14,1,14),(15,1,15),(16,1,16),(17,1,17),(18,1,18),(19,1,19),(20,1,20),(21,1,21),(22,1,22),(23,1,23),(24,1,24),(25,1,25),(26,1,26),(27,1,27),(28,1,28),(29,1,29),(30,1,30),(31,1,31),(32,1,32),(33,1,33),(34,1,10),(35,2,1),(36,2,2),(37,2,3),(38,2,4),(39,2,5),(40,2,6),(41,2,7),(42,2,8),(43,2,9),(44,2,10),(45,2,11),(46,2,12),(47,2,13),(48,2,14),(49,2,15),(50,2,16),(51,2,17),(52,2,18),(53,2,19),(54,2,20),(55,2,21),(56,2,22),(57,2,23),(58,2,24),(59,2,25),(60,2,26),(61,2,27),(62,2,28),(63,2,29),(64,2,30),(65,2,31),(66,1,35),(67,1,36),(68,1,37),(69,1,38),(74,3,1),(75,3,7),(76,3,8),(77,3,9);
 
 /*Table structure for table `service_item` */
+
+DROP TABLE IF EXISTS `service_item`;
 
 CREATE TABLE `service_item` (
   `sidno` int(11) NOT NULL AUTO_INCREMENT COMMENT '服务项目编号',
@@ -996,10 +962,11 @@ CREATE TABLE `service_item` (
 
 /*Table structure for table `staff` */
 
+DROP TABLE IF EXISTS `staff`;
+
 CREATE TABLE `staff` (
   `sid` int(11) NOT NULL AUTO_INCREMENT COMMENT '员工编号',
   `pno` varchar(10) NOT NULL COMMENT '人员编号(外联人员表)',
-  `mid` int(11) NOT NULL COMMENT '组织机构表编号(外联组织机构表)',
   `jid` int(11) NOT NULL COMMENT '岗位编号(外联岗位表)',
   `rid` int(11) NOT NULL COMMENT '角色编号(外联角色表)',
   `shealth` varchar(10) DEFAULT NULL COMMENT '身体状况',
@@ -1011,7 +978,7 @@ CREATE TABLE `staff` (
   `sschool` varchar(10) DEFAULT NULL COMMENT '毕业学校',
   `smajor` varchar(10) DEFAULT NULL COMMENT '专业(计算机软件,网络工程)',
   `smajorlevel` varchar(5) DEFAULT NULL COMMENT '专业资格(初级工程师,高级工程师,中级工程师)',
-  `sfiel` varchar(5) DEFAULT NULL COMMENT '属性(计考勤计薪，计考勤不计薪，不计考勤计薪，不计考勤不计薪)',
+  `sfiel` varchar(10) DEFAULT NULL COMMENT '属性(计考勤计薪，计考勤不计薪，不计考勤计薪，不计考勤不计薪)',
   `speople` varchar(10) DEFAULT NULL COMMENT '紧急联系人',
   `speoplephone` varchar(11) DEFAULT NULL COMMENT '联系人电话',
   `sindate` datetime DEFAULT NULL COMMENT '入职日期',
@@ -1034,15 +1001,17 @@ CREATE TABLE `staff` (
   `remark1` varchar(10) DEFAULT NULL COMMENT '备注1',
   `remark2` varchar(10) DEFAULT NULL COMMENT '备注2',
   `remark3` varchar(10) DEFAULT NULL COMMENT '备注3',
+  `mid` int(11) NOT NULL COMMENT '部门编号',
   PRIMARY KEY (`sid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk COMMENT='员工表';
 
 /*Data for the table `staff` */
 
-insert  into `staff`(`sid`,`pno`,`mid`,`jid`,`rid`,`shealth`,`sheight`,`splace`,`snation`,`smarry`,`seducation`,`sschool`,`smajor`,`smajorlevel`,`sfiel`,`speople`,`speoplephone`,`sindate`,`sinterniship`,`sbirthday`,`sstarttime`,`sendtime`,`srecommed`,`snonumber`,`sinnumber`,`salldiscount`,`sworkdiscount`,`sshopdiscount`,`sdiscount`,`job_resume`,`education_experience`,`family_member`,`Disciplinary_records`,`Employment_advice`,`remark1`,`remark2`,`remark3`) values 
-(1,'dzw001',3,2,2,'正常',1.65,'湖南株洲','汉族','未婚','本科','湖南工业大学','计算机软件','中级工程师','计考勤计薪','钟鹏根','13974123147','2020-01-01 22:10:37','2020-02-01 22:11:23','2016-10-01 22:11:29','2020-01-01 22:12:00','2022-01-01 22:12:06','钟鹏根','001','001',0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `staff`(`sid`,`pno`,`jid`,`rid`,`shealth`,`sheight`,`splace`,`snation`,`smarry`,`seducation`,`sschool`,`smajor`,`smajorlevel`,`sfiel`,`speople`,`speoplephone`,`sindate`,`sinterniship`,`sbirthday`,`sstarttime`,`sendtime`,`srecommed`,`snonumber`,`sinnumber`,`salldiscount`,`sworkdiscount`,`sshopdiscount`,`sdiscount`,`job_resume`,`education_experience`,`family_member`,`Disciplinary_records`,`Employment_advice`,`remark1`,`remark2`,`remark3`,`mid`) values (1,'dzw001',2,2,'正常',1.65,'湖南株洲','汉族','未婚','本科','湖南工业大学','计算机软件','中级工程师','计考勤计薪','钟鹏根','13974123147','2020-01-01 22:10:37','2020-02-01 22:11:23','2016-10-01 22:11:29','2020-01-01 22:12:00','2022-01-01 22:12:06','钟鹏根','001','001',0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3);
 
 /*Table structure for table `team` */
+
+DROP TABLE IF EXISTS `team`;
 
 CREATE TABLE `team` (
   `tid` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -1060,16 +1029,11 @@ CREATE TABLE `team` (
 
 /*Data for the table `team` */
 
-insert  into `team`(`tid`,`tname`,`catalog`,`parentid`,`tpower`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'自建',0,0,1,NULL,NULL,NULL,NULL,NULL),
-(2,'联队',0,0,1,NULL,NULL,NULL,NULL,NULL),
-(3,'加盟',0,0,1,NULL,NULL,NULL,NULL,NULL),
-(4,'合伙人',0,0,1,NULL,NULL,NULL,NULL,NULL),
-(5,'潘队',0,1,1,NULL,NULL,NULL,NULL,NULL),
-(6,'钟队',0,1,1,NULL,NULL,NULL,NULL,NULL),
-(7,'李队',0,2,2,NULL,NULL,NULL,NULL,NULL);
+insert  into `team`(`tid`,`tname`,`catalog`,`parentid`,`tpower`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'自建',0,0,1,NULL,NULL,NULL,NULL,NULL),(2,'联队',0,0,1,NULL,NULL,NULL,NULL,NULL),(3,'加盟',0,0,1,NULL,NULL,NULL,NULL,NULL),(4,'合伙人',0,0,1,NULL,NULL,NULL,NULL,NULL),(5,'潘队',0,1,1,NULL,NULL,NULL,NULL,NULL),(6,'钟队',0,1,1,NULL,NULL,NULL,NULL,NULL),(7,'李队',0,2,2,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `vip` */
+
+DROP TABLE IF EXISTS `vip`;
 
 CREATE TABLE `vip` (
   `vno` varchar(20) NOT NULL COMMENT '会员卡号',
@@ -1078,9 +1042,9 @@ CREATE TABLE `vip` (
   `cno` varchar(10) DEFAULT NULL COMMENT '客户编号',
   `vlid` int(11) DEFAULT NULL COMMENT '会员等级编号',
   `currentjifen` int(11) DEFAULT NULL COMMENT '当前积分',
-  `sumMoney` float DEFAULT '0' COMMENT '累积消费金额',
-  `remark1` varchar(10) DEFAULT NULL COMMENT '备注1',
-  `remark2` varchar(10) DEFAULT NULL COMMENT '备注2',
+  `sumMoney` float DEFAULT NULL COMMENT '累积消费金额',
+  `remark1` float DEFAULT NULL COMMENT '余额',
+  `remark2` varchar(11) DEFAULT NULL COMMENT '手机号',
   `remark3` varchar(10) DEFAULT NULL COMMENT '备注3',
   `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
@@ -1089,10 +1053,11 @@ CREATE TABLE `vip` (
 
 /*Data for the table `vip` */
 
-insert  into `vip`(`vno`,`vjoindate`,`venddate`,`cno`,`vlid`,`currentjifen`,`sumMoney`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-('v2020020320571','2020-02-03 20:57:29','2021-02-03 20:57:41','cus2020002',2,80,0,NULL,NULL,NULL,NULL,NULL);
+insert  into `vip`(`vno`,`vjoindate`,`venddate`,`cno`,`vlid`,`currentjifen`,`sumMoney`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values ('dzwvip001','2020-02-10 14:57:03','2020-03-10 14:57:06','cus2020001',1,0,0,500,'13975584610',NULL,NULL,NULL),('dzwvip002','2020-02-29 14:57:43','2020-03-10 14:57:49','cus2020002',2,0,0,500,'18573347558',NULL,NULL,NULL);
 
 /*Table structure for table `viplevel` */
+
+DROP TABLE IF EXISTS `viplevel`;
 
 CREATE TABLE `viplevel` (
   `vlid` int(11) NOT NULL AUTO_INCREMENT COMMENT '会员等级编号',
@@ -1109,10 +1074,31 @@ CREATE TABLE `viplevel` (
 
 /*Data for the table `viplevel` */
 
-insert  into `viplevel`(`vlid`,`vlname`,`startpoint`,`discount`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values 
-(1,'一般会员',50,0.75,NULL,NULL,NULL,NULL,NULL),
-(2,'高级会员',80,0.7,NULL,NULL,NULL,NULL,NULL);
+insert  into `viplevel`(`vlid`,`vlname`,`startpoint`,`discount`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'超级会员',200,0.88,NULL,NULL,NULL,NULL,NULL),(2,'会员',50,0.95,NULL,NULL,NULL,NULL,NULL);
+
+/*Table structure for table `work` */
+
+DROP TABLE IF EXISTS `work`;
+
+CREATE TABLE `work` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `tid` int(11) DEFAULT NULL COMMENT '(外联班组表tid)',
+  `winmorning` int(11) DEFAULT NULL COMMENT '站内白天',
+  `winnight` int(11) DEFAULT NULL COMMENT '站内晚上',
+  `woutmoning` int(11) DEFAULT NULL COMMENT '站外白天',
+  `woutnight` int(11) DEFAULT NULL COMMENT '站外晚上',
+  `wdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '当天时间',
+  `remark1` varchar(10) DEFAULT NULL COMMENT '备注1',
+  `remark2` varchar(10) DEFAULT NULL COMMENT '备注2',
+  `remark3` varchar(10) DEFAULT NULL COMMENT '备注3',
+  `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
+  `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='出工表';
+
+/*Data for the table `work` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

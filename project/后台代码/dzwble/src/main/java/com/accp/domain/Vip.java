@@ -26,8 +26,40 @@ public class Vip {
     private String remark4;
 
     private String remark5;
+    
+    private Viplevel vl;
+    
+    private Customer cus;
+    
+    private String limit; //期限
+    
+    
+    
+    public String getLimit() {
+		return limit;
+	}
 
-    public String getVno() {
+	public void setLimit(String limit) {
+		this.limit = limit;
+	}
+
+	public Customer getCus() {
+		return cus;
+	}
+
+	public void setCus(Customer cus) {
+		this.cus = cus;
+	}
+
+	public Viplevel getVl() {
+		return vl;
+	}
+
+	public void setVl(Viplevel vl) {
+		this.vl = vl;
+	}
+
+	public String getVno() {
         return vno;
     }
 
