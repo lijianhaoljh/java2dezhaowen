@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Carbrand {
     private Integer cbno;
 
@@ -16,7 +18,7 @@ public class Carbrand {
     private String remark4;
 
     private String remark5;
-
+   
     public Integer getCbno() {
         return cbno;
     }

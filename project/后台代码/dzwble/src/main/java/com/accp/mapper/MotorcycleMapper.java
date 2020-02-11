@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MotorcycleMapper {
+	List<Motorcycle> findMotorcyle(Integer id);
+	
+	List<Motorcycle>findMotorcyleTwo(@Param("cbno")Integer cbno,@Param("cbnos")Object cbnos);
+	
     int countByExample(MotorcycleExample example);
 
     int deleteByExample(MotorcycleExample example);

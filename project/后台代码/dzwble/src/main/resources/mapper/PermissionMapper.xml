@@ -14,6 +14,20 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findPerm" resultMap="BaseResultMap">
+  	SELECT p.* FROM permission p INNER JOIN
+		roles_perms rp ON p.id = rp.pid INNER JOIN
+		 people_roles pr ON rp.rid = pr.rid
+		WHERE pr.pno = #{pno}
+  </select>
+  
+  <select id="findRolePerms" resultMap="BaseResultMap">
+  		SELECT p.* FROM permission p INNER JOIN
+		roles_perms rp ON p.id = rp.pid
+		WHERE rp.rid=#{rid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

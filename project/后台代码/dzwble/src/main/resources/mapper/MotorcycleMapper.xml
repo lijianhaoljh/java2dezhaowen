@@ -19,6 +19,36 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Motorcycle" id="BaseResultMapTwo" extends="BaseResultMap">
+	  <association property="m" column="mid" javaType="com.accp.domain.Maintenance">
+	  	<id column="maid" property="mid" jdbcType="INTEGER" />
+	    <result column="mname" property="mname" jdbcType="VARCHAR" />
+	    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+	    <result column="catalog" property="catalog" jdbcType="INTEGER" />
+	    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+	    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+	    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+	    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+	    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+	  </association>
+  </resultMap>
+  
+  <select id="findMotorcyle" resultMap="BaseResultMapTwo" parameterType="java.lang.Integer">
+  	SELECT m.*,ma.mid maid,ma.mname mname,ma.parentid parentid,ma.catalog catalog FROM `motorcycle` m
+	INNER JOIN `maintenance` ma
+	ON ma.mid=m.mid
+	WHERE m.cbno=#{id}
+  </select>
+  
+  <select id="findMotorcyleTwo" resultMap="BaseResultMapTwo">
+ 	 	SELECT m.*,ma.mid maid,ma.mname mname,ma.parentid parentid,ma.catalog catalog FROM `motorcycle` m
+		INNER JOIN `maintenance` ma
+		ON ma.mid=m.mid
+		WHERE m.cbno=#{cbno} and (m.moid=#{cbnos} or m.moiname LIKE  CONCAT ('%',#{cbnos},'%'))
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -78,8 +108,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    moid, cbno, moiname, moprice, moyearprice, modischarge, modomestic, mofuel, load, 
-    mid, img, remark1, remark2, remark3, remark4, remark5
+    moid, cbno, moiname, moprice, moyearprice, modischarge, modomestic, mofuel, `load`, 
+    `mid`, img, remark1, remark2, remark3, remark4, remark5
   </sql>
   <select id="queryByCbno" resultMap="BaseResultMap">
   	SELECT moid, cbno, moiname, moprice, moyearprice, modischarge, modomestic, mofuel, `load`, `mid`, img, remark1, remark2, remark3, remark4, remark5         
@@ -118,8 +148,8 @@
   <insert id="insert" parameterType="com.accp.domain.Motorcycle" >
     insert into motorcycle (moid, cbno, moiname, 
       moprice, moyearprice, modischarge, 
-      modomestic, mofuel, load, 
-      mid, img, remark1, 
+      modomestic, mofuel, `load`, 
+      `mid`, img, remark1, 
       remark2, remark3, remark4, 
       remark5)
     values (#{moid,jdbcType=INTEGER}, #{cbno,jdbcType=INTEGER}, #{moiname,jdbcType=VARCHAR}, 
@@ -157,10 +187,10 @@
         mofuel,
       </if>
       <if test="load != null" >
-        load,
+        `load`,
       </if>
       <if test="mid != null" >
-        mid,
+        `mid`,
       </if>
       <if test="img != null" >
         img,
@@ -266,10 +296,10 @@
         mofuel = #{record.mofuel,jdbcType=VARCHAR},
       </if>
       <if test="record.load != null" >
-        load = #{record.load,jdbcType=INTEGER},
+        `load` = #{record.load,jdbcType=INTEGER},
       </if>
       <if test="record.mid != null" >
-        mid = #{record.mid,jdbcType=INTEGER},
+        `mid` = #{record.mid,jdbcType=INTEGER},
       </if>
       <if test="record.img != null" >
         img = #{record.img,jdbcType=VARCHAR},
@@ -304,8 +334,8 @@
       modischarge = #{record.modischarge,jdbcType=REAL},
       modomestic = #{record.modomestic,jdbcType=VARCHAR},
       mofuel = #{record.mofuel,jdbcType=VARCHAR},
-      load = #{record.load,jdbcType=INTEGER},
-      mid = #{record.mid,jdbcType=INTEGER},
+      `load` = #{record.load,jdbcType=INTEGER},
+      `mid` = #{record.mid,jdbcType=INTEGER},
       img = #{record.img,jdbcType=VARCHAR},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
@@ -341,10 +371,10 @@
         mofuel = #{mofuel,jdbcType=VARCHAR},
       </if>
       <if test="load != null" >
-        load = #{load,jdbcType=INTEGER},
+        `load` = #{load,jdbcType=INTEGER},
       </if>
       <if test="mid != null" >
-        mid = #{mid,jdbcType=INTEGER},
+        `mid` = #{mid,jdbcType=INTEGER},
       </if>
       <if test="img != null" >
         img = #{img,jdbcType=VARCHAR},
@@ -376,8 +406,8 @@
       modischarge = #{modischarge,jdbcType=REAL},
       modomestic = #{modomestic,jdbcType=VARCHAR},
       mofuel = #{mofuel,jdbcType=VARCHAR},
-      load = #{load,jdbcType=INTEGER},
-      mid = #{mid,jdbcType=INTEGER},
+      `load` = #{load,jdbcType=INTEGER},
+      `mid` = #{mid,jdbcType=INTEGER},
       img = #{img,jdbcType=VARCHAR},
       remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},

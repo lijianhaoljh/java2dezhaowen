@@ -30,7 +30,11 @@ select{color:black}
 #setting ul{list-style-type: none;}
 #setting ul li{display: inline-block;text-align: center;font-size: 17px;}
 #setting td{border: 1px solid white;}
+<<<<<<< HEAD
+#chosecustomer{ width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+=======
 #chosecustomer{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+>>>>>>> refs/remotes/origin/pengyumei
 #chosecustomer ul{list-style-type: none;}
 #chosecustomer ul li{display: inline-block;text-align: center;font-size: 17px;}
 #chosecustomer td{border: 1px solid white;}

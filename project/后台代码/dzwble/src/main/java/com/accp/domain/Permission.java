@@ -1,5 +1,8 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Permission {
     private Integer id;
 
@@ -22,8 +25,18 @@ public class Permission {
     private String remark4;
 
     private String remark5;
+    
+    private List<Permission> children = new ArrayList<Permission>();
 
-    public Integer getId() {
+    public List<Permission> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Permission> children) {
+		this.children = children;
+	}
+
+	public Integer getId() {
         return id;
     }
 
