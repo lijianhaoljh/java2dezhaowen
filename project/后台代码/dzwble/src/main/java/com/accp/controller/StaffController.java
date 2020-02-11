@@ -112,5 +112,11 @@ public class StaffController {
 		public List<Role> queryAllRole(){
 			return ser.queryAllRole();
 		}
+		
+		//
+		@PostMapping(value="/queryunion")
+		public List<People> queryunion(String pno){
+			return ser.queryunion(pno);
+		}
 	
 }
