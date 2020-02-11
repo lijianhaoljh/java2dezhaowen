@@ -35,7 +35,7 @@ public class VipLevelService {
 		CustomerExample example=new CustomerExample();
 		Criteria criteria=example.createCriteria();
 		criteria.andCnoLike("%"+condition+"%");
-		example.or().andCpeopleLike("%"+condition+"%");
+		example.or().andCphoneLike("%"+condition+"%");
 		example.or().andCnameLike("%"+condition+"%");
 		return customerMapper.selectByExample(example);
 	}
