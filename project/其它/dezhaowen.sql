@@ -942,7 +942,7 @@ CREATE TABLE `service_item` (
   `sidno` int(11) NOT NULL AUTO_INCREMENT COMMENT '服务项目编号',
   `sidname` varchar(20) NOT NULL COMMENT '服务项目名称',
   `toino` int(11) NOT NULL COMMENT '收入类型编号',
-  `cbno` int(11) NOT NULL COMMENT '车品牌编号',
+  `cbno` int(11) DEFAULT NULL COMMENT '车品牌编号',
   `mid` int(11) NOT NULL COMMENT '维修项目编号',
   `standardprice` float DEFAULT NULL COMMENT '标准价',
   `memberprice` float DEFAULT NULL COMMENT '会员价',
