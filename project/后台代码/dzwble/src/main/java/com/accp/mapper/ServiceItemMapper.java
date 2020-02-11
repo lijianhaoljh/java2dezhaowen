@@ -6,6 +6,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ServiceItemMapper {
+	
+	List<ServiceItem>querytwo();
+	
+	List<ServiceItem>queryname(String name);
+	
+	List<ServiceItem>queryid(Integer mid);
+	
     int countByExample(ServiceItemExample example);
 
     int deleteByExample(ServiceItemExample example);

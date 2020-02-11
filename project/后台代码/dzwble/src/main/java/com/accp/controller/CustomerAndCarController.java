@@ -86,8 +86,8 @@ public class CustomerAndCarController {
 	//根据组织机构编号查询职工
 	@ResponseBody
 	@RequestMapping("/queryPeopleByMid")
-	public List<Staff> queryPeopleByMid(Integer mid){
-		return ser.queryPeopleByMid(mid);
+	public List<Staff> queryPeopleByMid(String pno,Integer mid){
+		return ser.queryPeopleByMid(pno,mid);
 	}
 	
 	//查询价格类型

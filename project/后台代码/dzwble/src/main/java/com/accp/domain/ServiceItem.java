@@ -1,5 +1,17 @@
 package com.accp.domain;
 
+/**
+ * @author ZPG
+ *
+ */
+/**
+ * @author ZPG
+ *
+ */
+/**
+ * @author ZPG
+ *
+ */
 public class ServiceItem {
     private Integer sidno;
 
@@ -32,8 +44,40 @@ public class ServiceItem {
     private String remark4;
 
     private String remark5;
+    
+    private String zmname; // 按售价
+    
+    private String zmnames; //项目类别
+    
+    private String ztoname;  //收入类别
+    
+    
 
-    public Integer getSidno() {
+    public String getZmname() {
+		return zmname;
+	}
+
+	public void setZmname(String zmname) {
+		this.zmname = zmname;
+	}
+
+	public String getZmnames() {
+		return zmnames;
+	}
+
+	public void setZmnames(String zmnames) {
+		this.zmnames = zmnames;
+	}
+
+	public String getToname() {
+		return ztoname;
+	}
+
+	public void setToname(String toname) {
+		this.ztoname = toname;
+	}
+
+	public Integer getSidno() {
         return sidno;
     }
 

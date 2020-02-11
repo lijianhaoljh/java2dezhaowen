@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.ResignMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.Resign" >
-    <id column="rid" property="rid" jdbcType="INTEGER" />
-    <result column="sno" property="sno" jdbcType="VARCHAR" />
-    <result column="rdate" property="rdate" jdbcType="TIMESTAMP" />
-    <result column="rreason" property="rreason" jdbcType="VARCHAR" />
+<mapper namespace="com.accp.mapper.WorkMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Work" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="winmorning" property="winmorning" jdbcType="INTEGER" />
+    <result column="winnight" property="winnight" jdbcType="INTEGER" />
+    <result column="woutmoning" property="woutmoning" jdbcType="INTEGER" />
+    <result column="woutnight" property="woutnight" jdbcType="INTEGER" />
+    <result column="wdate" property="wdate" jdbcType="TIMESTAMP" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
-    
-    <result column="mname" property="mname" jdbcType="VARCHAR" />
-    <result column="jname" property="jname" jdbcType="VARCHAR" />
-    <result column="pname" property="pname" jdbcType="VARCHAR" />
-    <result column="psex" property="psex" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,23 +74,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    rid, sno, rdate, rreason, remark1, remark2, remark3, remark4, remark5
+    id, tid, winmorning, winnight, woutmoning, woutnight, wdate, remark1, remark2, remark3, 
+    remark4, remark5
   </sql>
-  <select id="queryAllResign" resultMap="BaseResultMap">
-	  	SELECT r.*, m.mname mname,peo.pname pname,peo.psex psex,j.jname jname FROM resign AS r
-	LEFT JOIN people AS peo ON r.sno=peo.pno
-	LEFT JOIN staff AS s ON s.pno=peo.pno
-	LEFT JOIN mechanism AS m ON m.mid=s.mid
-	LEFT JOIN job AS j ON j.jid=s.jid
-	WHERE peo.ptid=1 AND (peo.pno LIKE concat("%",#{pno},"%") OR peo.pname LIKE concat("%",#{pno},"%"))
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ResignExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.WorkExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from resign
+    from work
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -103,43 +94,54 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from resign
-    where rid = #{rid,jdbcType=INTEGER}
+    from work
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from resign
-    where rid = #{rid,jdbcType=INTEGER}
+    delete from work
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.ResignExample" >
-    delete from resign
+  <delete id="deleteByExample" parameterType="com.accp.domain.WorkExample" >
+    delete from work
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Resign" >
-    insert into resign (rid, sno, rdate, 
-      rreason, remark1, remark2, 
+  <insert id="insert" parameterType="com.accp.domain.Work" >
+    insert into work (id, tid, winmorning, 
+      winnight, woutmoning, woutnight, 
+      wdate, remark1, remark2, 
       remark3, remark4, remark5
       )
-    values (#{rid,jdbcType=INTEGER}, #{sno,jdbcType=VARCHAR}, #{rdate,jdbcType=TIMESTAMP}, 
-      #{rreason,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{winmorning,jdbcType=INTEGER}, 
+      #{winnight,jdbcType=INTEGER}, #{woutmoning,jdbcType=INTEGER}, #{woutnight,jdbcType=INTEGER}, 
+      #{wdate,jdbcType=TIMESTAMP}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
       #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.Resign" >
-    insert into resign
+  <insert id="insertSelective" parameterType="com.accp.domain.Work" >
+    insert into work
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="rid != null" >
-        rid,
+      <if test="id != null" >
+        id,
       </if>
-      <if test="sno != null" >
-        sno,
+      <if test="tid != null" >
+        tid,
       </if>
-      <if test="rdate != null" >
-        rdate,
+      <if test="winmorning != null" >
+        winmorning,
       </if>
-      <if test="rreason != null" >
-        rreason,
+      <if test="winnight != null" >
+        winnight,
+      </if>
+      <if test="woutmoning != null" >
+        woutmoning,
+      </if>
+      <if test="woutnight != null" >
+        woutnight,
+      </if>
+      <if test="wdate != null" >
+        wdate,
       </if>
       <if test="remark1 != null" >
         remark1,
@@ -158,17 +160,26 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="rid != null" >
-        #{rid,jdbcType=INTEGER},
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="sno != null" >
-        #{sno,jdbcType=VARCHAR},
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
       </if>
-      <if test="rdate != null" >
-        #{rdate,jdbcType=TIMESTAMP},
+      <if test="winmorning != null" >
+        #{winmorning,jdbcType=INTEGER},
       </if>
-      <if test="rreason != null" >
-        #{rreason,jdbcType=VARCHAR},
+      <if test="winnight != null" >
+        #{winnight,jdbcType=INTEGER},
+      </if>
+      <if test="woutmoning != null" >
+        #{woutmoning,jdbcType=INTEGER},
+      </if>
+      <if test="woutnight != null" >
+        #{woutnight,jdbcType=INTEGER},
+      </if>
+      <if test="wdate != null" >
+        #{wdate,jdbcType=TIMESTAMP},
       </if>
       <if test="remark1 != null" >
         #{remark1,jdbcType=VARCHAR},
@@ -187,26 +198,35 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.ResignExample" resultType="java.lang.Integer" >
-    select count(*) from resign
+  <select id="countByExample" parameterType="com.accp.domain.WorkExample" resultType="java.lang.Integer" >
+    select count(*) from work
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update resign
+    update work
     <set >
-      <if test="record.rid != null" >
-        rid = #{record.rid,jdbcType=INTEGER},
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.sno != null" >
-        sno = #{record.sno,jdbcType=VARCHAR},
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
       </if>
-      <if test="record.rdate != null" >
-        rdate = #{record.rdate,jdbcType=TIMESTAMP},
+      <if test="record.winmorning != null" >
+        winmorning = #{record.winmorning,jdbcType=INTEGER},
       </if>
-      <if test="record.rreason != null" >
-        rreason = #{record.rreason,jdbcType=VARCHAR},
+      <if test="record.winnight != null" >
+        winnight = #{record.winnight,jdbcType=INTEGER},
+      </if>
+      <if test="record.woutmoning != null" >
+        woutmoning = #{record.woutmoning,jdbcType=INTEGER},
+      </if>
+      <if test="record.woutnight != null" >
+        woutnight = #{record.woutnight,jdbcType=INTEGER},
+      </if>
+      <if test="record.wdate != null" >
+        wdate = #{record.wdate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.remark1 != null" >
         remark1 = #{record.remark1,jdbcType=VARCHAR},
@@ -229,11 +249,14 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update resign
-    set rid = #{record.rid,jdbcType=INTEGER},
-      sno = #{record.sno,jdbcType=VARCHAR},
-      rdate = #{record.rdate,jdbcType=TIMESTAMP},
-      rreason = #{record.rreason,jdbcType=VARCHAR},
+    update work
+    set id = #{record.id,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      winmorning = #{record.winmorning,jdbcType=INTEGER},
+      winnight = #{record.winnight,jdbcType=INTEGER},
+      woutmoning = #{record.woutmoning,jdbcType=INTEGER},
+      woutnight = #{record.woutnight,jdbcType=INTEGER},
+      wdate = #{record.wdate,jdbcType=TIMESTAMP},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
@@ -243,17 +266,26 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Resign" >
-    update resign
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Work" >
+    update work
     <set >
-      <if test="sno != null" >
-        sno = #{sno,jdbcType=VARCHAR},
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
       </if>
-      <if test="rdate != null" >
-        rdate = #{rdate,jdbcType=TIMESTAMP},
+      <if test="winmorning != null" >
+        winmorning = #{winmorning,jdbcType=INTEGER},
       </if>
-      <if test="rreason != null" >
-        rreason = #{rreason,jdbcType=VARCHAR},
+      <if test="winnight != null" >
+        winnight = #{winnight,jdbcType=INTEGER},
+      </if>
+      <if test="woutmoning != null" >
+        woutmoning = #{woutmoning,jdbcType=INTEGER},
+      </if>
+      <if test="woutnight != null" >
+        woutnight = #{woutnight,jdbcType=INTEGER},
+      </if>
+      <if test="wdate != null" >
+        wdate = #{wdate,jdbcType=TIMESTAMP},
       </if>
       <if test="remark1 != null" >
         remark1 = #{remark1,jdbcType=VARCHAR},
@@ -271,18 +303,21 @@
         remark5 = #{remark5,jdbcType=VARCHAR},
       </if>
     </set>
-    where rid = #{rid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Resign" >
-    update resign
-    set sno = #{sno,jdbcType=VARCHAR},
-      rdate = #{rdate,jdbcType=TIMESTAMP},
-      rreason = #{rreason,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Work" >
+    update work
+    set tid = #{tid,jdbcType=INTEGER},
+      winmorning = #{winmorning,jdbcType=INTEGER},
+      winnight = #{winnight,jdbcType=INTEGER},
+      woutmoning = #{woutmoning,jdbcType=INTEGER},
+      woutnight = #{woutnight,jdbcType=INTEGER},
+      wdate = #{wdate,jdbcType=TIMESTAMP},
       remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
       remark4 = #{remark4,jdbcType=VARCHAR},
       remark5 = #{remark5,jdbcType=VARCHAR}
-    where rid = #{rid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
