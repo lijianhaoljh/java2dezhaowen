@@ -2,11 +2,19 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Vip {
     private String vno;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd hh:ss:mm")
+    @JsonFormat(pattern = "yyyy-mm-dd hh:Ss:mm")
     private Date vjoindate;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd hh:ss:mm")
+    @JsonFormat(pattern = "yyyy-mm-dd hh:Ss:mm")
     private Date venddate;
 
     private String cno;

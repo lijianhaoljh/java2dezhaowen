@@ -39,5 +39,18 @@ public class VipLevelService {
 		example.or().andCnameLike("%"+condition+"%");
 		return customerMapper.selectByExample(example);
 	}
+	/**
+	 * 生成新编号
+	 * @return
+	 */
+	public Customer newCno() {
+		CustomerExample example=new CustomerExample();
+		example.setOrderByClause("cno desc");
+		List<Customer> list= customerMapper.selectByExample(example);
+		if(list!=null&&list.size()>0) {
+			return list.get(0);
+		}
+		return null;
+	}
 	
 }
