@@ -23,8 +23,8 @@ public class QuitController {
 	QuitService ser;
 	
 	@GetMapping(value="/queryAllResign")
-	public List<Resign> queryAllResign(){
-		return ser.queryAllResign();
+	public List<Resign> queryAllResign(String pno){
+		return ser.queryAllResign(pno);
 	}
 	@GetMapping(value="/queryAllPeo")
 	public List<Staff> queryAllPeo(){
@@ -47,11 +47,16 @@ public class QuitController {
 		}
 	}
 	@PostMapping("/deleResign")
-	public String deleResign(Integer rid) {
-		if(ser.deleResign(rid)>0) {
+	public String deleResign(@RequestBody Resign demon) {
+		if(ser.deleResign(demon)>0) {
 			return "1";
 		}else {
 			return "2";
 		}
+	}
+	
+	@PostMapping(value="/queryBypno")
+	public Staff queryBypno(String pno){
+		return ser.queryBypno(pno);
 	}
 }

@@ -52,6 +52,8 @@ public class StaffService {
 			ex.createCriteria().andParentidEqualTo(parentid);
 			return mmmapper.selectByExample(ex);
 		}
+		
+		
 		//查询所有职工
 		public List<People> queryAllStaff(){
 			return pmapper.selectByExample(null);
