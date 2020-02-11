@@ -50,9 +50,9 @@ public class VipService {
 	/*
 	 * 积分清零
 	 */
-	public Integer jifenZeroVip(Vip vno) {
-		vno.setCurrentjifen(0);
-		return vipMapper.updateByPrimaryKey(vno);
+	public Integer cleanPoint(Vip v) {
+		v.setCurrentjifen(0);
+		return vipMapper.updateByPrimaryKey(v);
 	}
 	
 	/*
