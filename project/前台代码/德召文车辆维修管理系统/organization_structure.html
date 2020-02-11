@@ -182,7 +182,12 @@
 						</p>
 						<p>
 							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="demonMech.parentid==m.mid" :value="m.mname"  />
-							<label><span style="color: red;">*</span>所在部门</label><input readonly="readonly" type="text" v-model="staf.mname"  /><input type="text" readonly="readonly" v-model="staf.mid" />
+							<label><span style="color: red;">*</span>所在部门</label>
+							<input v-if="cc==1" type="text" disabled="disabled" style="width: 50px;" v-model="demonMech.mid" />
+							<input v-else disabled="disabled" style="width: 50px;" v-model="staf.mid" />
+							
+							<input v-if="cc==1" readonly="readonly" type="text" v-model="demonMech.mname"  />
+							<input v-else readonly="readonly" type="text" v-model="staf.mname"  />
 																									
 						</p>
 						<p>
@@ -606,6 +611,7 @@
 							jobs:[],//所有岗位
 							addMechanism:{mid:"",parentid:"",catalog:"0"},//添加部门
 							role:[],//所有角色
+							cc:"0",
 						}
 					},
 					methods:{
@@ -807,7 +813,7 @@
 						delStaff:function(){
 							//删除选中职工
 							
-							if(vm.demon=="undefined"){
+							if(vm.demon==undefined){
 								alert("请选中需要删除的职工");
 								return;
 							}
@@ -832,9 +838,10 @@
 							
 						},
 						upStaff:function(){
+							vm.cc="2";
 							//修改职工
 							vm.kk="6";
-							if(vm.demon=="undefined"){
+							if(vm.demon==undefined){
 								alert("请选中需要修改的职工");
 								return;
 							}else{
@@ -902,6 +909,7 @@
 							}
 						},
 						addstaff:function(){
+							vm.cc="1";
 							//新增职工
 							if(vm.kk=="0"){
 								alert("请选择要增加员工的部门");
