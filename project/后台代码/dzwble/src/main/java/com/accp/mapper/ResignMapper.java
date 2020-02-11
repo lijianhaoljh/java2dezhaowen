@@ -18,7 +18,7 @@ public interface ResignMapper {
 
     List<Resign> selectByExample(ResignExample example);
 
-    List<Resign> queryAllResign();
+    List<Resign> queryAllResign(String pno);
 
     Resign selectByPrimaryKey(Integer rid);
 
