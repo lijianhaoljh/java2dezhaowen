@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.WorkMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Work" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="winmorning" property="winmorning" jdbcType="INTEGER" />
+    <result column="winnight" property="winnight" jdbcType="INTEGER" />
+    <result column="woutmoning" property="woutmoning" jdbcType="INTEGER" />
+    <result column="woutnight" property="woutnight" jdbcType="INTEGER" />
+    <result column="wdate" property="wdate" jdbcType="TIMESTAMP" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, tid, winmorning, winnight, woutmoning, woutnight, wdate, remark1, remark2, remark3, 
+    remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.WorkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from work
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from work
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.WorkExample" >
+    delete from work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Work" >
+    insert into work (id, tid, winmorning, 
+      winnight, woutmoning, woutnight, 
+      wdate, remark1, remark2, 
+      remark3, remark4, remark5
+      )
+    values (#{id,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{winmorning,jdbcType=INTEGER}, 
+      #{winnight,jdbcType=INTEGER}, #{woutmoning,jdbcType=INTEGER}, #{woutnight,jdbcType=INTEGER}, 
+      #{wdate,jdbcType=TIMESTAMP}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Work" >
+    insert into work
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="winmorning != null" >
+        winmorning,
+      </if>
+      <if test="winnight != null" >
+        winnight,
+      </if>
+      <if test="woutmoning != null" >
+        woutmoning,
+      </if>
+      <if test="woutnight != null" >
+        woutnight,
+      </if>
+      <if test="wdate != null" >
+        wdate,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="winmorning != null" >
+        #{winmorning,jdbcType=INTEGER},
+      </if>
+      <if test="winnight != null" >
+        #{winnight,jdbcType=INTEGER},
+      </if>
+      <if test="woutmoning != null" >
+        #{woutmoning,jdbcType=INTEGER},
+      </if>
+      <if test="woutnight != null" >
+        #{woutnight,jdbcType=INTEGER},
+      </if>
+      <if test="wdate != null" >
+        #{wdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.WorkExample" resultType="java.lang.Integer" >
+    select count(*) from work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update work
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.winmorning != null" >
+        winmorning = #{record.winmorning,jdbcType=INTEGER},
+      </if>
+      <if test="record.winnight != null" >
+        winnight = #{record.winnight,jdbcType=INTEGER},
+      </if>
+      <if test="record.woutmoning != null" >
+        woutmoning = #{record.woutmoning,jdbcType=INTEGER},
+      </if>
+      <if test="record.woutnight != null" >
+        woutnight = #{record.woutnight,jdbcType=INTEGER},
+      </if>
+      <if test="record.wdate != null" >
+        wdate = #{record.wdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update work
+    set id = #{record.id,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      winmorning = #{record.winmorning,jdbcType=INTEGER},
+      winnight = #{record.winnight,jdbcType=INTEGER},
+      woutmoning = #{record.woutmoning,jdbcType=INTEGER},
+      woutnight = #{record.woutnight,jdbcType=INTEGER},
+      wdate = #{record.wdate,jdbcType=TIMESTAMP},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Work" >
+    update work
+    <set >
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="winmorning != null" >
+        winmorning = #{winmorning,jdbcType=INTEGER},
+      </if>
+      <if test="winnight != null" >
+        winnight = #{winnight,jdbcType=INTEGER},
+      </if>
+      <if test="woutmoning != null" >
+        woutmoning = #{woutmoning,jdbcType=INTEGER},
+      </if>
+      <if test="woutnight != null" >
+        woutnight = #{woutnight,jdbcType=INTEGER},
+      </if>
+      <if test="wdate != null" >
+        wdate = #{wdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Work" >
+    update work
+    set tid = #{tid,jdbcType=INTEGER},
+      winmorning = #{winmorning,jdbcType=INTEGER},
+      winnight = #{winnight,jdbcType=INTEGER},
+      woutmoning = #{woutmoning,jdbcType=INTEGER},
+      woutnight = #{woutnight,jdbcType=INTEGER},
+      wdate = #{wdate,jdbcType=TIMESTAMP},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
