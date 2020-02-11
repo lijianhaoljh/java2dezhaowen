@@ -12,12 +12,12 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div>
-						<span>离职定义</span>
+						<span>离职登记</span>
 					</div>
 					<div>
 						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
-							<input type="text" placeholder="匹配工号/姓名" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
-							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
+							<input name="name" type="text" placeholder="匹配工号/姓名" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<button @click="querybox" class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
 							<button class="btn btn-default" style="width: 70px;">关闭</button>
 						</div>
 					</div>
@@ -26,9 +26,9 @@
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
 						<ul>
 							<li @click="quitstaff"><span class="glyphicon glyphicon-user"></span>离职</li>
-							<li><span class="glyphicon glyphicon-cog"></span>回滚</li>
+							<li @click="goBack"><span class="glyphicon glyphicon-cog"></span>回滚</li>
 							<li @click="open"><span class="glyphicon glyphicon-folder-open"></span>打开</li>
-							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="deleResign"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
 							<li><span class="glyphicon glyphicon-export"></span>导出</li>
 						</ul>
 					</div>
@@ -48,7 +48,7 @@
 						  </thead>
 						  <tbody>
 						  	<tr v-for="q in quits">
-						  		<td>   </td>
+						  		<td><input @click="quitchose($event,q)" name="aa" type="radio"  />   </td>
 						  		<td>{{q.mname}}</td>
 						  		<td>{{q.sno}}</td>
 						  		<td>{{q.pname}}</td>
@@ -71,75 +71,92 @@
 					<div style="width: 960px;height: 60px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
-						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
 					</div>
 					<div style="width: 960px;height: 555px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
-						<p style="padding-top: 10px;">
-							<label><span style="color: red;">*</span>员工编号</label><input />
-							<label><span style="color: red;">*</span>员工姓名</label><input />
-							<label><span style="color: red;">*</span>性别</label><input />
+						<p class="ddd" style="padding-top: 10px;">
+							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.pno"  />
+							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.pname" />
+							<label><span style="color: red;">*</span>性别</label><input type="text" v-model="staf.psex"  />
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>所在门店</label><input />
-							<label><span style="color: red;">*</span>所在部门</label><input />
+							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="m.mid==staf.parentid" :value="m.mname"  />
+							<label><span style="color: red;">*</span>所在部门</label>
+							<input disabled="disabled" style="width: 50px;" v-model="staf.mid" />
+							<input readonly="readonly" type="text" v-model="staf.mname"  />
+																									
 						</p>
 						<p>
-							<label>登录账号</label><input />
-							<label>岗位</label><input />
-							<label>身体状况</label><input />
+							<label>岗位</label><select v-model="staf.jid"><option v-for="j in jobs" :value="j.jid">{{j.jname}}</option></select>
+							<label>身体状况</label><input type="text" v-model="staf.shealth"  />
 						</p>
 						<p>
-							<label>身高</label><input />
-							<label>籍贯</label><input />
-							<label>名族</label><input />
+							<label>身高</label><input type="text" v-model="staf.sheight"  />
+							<label>籍贯</label><input type="text" v-model="staf.splace"  />
+							<label>民族</label><input type="text" v-model="staf.snation"  />
 						</p>
 						<p>
-							<label>婚姻状况</label><input />
-							<label>学历</label><input />
-							<label>毕业学校</label><input />
+							<label>婚姻状况</label><input type="text" v-model="staf.smarry"  />
+							<label>学历</label>
+							<select v-model="staf.seducation" >
+								<option selected="selected" value="博士">博士</option>
+								<option value="本科">本科</option>
+								<option value="大专">大专</option>
+								<option value="高中">高中</option>
+							</select>
+							<label>毕业学校</label><input type="text" v-model="staf.sschool"  />
+						</p>
+						<p class="ddd">
+							<label>专业</label><select v-model="staf.smajor" >
+								<option selected="selected" value="计算机软件">计算机软件</option>
+								<option value="网络工程">网络工程</option>
+							</select>
+							<label>专业资格</label><select v-model="staf.smajorlevel" >
+								<option selected="selected" value="初级工程师">中级工程师</option>
+								<option value="中级工程师">中级工程师</option>
+								<option value="高级工程师">高级工程师</option>
+							</select>
+							<label><span style="color: red;">*</span>属性</label><select v-model="staf.sfiel" >
+								<option selected="selected" value="计考勤计薪">计考勤计薪</option>
+								<option value="不计考勤计薪">不计考勤计薪</option>
+								<option value="计考勤不计薪">计考勤不计薪</option>
+								<option value="不计考勤不计薪">不计考勤不计薪</option>
+							</select>
 						</p>
 						<p>
-							<label>专业</label><input />
-							<label>专业资格</label><input />
-							<label><span style="color: red;">*</span>属性</label><input />
-							<label>学位</label><input />
+							<label><span style="color: red;">*</span>身份证号</label><input type="text" v-model="staf.pidcard"  />
+							<label><span style="color: red;">*</span>户口地址</label><input type="text" v-model="staf.presidenceaddress"  />
 						</p>
 						<p>
-							<label>编制</label><input />
-							<label>身份证号</label><input />
-							<label>户口地址</label><input />
+							<label><span style="color: red;">*</span>现住地址</label><input  type="text" v-model="staf.paddress" />
+							<label><span style="color: red;">*</span>联系电话</label><input type="text" v-model="staf.pphone"  />
+							<label><span style="color: red;">*</span>手机</label><input type="text" v-model="staf.ptellphone"  />
 						</p>
 						<p>
-							<label>现住地址</label><input />
-							<label>联系电话</label><input />
-							<label>手机</label><input />
-						</p>
-						<p>
-							<label>EMAIL</label><input />
-							<label>开户银行</label><input />
-							<label>银行账号</label><input />
+							<label><span style="color: red;">*</span>EMAIL</label><input type="text" v-model="staf.pemail"  />
+							<label>开户银行</label><input type="text" v-model="staf.pbank"  />
+							<label>银行账号</label><input type="text" v-model="staf.pbanknumber"  />
 						</p>
 						<p style="padding-top: 20px;">
-							<label>紧急联系人</label><input />
-							<label>联系电话</label><input />
+							<label><span style="color: red;">*</span>紧急联系人</label><input type="text" v-model="staf.speople"  />
+							<label>联系电话</label><input type="text" v-model="staf.speoplephone" />
 						</p>
 						<p>
-							<label>入职日期</label><input />
-							<label>试用到期</label><input />
-							<label>出生日期</label><input />
-							<label>合同开始</label><input />
+							<label>入职日期</label><input type="date" v-model="staf.sindate" />
+							<label>试用到期</label><input type="date" v-model="staf.sinterniship" />
+							<label>出生日期</label><input type="date" v-model="staf.sbirthday" />
+							<label>合同开始</label><input type="date" v-model="staf.sstarttime" />
 						</p>
 						<p>
-							<label>合同结束</label><input />
-							<label>卡自编号</label><input />
-							<label>卡内部号</label><input />
-							<label>推荐人</label><input />
+							<label>合同结束</label><input type="date" v-model="staf.sendtime" />
+							<label>卡自编号</label><input type="text" v-model="staf.snonumber" />
+							<label>卡内部号</label><input type="text" v-model="staf.sinnumber" />
+							<label>推荐人</label><input type="text" v-model="staf.srecommed"/>
 						</p>
 						<p>
-							<label>整单折扣权%</label><input />
-							<label>工时折扣权%</label><input />
-							<label>商品折扣权%</label><input />
-							<label>减免权</label><input />
+							<label>整单折扣权%</label><input type="text" v-model="staf.salldiscount"/>
+							<label>工时折扣权%</label><input type="text" v-model="staf.sworkdiscount"/>
+							<label>商品折扣权%</label><input type="text" v-model="staf.sshopdiscount"/>
+							<label>减免权</label><input type="text" v-model="staf.sdiscount"/>
 						</p>
 					</div>
 				</div>
@@ -150,14 +167,15 @@
 					<div style="width: 660px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">离职登记</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+						<button @click="resignOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
 					</div>
 					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
 						<p>
-							<label>员工姓名</label><input /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
-							<label>离职日期</label><input />
+							<label>员工姓名</label><input style="width: 70px;" type="text" disabled="disabled" name="sno" v-model="quit.sno" /><input v-model="quit.sname" type="text" /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
+							
+							<label>离职日期</label><input type="date" name="rdate" v-model="quit.rdate" style="width: 130px;" />
 						</p>
-						<p><label>离职原因</label><input style="width: 500px;" /></p>
+						<p><label>离职原因</label><input v-model="quit.rreason" type="text" style="width: 500px;" /></p>
 					</div>
 				</div>
 			</div>
@@ -291,10 +309,11 @@
 							}
 						});
 				}
-			function queryAllResign(){
+			function queryAllResign(pno){
 				$.ajax({
 							type:"get",
 							url:data.ip+"quit/queryAllResign",
+							data:{pno:pno},
 							dateType:"json",
 							xhrFields:{
 								withCredentials:true
@@ -305,6 +324,50 @@
 						});	
 			}
 			
+			function queryBypno(pno){
+				$.ajax({
+							type:"post",
+							url:data.ip+"quit/queryBypno",
+							data:{pno:pno},
+							dateType:"json",
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								vm.staf = response;
+								console.log(vm.staf)
+							}
+						});	
+			}
+			
+			function queryMechanByparentid(parentid){
+					$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryMechanByparentid",
+						data:{parentid:parentid},
+						dateType:"json",
+						success:function(response){
+							vm.mechanismPa = response;
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+			
+			function queryJob(){
+					$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryAllJob",
+						data:{},
+						dateType:"json",
+						success:function(response){
+							vm.jobs=response;
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+				}
+			
 			var vm = new Vue({
 				el:"#ctx",
 				data (){
@@ -313,10 +376,107 @@
 						staffs:[],//所有在职员工
 						mechanismis1:[],//机构
 						mechanismnot1:[],//部门
-						
+						quit:{sno:"",sname:""},//添加的离职对象
+						demon:{},//选中的离职对象
+						staf:{},//选中的离职员工
+						mechanismPa:[],//机构:
+						jobs:[],//所有岗位
 					}
 				},
 				methods:{
+					querybox:function(){
+						let pno = $("input[name=name]").val();
+						queryAllResign(pno);
+						
+					},
+					deleResign:function(){
+						if(vm.demon.sno==undefined){
+							alert("请选择员工");
+							return;
+						}else{
+							let rid = vm.demon.rid;
+							if(confirm("是否确认将该员工资料删除")){
+								$.ajax({
+									url:data.ip+"quit/deleResign",
+									data:JSON.stringify(vm.demon),
+									type:"post",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(data){
+										if(data=="1"){
+											alert("删除成功");
+											queryAllResign("");
+										}
+									},error:function(data){
+										alert("发生错误");
+									}
+								});
+							}
+						}
+					},
+					
+					quitchose:function(e,q){
+						//选择员工
+							let checkeds = e.target.checked;
+							if(checkeds){
+								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
+								vm.demon = q;
+								
+							}else{
+								$(e.target).parent().parent().css("background-color","white");
+							}
+					},
+					goBack:function(){
+						console.log(vm.demon.sno);
+						if(vm.demon.sno==undefined){
+							alert("请选中需要回滚的员工");
+						}else{
+							if(confirm("是否确认将该员工恢复入职?")){
+								$.ajax({
+									url:data.ip+"quit",
+									data:JSON.stringify(vm.demon),
+									type:"put",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(data){
+										if(data=="1"){
+											alert("恢复入职成功");
+											vm.quit={sno:"",sname:""};
+											queryAllResign("");
+										}
+									},error:function(data){
+										alert("发生错误");
+									}
+								});
+							}
+						}
+					},
+					resignOK:function(){
+						var a = 0;
+						if($("#quitstaff input[name=sno]").val()==""||$("#quitstaff input[name=rdate]").val()==""){
+							a=a+1;
+							alert("请填写必要信息");
+							return;
+						}
+						if(a==0){
+							$.ajax({
+								url:data.ip+"quit/addResign",
+								data:JSON.stringify(vm.quit),
+								type:"post",
+								dataType:"json",
+								contentType:"application/json;charset=utf-8",
+								success:function(data){
+									if(data=="1"){
+										alert("离职成功");
+										vm.quit={sno:"",sname:""};
+										queryAllResign("");
+									}
+								},error:function(data){
+									alert("发生错误");
+								}
+							});
+						}
+					},
 					changepeople:function(e){
 							//切换部门
 							let mid = $(e.target).val();
@@ -332,16 +492,13 @@
 							let checkeds = e.target.checked;
 							if(checkeds){
 								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
-//								if(vm.kk=="1"){
-//									//console.log(vm.ctype);
-//								}
+//								
 							}else{
 								$(e.target).parent().parent().css("background-color","#D6D6CE");
 							}
 							
 						},
 					chosecustomerOK:function(){
-							let sphone = "";
 							let spname = "";
 							let pno="";
 							//确定选择的员工
@@ -349,25 +506,25 @@
 							$("#chosecustomer input[type=radio]").each(function(){
 								if($(this)[0].checked){
 									sum=sum+1;
-//									sphone=$(this).attr("phone");
-//									spname=$(this).attr("pname");
-//									pno = $(this).attr("pno");
-//									vm.cus.pphone=sphone;
-//									vm.cus.pname=spname;
-//									vm.cus.pno=pno;
+									spname=$(this).attr("pname");
+									pno = $(this).attr("pno");
+									vm.quit.sname=spname;
+									vm.quit.sno=pno;
 									$("#chosecustomer").hide();
 									return;
 								}
-							})
+							});
 							if(sum==0){
 								alert("请选择员工");
 								return;
 							}
 						},
 					chosecustomer:function(){
+						queryAllStaff("",3);
 						$("#chosecustomer").show();
 					},
 					quitstaff:function(){
+						vm.quit={sno:"",sname:""};
 						$("#quitstaff").show();
 					},
 					closeadd:function(){
@@ -377,14 +534,23 @@
 							$("#chosecustomer").hide();
 					},
 					open:function(){
-						$("#addstaff").show();
+						if(vm.demon.sno==undefined){
+							alert("请选中员工");
+							return;
+						}else{
+							queryBypno(vm.demon.sno);
+							
+							$("#addstaff").show();
+						}
 					},
 					checkstaff:function(){
 						$("#checkstaff").show();
 					}
 				},
 				created:function(){
-					
+					queryMechanByparentid(1);
+					queryAllResign("");
+					queryJob();
 					queryAllStaff("",3);
 					//alert("12")
 					//查询组织机构父级id为1
