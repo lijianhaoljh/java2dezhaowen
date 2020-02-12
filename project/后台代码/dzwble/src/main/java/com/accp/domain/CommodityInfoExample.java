@@ -924,73 +924,73 @@ public class CommodityInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andPackagIsNull() {
-            addCriterion("packag is null");
+        public Criteria andPackIsNull() {
+            addCriterion("pack is null");
             return (Criteria) this;
         }
 
-        public Criteria andPackagIsNotNull() {
-            addCriterion("packag is not null");
+        public Criteria andPackIsNotNull() {
+            addCriterion("pack is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPackagEqualTo(String value) {
-            addCriterion("packag =", value, "packag");
+        public Criteria andPackEqualTo(String value) {
+            addCriterion("pack =", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotEqualTo(String value) {
-            addCriterion("packag <>", value, "packag");
+        public Criteria andPackNotEqualTo(String value) {
+            addCriterion("pack <>", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagGreaterThan(String value) {
-            addCriterion("packag >", value, "packag");
+        public Criteria andPackGreaterThan(String value) {
+            addCriterion("pack >", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagGreaterThanOrEqualTo(String value) {
-            addCriterion("packag >=", value, "packag");
+        public Criteria andPackGreaterThanOrEqualTo(String value) {
+            addCriterion("pack >=", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagLessThan(String value) {
-            addCriterion("packag <", value, "packag");
+        public Criteria andPackLessThan(String value) {
+            addCriterion("pack <", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagLessThanOrEqualTo(String value) {
-            addCriterion("packag <=", value, "packag");
+        public Criteria andPackLessThanOrEqualTo(String value) {
+            addCriterion("pack <=", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagLike(String value) {
-            addCriterion("packag like", value, "packag");
+        public Criteria andPackLike(String value) {
+            addCriterion("pack like", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotLike(String value) {
-            addCriterion("packag not like", value, "packag");
+        public Criteria andPackNotLike(String value) {
+            addCriterion("pack not like", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagIn(List<String> values) {
-            addCriterion("packag in", values, "packag");
+        public Criteria andPackIn(List<String> values) {
+            addCriterion("pack in", values, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotIn(List<String> values) {
-            addCriterion("packag not in", values, "packag");
+        public Criteria andPackNotIn(List<String> values) {
+            addCriterion("pack not in", values, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagBetween(String value1, String value2) {
-            addCriterion("packag between", value1, value2, "packag");
+        public Criteria andPackBetween(String value1, String value2) {
+            addCriterion("pack between", value1, value2, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotBetween(String value1, String value2) {
-            addCriterion("packag not between", value1, value2, "packag");
+        public Criteria andPackNotBetween(String value1, String value2) {
+            addCriterion("pack not between", value1, value2, "pack");
             return (Criteria) this;
         }
 
@@ -1364,363 +1364,63 @@ public class CommodityInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceIsNull() {
-            addCriterion("standardprice is null");
+        public Criteria andPtidIsNull() {
+            addCriterion("ptid is null");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceIsNotNull() {
-            addCriterion("standardprice is not null");
+        public Criteria andPtidIsNotNull() {
+            addCriterion("ptid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceEqualTo(Float value) {
-            addCriterion("standardprice =", value, "standardprice");
+        public Criteria andPtidEqualTo(Integer value) {
+            addCriterion("ptid =", value, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceNotEqualTo(Float value) {
-            addCriterion("standardprice <>", value, "standardprice");
+        public Criteria andPtidNotEqualTo(Integer value) {
+            addCriterion("ptid <>", value, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceGreaterThan(Float value) {
-            addCriterion("standardprice >", value, "standardprice");
+        public Criteria andPtidGreaterThan(Integer value) {
+            addCriterion("ptid >", value, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("standardprice >=", value, "standardprice");
+        public Criteria andPtidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ptid >=", value, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceLessThan(Float value) {
-            addCriterion("standardprice <", value, "standardprice");
+        public Criteria andPtidLessThan(Integer value) {
+            addCriterion("ptid <", value, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceLessThanOrEqualTo(Float value) {
-            addCriterion("standardprice <=", value, "standardprice");
+        public Criteria andPtidLessThanOrEqualTo(Integer value) {
+            addCriterion("ptid <=", value, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceIn(List<Float> values) {
-            addCriterion("standardprice in", values, "standardprice");
+        public Criteria andPtidIn(List<Integer> values) {
+            addCriterion("ptid in", values, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceNotIn(List<Float> values) {
-            addCriterion("standardprice not in", values, "standardprice");
+        public Criteria andPtidNotIn(List<Integer> values) {
+            addCriterion("ptid not in", values, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceBetween(Float value1, Float value2) {
-            addCriterion("standardprice between", value1, value2, "standardprice");
+        public Criteria andPtidBetween(Integer value1, Integer value2) {
+            addCriterion("ptid between", value1, value2, "ptid");
             return (Criteria) this;
         }
 
-        public Criteria andStandardpriceNotBetween(Float value1, Float value2) {
-            addCriterion("standardprice not between", value1, value2, "standardprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceIsNull() {
-            addCriterion("memberprice is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceIsNotNull() {
-            addCriterion("memberprice is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceEqualTo(Float value) {
-            addCriterion("memberprice =", value, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceNotEqualTo(Float value) {
-            addCriterion("memberprice <>", value, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceGreaterThan(Float value) {
-            addCriterion("memberprice >", value, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("memberprice >=", value, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceLessThan(Float value) {
-            addCriterion("memberprice <", value, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceLessThanOrEqualTo(Float value) {
-            addCriterion("memberprice <=", value, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceIn(List<Float> values) {
-            addCriterion("memberprice in", values, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceNotIn(List<Float> values) {
-            addCriterion("memberprice not in", values, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceBetween(Float value1, Float value2) {
-            addCriterion("memberprice between", value1, value2, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberpriceNotBetween(Float value1, Float value2) {
-            addCriterion("memberprice not between", value1, value2, "memberprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceIsNull() {
-            addCriterion("vipprice is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceIsNotNull() {
-            addCriterion("vipprice is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceEqualTo(Float value) {
-            addCriterion("vipprice =", value, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceNotEqualTo(Float value) {
-            addCriterion("vipprice <>", value, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceGreaterThan(Float value) {
-            addCriterion("vipprice >", value, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("vipprice >=", value, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceLessThan(Float value) {
-            addCriterion("vipprice <", value, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceLessThanOrEqualTo(Float value) {
-            addCriterion("vipprice <=", value, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceIn(List<Float> values) {
-            addCriterion("vipprice in", values, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceNotIn(List<Float> values) {
-            addCriterion("vipprice not in", values, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceBetween(Float value1, Float value2) {
-            addCriterion("vipprice between", value1, value2, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andVippriceNotBetween(Float value1, Float value2) {
-            addCriterion("vipprice not between", value1, value2, "vipprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceIsNull() {
-            addCriterion("agreementprice is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceIsNotNull() {
-            addCriterion("agreementprice is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceEqualTo(Float value) {
-            addCriterion("agreementprice =", value, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceNotEqualTo(Float value) {
-            addCriterion("agreementprice <>", value, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceGreaterThan(Float value) {
-            addCriterion("agreementprice >", value, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("agreementprice >=", value, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceLessThan(Float value) {
-            addCriterion("agreementprice <", value, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceLessThanOrEqualTo(Float value) {
-            addCriterion("agreementprice <=", value, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceIn(List<Float> values) {
-            addCriterion("agreementprice in", values, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceNotIn(List<Float> values) {
-            addCriterion("agreementprice not in", values, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceBetween(Float value1, Float value2) {
-            addCriterion("agreementprice between", value1, value2, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgreementpriceNotBetween(Float value1, Float value2) {
-            addCriterion("agreementprice not between", value1, value2, "agreementprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceIsNull() {
-            addCriterion("Insuranceprice is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceIsNotNull() {
-            addCriterion("Insuranceprice is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceEqualTo(Float value) {
-            addCriterion("Insuranceprice =", value, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceNotEqualTo(Float value) {
-            addCriterion("Insuranceprice <>", value, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceGreaterThan(Float value) {
-            addCriterion("Insuranceprice >", value, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("Insuranceprice >=", value, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceLessThan(Float value) {
-            addCriterion("Insuranceprice <", value, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceLessThanOrEqualTo(Float value) {
-            addCriterion("Insuranceprice <=", value, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceIn(List<Float> values) {
-            addCriterion("Insuranceprice in", values, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceNotIn(List<Float> values) {
-            addCriterion("Insuranceprice not in", values, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceBetween(Float value1, Float value2) {
-            addCriterion("Insuranceprice between", value1, value2, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andInsurancepriceNotBetween(Float value1, Float value2) {
-            addCriterion("Insuranceprice not between", value1, value2, "insuranceprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceIsNull() {
-            addCriterion("claimprice is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceIsNotNull() {
-            addCriterion("claimprice is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceEqualTo(Float value) {
-            addCriterion("claimprice =", value, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceNotEqualTo(Float value) {
-            addCriterion("claimprice <>", value, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceGreaterThan(Float value) {
-            addCriterion("claimprice >", value, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("claimprice >=", value, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceLessThan(Float value) {
-            addCriterion("claimprice <", value, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceLessThanOrEqualTo(Float value) {
-            addCriterion("claimprice <=", value, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceIn(List<Float> values) {
-            addCriterion("claimprice in", values, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceNotIn(List<Float> values) {
-            addCriterion("claimprice not in", values, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceBetween(Float value1, Float value2) {
-            addCriterion("claimprice between", value1, value2, "claimprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andClaimpriceNotBetween(Float value1, Float value2) {
-            addCriterion("claimprice not between", value1, value2, "claimprice");
+        public Criteria andPtidNotBetween(Integer value1, Integer value2) {
+            addCriterion("ptid not between", value1, value2, "ptid");
             return (Criteria) this;
         }
 

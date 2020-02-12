@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.Date;
+
 public class Bills {
     private String bid;
 
@@ -9,21 +11,39 @@ public class Bills {
 
     private String pno;
 
-    private Integer mid;
+    private Integer btid;
 
-    private String person;
+    private Integer id;
 
-    private String delaysReason;
+    private Integer pmid;
 
-    private String quality;
+    private Integer inid;
 
     private Integer qualified;
 
-    private Integer nRework;
+    private Integer reworknum;
 
-    private Float pAmount;
+    private String respeople;
 
-    private Integer rid;
+    private String delaysreason;
+
+    private String reworkreason;
+
+    private Date expectedtime;
+
+    private Date completiontime;
+
+    private Float penaltyamount;
+
+    private String qmember;
+
+    private String pickcar;
+
+    private Date ordertime;
+
+    private Date clearingtime;
+
+    private Float forecastmoney;
 
     private String remark1;
 
@@ -67,36 +87,36 @@ public class Bills {
         this.pno = pno;
     }
 
-    public Integer getMid() {
-        return mid;
+    public Integer getBtid() {
+        return btid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setBtid(Integer btid) {
+        this.btid = btid;
     }
 
-    public String getPerson() {
-        return person;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPerson(String person) {
-        this.person = person;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getDelaysReason() {
-        return delaysReason;
+    public Integer getPmid() {
+        return pmid;
     }
 
-    public void setDelaysReason(String delaysReason) {
-        this.delaysReason = delaysReason;
+    public void setPmid(Integer pmid) {
+        this.pmid = pmid;
     }
 
-    public String getQuality() {
-        return quality;
+    public Integer getInid() {
+        return inid;
     }
 
-    public void setQuality(String quality) {
-        this.quality = quality;
+    public void setInid(Integer inid) {
+        this.inid = inid;
     }
 
     public Integer getQualified() {
@@ -107,28 +127,100 @@ public class Bills {
         this.qualified = qualified;
     }
 
-    public Integer getnRework() {
-        return nRework;
+    public Integer getReworknum() {
+        return reworknum;
     }
 
-    public void setnRework(Integer nRework) {
-        this.nRework = nRework;
+    public void setReworknum(Integer reworknum) {
+        this.reworknum = reworknum;
     }
 
-    public Float getpAmount() {
-        return pAmount;
+    public String getRespeople() {
+        return respeople;
     }
 
-    public void setpAmount(Float pAmount) {
-        this.pAmount = pAmount;
+    public void setRespeople(String respeople) {
+        this.respeople = respeople;
     }
 
-    public Integer getRid() {
-        return rid;
+    public String getDelaysreason() {
+        return delaysreason;
     }
 
-    public void setRid(Integer rid) {
-        this.rid = rid;
+    public void setDelaysreason(String delaysreason) {
+        this.delaysreason = delaysreason;
+    }
+
+    public String getReworkreason() {
+        return reworkreason;
+    }
+
+    public void setReworkreason(String reworkreason) {
+        this.reworkreason = reworkreason;
+    }
+
+    public Date getExpectedtime() {
+        return expectedtime;
+    }
+
+    public void setExpectedtime(Date expectedtime) {
+        this.expectedtime = expectedtime;
+    }
+
+    public Date getCompletiontime() {
+        return completiontime;
+    }
+
+    public void setCompletiontime(Date completiontime) {
+        this.completiontime = completiontime;
+    }
+
+    public Float getPenaltyamount() {
+        return penaltyamount;
+    }
+
+    public void setPenaltyamount(Float penaltyamount) {
+        this.penaltyamount = penaltyamount;
+    }
+
+    public String getQmember() {
+        return qmember;
+    }
+
+    public void setQmember(String qmember) {
+        this.qmember = qmember;
+    }
+
+    public String getPickcar() {
+        return pickcar;
+    }
+
+    public void setPickcar(String pickcar) {
+        this.pickcar = pickcar;
+    }
+
+    public Date getOrdertime() {
+        return ordertime;
+    }
+
+    public void setOrdertime(Date ordertime) {
+        this.ordertime = ordertime;
+    }
+
+    public Date getClearingtime() {
+        return clearingtime;
+    }
+
+    public void setClearingtime(Date clearingtime) {
+        this.clearingtime = clearingtime;
+    }
+
+    public Float getForecastmoney() {
+        return forecastmoney;
+    }
+
+    public void setForecastmoney(Float forecastmoney) {
+        this.forecastmoney = forecastmoney;
     }
 
     public String getRemark1() {

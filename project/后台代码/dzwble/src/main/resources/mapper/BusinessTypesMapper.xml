@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.accp.mapper.MaintainBillMapper">
-  <resultMap id="BaseResultMap" type="com.accp.domain.MaintainBill">
-    <result column="bid" jdbcType="VARCHAR" property="bid" />
-    <result column="mbname" jdbcType="VARCHAR" property="mbname" />
-    <result column="factorymeil" jdbcType="REAL" property="factorymeil" />
-    <result column="factoryoil" jdbcType="REAL" property="factoryoil" />
-    <result column="mileage" jdbcType="REAL" property="mileage" />
-    <result column="intotime" jdbcType="TIMESTAMP" property="intotime" />
-    <result column="lastinto" jdbcType="TIMESTAMP" property="lastinto" />
-    <result column="Receptionnote" jdbcType="VARCHAR" property="receptionnote" />
-    <result column="statement" jdbcType="VARCHAR" property="statement" />
+<mapper namespace="com.accp.mapper.BusinessTypesMapper">
+  <resultMap id="BaseResultMap" type="com.accp.domain.BusinessTypes">
+    <id column="btid" jdbcType="INTEGER" property="btid" />
+    <result column="btname" jdbcType="VARCHAR" property="btname" />
     <result column="remark1" jdbcType="VARCHAR" property="remark1" />
     <result column="remark2" jdbcType="VARCHAR" property="remark2" />
     <result column="remark3" jdbcType="VARCHAR" property="remark3" />
@@ -76,16 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    bid, mbname, factorymeil, factoryoil, mileage, intotime, lastinto, Receptionnote, 
-    statement, remark1, remark2, remark3, remark4, remark5
+    btid, btname, remark1, remark2, remark3, remark4, remark5
   </sql>
-  <select id="selectByExample" parameterType="com.accp.domain.MaintainBillExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.accp.domain.BusinessTypesExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from maintain_bill
+    from business_types
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,53 +85,38 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.accp.domain.MaintainBillExample">
-    delete from maintain_bill
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business_types
+    where btid = #{btid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_types
+    where btid = #{btid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.BusinessTypesExample">
+    delete from business_types
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.MaintainBill">
-    insert into maintain_bill (bid, mbname, factorymeil, 
-      factoryoil, mileage, intotime, 
-      lastinto, Receptionnote, statement, 
-      remark1, remark2, remark3, 
-      remark4, remark5)
-    values (#{bid,jdbcType=VARCHAR}, #{mbname,jdbcType=VARCHAR}, #{factorymeil,jdbcType=REAL}, 
-      #{factoryoil,jdbcType=REAL}, #{mileage,jdbcType=REAL}, #{intotime,jdbcType=TIMESTAMP}, 
-      #{lastinto,jdbcType=TIMESTAMP}, #{receptionnote,jdbcType=VARCHAR}, #{statement,jdbcType=VARCHAR}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
-      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.accp.domain.BusinessTypes">
+    insert into business_types (btid, btname, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{btid,jdbcType=INTEGER}, #{btname,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.MaintainBill">
-    insert into maintain_bill
+  <insert id="insertSelective" parameterType="com.accp.domain.BusinessTypes">
+    insert into business_types
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bid != null">
-        bid,
+      <if test="btid != null">
+        btid,
       </if>
-      <if test="mbname != null">
-        mbname,
-      </if>
-      <if test="factorymeil != null">
-        factorymeil,
-      </if>
-      <if test="factoryoil != null">
-        factoryoil,
-      </if>
-      <if test="mileage != null">
-        mileage,
-      </if>
-      <if test="intotime != null">
-        intotime,
-      </if>
-      <if test="lastinto != null">
-        lastinto,
-      </if>
-      <if test="receptionnote != null">
-        Receptionnote,
-      </if>
-      <if test="statement != null">
-        statement,
+      <if test="btname != null">
+        btname,
       </if>
       <if test="remark1 != null">
         remark1,
@@ -158,32 +135,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bid != null">
-        #{bid,jdbcType=VARCHAR},
+      <if test="btid != null">
+        #{btid,jdbcType=INTEGER},
       </if>
-      <if test="mbname != null">
-        #{mbname,jdbcType=VARCHAR},
-      </if>
-      <if test="factorymeil != null">
-        #{factorymeil,jdbcType=REAL},
-      </if>
-      <if test="factoryoil != null">
-        #{factoryoil,jdbcType=REAL},
-      </if>
-      <if test="mileage != null">
-        #{mileage,jdbcType=REAL},
-      </if>
-      <if test="intotime != null">
-        #{intotime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastinto != null">
-        #{lastinto,jdbcType=TIMESTAMP},
-      </if>
-      <if test="receptionnote != null">
-        #{receptionnote,jdbcType=VARCHAR},
-      </if>
-      <if test="statement != null">
-        #{statement,jdbcType=VARCHAR},
+      <if test="btname != null">
+        #{btname,jdbcType=VARCHAR},
       </if>
       <if test="remark1 != null">
         #{remark1,jdbcType=VARCHAR},
@@ -202,41 +158,20 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.MaintainBillExample" resultType="java.lang.Integer">
-    select count(*) from maintain_bill
+  <select id="countByExample" parameterType="com.accp.domain.BusinessTypesExample" resultType="java.lang.Integer">
+    select count(*) from business_types
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update maintain_bill
+    update business_types
     <set>
-      <if test="record.bid != null">
-        bid = #{record.bid,jdbcType=VARCHAR},
+      <if test="record.btid != null">
+        btid = #{record.btid,jdbcType=INTEGER},
       </if>
-      <if test="record.mbname != null">
-        mbname = #{record.mbname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.factorymeil != null">
-        factorymeil = #{record.factorymeil,jdbcType=REAL},
-      </if>
-      <if test="record.factoryoil != null">
-        factoryoil = #{record.factoryoil,jdbcType=REAL},
-      </if>
-      <if test="record.mileage != null">
-        mileage = #{record.mileage,jdbcType=REAL},
-      </if>
-      <if test="record.intotime != null">
-        intotime = #{record.intotime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastinto != null">
-        lastinto = #{record.lastinto,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.receptionnote != null">
-        Receptionnote = #{record.receptionnote,jdbcType=VARCHAR},
-      </if>
-      <if test="record.statement != null">
-        statement = #{record.statement,jdbcType=VARCHAR},
+      <if test="record.btname != null">
+        btname = #{record.btname,jdbcType=VARCHAR},
       </if>
       <if test="record.remark1 != null">
         remark1 = #{record.remark1,jdbcType=VARCHAR},
@@ -259,16 +194,9 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update maintain_bill
-    set bid = #{record.bid,jdbcType=VARCHAR},
-      mbname = #{record.mbname,jdbcType=VARCHAR},
-      factorymeil = #{record.factorymeil,jdbcType=REAL},
-      factoryoil = #{record.factoryoil,jdbcType=REAL},
-      mileage = #{record.mileage,jdbcType=REAL},
-      intotime = #{record.intotime,jdbcType=TIMESTAMP},
-      lastinto = #{record.lastinto,jdbcType=TIMESTAMP},
-      Receptionnote = #{record.receptionnote,jdbcType=VARCHAR},
-      statement = #{record.statement,jdbcType=VARCHAR},
+    update business_types
+    set btid = #{record.btid,jdbcType=INTEGER},
+      btname = #{record.btname,jdbcType=VARCHAR},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
@@ -278,16 +206,43 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <resultMap id="BaseResultMap" type="com.accp.domain.MaintainBill">
-    <result column="bid" jdbcType="VARCHAR" property="bid" />
-    <result column="mbname" jdbcType="VARCHAR" property="mbname" />
-    <result column="factorymeil" jdbcType="REAL" property="factorymeil" />
-    <result column="factoryoil" jdbcType="REAL" property="factoryoil" />
-    <result column="mileage" jdbcType="REAL" property="mileage" />
-    <result column="intotime" jdbcType="TIMESTAMP" property="intotime" />
-    <result column="lastinto" jdbcType="TIMESTAMP" property="lastinto" />
-    <result column="Receptionnote" jdbcType="VARCHAR" property="receptionnote" />
-    <result column="statement" jdbcType="VARCHAR" property="statement" />
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.BusinessTypes">
+    update business_types
+    <set>
+      <if test="btname != null">
+        btname = #{btname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where btid = #{btid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.BusinessTypes">
+    update business_types
+    set btname = #{btname,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where btid = #{btid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.accp.domain.BusinessTypes">
+    <id column="btid" jdbcType="INTEGER" property="btid" />
+    <result column="btname" jdbcType="VARCHAR" property="btname" />
     <result column="remark1" jdbcType="VARCHAR" property="remark1" />
     <result column="remark2" jdbcType="VARCHAR" property="remark2" />
     <result column="remark3" jdbcType="VARCHAR" property="remark3" />
@@ -353,16 +308,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    bid, mbname, factorymeil, factoryoil, mileage, intotime, lastinto, Receptionnote, 
-    statement, remark1, remark2, remark3, remark4, remark5
+    btid, btname, remark1, remark2, remark3, remark4, remark5
   </sql>
-  <select id="selectByExample" parameterType="com.accp.domain.MaintainBillExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.accp.domain.BusinessTypesExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from maintain_bill
+    from business_types
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -370,53 +324,38 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.accp.domain.MaintainBillExample">
-    delete from maintain_bill
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business_types
+    where btid = #{btid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business_types
+    where btid = #{btid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.BusinessTypesExample">
+    delete from business_types
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.MaintainBill">
-    insert into maintain_bill (bid, mbname, factorymeil, 
-      factoryoil, mileage, intotime, 
-      lastinto, Receptionnote, statement, 
-      remark1, remark2, remark3, 
-      remark4, remark5)
-    values (#{bid,jdbcType=VARCHAR}, #{mbname,jdbcType=VARCHAR}, #{factorymeil,jdbcType=REAL}, 
-      #{factoryoil,jdbcType=REAL}, #{mileage,jdbcType=REAL}, #{intotime,jdbcType=TIMESTAMP}, 
-      #{lastinto,jdbcType=TIMESTAMP}, #{receptionnote,jdbcType=VARCHAR}, #{statement,jdbcType=VARCHAR}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
-      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.accp.domain.BusinessTypes">
+    insert into business_types (btid, btname, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{btid,jdbcType=INTEGER}, #{btname,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.MaintainBill">
-    insert into maintain_bill
+  <insert id="insertSelective" parameterType="com.accp.domain.BusinessTypes">
+    insert into business_types
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bid != null">
-        bid,
+      <if test="btid != null">
+        btid,
       </if>
-      <if test="mbname != null">
-        mbname,
-      </if>
-      <if test="factorymeil != null">
-        factorymeil,
-      </if>
-      <if test="factoryoil != null">
-        factoryoil,
-      </if>
-      <if test="mileage != null">
-        mileage,
-      </if>
-      <if test="intotime != null">
-        intotime,
-      </if>
-      <if test="lastinto != null">
-        lastinto,
-      </if>
-      <if test="receptionnote != null">
-        Receptionnote,
-      </if>
-      <if test="statement != null">
-        statement,
+      <if test="btname != null">
+        btname,
       </if>
       <if test="remark1 != null">
         remark1,
@@ -435,32 +374,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bid != null">
-        #{bid,jdbcType=VARCHAR},
+      <if test="btid != null">
+        #{btid,jdbcType=INTEGER},
       </if>
-      <if test="mbname != null">
-        #{mbname,jdbcType=VARCHAR},
-      </if>
-      <if test="factorymeil != null">
-        #{factorymeil,jdbcType=REAL},
-      </if>
-      <if test="factoryoil != null">
-        #{factoryoil,jdbcType=REAL},
-      </if>
-      <if test="mileage != null">
-        #{mileage,jdbcType=REAL},
-      </if>
-      <if test="intotime != null">
-        #{intotime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastinto != null">
-        #{lastinto,jdbcType=TIMESTAMP},
-      </if>
-      <if test="receptionnote != null">
-        #{receptionnote,jdbcType=VARCHAR},
-      </if>
-      <if test="statement != null">
-        #{statement,jdbcType=VARCHAR},
+      <if test="btname != null">
+        #{btname,jdbcType=VARCHAR},
       </if>
       <if test="remark1 != null">
         #{remark1,jdbcType=VARCHAR},
@@ -479,41 +397,20 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.MaintainBillExample" resultType="java.lang.Integer">
-    select count(*) from maintain_bill
+  <select id="countByExample" parameterType="com.accp.domain.BusinessTypesExample" resultType="java.lang.Integer">
+    select count(*) from business_types
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update maintain_bill
+    update business_types
     <set>
-      <if test="record.bid != null">
-        bid = #{record.bid,jdbcType=VARCHAR},
+      <if test="record.btid != null">
+        btid = #{record.btid,jdbcType=INTEGER},
       </if>
-      <if test="record.mbname != null">
-        mbname = #{record.mbname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.factorymeil != null">
-        factorymeil = #{record.factorymeil,jdbcType=REAL},
-      </if>
-      <if test="record.factoryoil != null">
-        factoryoil = #{record.factoryoil,jdbcType=REAL},
-      </if>
-      <if test="record.mileage != null">
-        mileage = #{record.mileage,jdbcType=REAL},
-      </if>
-      <if test="record.intotime != null">
-        intotime = #{record.intotime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastinto != null">
-        lastinto = #{record.lastinto,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.receptionnote != null">
-        Receptionnote = #{record.receptionnote,jdbcType=VARCHAR},
-      </if>
-      <if test="record.statement != null">
-        statement = #{record.statement,jdbcType=VARCHAR},
+      <if test="record.btname != null">
+        btname = #{record.btname,jdbcType=VARCHAR},
       </if>
       <if test="record.remark1 != null">
         remark1 = #{record.remark1,jdbcType=VARCHAR},
@@ -536,16 +433,9 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update maintain_bill
-    set bid = #{record.bid,jdbcType=VARCHAR},
-      mbname = #{record.mbname,jdbcType=VARCHAR},
-      factorymeil = #{record.factorymeil,jdbcType=REAL},
-      factoryoil = #{record.factoryoil,jdbcType=REAL},
-      mileage = #{record.mileage,jdbcType=REAL},
-      intotime = #{record.intotime,jdbcType=TIMESTAMP},
-      lastinto = #{record.lastinto,jdbcType=TIMESTAMP},
-      Receptionnote = #{record.receptionnote,jdbcType=VARCHAR},
-      statement = #{record.statement,jdbcType=VARCHAR},
+    update business_types
+    set btid = #{record.btid,jdbcType=INTEGER},
+      btname = #{record.btname,jdbcType=VARCHAR},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
@@ -554,5 +444,39 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.BusinessTypes">
+    update business_types
+    <set>
+      <if test="btname != null">
+        btname = #{btname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null">
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null">
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where btid = #{btid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.BusinessTypes">
+    update business_types
+    set btname = #{btname,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where btid = #{btid,jdbcType=INTEGER}
   </update>
 </mapper>
