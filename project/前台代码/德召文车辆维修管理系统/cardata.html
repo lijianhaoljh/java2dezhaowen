@@ -441,7 +441,7 @@
 							dataType:"json",
 							success:function(data){
 								queryCus(data[0].cno);
-								vm.demoncar = data[];
+								vm.demoncar = data;
 								vm.cars=data;
 								$("#total").text(data.length);
 							},error:function(data){

@@ -16,6 +16,10 @@ public interface MechanicMapper {
 
     List<Mechanic> selectByExample(MechanicExample example);
 
+    List<Mechanic> queryMechanicBytid(@Param("pno") String pno,@Param("tid") Integer tid);
+
+    List<Mechanic> queryMechanicByparentid(@Param("pno") String pno,@Param("parentid") Integer parentid);
+
     int updateByExampleSelective(@Param("record") Mechanic record, @Param("example") MechanicExample example);
 
     int updateByExample(@Param("record") Mechanic record, @Param("example") MechanicExample example);

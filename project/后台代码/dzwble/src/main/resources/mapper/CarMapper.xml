@@ -12,6 +12,9 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="cbname" property="cbname" jdbcType="VARCHAR" />
+    <result column="moiname" property="moiname" jdbcType="VARCHAR" />
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,6 +77,15 @@
   <sql id="Base_Column_List" >
     cno, cbno, moid, cmileage, tid, state, remark2, remark3, remark4, remark5
   </sql>
+  
+  <select id="queryAlloutcar" resultMap="BaseResultMap">
+	  	SELECT c.*,cb.cbname,m.moiname,t.tname FROM car AS c
+	LEFT JOIN carbrand AS cb ON c.cbno=cb.cbno
+	LEFT JOIN motorcycle AS m ON m.cbno=cb.cbno
+	LEFT JOIN team AS t ON t.tid = c.tid
+	WHERE m.moid=c.moid
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CarExample" >
     select
     <if test="distinct" >
