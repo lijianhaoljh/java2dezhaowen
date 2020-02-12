@@ -4,9 +4,6 @@
 		<meta charset="UTF-8">
 		<title>技工星级</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/post.css"/>
 	</head>
 	<body>
@@ -26,20 +23,20 @@
 				<div class="row">
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border-top: 1px solid #E9E9E9;">
 						<ul>
-							<li><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
-							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
-							<li><span class="glyphicon glyphicon-sunglasses"></span>保存</li>
+							<li @click="addLevel"><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
+							<li @click="deleLevel"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="levelOK"><span class="glyphicon glyphicon-sunglasses"></span>保存</li>
 						</ul>
 					</div>
-					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;">
+					<div id="in" class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;">
 						<ul> 							
-							<li>等级编码：<input type="text" /></li>
-							<li>等级名称：<input type="text" /></li>
-							<li>权重提成：<input type="text" /></li>
+							<li>等级编码：<input style="width: 50px;" readonly="readonly" v-model="level.lid" type="text" /></li>
+							<li>等级名称：<input style="width: 100px;" v-model="level.lname" type="text" /></li>
+							<li>权重提成：<input style="width: 50px;" v-model="level.lprofit" type="text" /></li>
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" >
-						<table class="table table-bordered" style="width: 35%;">
+						<table class="table table-hover" style="width: 35%;">
 						  <thead>
 						  	<tr>
 						  		<td>    </td>
@@ -49,11 +46,11 @@
 						  	</tr>
 						  </thead>
 						  <tbody>
-						  	<tr>
-						  		<td>   </td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
+						  	<tr v-for="l in levels">
+						  		<td><input type="radio" name="mm" @click="choseLevel($event,l)" />   </td>
+						  		<td>{{l.lid}}</td>
+						  		<td>{{l.lname}}</td>
+						  		<td>{{l.lprofit}}</td>
 						  	</tr>
 						  </tbody>
 						</table>
@@ -61,7 +58,7 @@
 					
 				</div>
 				<div class="row" style="font-size: 17px;position:absolute;box-sizing: border-box;padding-left: 20px;padding-top: 15px; width: 1533px; background-color: ghostwhite;">
-					合计：<span>12</span>条记录
+					合计：<span id="total">12</span>条记录
 				</div>
 			</div>
 		</div>
@@ -69,8 +66,139 @@
 		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			
+			function queryAllLevel(){
+				$.ajax({
+					url:data.ip+"mechanic/queryAllLevel",
+					data:{},
+					type:"get",
+					dataType:"json",
+					success:function(result){
+						vm.levels = result;
+						$("#total").text(result.length);
+					},error:function(result){
+						alert("发生错误"+result);
+					}
+				});
+			}
+			
+			function getlid(){
+				$.ajax({
+					url:data.ip+"mechanic/queryAllLevel",
+					data:{},
+					type:"get",
+					dataType:"json",
+					success:function(result){
+						let lid = result[result.length-1].lid;
+						vm.level.lid=lid+1;
+					},error:function(result){
+						alert("发生错误"+result);
+					}
+				});
+			}
+			
+			var vm = new Vue({
+				el:"#ctx",
+				data(){
+					return {
+						levels:[],//所有技工星级
+						level:{lid:""},//星级对象
+						kk:"0",
+					}
+				},
+				methods:{
+					deleLevel:function(){
+						if(vm.level.lname==undefined){
+							alert("请选中需要删除的星级");
+							return;
+						}else{
+							if(confirm("是否确定删除")){
+								$.ajax({
+									url:data.ip+"mechanic/deleteLevel",
+									data:{lid:vm.level.lid},
+									type:"post",
+									dataType:"json",
+									success:function(result){
+										if(result=="1"){
+												alert("删除成功");
+												queryAllLevel();
+												vm.level={lid:""};
+											}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+							}
+						}
+					},
+					addLevel:function(){
+						vm.kk="1";
+						vm.level={lid:""};
+						getlid();
+					},
+					levelOK:function(){
+						var a = 0;
+						$("#in input").each(function(){
+							if($(this).val()==""){
+								a = a+1;
+								alert("请填写完信息");
+								return false;
+							}
+						});
+						if(a==0){
+							if(vm.kk=="1"){
+								//添加
+								$.ajax({
+									url:data.ip+"mechanic/addLevel",
+									data:JSON.stringify(vm.level),
+									type:"post",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if(result=="1"){
+											alert("添加成功");
+											queryAllLevel();
+										}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+							}else if(vm.kk=="2"){
+								//修改
+								$.ajax({
+									url:data.ip+"mechanic/updateLevel",
+									data:JSON.stringify(vm.level),
+									type:"put",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if(result=="1"){
+											alert("修改成功");
+											queryAllLevel();
+										}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+							}
+						}
+					},
+					choseLevel:function(e,l){
+						let checked = e.target.checked;
+						if(checked){
+							$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
+							vm.level=l;
+							vm.kk="2";
+						}
+						
+					}
+				},
+				created:function(){
+					queryAllLevel();
+				}
+			});
 		</script>
 	</body>
 </html>
