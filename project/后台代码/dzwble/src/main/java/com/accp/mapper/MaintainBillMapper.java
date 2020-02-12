@@ -10,21 +10,13 @@ public interface MaintainBillMapper {
 
     int deleteByExample(MaintainBillExample example);
 
-    int deleteByPrimaryKey(Integer id);
-
     int insert(MaintainBill record);
 
     int insertSelective(MaintainBill record);
 
     List<MaintainBill> selectByExample(MaintainBillExample example);
 
-    MaintainBill selectByPrimaryKey(Integer id);
-
     int updateByExampleSelective(@Param("record") MaintainBill record, @Param("example") MaintainBillExample example);
 
     int updateByExample(@Param("record") MaintainBill record, @Param("example") MaintainBillExample example);
-
-    int updateByPrimaryKeySelective(MaintainBill record);
-
-    int updateByPrimaryKey(MaintainBill record);
 }

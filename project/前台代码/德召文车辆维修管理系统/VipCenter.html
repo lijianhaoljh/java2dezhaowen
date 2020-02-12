@@ -33,19 +33,19 @@
 						    <div class="input-group">
 						    	<button class="btn btn-success" type="button" @click="findVip"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</button>
 						    </div>
-						    <button class="btn btn-success" type="button" @click="insertVip"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button>
-						    <button class="btn btn-success" type="button"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
-						    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
-						    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-refresh"></span>&nbsp;积分清零</button>
-							<button class="btn btn-success" type="button" data-toggle="modal" data-target="#PayModal"><span class="glyphicon glyphicon-zoom-in"></span>&nbsp;会员充值</button>
+						    <button class="btn btn-success" type="button" @click="openInsertVip"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button>
+						    <button class="btn btn-success" type="button" @click="openUpdateModal"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
+						    <button class="btn btn-danger" type="button" @click="deleteVip"><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
+						    <button class="btn btn-danger" type="button" @click="cleanPoint"><span class="glyphicon glyphicon-refresh"></span>&nbsp;积分清零</button>
+							<button class="btn btn-success" @click="openVipCzModal" type="button" data-toggle="modal" data-target="#PayModal"><span class="glyphicon glyphicon-zoom-in"></span>&nbsp;会员充值</button>
 						</div><!-- /.col-lg-6 -->
 						
 					</div>
 				</form>
 			</div>
 			<div class="row">
-				<table class="table table-bordered">
-					<tr style="background-color: #DFF0D8;">
+				<table class="table table-hover">
+					<tr class="danger">
 						<td></td>
 						<td>会员卡号</td>
 						<td>会员等级</td>
@@ -56,8 +56,11 @@
 						<td>累计消费</td>
 						<td>会员期限</td>
 					</tr>
-					<tr v-for="item in vips">
-						<td><input type="radio" name="vip"/></td>
+					<tr class="success" v-for="item,index in vips" @click="selectedVip($event,item)">
+						<td>
+							<input type="radio" name="vip" v-if="index==0" checked="checked"/>
+							<input type="radio" name="vip" v-else/>
+						</td>
 						<td>{{item.vno}}</td>
 						<td>{{item.vl.vlname}}</td>
 						<td>{{item.cus.cname}}</td>
@@ -71,58 +74,167 @@
 			</div>
 			
 			<!-- Modal -->
-			<div class="modal fade" data-backdrop="static" data-keyboard="false" id="AddVipModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div id="AddVipModal" class="modal fade" tabindex="-1" role="dialog">
 			  <div class="modal-dialog" style="width: 1000px;" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn btn-default">关闭</span></button>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title" id="myModalLabel">新增会员</h4>
 			      </div>
 			      <div class="modal-body">
 			      	<form class="form-inline">
 			      		<div class="form-group">
-			      			
+			      			<label for="vno">会员编号:</label>
+    						<input type="text" class="form-control" v-model="vip.vno" readonly="readonly"  id="vno" placeholder="vno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vjoindate">入会日期:</label>
+    						<input type="date" class="form-control" id="vjoindate" v-model="vip.vjoindate"  placeholder="vjoindate">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="venddate">到期时间:</label>
+    						<input type="date" class="form-control" id="venddate" v-model="vip.venddate"  placeholder="venddate">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="cno">客户编号:</label>
+    						<input type="text" class="form-control" id="cno" v-model="vip.cus.cno"   placeholder="cno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="cname">客户名称:</label>
+    						<input type="text" class="form-control" id="cname" v-model="vip.cus.cname"  placeholder="cname">
+    						<button class="btn btn-success" type="button" @click="chooseCus">选择客户</button>
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="remark2">联系电话:</label>
+    						<input type="text" class="form-control" id="remark2" v-model="vip.remark2" placeholder="联系电话">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vlid">会员等级:</label>
+    						<select class="form-control" v-model="vip.vlid">
+    							<option v-for="item in vipLevel" :value="item.vlid">{{item.vlname}}</option>
+    						</select>
 			      		</div>
 			      	</form>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary">新增</button>
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="insertVip">新增</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>
 			
-			<!-- Modal -->
-			<div class="modal fade" data-backdrop="static" data-keyboard="false" id="upVipModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div id="findModal" class="modal fade" tabindex="-1" role="dialog">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn btn-default">关闭</span></button>
-			        <h4 class="modal-title" id="myModalLabel">修改会员</h4>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">选择客户</h4>
 			      </div>
 			      <div class="modal-body">
-					
+			        	<div class="form-inline">
+			      			<div class="form-group">
+			      				<input v-model="cCondition" type="text" placeholder="编号/手机号/名称"/>
+			      				<button type="button" @click="findCus"><span class="glyphicon glyphicon-search"></span></button>
+			      			</div>
+			      		</div>
+						<table class="table table-hover">
+							<tr class="danger">
+								<td>#</td>
+								<td>##</td>
+								<td>客户编号</td>
+								<td>客户名称</td>
+								<td>联系方式</td>
+							</tr>
+							<tr class="success" v-for="item,index in customers" @click="selectCus($event,item)">
+								<td>
+								</td>
+								<td>{{index+1}}</td>
+								<td>{{item.cno}}</td>
+								<td>{{item.cname}}</td>
+								<td>{{item.cphone}}</td>
+							</tr>
+						</table>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary">修改</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		
+			<div id="updateModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">修改会员信息</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<form class="form-inline">
+			      		<div class="form-group">
+			      			<label for="vno">会员编号:</label>
+    						<input type="text" class="form-control" v-model="v.vno" readonly="readonly"  id="vno" placeholder="vno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vjoindate">入会日期:</label>
+    						<input type="date" class="form-control" id="vjoindate" v-model="v.vjoindate"  placeholder="vjoindate">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="venddate">到期时间:</label>
+    						<input type="date" class="form-control" id="venddate" v-model="v.venddate"  placeholder="venddate">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="cno">客户编号:</label>
+    						<input type="text" class="form-control" id="cno" v-model="v.cus.cno"   placeholder="cno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="cname">客户名称:</label>
+    						<input type="text" class="form-control" id="cname" v-model="v.cus.cname"  placeholder="cname">
+    						<button class="btn btn-success" type="button" @click="chooseCus">选择客户</button>
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="remark2">联系电话:</label>
+    						<input type="text" class="form-control" id="remark2" v-model="v.remark2" placeholder="联系电话">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vlid">会员等级:</label>
+    						<select class="form-control" v-model="v.vlid">
+    							<option v-for="item in vipLevel" :value="item.vlid">{{item.vlname}}</option>
+    						</select>
+			      		</div>
+			      	</form>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="updateVip">修改</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-			
-			<!-- Modal -->
-			<div class="modal fade" data-backdrop="static" data-keyboard="false" id="PayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" role="document">
+
+			<div id="vipCzModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn btn-default">关闭</span></button>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title" id="myModalLabel">会员充值</h4>
 			      </div>
 			      <div class="modal-body">
-					
+			      	<form class="form-inline">
+			      		<div class="form-group">
+			      			<label for="vno">会员编号:</label>
+    						<input type="text" class="form-control" v-model="v.vno" readonly="readonly"  id="vno" placeholder="vno">
+			      		</div>
+			      		<div class="form-group">
+			      			<label for="vjoindate">充值金额:</label>
+    						<input type="text" class="form-control" id="" v-model="money"  placeholder="money">
+			      	</div>
+			      	</form>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary">确定充值</button>
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="czVip">充值</button>
 			      </div>
 			    </div>
 			  </div>
@@ -137,6 +249,7 @@
 		<script type="text/javascript" src="js/perms.js" ></script>
 		<script>
 			var fatherBody = $(window.top.document.body);
+			
 			var vm=new Vue({
 				el:"#ctx",
 				data(){
@@ -144,25 +257,220 @@
 						vips:[],
 						condition:"",
 						startTime:"",
-						endTime:""
+						endTime:"",
+						cCondition:"",
+						vipLevel:[],
+						customers:[],
+						isAdd:0,
+						money:0,
+						v:{cus:{},
+							vno:"",
+							vjoindate:"",
+							venddate:"",
+							vlid:"",
+							remark2:"",
+							cno:""},
+						vip:{
+							cus:{},
+							vno:"",
+							vjoindate:"",
+							venddate:"",
+							vlid:"",
+							remark2:"",
+							cno:""
+						}
 					}
 				},methods:{
 					findVip(){
 						//会员查询
 						findVips(this);
 					},
-					insertVip(){
-						//会员新增
-						let dialog=$("#AddVipModal");
-						dialog.appendTo(fatherBody);
-						dialog.modal("show");
-						
-						
+					openInsertVip(){
+						//打开会员新增模态框
+						vm.isAdd=0;
+						$("#AddVipModal").modal("show");
+						newVno();
+					},chooseCus(){
+						//打开选择客户模态框
+						$("#findModal").modal("show");
+					},findCus(){
+						//查询客户
+						findByCno(this);
+					},selectCus(e,it){
+						//选择客户
+						$.ajax({
+							type:"get",
+							url:data.ip+"vipLevel/findByCnoIsVip",
+							data:{cno:it.cno},
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"text",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert("该客户已经是会员!");
+								}else{
+									if(vm.isAdd!=0){
+										vm.v.cus=it;
+										vm.v.cno=it.cno;
+									}else{
+										vm.vip.cus=it;
+										vm.vip.cno=it.cno;
+									}
+									$("#findModal").modal("hide");
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},insertVip(){
+						this.vip.cno=this.vip.cus.cno;
+						$.ajax({
+							type:"post",
+							url:data.ip+"vip/insertVip",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:JSON.stringify(vm.vip),
+							contentType:"application/json;charset=utf-8",
+							dataType:"text",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert("添加会员成功!");
+									findVips(vm);
+									$("#insertModal").modal("hide");
+								}else{
+									alert("添加会员失败!");
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},selectedVip(e,item){
+						$(e.target).parent().find("input").prop("checked",true);
+						vm.v=item;
+					},deleteVip(){
+						//删除会员
+						if(!confirm("确定要删除改会员吗？")){
+							return;
+						}
+						$.ajax({
+							url:data.ip+"vip/deleteVip/"+vm.v.vno,
+							type:"delete",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"text",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('删除会员成功!');
+									findVips(vm);
+								}else{
+									alert('删除会员失败');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},cleanPoint(){
+						//会员积分清空
+						if(!confirm("确定要清空该会员的积分吗？")){
+							return;
+						}
+						$.ajax({
+							url:data.ip+"vip/cleanPoint",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:JSON.stringify(vm.v),
+							type:"put",
+							contentType:"application/json;charset=utf-8",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('积分已清零!');
+									findVips(vm);
+								}else{
+									alert('积分清零失败!');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},czVip(){
+						//会员充值
+						vm.v.remark1=parseFloat(vm.v.remark1)+parseFloat(vm.money);
+						$.ajax({
+							url:data.ip+"vip/czVip",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:JSON.stringify(vm.v),
+							type:"put",
+							contentType:"application/json;charset=utf-8",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('卡号充值成功!');
+									$("#vipCzModal").modal("hide");
+									findVips(vm);
+								}else{
+									alert('卡号充值失败!');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},openUpdateModal(){
+						//打开修改模态框
+						vm.isAdd=1;
+						$("#updateModal").modal("show");
+					},updateVip(){
+						//修改会员信息
+						$.ajax({
+							url:data.ip+"vip/updateVip",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:JSON.stringify(vm.v),
+							type:"put",
+							contentType:"application/json;charset=utf-8",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('会员信息修改成功!');
+									$("#updateModal").modal("hide");
+									findVips(vm);
+								}else{
+									alert('会员信息修改失败!');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},openVipCzModal(){
+						//打开会员充值模态框
+						$("#vipCzModal").modal("show");
 					}
 				},created:function(){
 					findVips(this);
+					findVipLevel(this);
+					findByCno(this);
 				}
 			});
+			//新会员编号
+			function newVno(){
+				$.ajax({
+							type:"get",
+							url:data.ip+"vipLevel/newVno",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"text",
+							success:function(response){
+								vm.vip.vno=response;
+							},error:function(error){
+								console.log(error);
+							}
+						});
+			}
 			//查询全部会员
 			function findVips(t){
 				$.ajax({
@@ -175,16 +483,52 @@
 					dataType:"json",
 					success:function(response){
 						t.vips=response;
+						t.v=t.vips[0];
 						console.log(t.vips);
 					},error:function(error){
 						console.log(error);
 					}
 				});
 			}
-			//查询客户
-			vipLevel/findViplevels
 			//查询会员等级
-			vipLevel/findViplevels
+			function findVipLevel(t){
+				$.ajax({
+					type:"get",
+					url:data.ip+"vipLevel/findViplevels",
+					xhrFields:{
+						withCredentials:true
+					},
+					dataType:"json",
+					success:function(response){
+						t.vipLevel=response;
+						t.vip.vlid=t.vipLevel[0].vlid;
+						console.log(t.vipLevel);
+					},error:function(error){
+						console.log(error);
+					}
+				});
+			}
+			
+			//查询客户
+			function findByCno(t){
+				$.ajax({
+					type:"get",
+					url:data.ip+"vipLevel/findByCno",
+					xhrFields:{
+						withCredentials:true
+					},
+					data:{
+						condition:t.cCondition
+					},
+					dataType:"json",
+					success:function(response){
+						t.customers=response;
+						console.log(t.customers);
+					},error:function(error){
+						console.log(error);
+					}
+				});
+			}
 			
 		</script>
 	</body>

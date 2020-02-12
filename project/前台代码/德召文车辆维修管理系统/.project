@@ -19,8 +19,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> branch 'pengyumei' of https://github.com/lijianhaoljh/java2dezhaowen.git
+=======
+>>>>>>> refs/remotes/origin/master
 			<id>1580718639507</id>
 			<name></name>
 			<type>26</type>
@@ -33,8 +36,11 @@
 			<id>1580731330550</id>
 			<id>1580729242916</id>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> branch 'master' of https://github.com/lijianhaoljh/java2dezhaowen.git
 =======
+=======
+>>>>>>> refs/remotes/origin/master
 			<id>1580730567328</id>
 			<name></name>
 			<type>26</type>
@@ -45,7 +51,6 @@
 		</filter>
 		<filter>
 			<id>1580821494539</id>
->>>>>>> refs/remotes/origin/zhongpenggen
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -82,8 +87,11 @@
 		</filter>
 		<filter>
 			<id>1581227949883</id>
+<<<<<<< HEAD
 =======
 >>>>>>> branch 'pengyumei' of https://github.com/lijianhaoljh/java2dezhaowen.git
+=======
+>>>>>>> refs/remotes/origin/master
 			<name></name>
 			<type>26</type>
 			<matcher>

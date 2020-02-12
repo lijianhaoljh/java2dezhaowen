@@ -17,10 +17,6 @@ public interface BillsMapper {
     int insertSelective(Bills record);
 
     List<Bills> selectByExample(BillsExample example);
-    
-    List<Bills> queryBillBycno(String cno);
- 
-    List<Bills> queryBillBycdlicense(String cdlicense);
 
     Bills selectByPrimaryKey(String bid);
 
