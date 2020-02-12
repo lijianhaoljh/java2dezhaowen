@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
-					合计：<span>12</span>条记录
+					合计：<span id="total">12</span>条记录
 				</div>
 			</div>
 			<div id="checkstaff">
@@ -131,6 +131,7 @@
 					dataType:"json",
 					success:function(data){
 						vm.peos=data;
+						$("#total").text(data.length);
 					},error:function(data){
 						alert("发生错误");
 					}
