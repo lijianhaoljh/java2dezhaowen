@@ -6,10 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BillsMapper {
-	List<Bills> queryBillBycno(String cno);
-	 
-    List<Bills> queryBillBycdlicense(String cdlicense);
-	
     int countByExample(BillsExample example);
 
     int deleteByExample(BillsExample example);
