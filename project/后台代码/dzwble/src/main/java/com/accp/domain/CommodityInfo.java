@@ -52,8 +52,101 @@ public class CommodityInfo {
     private String remark4;
 
     private String remark5;
+    
+  //声明字段
+    private int zgid;         //商品大类表ID
+    private String zgame;     //商品类名称 包括大中小类
+    private int zparentid;    //商品类父级ID;
+    
+    private String zcbname;   //商品品牌名称;
+    private String zcuname;   //商品单位名称;
+    private String ztoname;   //收入类型名称;
+    private String zconame;   //原厂副厂名称;
+    private String zgcname;   //商品等级;
+    private String zpname;    //商品产地;
+    private String zmfname;   //厂商名称
 
-    public Integer getCno() {
+    public int getZgid() {
+		return zgid;
+	}
+
+	public void setZgid(int zgid) {
+		this.zgid = zgid;
+	}
+
+	public String getZgame() {
+		return zgame;
+	}
+
+	public void setZgame(String zgame) {
+		this.zgame = zgame;
+	}
+
+	public int getZparentid() {
+		return zparentid;
+	}
+
+	public void setZparentid(int zparentid) {
+		this.zparentid = zparentid;
+	}
+
+	public String getZcbname() {
+		return zcbname;
+	}
+
+	public void setZcbname(String zcbname) {
+		this.zcbname = zcbname;
+	}
+
+	public String getZcuname() {
+		return zcuname;
+	}
+
+	public void setZcuname(String zcuname) {
+		this.zcuname = zcuname;
+	}
+
+	public String getZtoname() {
+		return ztoname;
+	}
+
+	public void setZtoname(String ztoname) {
+		this.ztoname = ztoname;
+	}
+
+	public String getZconame() {
+		return zconame;
+	}
+
+	public void setZconame(String zconame) {
+		this.zconame = zconame;
+	}
+
+	public String getZgcname() {
+		return zgcname;
+	}
+
+	public void setZgcname(String zgcname) {
+		this.zgcname = zgcname;
+	}
+
+	public String getZpname() {
+		return zpname;
+	}
+
+	public void setZpname(String zpname) {
+		this.zpname = zpname;
+	}
+
+	public String getZmfname() {
+		return zmfname;
+	}
+
+	public void setZmfname(String zmfname) {
+		this.zmfname = zmfname;
+	}
+
+	public Integer getCno() {
         return cno;
     }
 
