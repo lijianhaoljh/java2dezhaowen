@@ -18,6 +18,8 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
+    Staff queryBypno(String pno);
+
     List<Staff> queryPeople();
 
     List<Staff> queryPeopleByMid(@Param("pno") String pno,@Param("mid") Integer mid);

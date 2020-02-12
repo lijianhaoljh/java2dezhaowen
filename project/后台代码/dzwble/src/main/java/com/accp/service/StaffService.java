@@ -52,6 +52,8 @@ public class StaffService {
 			ex.createCriteria().andParentidEqualTo(parentid);
 			return mmmapper.selectByExample(ex);
 		}
+		
+		
 		//查询所有职工
 		public List<People> queryAllStaff(){
 			return pmapper.selectByExample(null);
@@ -113,6 +115,11 @@ public class StaffService {
 		//查询所有角色
 		public List<Role> queryAllRole(){
 			return rmapper.selectByExample(null);
+		}
+		
+		//查询所有在职员工和技工
+		public List<People> queryunion(String pno){
+			return pmapper.queryunion(pno);
 		}
 	
 }
