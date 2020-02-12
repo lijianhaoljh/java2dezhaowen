@@ -31,6 +31,25 @@
     <result column="total" property="total" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="queryBillBycno" resultMap="BaseResultMap">
+   SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
+LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
+LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
+LEFT JOIN account AS ac ON ac.bid = b.bid
+LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  </select>
+  
+  <select id="queryBillBycdlicense" resultMap="BaseResultMap">
+   SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
+LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
+LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
+LEFT JOIN account AS ac ON ac.bid = b.bid
+LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+WHERE cdlicense = #{cdlicense}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -89,28 +108,9 @@
       </foreach>
     </where>
   </sql>
-  
-  <select id="queryBillBycno" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
-  </select>
-  
-  <select id="queryBillBycdlicense" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense = #{cdlicense}
-  </select>
-  
   <sql id="Base_Column_List" >
-    bid, bstate, tid, cdlicense, pno, mid, person, delays_reason, quality, qualified, 
-    n_rework, p_amount, rid, remark1, remark2, remark3, remark4, remark5
+    bid, bstate, cdlicense, pno, mid, person, delays_reason, quality, qualified, n_rework, 
+    p_amount, rid, remark1, remark2, remark3, remark4, remark5
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.BillsExample" >
     select
@@ -143,20 +143,18 @@ WHERE cdlicense = #{cdlicense}
     </if>
   </delete>
   <insert id="insert" parameterType="com.accp.domain.Bills" >
-    insert into bills (bid, bstate, tid, 
-      cdlicense, pno, mid, 
-      person, delays_reason, quality, 
-      qualified, n_rework, p_amount, 
-      rid, remark1, remark2, 
-      remark3, remark4, remark5
-      )
-    values (#{bid,jdbcType=VARCHAR}, #{bstate,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, 
-      #{cdlicense,jdbcType=VARCHAR}, #{pno,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, 
-      #{person,jdbcType=VARCHAR}, #{delaysReason,jdbcType=VARCHAR}, #{quality,jdbcType=VARCHAR}, 
-      #{qualified,jdbcType=INTEGER}, #{nRework,jdbcType=INTEGER}, #{pAmount,jdbcType=REAL}, 
-      #{rid,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
-      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
-      )
+    insert into bills (bid, bstate, cdlicense, 
+      pno, mid, person, delays_reason, 
+      quality, qualified, n_rework, 
+      p_amount, rid, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{bid,jdbcType=VARCHAR}, #{bstate,jdbcType=INTEGER}, #{cdlicense,jdbcType=VARCHAR}, 
+      #{pno,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, #{person,jdbcType=VARCHAR}, #{delaysReason,jdbcType=VARCHAR}, 
+      #{quality,jdbcType=VARCHAR}, #{qualified,jdbcType=INTEGER}, #{nRework,jdbcType=INTEGER}, 
+      #{pAmount,jdbcType=REAL}, #{rid,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Bills" >
     insert into bills
@@ -166,9 +164,6 @@ WHERE cdlicense = #{cdlicense}
       </if>
       <if test="bstate != null" >
         bstate,
-      </if>
-      <if test="tid != null" >
-        tid,
       </if>
       <if test="cdlicense != null" >
         cdlicense,
@@ -222,9 +217,6 @@ WHERE cdlicense = #{cdlicense}
       </if>
       <if test="bstate != null" >
         #{bstate,jdbcType=INTEGER},
-      </if>
-      <if test="tid != null" >
-        #{tid,jdbcType=INTEGER},
       </if>
       <if test="cdlicense != null" >
         #{cdlicense,jdbcType=VARCHAR},
@@ -288,9 +280,6 @@ WHERE cdlicense = #{cdlicense}
       <if test="record.bstate != null" >
         bstate = #{record.bstate,jdbcType=INTEGER},
       </if>
-      <if test="record.tid != null" >
-        tid = #{record.tid,jdbcType=INTEGER},
-      </if>
       <if test="record.cdlicense != null" >
         cdlicense = #{record.cdlicense,jdbcType=VARCHAR},
       </if>
@@ -345,7 +334,6 @@ WHERE cdlicense = #{cdlicense}
     update bills
     set bid = #{record.bid,jdbcType=VARCHAR},
       bstate = #{record.bstate,jdbcType=INTEGER},
-      tid = #{record.tid,jdbcType=INTEGER},
       cdlicense = #{record.cdlicense,jdbcType=VARCHAR},
       pno = #{record.pno,jdbcType=VARCHAR},
       mid = #{record.mid,jdbcType=INTEGER},
@@ -370,9 +358,6 @@ WHERE cdlicense = #{cdlicense}
     <set >
       <if test="bstate != null" >
         bstate = #{bstate,jdbcType=INTEGER},
-      </if>
-      <if test="tid != null" >
-        tid = #{tid,jdbcType=INTEGER},
       </if>
       <if test="cdlicense != null" >
         cdlicense = #{cdlicense,jdbcType=VARCHAR},
@@ -425,7 +410,6 @@ WHERE cdlicense = #{cdlicense}
   <update id="updateByPrimaryKey" parameterType="com.accp.domain.Bills" >
     update bills
     set bstate = #{bstate,jdbcType=INTEGER},
-      tid = #{tid,jdbcType=INTEGER},
       cdlicense = #{cdlicense,jdbcType=VARCHAR},
       pno = #{pno,jdbcType=VARCHAR},
       mid = #{mid,jdbcType=INTEGER},
