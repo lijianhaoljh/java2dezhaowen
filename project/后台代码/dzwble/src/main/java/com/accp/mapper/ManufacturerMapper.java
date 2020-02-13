@@ -6,6 +6,17 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ManufacturerMapper {
+	
+	List<Manufacturer>queryFind();
+	
+	List<Manufacturer>queryFindTwo(Integer pid);
+	
+	List<Manufacturer>queryFindname(String name);
+	
+	List<Manufacturer>queryFindmfid(Integer mfid);
+	
+	
+	
     int countByExample(ManufacturerExample example);
 
     int deleteByExample(ManufacturerExample example);
