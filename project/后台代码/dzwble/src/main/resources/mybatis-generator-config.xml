@@ -32,14 +32,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
-			<table schema="work" tableName="work"></table>
-			<table schema="sendcar" tableName="sendcar"></table>
-			<table schema="bills" tableName="bills"></table>
-			<table schema="business_types" tableName="business_types"></table>
 			<table schema="commodity_info" tableName="commodity_info"></table>
-			<table schema="d_maintenance" tableName="d_maintenance"></table>
-			<table schema="maintain_bill" tableName="maintain_bill"></table>
-			<table schema="rescue_bill" tableName="rescue_bill"></table>
 	</context>
 </generatorConfiguration>
 
