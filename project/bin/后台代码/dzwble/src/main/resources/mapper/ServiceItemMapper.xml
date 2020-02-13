@@ -19,6 +19,39 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="querytwo" resultMap="BaseResultMap">
+	SELECT b.`mname` AS zmname,c.mname AS zmnames,d.`toname` AS ztoname, a.* FROM service_item  AS a
+	LEFT JOIN  maintenance AS b
+	ON a.`cbno`=b.`mid`
+	LEFT JOIN maintenance AS c
+	ON a.mid=c.`mid`
+	LEFT JOIN income_type AS d
+	ON a.toino=d.`toino`
+  </select>
+  
+  <select id="queryname" resultMap="BaseResultMap">
+  	SELECT b.`mname` AS zmname,c.mname AS zmnames,d.`toname` AS ztoname, a.* FROM service_item  AS a
+	LEFT JOIN  maintenance AS b
+	ON a.`cbno`=b.`mid`
+	LEFT JOIN maintenance AS c
+	ON a.mid=c.`mid`
+	LEFT JOIN income_type AS d
+	ON a.toino=d.`toino`
+	WHERE a.`sidno`= #{name}  OR a.`sidname` LIKE  CONCAT ('%',#{name},'%')
+  </select>
+  
+  <select id="queryid" resultMap="BaseResultMap">
+  	SELECT b.`mname` AS zmname,c.mname AS zmnames,d.`toname` AS ztoname, a.* FROM service_item  AS a
+	LEFT JOIN  maintenance AS b
+	ON a.`cbno`=b.`mid`
+	LEFT JOIN maintenance AS c
+	ON a.mid=c.`mid`
+	LEFT JOIN income_type AS d
+	ON a.toino=d.`toino`
+	WHERE a.`mid`= #{mid} 
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

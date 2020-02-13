@@ -5,7 +5,6 @@
 		<title>德召文车辆维修管理系统-车型档案</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
-<<<<<<< HEAD
 	<style type="text/css">
 		#input1 input{
 			height: 35px;
@@ -27,9 +26,9 @@
 			 	</div>
 			 </div>
 			 <div class="row">
-			 	<div class="col-md-3">
+			 	<div class="col-md-4">
 			 		<div style="margin-bottom: 20px;">
-			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增品牌</button>
+			 			<button type="button" class="btn btn-success" @click="updaID(0)">新增品牌</button>
 			 			<button type="button" class="btn btn-success">修改</button>
 			 			<button type="button" class="btn btn-success">删除</button>
 			 		</div>
@@ -43,21 +42,26 @@
 			 					<td>编码</td>
 			 					<td>品牌名称</td>
 			 					<td>首字母</td>
+			 					<td>操作</td>
 			 				</tr>
 			 				
-			 				<tr v-for="item in Carbrand" @click="getDataTwo(item.cbno)">
+			 				<tr v-for="item in Carbrand" @click="getDataTwo(item)">
 			 					<td>{{item.cbno}}</td>
 			 					<td>{{item.cbname}}</td>
 			 					<td>{{item.cbfirst}}</td>
+			 					<td><button @click="DeleteT(item.cbno)">删除</button>
+			 					<button  @click="updaID(item.cbno)">修改</button>
+			 					</td>
 			 				</tr>
 			 				
 			 			</table>
 			 		</div>
 			 	</div>
 			 	
-			 	<div class="col-md-9">
+			 	
+			 	<div class="col-md-8">
 			 		<div style="margin-bottom: 20px;">
-			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">新增车型</button>
+			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1" @click="fdjquery">新增车型</button>
 			 			<button type="button" class="btn btn-success">修改</button>
 			 			<button type="button" class="btn btn-success">删除</button>
 			 			<button type="button" class="btn btn-success">照片</button>
@@ -78,17 +82,23 @@
 			 					<td>进口国产</td>
 			 					<td>燃油标号</td>
 			 					<td>载重</td>
+			 					<td>操作</td>
 			 				</tr>
 			 				
 			 				<tr v-for="item1 in Motorcycle">
 			 					<td>{{item1.cbno}}</td>
 			 					<td>{{item1.moiname}}</td>
-			 					<td>{{item1.mname}}</td>
-			 					<td>{{item1.cbno}}</td>
-			 					<td>{{item1.cbno}}</td>
-			 					<td>{{item1.cbno}}</td>
-			 					<td>{{item1.cbno}}</td>
-			 					<td>{{item1.cbno}}</td>
+			 					<td>{{item1.m.mname}}</td>
+			 					<td>{{item1.moprice}}</td>
+			 					<td>{{item1.moyearprice}}</td>
+			 					<td>{{item1.modischarge}}</td>
+			 					<td>{{item1.modomestic}}</td>
+			 					<td>{{item1.mofuel}}</td>
+			 					<td>{{item1.load}}</td>
+			 					<td>
+			 						<button @click="DeleteTwo(item1.moid)">删除</button>
+			 						<button @click="updaQuery(item1.moid)" data-toggle="modal" data-target="#myModal1">修改</button>
+			 					</td>
 			 				</tr>
 			 			</table>
 			 		</div>
@@ -110,22 +120,19 @@
 				      <div class="modal-body">
 				         	<table class="table table-hover metable">
 				         		<tr>
-				         			<td>品牌编号:</td>
-				         			<td><input type="text" /></td>
-				         		</tr>
-				         		<tr>
 				         			<td>品牌名称:</td>
-				         			<td><input type="text" /></td>
+				         			<td><input type="text" v-model="carbrand.cbname" id="input_1"/></td>
 				         		</tr>
 				         		<tr>
 				         			<td>首字母:</td>
-				         			<td><input type="text" /></td>
+				         			<td><input type="text" v-model="carbrand.cbfirst" id="input_2"/></td>
 				         		</tr>
 				         	</table>
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				        <button type="button" class="btn btn-primary">保存</button>
+				        <button type="button" v-if="isShow" class="btn btn-primary" @click="upda">修改</button>
+				        <button type="button" v-else class="btn btn-primary" @click="add">保存</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -135,7 +142,7 @@
             	作者：offline
             	时间：2019-12-31
             	描述：新增车型模态框
-            -->
+   -->
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
 			     <div class="modal-dialog" role="document">
 				    <div class="modal-content"  style="width:800px; height:500px;">
@@ -144,14 +151,33 @@
 				        <h4 class="modal-title" style="display: inline-block;">
 				       		 <strong>车型定义</strong>
 				        </h4>				 		
-				        <button type="button" class="btn btn-success" style="float: right;">保存</button>
+				        <button type="button" class="btn btn-success" style="float: right;" v-if="isok" @click="updaTwo">修改</button>
+				        <button type="button" class="btn btn-success" style="float: right;" v-else="isok" @click="addtwo">新增</button>
 				      </div>
 				      <div class="modal-body">
-				         	<table class="table table-hover metable1">
-				         		<tr>
-				         			<td>车辆品牌:<input type="text" style="width: 100px; margin-right: 10px;"/><input type="text"/></td>
-				         		</tr>
-				         	</table>
+				         	车辆品牌:<input type="text" v-model="cbbr.cbno" readonly="readonly"/>
+				         	<input type="text" v-model="cbbr.cbname" readonly="readonly"/>
+				         	<br/><br/><br/>
+				         	车型名称:<input type="text" id="input_3" v-model="cbbr.moiname"/>
+				         	进口国产:<select v-model="cbbr.modomestic">
+									  <option value ="国产">国产</option>
+									  <option value ="进口">进口</option>
+									  <option value ="合资">合资</option>
+									</select>
+				         	<br/><br/><br/>
+							参考价格:<input type="text" id="input_4" v-model="cbbr.moprice"/>
+							车辆年款:<input type="text" id="input_5" v-model="cbbr.moyearprice"/>
+							<br/><br/><br/>
+							功率:<input type="text" id="input_6" v-model="cbbr.modischarge"/>
+							燃油标号:<input type="text" id="input_7" v-model="cbbr.mofuel"/>
+							<br/><br/><br/>
+							载重:<input type="text" id="input_8" v-model="cbbr.load"/>
+							发动机品牌:<select v-model="cbbr.mid">
+									  <option  v-for="item3 in fdjs" 
+									  :value ="item3.mid"> {{item3.mname}}
+									  </option>
+									</select>
+							
 				      </div>
 				      <div class="modal-footer">
 				        
@@ -166,20 +192,32 @@
 		 <script type="text/javascript" src="js/vue.js" ></script>
 	</body>
 <script type="text/javascript">
+		$("select").find("option:eq(0)").prop("selected","selected");
 		var vm=new Vue({
             el:"#ctx",
 			data(){
     			return {
-    				Carbrand:[],
-    				Motorcycle:[],
-    				cbnos:"",
-    				condition:""
+    				motor:[], 		 //新增车型集合
+    				fdjs:[],      	 //发动机类型
+    				cbbr:{},    	 //创建新的对象存入id 
+    				carbrand:{},	 //新增车品牌对象
+    				Carbrand:[],	 //查询车品牌集合	
+    				Motorcycle:[],	 //查询车型集合
+    				cbnos:"",		 //查询车型
+    				condition:"",	 //查询车品牌
+    				Motor:{},
+    				isShow:false,	 //模态框
+    				isok:false
         		};
 			},
 			created:function() {
-            this.getData();
+            this.getData()
+            this.fdjquery();
        		},
 			methods: {	
+				/**
+				 * 查询车品牌
+				 */
 				getData:function(){
 						var that=this;
 						$.ajax({
@@ -195,7 +233,7 @@
 						success: function(result) {
 								if(result){
 									that.Carbrand=result;
-									that.getDataTwo(that.Carbrand[0].cbno);
+									that.getDataTwo(that.Carbrand[0]);
 								}else{
 									vm.Motorcycle=[];
 								}
@@ -205,12 +243,16 @@
 						}
 					});
 				},
-				getDataTwo:function(cbno){						
-						var that=this;
+				/**
+				 * 根据车品牌id查询右侧车型
+				 * @param {Object} cbbrand
+				 */
+				getDataTwo:function(cbbrand){
+						vm.cbbr=cbbrand;
 						$.ajax({
 						url: "http://localhost:8080/CarbrandRest",					
 						type: "post",
-						data:{cbno:cbno},
+						data:{cbno:cbbrand.cbno},
 						xhrFields: {
 							withCredentials: true
 						},
@@ -226,6 +268,9 @@
 						}
 					});	
 				},
+				/**
+				 * 查询车型
+				 */
 				getDataThree:function(){
 					var that=this;
 						$.ajax({
@@ -250,170 +295,223 @@
 						}
 					});	
 				},
+				/**
+				 * 删除车型
+				 * @param {Object} item
+				 */
+				DeleteT:function(item){
+					if (confirm("你确定要删除"+item+"么?")) {
+						$.ajax({
+								url:"http://localhost:8080/CarbrandRest/dele",
+								data:{
+									cbno:item
+								},
+								type:"post",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType:"json",
+								success:function(result){
+											alert("删除成功")
+											window.location.href="vehiclefile.html";																				
+									},error:function(result){
+										console.log(result);
+									},
+							})
+						}
+				},
+				/**
+				 * 新增车型
+				 */
+				add:function(){
+					if($("#input_1").val()=="" && $("#input_2").val()==""){
+						alert("请完善信息!")
+						return false;
+					}else{
+						$.ajax({
+							url:"http://localhost:8080/CarbrandRest/add",
+							data:JSON.stringify(vm.carbrand),						
+							type:"post",
+							xhrFields: {
+									withCredentials: true
+								},
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								vm.getData();
+							},error:function(result){
+								console.log(result+"11")
+							}
+						})
+					}
+				},
+				/**
+				 * 根据id查询车品牌对象
+				 * @param {Object} cbnoid
+				 */
+				updaID:function(cbnoid){
+					vm.carbrand={};
+					vm.isShow=false;
+					$("#myModal").modal("show");
+					if(cbnoid!=0){
+						vm.isShow=true;
+						$.ajax({
+							url:"http://localhost:8080/CarbrandRest/UpdaID",
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							data:{cbnoid:cbnoid},
+							dataType:"json",
+							success:function(result){
+								vm.carbrand=result;
+							}
+						})
+					}
+				},
+				/**
+				 * 修改车品牌对象
+				 */
+				upda:function(){
+					if($("#input_1").val()=="" && $("#input_2").val()==""){
+						alert("请完善信息!")
+						return false;
+					}else{
+						$.ajax({
+							url:"http://localhost:8080/CarbrandRest/upda",
+							data:JSON.stringify(vm.carbrand),						
+							type:"put",
+							xhrFields: {
+									withCredentials: true
+								},
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								window.location.href="vehiclefile.html";
+							},error:function(result){
+								console.log(result+"112")
+							}
+						})
+					}
+				},
+				/**
+				 * 删除车型
+				 * @param {Object} moid
+				 */
+				DeleteTwo:function(moid){
+					alert(moid)		
+					if (confirm("你确定要删除么?")) {
+						$.ajax({
+								url:"http://localhost:8080/CarbrandRest/deletwo",
+								data:{
+									moid:moid
+								},
+								type:"post",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType:"json",
+								success:function(result){
+											alert("删除成功")
+											window.location.href="vehiclefile.html";																				
+									},error:function(result){
+										console.log(result);
+									},
+							})
+						}
+				},
+				/**
+				 * 发动机
+				 */
+				fdjquery:function(){
+						$.ajax({
+						url: "http://localhost:8080/CarbrandRest/fdj",					
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						dataType: "json",
+						success: function(result) {
+							vm.fdjs=result;
+						},error:function(result){					
+							console.log(result+"100");
+						}
+					});
+				},
+				/**
+				 * 新增车型
+				 */
+				addtwo:function(){
+					if($("#input_3").val()=="" && $("#input_4").val()==""
+						&& $("#input_5").val()=="" && $("#input_6").val()==""
+					    && $("#input_7").val()=="" && $("#input_8").val()==""){
+						alert("请完善信息!")
+						return false;
+					}else{
+						console.log("新增：")
+						console.log(vm.cbbr)
+						$.ajax({
+							url:"http://localhost:8080/CarbrandRest/addtwo",
+							data:JSON.stringify(vm.cbbr),						
+							type:"post",
+							xhrFields: {
+									withCredentials: true
+								},
+							contentType:"application/json;charset=utf-8",
+							dataType:"json",
+							success:function(result){
+								vm.getData();
+							},error:function(result){
+								console.log(result+"11")
+							}
+						})
+					}
+				},
+				/**
+				 * id查询车型做修改
+				 */
+				updaQuery:function(moid){
+					vm.isok=true;
+						$.ajax({
+							url:"http://localhost:8080/CarbrandRest/updaQuery",
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							data:{moid:moid},
+							dataType:"json",
+							success:function(result){
+								vm.cbbr=result;
+							}
+						})
+				},
+				
+				/*
+				 * 修改车型
+				 */
+				updaTwo :function(){
+					if($("#input_3").val()=="" && $("#input_4").val()==""
+						&& $("#input_5").val()=="" && $("#input_6").val()==""
+					    && $("#input_7").val()=="" && $("#input_8").val()==""){
+						alert("请完善信息!")
+						return false;
+					}else{
+						$.ajax({
+							url:"http://localhost:8080/CarbrandRest/updaTwo",
+							data:JSON.stringify(vm.cbbr),						
+							type:"put",
+							xhrFields: {
+									withCredentials: true
+								},
+							contentType:"application/json;charset=utf-8",
+							dataType:"json",
+							success:function(result){
+								window.location.href="vehiclefile.html";
+							},error:function(result){
+								console.log(result+"119")
+							}
+						})
+					}
+				},
 			}
 		})
 </script>
-=======
-	<style type="text/css">
-		#input1 input{
-			height: 35px;
-			width: 250px;
-			margin-bottom: 10px;
-		}
-		.metable td:first-of-type{
-			text-align: right;
-		}
-	</style>
-	<body>
-		 <div class="container-fluid">
-		 	<div class="row">
-		 		<div id="title"  style="padding: 20px;background: #C9E2B3;">
-				 	<span style="font-size: 30px;"> 
-				 		<strong>品牌车型</strong>
-				 	</span>
-				 	<button type="button" class="btn btn-warning" style="float: right;">关闭</button>
-			 	</div>
-			 </div>
-			 <div class="row">
-			 	<div class="col-md-3">
-			 		<div style="margin-bottom: 20px;">
-			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增品牌</button>
-			 			<button type="button" class="btn btn-success">修改</button>
-			 			<button type="button" class="btn btn-success">删除</button>
-			 		</div>
-			 		<div id="input1">
-			 			<input type="text" placeholder="匹配/品牌编码/品牌名称/首字母"/>
-			 			<button type="button" class="btn btn-warning">搜索</button>
-			 		</div>
-			 		<div>
-			 			<table class="table table-hover">
-			 				<tr style="color: white; background-color: #C1E2B3;">
-			 					<td>编码</td>
-			 					<td>品牌名称</td>
-			 					<td>首字母</td>
-			 				</tr>
-			 				
-			 				<tr>
-			 					<td>409</td>
-			 					<td>宝马</td>
-			 					<td>B</td>
-			 				</tr>
-			 				
-			 				<tr>
-			 					<td>500</td>
-			 					<td>大众</td>
-			 					<td>D</td>
-			 				</tr>
-			 			</table>
-			 		</div>
-			 	</div>
-			 	
-			 	<div class="col-md-9">
-			 		<div style="margin-bottom: 20px;">
-			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">新增车型</button>
-			 			<button type="button" class="btn btn-success">修改</button>
-			 			<button type="button" class="btn btn-success">删除</button>
-			 			<button type="button" class="btn btn-success">照片</button>
-			 		</div>
-			 		<div id="input1">
-			 			<input type="text" placeholder="匹配/车型编码/车型名称"/>
-			 			<button type="button" class="btn btn-warning">搜索</button>
-			 		</div>
-			 		<div>
-			 			<table class="table table-hover">
-			 				<tr style="color: white; background-color: #C1E2B3;">
-			 					<td>车型ID</td>
-			 					<td>车型名称</td>
-			 					<td>发动机品牌</td>
-			 					<td>价格参考</td>
-			 					<td>车辆年款</td>
-			 					<td>功率</td>
-			 					<td>进口国产</td>
-			 				</tr>
-			 				
-			 				<tr>
-			 					<td>409</td>
-			 					<td>中华V7</td>
-			 					<td>1.6T涡轮增压发动机</td>
-			 					<td>100000</td>
-			 					<td>2015</td>
-			 					<td>232马力</td>
-			 					<td>合资</td>
-			 				</tr>
-			 			</table>
-			 		</div>
-			 	</div>
-			 </div>
-			 
-			<!--
-            	作者：offline
-            	时间：2019-12-31
-            	描述：增加品牌模态框
-            -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-			     <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title">品牌定义</h4>
-				      </div>
-				      <div class="modal-body">
-				         	<table class="table table-hover metable">
-				         		<tr>
-				         			<td>品牌编号:</td>
-				         			<td><input type="text" /></td>
-				         		</tr>
-				         		<tr>
-				         			<td>品牌名称:</td>
-				         			<td><input type="text" /></td>
-				         		</tr>
-				         		<tr>
-				         			<td>首字母:</td>
-				         			<td><input type="text" /></td>
-				         		</tr>
-				         	</table>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				        <button type="button" class="btn btn-primary">保存</button>
-				      </div>
-				    </div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-			
-			<!--
-            	作者：offline
-            	时间：2019-12-31
-            	描述：新增车型模态框
-            -->
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
-			     <div class="modal-dialog" role="document">
-				    <div class="modal-content"  style="width:800px; height:500px;">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" style="display: inline-block;">
-				       		 <strong>车型定义</strong>
-				        </h4>				 		
-				        <button type="button" class="btn btn-success" style="float: right;">保存</button>
-				      </div>
-				      <div class="modal-body">
-				         	<table class="table table-hover metable1">
-				         		<tr>
-				         			<td>车辆品牌:<input type="text" style="width: 100px; margin-right: 10px;"/><input type="text"/></td>
-				         		</tr>
-				         	</table>
-				      </div>
-				      <div class="modal-footer">
-				        
-				      </div>
-				    </div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-            
-		 </div>
-		 <script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
-		 <script type="text/javascript" src="js/bootstrap.min.js" ></script>
-		 <script type="text/javascript" src="js/vue.js" ></script>
-	</body>
->>>>>>> refs/remotes/origin/pengyumei
 </html>

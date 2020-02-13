@@ -22,6 +22,12 @@
 		WHERE pr.pno = #{pno}
   </select>
   
+  <select id="findRolePerms" resultMap="BaseResultMap">
+  		SELECT p.* FROM permission p INNER JOIN
+		roles_perms rp ON p.id = rp.pid
+		WHERE rp.rid=#{rid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

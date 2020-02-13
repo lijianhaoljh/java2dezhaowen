@@ -44,8 +44,106 @@ public class Manufacturer {
     private String remark4;
 
     private String remark5;
+    
+    
+    
+    //字段
+    private String zpmname; //支付方式
+    private String zlpname; //厂商等级
+    private String zpname; //产地
+    
+    private Integer zlinkno; //联系人编号
+    private Integer zmfid; //产商编号
+    private String zlinkname; //联系人名字
+    private String zphone; //电话
+    private String zlinkphone; //手机
+    private String zlinkemail; //邮箱
+    private String zposition; //职位
+    
+    
+    
 
-    public Integer getMfid() {
+    public String getZpmname() {
+		return zpmname;
+	}
+
+	public void setZpmname(String zpmname) {
+		this.zpmname = zpmname;
+	}
+
+	public String getZlpname() {
+		return zlpname;
+	}
+
+	public void setZlpname(String zlpname) {
+		this.zlpname = zlpname;
+	}
+
+	public String getZpname() {
+		return zpname;
+	}
+
+	public void setZpname(String zpname) {
+		this.zpname = zpname;
+	}
+
+	public Integer getZlinkno() {
+		return zlinkno;
+	}
+
+	public void setZlinkno(Integer zlinkno) {
+		this.zlinkno = zlinkno;
+	}
+
+	public Integer getZmfid() {
+		return zmfid;
+	}
+
+	public void setZmfid(Integer zmfid) {
+		this.zmfid = zmfid;
+	}
+
+	public String getZlinkname() {
+		return zlinkname;
+	}
+
+	public void setZlinkname(String zlinkname) {
+		this.zlinkname = zlinkname;
+	}
+
+	public String getZphone() {
+		return zphone;
+	}
+
+	public void setZphone(String zphone) {
+		this.zphone = zphone;
+	}
+
+	public String getZlinkphone() {
+		return zlinkphone;
+	}
+
+	public void setZlinkphone(String zlinkphone) {
+		this.zlinkphone = zlinkphone;
+	}
+
+	public String getZlinkemail() {
+		return zlinkemail;
+	}
+
+	public void setZlinkemail(String zlinkemail) {
+		this.zlinkemail = zlinkemail;
+	}
+
+	public String getZposition() {
+		return zposition;
+	}
+
+	public void setZposition(String zposition) {
+		this.zposition = zposition;
+	}
+
+	public Integer getMfid() {
         return mfid;
     }
 

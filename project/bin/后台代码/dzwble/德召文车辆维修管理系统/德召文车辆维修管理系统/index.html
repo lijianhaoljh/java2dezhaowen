@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+	<head>
+		<meta charset="utf-8" />
+		<title>德召文车辆维修管理系统-页签</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<style>
+			iframe{
+				width:100%;height:100%;border:0px;
+			}
+			.menav a{
+				color: #FFF;
+				font-size: 14px;
+			}
+			.metab a{
+				color: #000;
+			}
+			.mebtn span{
+				position: relative;
+				top: 3px;
+			}
+			.metable tr>td:first-of-type{
+				text-align:right;
+			}
+			.metable tr>td:last-of-type{
+				text-align: left;
+			}
+			.megly{
+				position: absolute;
+				right: -16px;
+				background: #204d74;
+				z-index: 9999;
+				padding: 20px 3px;
+				border-radius: 0 5px 5px 0;
+				top:45%;
+			}
+		</style>
+	</head>
+	<body style="height: 100%;">
+		<div id="ctx" class="container-fluid" style="height:100%;">
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2019-12-28
+            	描述：左侧菜单
+            -->
+			<div class="row" style="height: 100%;">
+				<div class="col-md-2 menu_one" style="height:100%;position: relative;display: block;">
+					<div class="col-md-2 menu_one_a">
+						<div class="row text-center me_title">
+							<h2><span class="glyphicon glyphicon-home" style="position: relative;top: 3px;"></span> 德召文</h2>
+						</div>
+						<div class="row">
+							<ul class="nav nav-pills nav-stacked text-center menav">
+							  <li role="presentation" class="me_menu1 active"><a href="#">首页</a></li>
+							  <li role="presentation" class="me_menu1">
+							  	<a href="#">Home</a>
+							  	<ul class="nav nav-stacked text-center">
+								  <li role="presentation" class="me_menu2"><a href="#">1</a></li>
+								  <li role="presentation" class="me_menu2"><a href="#">2</a></li>
+								  <li role="presentation" class="me_menu2"><a href="#">3</a></li>
+								</ul>
+							  </li>
+							</ul>
+						</div>
+					</div>
+					<div class="" style="position: absolute;bottom: 0;height: 30px;width: 100%;border-top: 2px solid;" >
+						<table class="metable" style="width: 100%; margin-top: 5px;">
+							<tr>
+								<td colspan="2">用户:&nbsp;&nbsp;</td>
+								<td>&nbsp;&nbsp;钟鹏根</td>
+							</tr>
+						</table>
+					</div>
+					<div class="megly"><span class="glyphicon glyphicon-step-forward"></span></sapn></div>
+				</div>
+				<!--
+                	作者：2315588974@qq.com
+                	时间：2019-12-28
+                	描述：右侧菜单+面板
+                -->
+				<div class="col-md-10" style="height:100%;background: #337AB7;">
+					<div style="height: 100%;">
+						<div>
+							<nav class="navbar navbar-default">
+							  <div class="container-fluid">
+							    <!-- Collect the nav links, forms, and other content for toggling -->
+							    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							      <ul class="nav navbar-nav">
+							        <li><a href="#">维修</a></li>
+							        <li><a href="#">前台</a></li>
+							        <li><a href="#">客服</a></li>
+							        <li><a href="#">数据</a></li>
+							        <li><a href="#">人事</a></li>
+							        <li><a href="#">系统</a></li>
+							      </ul>
+							      <div class="btn-group mebtn" role="group" style="float: right;margin: 8px; position: relative;">
+								      <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-bell"></span></button>
+									  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    <span class="caret" style="position: relative; top: -1px;"></span>
+									  </button>
+								    <ul class="dropdown-menu" style="position: absolute;left: -80px;">
+								      <li><a href="#" ><span class="glyphicon glyphicon-cog"></span> 设置</a></li>
+								      <li><a href="#"><span class="glyphicon glyphicon-th"></span> EPC</a></li>
+								      <li><a href="#"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
+								    </ul>
+								  </div>
+							    </div>
+							  </div>
+							</nav>
+						</div>
+						<div class="tab-content me_content" style="height: 92.8%;overflow: scroll;">
+							<ul class="nav nav-tabs metab" >
+							  <li role="presentation" class="active"><a href="#">Home</a></li>
+							  <li role="presentation"><a href="#">Profile</a></li>
+							  <li role="presentation"><a href="#">Messages</a></li>
+							</ul>
+						  	<div class="tab-pane active" id="index" style="height: 100%;">
+						  		<iframe src="data.html">
+						  		
+						  		</iframe>
+						  	</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script>
+			//菜单展开
+			$(".me_menu1>a").click(function(){
+				if($(this).next().css("display")=="none"){
+					$(this).next().slideDown();
+				}else{
+					$(this).next().slideUp();
+				}
+			});
+			
+			//收缩菜单
+			
+			
+		</script>
+		
+		
+	</body>
+</html>

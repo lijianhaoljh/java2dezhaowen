@@ -2,14 +2,15 @@
 .row:nth-child(1){background-color:#F7FFFF;display: flex;}
 .row:nth-child(1)>div:nth-child(1){padding-bottom:13px;flex-grow: 1;box-sizing: border-box;width: 200px;text-align: center;font-size: 25px;padding-top: 15px;}
 .row:nth-child(1)>div:nth-child(2){padding-bottom:13px;flex-grow: 3;box-sizing: border-box;width: 600px;}
+input{color: #000000;}
 /*主体*/
 .container-fluid{position: relative;z-index: 0;}
 .row:nth-child(2){height: 645px;}
-.row:nth-child(2)>div:nth-child(1)>ul{list-style-type: none;box-sizing: border-box;padding-top: 10px;}
+.row:nth-child(2)>div:nth-child(1)>ul{list-style-type: none;box-sizing: border-box;}
 .row:nth-child(2)>div:nth-child(1)>ul li{display: inline-block;text-align: center;font-size: 17px;margin-right: 30px;}
 .row:nth-child(2)>div:nth-child(1)>ul li span:nth-child(1){margin-right: 5px;font-size: 19px;}
 .row:nth-child(2)>div:nth-child(3)>ul{list-style-type: none;box-sizing: border-box;padding-top: 10px;}
-.row:nth-child(2)>div:nth-child(3)>ul li{display: inline-block;text-align: center;font-size: 17px;margin-right: 30px;}
+.row:nth-child(2)>div:nth-child(3)>ul li{display: inline-block;text-align: center;font-size: 17px;padding: 0px;width: 120px;}
 .row:nth-child(2)>div:nth-child(3)>ul li span:nth-child(1){margin-right: 5px;font-size: 19px;}
 .dropdown-menu>li>a{font-size: 13px;}
 .btn{padding: 2px;}
@@ -17,8 +18,8 @@
 #addcar{display: none; width: 1100px;height:600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 15%;background-color: #DEDEDE;}
 #addcar label{width: 130px;text-align: right;padding-right: 10px;}
 #addcar input{width:110px;}
-#lll p{margin-bottom: 20px;}
 #addcar input[type=date]{width:130px;}
+#lll p{margin-bottom: 20px;}
 #setting{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
 #setting ul{list-style-type: none;}
 #setting ul li{display: inline-block;text-align: center;font-size: 17px;}
@@ -26,6 +27,24 @@
 #checkstaff{display: none; width: 900px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 20%;background-color: #DEDEDE;}
 #checkstaff label{width: 110px;text-align: right;padding-right: 10px;}
 #checkstaff input{width:110px;}
+#chosecustomer{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+#chosecustomer ul{list-style-type: none;}
+#chosecustomer ul li{display: inline-block;text-align: center;font-size: 17px;}
+#chosecustomer td{border: 1px solid white;}
+#custype{display: none; width: 700px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 25%;background-color: #DEDEDE;}
+#custype ul{list-style-type: none;}
+#custype ul li{display: inline-block;text-align: center;font-size: 17px;}
+#custype td{border: 1px solid white;}
 
+#custype p label{width: 80px;text-align: right;padding-right: 10px;margin-top: 10px;}
+#custype p input{width:110px;margin-top: 10px;}
+
+#addkeep{display: none; width: 700px;height:300px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 25%;left: 25%;background-color: #DEDEDE;}
+#addkeep ul{list-style-type: none;}
+#addkeep ul li{display: inline-block;text-align: center;font-size: 17px;}
+#addkeep td{border: 1px solid white;}
+
+#addkeep p label{width: 80px;text-align: right;padding-right: 10px;margin-top: 10px;}
+#addkeep p input{width:110px;margin-top: 10px;}
 /*尾部*/
 .row:nth-child(3){height: 40px;}
