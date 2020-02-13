@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.LevelProducers;
 import com.accp.domain.Linkman;
+import com.accp.domain.LinkmanExample;
 import com.accp.domain.Manufacturer;
 import com.accp.domain.PaymentMethod;
 import com.accp.domain.PlaceOrigin;
@@ -144,6 +145,17 @@ public class ZManufacturerService {
 			 */
 			public int updatwo(Linkman maun) {
 				return link.updateByPrimaryKey(maun);
+			}
+			
+			/**
+			 * 删除
+			 */
+			public int deletes(Integer myid) {
+				int count = zman.deleteByPrimaryKey(myid);
+				LinkmanExample example=new LinkmanExample();
+				example.createCriteria().andMfidEqualTo(myid);
+				int counts=link.deleteByExample(example);
+				return counts;
 			}
 			
 }

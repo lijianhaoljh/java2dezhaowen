@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.IncomeType;
 import com.accp.domain.Maintenance;
+import com.accp.domain.PriceType;
 import com.accp.domain.ServiceItem;
 import com.accp.service.ZServiceitemService;
 
@@ -71,6 +72,17 @@ public class ZServiceItemController {
 			@PutMapping(value = "updatwo")
 			public int updatwo(@RequestBody ServiceItem sitem) {
 				return zservice.updatwo(sitem);
+			}
+			
+			
+			@GetMapping(value = "pricequery")
+			public List<PriceType> pricequery(){
+				return zservice.pricequery();
+			}
+			
+			@PutMapping(value = "updaproce")
+			public int updaproce(@RequestBody PriceType ptid) {
+				return zservice.updaproce(ptid);
 			}
 			
 			

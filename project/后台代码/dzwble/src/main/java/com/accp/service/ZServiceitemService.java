@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.IncomeType;
 import com.accp.domain.Maintenance;
+import com.accp.domain.PriceType;
 import com.accp.domain.ServiceItem;
 import com.accp.mapper.IncomeTypeMapper;
 import com.accp.mapper.MaintenanceMapper;
+import com.accp.mapper.PriceTypeMapper;
 import com.accp.mapper.ServiceItemMapper;
 
 @Service
@@ -22,6 +24,9 @@ public class ZServiceitemService {
 			MaintenanceMapper zMaintenanceMapper;
 			@Autowired
 			IncomeTypeMapper Income;
+			
+			@Autowired
+			PriceTypeMapper price;
 			
 			/**
 			 * 树形
@@ -108,6 +113,21 @@ public class ZServiceitemService {
 			 */
 			public int updatwo(ServiceItem sitem) {
 				return zServiceItemMapper.updateByPrimaryKey(sitem);
+			}
+			
+			/**
+			 * 价格
+			 * @return
+			 */
+			public List<PriceType> pricequery(){
+				return price.selectByExample(null);
+			}
+			
+			/**
+			 * 调价
+			 */
+			public int updaproce(PriceType ptid) {
+				return price.updateByPrimaryKey(ptid);
 			}
 			
 			

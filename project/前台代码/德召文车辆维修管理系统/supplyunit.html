@@ -28,7 +28,7 @@
 				 		<button type="button" class="btn btn-default" @click="Updaid" data-toggle="modal" data-target="#myModal1">联系人</button>
 				 		<button type="button" class="btn btn-default">照片</button>
 				 		<button type="button" class="btn btn-default">导出</button>
-				 		<button type="button" class="btn btn-default">删除</button>
+				 		<button type="button" class="btn btn-default" @click="Deletes">删除</button>
 				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" @click="Updaid">修改</button>
 				 		<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#myModal">新增</button>
 				</div>	
@@ -40,7 +40,7 @@
 				 
 					<div class="col-md-10">
 					 	<div>
-					 		<table class="table table-bordered">
+					 		<table class="table table-hover">
 				 				<tr style="color: white; background-color: #C1E2B3;">
 				 					<td>产商编号</td>
 				 					<td>厂商名称</td>
@@ -159,19 +159,23 @@
 				    <div class="modal-content" style="width:800px; height:700;">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title"><input type="text" v-model="maun.mfcontacts"  style="border:none;"/></h4>
+				        <h4 class="modal-title"><input type="text" v-model="waimiande.mfcontacts"  style="border:none;"/></h4>
 				        <h4>的联系人</h4>
 				      </div>
 				      <div class="modal-body" id="inputx">
+				      	
+				      			<button @click="addd">新增</button>
 				      			<button @click="Deletetwo">删除</button><button @click="QueryFindid">保存</button>
+				      			
+				      			
 				      			<br /> <br />
-				     			联系人:<input type="text" id="input_a1" v-model="maun.linkname"/>
-				         		手机:<input type="text" v-model="maun.linkphone"/>	 				
-								职位:<input type="text" v-model="maun.position"/>
+				     			联系人:<input type="text" id="input_a1" v-model="limiande.zlinkname"/>
+				         		手机:<input type="text" v-model="limiande.zlinkphone"/>	 				
+								职位:<input type="text" v-model="limiande.zposition"/>
 								<br /> <br />
-								电话:<input type="text" v-model="maun.phone"/>							
-								Email:<input type="text" v-model="maun.linkemail"/>
-								产商编号:<input type="text" readonly="readonly" v-model="maun.mfid" />
+								电话:<input type="text" v-model="limiande.zphone"/>							
+								Email:<input type="text" v-model="limiande.zlinkemail"/>
+								产商编号:<input type="text" readonly="readonly" v-model="limiande.zmfid" />
 								<br /> <br />
 								
 								<table class="table table-bordered" style="width: 620px;">
@@ -266,7 +270,7 @@
 								success: function(result) {
 									if(result){
 										vm.queryFind=eval('('+result+')');	
-										vm.ajk(vm.queryFind[0]);
+										
 									}else{
 										vm.queryFind=[];
 									}
@@ -279,6 +283,29 @@
 				     
 				      
 				}
+				
+				function queryTable(mfid){
+					$.ajax({									
+									url: "http://localhost:8080/PlaceOriginRest/queryFindmfid",					
+									type: "get",
+									data:{mfid:mfid},
+									xhrFields: {
+										withCredentials: true
+									},
+									dataType: "text",
+									success: function(result) {
+										if(result){							
+											vm.queryFindmfid=eval('('+result+')');
+											console.log(vm.queryFindmfid);
+										}else{
+											vm.queryFindmfid=[];
+										}
+									},error:function(result){					
+										console.log(result+"004");
+									}
+								});
+				}
+				
 				var vm = new Vue({
 					el: "#ctx",
 					data() {
@@ -289,7 +316,11 @@
 							fkquery:[],				//付款方式
 							levequery:[],			//产商等级
 							query:[],           //产地
-							maun:{}		//新增信息
+							maun:{},		//新增信息
+							waimiande:{},//外面的点击对象
+							limiande:{mfcontacts:"",zmfid:""}, //模态框里面的点击对象
+							kk:"0"
+							
 						}
 					},
 					created:function() { 
@@ -298,8 +329,15 @@
 						this.Fkquery();
 						this.Levequery();
 						this.Query();
+						
 					},
 					methods: {
+								addd:function(){
+									let mfid = vm.limiande.zmfid;
+									vm.limiande={mfcontacts:"",zmfid:""};
+									vm.limiande.zmfid =mfid;				
+									vm.kk="0";
+								},
 								QueryFind:function(){
 								$.ajax({
 									url: "http://localhost:8080/PlaceOriginRest/queryFind",					
@@ -310,7 +348,7 @@
 									dataType: "json",
 									success: function(result) {
 										vm.queryFind=result;
-										vm.ajk(result[0]);
+										queryTable(result[0].mfid);
 									},error:function(result){					
 										console.log(result+"1012");
 									}
@@ -342,26 +380,9 @@
 							},
 							ajk:function(item){
 								vm.queryFind.mfid=item.mfid;
+								vm.waimiande = item;
+								queryTable(item.mfid);
 								
-								
-								$.ajax({									
-									url: "http://localhost:8080/PlaceOriginRest/queryFindmfid",					
-									type: "get",
-									data:{mfid:vm.queryFind.mfid},
-									xhrFields: {
-										withCredentials: true
-									},
-									dataType: "text",
-									success: function(result) {
-										if(result){							
-											vm.queryFindmfid=eval('('+result+')');
-										}else{
-											vm.queryFindmfid=[];
-										}
-									},error:function(result){					
-										console.log(result+"004");
-									}
-								});
 							},
 								/**
 								 *  付款方式
@@ -448,20 +469,28 @@
 									}
 								},
 								Updaid:function(){
-										$.ajax({
-										url:"http://localhost:8080/PlaceOriginRest/updaid",
-										type:"get",
-										xhrFields: {
-											withCredentials: true
-										},
-										data:{mfid:vm.queryFind.mfid},
-										dataType:"json",
-										success:function(result){
-											vm.maun=result;
-										},error:function(result){					
-											console.log(result+"110");
-										}
-									})
+									
+									if(vm.waimiande.mfid==undefined){
+											alert("请选择厂商");
+											return false;
+									}else{
+									
+										vm.limiande.zmfid=vm.waimiande.mfid;
+											$.ajax({
+											url:"http://localhost:8080/PlaceOriginRest/updaid",
+											type:"get",
+											xhrFields: {
+												withCredentials: true
+											},
+											data:{mfid:vm.queryFind.mfid},
+											dataType:"json",
+											success:function(result){
+												vm.maun=result;
+											},error:function(result){					
+												console.log(result+"110");
+											}
+										})
+									}
 								},
 								/**
 								 * 修改
@@ -498,6 +527,13 @@
 									alert("联系人不能为空!")
 									return false;
 								}else{	
+										vm.maun.linkno = vm.limiande.zlinkno 
+					 					vm.maun.linkname= vm.limiande.zlinkname		
+					 					vm.maun.position= vm.limiande.zposition		
+					 					vm.maun.linkphone= vm.limiande.zlinkphone
+					 					vm.maun.phone= vm.limiande.zphone
+					 					vm.maun.linkemail= vm.limiande.zlinkemail;
+					 					vm.maun.mfid = vm.limiande.zmfid;
 										$.ajax({
 											url:"http://localhost:8080/PlaceOriginRest/addtwo",
 											data:JSON.stringify(vm.maun),						
@@ -509,6 +545,8 @@
 											success:function(result){
 												alert("新增成功")
 												vm.QueryFind();
+												queryTable(vm.waimiande.mfid);
+												
 											},error:function(result){
 												console.log(result+"adds")
 											}
@@ -517,21 +555,9 @@
 								},
 								id(item){
 									vm.queryFindmfid.linkno=item.zlinkno;
-									
-									$.ajax({
-										url:"http://localhost:8080/PlaceOriginRest/queryFindid",
-										type:"get",
-										xhrFields: {
-											withCredentials: true
-										},
-										data:{linkno:vm.queryFindmfid.linkno},
-										dataType:"json",
-										success:function(result){
-											vm.maun=result;
-										},error:function(result){					
-											console.log(result+"1106");
-										}
-									})
+									vm.limiande=item;
+									vm.kk="5";
+									console.log(item);
 									
 								},					
 								Deletetwo:function(){
@@ -548,7 +574,9 @@
 											dataType:"json",
 											success:function(result){
 														alert("删除成功")
-														vm.QueryFind();																		
+														vm.QueryFind();	
+														vm.limiande={mfcontacts:"",zmfid:""};
+														queryTable(vm.waimiande.mfid);
 												},error:function(result){
 													console.log(result);
 												},
@@ -561,6 +589,14 @@
 									alert("联系人不能为空!")
 									return false;
 								}else{	
+									vm.maun.linkno = vm.limiande.zlinkno
+					 					vm.maun.linkname= vm.limiande.zlinkname		
+					 					vm.maun.position= vm.limiande.zposition		
+					 					vm.maun.linkphone= vm.limiande.zlinkphone
+					 					vm.maun.phone= vm.limiande.zphone
+					 					vm.maun.linkemail= vm.limiande.zlinkemail;
+					 					vm.maun.mfid = vm.limiande.zmfid;
+									vm.maun.mfid = vm.limiande.zmfid; 
 										$.ajax({
 											url:"http://localhost:8080/PlaceOriginRest/updatwo",
 											data:JSON.stringify(vm.maun),						
@@ -572,6 +608,7 @@
 											success:function(result){
 												alert("修改成功")
 												vm.QueryFind();
+												queryTable(vm.waimiande.mfid);
 											},error:function(result){
 												console.log(result+"adds")
 											}
@@ -580,27 +617,57 @@
 								},
 								
 								QueryFindid:function(){
-										$.ajax({
-										url:"http://localhost:8080/PlaceOriginRest/queryFindid",
-										type:"get",
-										xhrFields: {
-											withCredentials: true
-										},
-										async:false,
-										data:{linkno:vm.queryFindmfid.linkno},
-										dataType:"json",
-										success:function(result){
-											if(result==1){
-												//修改
-												Updatwo();
-											}else{
-												//x新增
-												addtwos();
-											}
-										},error:function(result){					
-											console.log(result+"1106");
-										}
-									})
+									alert(vm.kk);
+									if(vm.kk=="0"){
+										//新增
+										this.addtwos();
+									}else if(vm.kk=="5"){
+										//修改
+										this.Updatwo();
+									}
+									
+//										$.ajax({
+//										url:"http://localhost:8080/PlaceOriginRest/queryFindid",
+//										type:"get",
+//										xhrFields: {
+//											withCredentials: true
+//										},
+//										async:false,
+//										data:{linkno:vm.queryFindmfid.linkno},
+//										dataType:"json",
+//										success:function(result){
+//											if(result==1){
+//												//修改
+//												Updatwo();
+//											}else{
+//												//x新增
+//												addtwos();
+//											}
+//										},error:function(result){					
+//											console.log(result+"1106");
+//										}
+//									})
+								},
+								Deletes:function(){
+									if (confirm("你确定要删除"+vm.queryFind.mfid+"么?")) {
+									$.ajax({
+											url:"http://localhost:8080/PlaceOriginRest/deletes",
+											data:{
+												myid:vm.queryFind.mfid
+											},
+											type:"post",
+											xhrFields: {
+												withCredentials: true
+											},
+											dataType:"json",
+											success:function(result){
+														alert("删除成功")
+														vm.QueryFind();	
+												},error:function(result){
+													console.log(result);
+												},
+										})
+									}
 								},
 						}
 				});
