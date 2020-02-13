@@ -41,7 +41,17 @@ public class CommodityInfo {
 
     private String exchangecode;
 
-    private Integer ptid;
+    private Float standardprice;
+
+    private Float memberprice;
+
+    private Float vipprice;
+
+    private Float agreementprice;
+
+    private Float insuranceprice;
+
+    private Float claimprice;
 
     private String remark1;
 
@@ -53,7 +63,6 @@ public class CommodityInfo {
 
     private String remark5;
     
-  //声明字段
     private int zgid;         //商品大类表ID
     private String zgame;     //商品类名称 包括大中小类
     private int zparentid;    //商品类父级ID;
@@ -65,6 +74,8 @@ public class CommodityInfo {
     private String zgcname;   //商品等级;
     private String zpname;    //商品产地;
     private String zmfname;   //厂商名称
+    
+    
 
     public int getZgid() {
 		return zgid;
@@ -306,12 +317,52 @@ public class CommodityInfo {
         this.exchangecode = exchangecode;
     }
 
-    public Integer getPtid() {
-        return ptid;
+    public Float getStandardprice() {
+        return standardprice;
     }
 
-    public void setPtid(Integer ptid) {
-        this.ptid = ptid;
+    public void setStandardprice(Float standardprice) {
+        this.standardprice = standardprice;
+    }
+
+    public Float getMemberprice() {
+        return memberprice;
+    }
+
+    public void setMemberprice(Float memberprice) {
+        this.memberprice = memberprice;
+    }
+
+    public Float getVipprice() {
+        return vipprice;
+    }
+
+    public void setVipprice(Float vipprice) {
+        this.vipprice = vipprice;
+    }
+
+    public Float getAgreementprice() {
+        return agreementprice;
+    }
+
+    public void setAgreementprice(Float agreementprice) {
+        this.agreementprice = agreementprice;
+    }
+
+    public Float getInsuranceprice() {
+        return insuranceprice;
+    }
+
+    public void setInsuranceprice(Float insuranceprice) {
+        this.insuranceprice = insuranceprice;
+    }
+
+    public Float getClaimprice() {
+        return claimprice;
+    }
+
+    public void setClaimprice(Float claimprice) {
+        this.claimprice = claimprice;
     }
 
     public String getRemark1() {

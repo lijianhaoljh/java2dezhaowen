@@ -569,5 +569,4 @@ WHERE cdlicense = #{cdlicense}
       remark5 = #{remark5,jdbcType=VARCHAR}
     where bid = #{bid,jdbcType=VARCHAR}
   </update>
- 
 </mapper>
