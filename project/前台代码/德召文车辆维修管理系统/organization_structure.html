@@ -327,13 +327,10 @@
 					<div style="width: 410px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">员工角色</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+						<button @click="roleOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
 					</div>
-					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
-						<ul>
-							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
-							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
-						</ul>
+					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 25px;">
+						
 						<table class="table table-bordered" style="border: 1px solid white;width: 350px; ">
 							<thead>
 								<tr>
@@ -346,7 +343,7 @@
 								<tr v-for="r in role">
 									<td>  </td>
 									<td>{{r.rname}}</td>
-									<td><input type="radio" name="rr" :id="r.rid" /> </td>
+									<td><input type="radio" @click="choserole($event,r)" name="rr" :id="r.rid" /> </td>
 								</tr>
 							</tbody>
 						</table>
@@ -605,16 +602,46 @@
 							roles:[],//树状结构节点
 							staffs:[],//根据机构编号查询到的所有职工
 							mechanismPa:[],//机构
-							demon:{pno:"",mid:"",people:{ptid:1,pno:""}},//选中的职工对象
+							demon:{pno:"",mid:"",rid:"",people:{ptid:1,pno:""}},//选中的职工对象
 							demonMech:{},//选中的部门
 							staf:{pno:"",mid:"",rid:2,people:{ptid:1,pno:"",rid:2,spassword:"88888"},salt:"951753"},//新增的员工
 							jobs:[],//所有岗位
 							addMechanism:{mid:"",parentid:"",catalog:"0"},//添加部门
 							role:[],//所有角色
 							cc:"0",
+							ro:{rid:""},//选中的角色
+							
 						}
 					},
 					methods:{
+						roleOK:function(){
+							if(confirm("是否确定更改员工角色")){
+								vm.demon.rid = vm.ro.rid;
+								console.log(vm.demon)
+								$.ajax({
+										url:data.ip+"staff/updatePeoRole",
+										data:JSON.stringify(vm.demon),
+										type:"put",
+										dataType:"json",
+										contentType:"application/json;charset=utf-8",
+										success:function(result){
+											if(result=="1"){
+												alert("修改成功");
+												queryPeopleByParentid("",1);
+												$("#role").hide();
+											}
+										},error:function(result){
+											alert("发生错误");
+										}
+									});
+							}
+						},
+						choserole:function(e,r){
+							let checked = e.target.checked;
+							if(checked){
+								vm.ro=r;
+							}
+						},
 						check:function(){
 							//查询
 							let pno = $("#querybox").val();
@@ -932,8 +959,12 @@
 							$("#checkstaff").show();
 						},
 						staffrole:function(){
-							queryAllRole();
-							$("#role").show();
+							if(vm.demon.pno==""){
+								alert("请选中员工");
+							}else{
+								queryAllRole();
+								$("#role").show();
+							}
 						},
 						setting:function(){
 							$("#setting").show();
