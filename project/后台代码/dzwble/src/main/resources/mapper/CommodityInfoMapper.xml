@@ -22,68 +22,18 @@
     <result column="stockprice" property="stockprice" jdbcType="REAL" />
     <result column="markup" property="markup" jdbcType="REAL" />
     <result column="exchangecode" property="exchangecode" jdbcType="VARCHAR" />
-    <result column="ptid" property="ptid" jdbcType="INTEGER" />
+    <result column="standardprice" property="standardprice" jdbcType="REAL" />
+    <result column="memberprice" property="memberprice" jdbcType="REAL" />
+    <result column="vipprice" property="vipprice" jdbcType="REAL" />
+    <result column="agreementprice" property="agreementprice" jdbcType="REAL" />
+    <result column="Insuranceprice" property="insuranceprice" jdbcType="REAL" />
+    <result column="claimprice" property="claimprice" jdbcType="REAL" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="DataQuery"  resultMap="BaseResultMap">
-		SELECT b.gid AS zgid, b.gname AS zgame,
-		b.parentid AS zparentid,c.cbname AS zcbname,
-		d.cuname AS zcuname,e.toname AS ztoname,
-		f.coname AS zconame,g.gcname AS zgcname,
-		h.pname AS zpname,i.mfname AS zmfname,a.* 	
-		FROM commodity_info AS a
-		LEFT JOIN goods_category  AS b
-		ON a.`gid`=b.gid
-		LEFT JOIN commodity_brand AS c
-		ON c.cbid = a.cbid
-		LEFT JOIN commodity_unit AS d
-		ON d.`cuid`=a.`cuid`
-		LEFT JOIN income_type AS e
-		ON e.`toino`=a.`toino`
-		LEFT JOIN country_origin AS f
-		ON f.`coid`=a.`coid`
-		LEFT JOIN grade_commodity AS g
-		ON g.`gcid`=a.`gcid`
-		LEFT JOIN place_origin AS h
-		ON h.`pid`=a.`pid`
-		LEFT JOIN manufacturer AS i
-		ON i.`mfid`=a.`mfid`
-  </select>
-  
-    <select id="DataQueryFind"  resultMap="BaseResultMap">
-		SELECT b.gid AS zgid, b.gname AS zgame,
-		b.parentid AS zparentid,c.cbname AS zcbname,
-		d.cuname AS zcuname,e.toname AS ztoname,
-		f.coname AS zconame,g.gcname AS zgcname,
-		h.pname AS zpname,i.mfname AS zmfname,a.* 	
-		FROM commodity_info AS a
-		LEFT JOIN goods_category  AS b
-		ON a.`gid`=b.gid
-		LEFT JOIN commodity_brand AS c
-		ON c.cbid = a.cbid
-		LEFT JOIN commodity_unit AS d
-		ON d.`cuid`=a.`cuid`
-		LEFT JOIN income_type AS e
-		ON e.`toino`=a.`toino`
-		LEFT JOIN country_origin AS f
-		ON f.`coid`=a.`coid`
-		LEFT JOIN grade_commodity AS g
-		ON g.`gcid`=a.`gcid`
-		LEFT JOIN place_origin AS h
-		ON h.`pid`=a.`pid`
-		LEFT JOIN manufacturer AS i
-		ON i.`mfid`=a.`mfid`
-		WHERE a.cno=#{cbno} or a.cname LIKE  CONCAT ('%',#{cbno},'%') or
-		a.origin LIKE  CONCAT ('%',#{cbno},'%') or
-		c.cbname  LIKE  CONCAT ('%',#{cbno},'%') or
-		b.gname  LIKE  CONCAT ('%',#{cbno},'%') 
-		
-  </select>
-  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -144,8 +94,9 @@
   </sql>
   <sql id="Base_Column_List" >
     cno, cname, cbid, cuid, vehicletype, gid, toino, coid, gcid, pid, mfid, origin, barcode, 
-    pack, volume, grossweight, netweight, stockprice, markup, exchangecode, ptid, remark1, 
-    remark2, remark3, remark4, remark5
+    pack, volume, grossweight, netweight, stockprice, markup, exchangecode, standardprice, 
+    memberprice, vipprice, agreementprice, Insuranceprice, claimprice, remark1, remark2, 
+    remark3, remark4, remark5
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CommodityInfoExample" >
     select
@@ -184,18 +135,22 @@
       pid, mfid, origin, 
       barcode, pack, volume, 
       grossweight, netweight, stockprice, 
-      markup, exchangecode, ptid, 
-      remark1, remark2, remark3, 
-      remark4, remark5)
+      markup, exchangecode, standardprice, 
+      memberprice, vipprice, agreementprice, 
+      Insuranceprice, claimprice, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
     values (#{cno,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{cbid,jdbcType=INTEGER}, 
       #{cuid,jdbcType=INTEGER}, #{vehicletype,jdbcType=VARCHAR}, #{gid,jdbcType=INTEGER}, 
       #{toino,jdbcType=INTEGER}, #{coid,jdbcType=INTEGER}, #{gcid,jdbcType=INTEGER}, 
       #{pid,jdbcType=INTEGER}, #{mfid,jdbcType=INTEGER}, #{origin,jdbcType=VARCHAR}, 
       #{barcode,jdbcType=VARCHAR}, #{pack,jdbcType=VARCHAR}, #{volume,jdbcType=REAL}, 
       #{grossweight,jdbcType=REAL}, #{netweight,jdbcType=REAL}, #{stockprice,jdbcType=REAL}, 
-      #{markup,jdbcType=REAL}, #{exchangecode,jdbcType=VARCHAR}, #{ptid,jdbcType=INTEGER}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
-      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
+      #{markup,jdbcType=REAL}, #{exchangecode,jdbcType=VARCHAR}, #{standardprice,jdbcType=REAL}, 
+      #{memberprice,jdbcType=REAL}, #{vipprice,jdbcType=REAL}, #{agreementprice,jdbcType=REAL}, 
+      #{insuranceprice,jdbcType=REAL}, #{claimprice,jdbcType=REAL}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.CommodityInfo" >
     insert into commodity_info
@@ -260,8 +215,23 @@
       <if test="exchangecode != null" >
         exchangecode,
       </if>
-      <if test="ptid != null" >
-        ptid,
+      <if test="standardprice != null" >
+        standardprice,
+      </if>
+      <if test="memberprice != null" >
+        memberprice,
+      </if>
+      <if test="vipprice != null" >
+        vipprice,
+      </if>
+      <if test="agreementprice != null" >
+        agreementprice,
+      </if>
+      <if test="insuranceprice != null" >
+        Insuranceprice,
+      </if>
+      <if test="claimprice != null" >
+        claimprice,
       </if>
       <if test="remark1 != null" >
         remark1,
@@ -340,8 +310,23 @@
       <if test="exchangecode != null" >
         #{exchangecode,jdbcType=VARCHAR},
       </if>
-      <if test="ptid != null" >
-        #{ptid,jdbcType=INTEGER},
+      <if test="standardprice != null" >
+        #{standardprice,jdbcType=REAL},
+      </if>
+      <if test="memberprice != null" >
+        #{memberprice,jdbcType=REAL},
+      </if>
+      <if test="vipprice != null" >
+        #{vipprice,jdbcType=REAL},
+      </if>
+      <if test="agreementprice != null" >
+        #{agreementprice,jdbcType=REAL},
+      </if>
+      <if test="insuranceprice != null" >
+        #{insuranceprice,jdbcType=REAL},
+      </if>
+      <if test="claimprice != null" >
+        #{claimprice,jdbcType=REAL},
       </if>
       <if test="remark1 != null" >
         #{remark1,jdbcType=VARCHAR},
@@ -429,8 +414,23 @@
       <if test="record.exchangecode != null" >
         exchangecode = #{record.exchangecode,jdbcType=VARCHAR},
       </if>
-      <if test="record.ptid != null" >
-        ptid = #{record.ptid,jdbcType=INTEGER},
+      <if test="record.standardprice != null" >
+        standardprice = #{record.standardprice,jdbcType=REAL},
+      </if>
+      <if test="record.memberprice != null" >
+        memberprice = #{record.memberprice,jdbcType=REAL},
+      </if>
+      <if test="record.vipprice != null" >
+        vipprice = #{record.vipprice,jdbcType=REAL},
+      </if>
+      <if test="record.agreementprice != null" >
+        agreementprice = #{record.agreementprice,jdbcType=REAL},
+      </if>
+      <if test="record.insuranceprice != null" >
+        Insuranceprice = #{record.insuranceprice,jdbcType=REAL},
+      </if>
+      <if test="record.claimprice != null" >
+        claimprice = #{record.claimprice,jdbcType=REAL},
       </if>
       <if test="record.remark1 != null" >
         remark1 = #{record.remark1,jdbcType=VARCHAR},
@@ -474,7 +474,12 @@
       stockprice = #{record.stockprice,jdbcType=REAL},
       markup = #{record.markup,jdbcType=REAL},
       exchangecode = #{record.exchangecode,jdbcType=VARCHAR},
-      ptid = #{record.ptid,jdbcType=INTEGER},
+      standardprice = #{record.standardprice,jdbcType=REAL},
+      memberprice = #{record.memberprice,jdbcType=REAL},
+      vipprice = #{record.vipprice,jdbcType=REAL},
+      agreementprice = #{record.agreementprice,jdbcType=REAL},
+      Insuranceprice = #{record.insuranceprice,jdbcType=REAL},
+      claimprice = #{record.claimprice,jdbcType=REAL},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
@@ -544,8 +549,23 @@
       <if test="exchangecode != null" >
         exchangecode = #{exchangecode,jdbcType=VARCHAR},
       </if>
-      <if test="ptid != null" >
-        ptid = #{ptid,jdbcType=INTEGER},
+      <if test="standardprice != null" >
+        standardprice = #{standardprice,jdbcType=REAL},
+      </if>
+      <if test="memberprice != null" >
+        memberprice = #{memberprice,jdbcType=REAL},
+      </if>
+      <if test="vipprice != null" >
+        vipprice = #{vipprice,jdbcType=REAL},
+      </if>
+      <if test="agreementprice != null" >
+        agreementprice = #{agreementprice,jdbcType=REAL},
+      </if>
+      <if test="insuranceprice != null" >
+        Insuranceprice = #{insuranceprice,jdbcType=REAL},
+      </if>
+      <if test="claimprice != null" >
+        claimprice = #{claimprice,jdbcType=REAL},
       </if>
       <if test="remark1 != null" >
         remark1 = #{remark1,jdbcType=VARCHAR},
@@ -586,7 +606,12 @@
       stockprice = #{stockprice,jdbcType=REAL},
       markup = #{markup,jdbcType=REAL},
       exchangecode = #{exchangecode,jdbcType=VARCHAR},
-      ptid = #{ptid,jdbcType=INTEGER},
+      standardprice = #{standardprice,jdbcType=REAL},
+      memberprice = #{memberprice,jdbcType=REAL},
+      vipprice = #{vipprice,jdbcType=REAL},
+      agreementprice = #{agreementprice,jdbcType=REAL},
+      Insuranceprice = #{insuranceprice,jdbcType=REAL},
+      claimprice = #{claimprice,jdbcType=REAL},
       remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
