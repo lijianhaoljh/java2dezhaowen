@@ -18,6 +18,8 @@ public interface PeopleMapper {
 
     List<People> selectByExample(PeopleExample example);
 
+    List<People> queryunion(String pno);
+
     People selectByPrimaryKey(String pno);
 
     int updateByExampleSelective(@Param("record") People record, @Param("example") PeopleExample example);

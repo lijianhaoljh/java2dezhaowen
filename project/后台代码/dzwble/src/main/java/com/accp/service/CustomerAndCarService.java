@@ -111,8 +111,8 @@ public class CustomerAndCarService {
 		return msmapper.selectByExample(ex);
 	}
 	//根据组织机构编号查询职工
-	public List<Staff> queryPeopleByMid(Integer mid){
-		return stamapper.queryPeopleByMid(mid);
+	public List<Staff> queryPeopleByMid(String pno,Integer mid){
+		return stamapper.queryPeopleByMid(pno,mid);
 	}
 	//查询价格类型
 	public List<PriceType> queryPriceType(){

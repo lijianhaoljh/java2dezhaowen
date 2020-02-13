@@ -20,8 +20,37 @@ public class Car {
     private String remark4;
 
     private String remark5;
+    
+    private String cbname;
+    private String moiname;
+    private String tname;
+    
 
-    public String getCno() {
+    public String getCbname() {
+		return cbname;
+	}
+
+	public void setCbname(String cbname) {
+		this.cbname = cbname;
+	}
+
+	public String getMoiname() {
+		return moiname;
+	}
+
+	public void setMoiname(String moiname) {
+		this.moiname = moiname;
+	}
+
+	public String getTname() {
+		return tname;
+	}
+
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+
+	public String getCno() {
         return cno;
     }
 

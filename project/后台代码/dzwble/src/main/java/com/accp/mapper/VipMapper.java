@@ -2,10 +2,15 @@ package com.accp.mapper;
 
 import com.accp.domain.Vip;
 import com.accp.domain.VipExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface VipMapper {
+
+	List<Vip> findVips(@Param("aa")String aa,@Param("bb")String bb,@Param("cc")String cc);
+	
     int countByExample(VipExample example);
 
     int deleteByExample(VipExample example);

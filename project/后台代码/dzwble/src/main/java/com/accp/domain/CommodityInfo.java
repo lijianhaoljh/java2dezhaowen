@@ -27,7 +27,7 @@ public class CommodityInfo {
 
     private String barcode;
 
-    private String packag;
+    private String pack;
 
     private Float volume;
 
@@ -41,30 +41,19 @@ public class CommodityInfo {
 
     private String exchangecode;
 
-    private Float standardprice;
+    private Integer ptid;
 
-    private Float memberprice;
+    private String remark1;
 
-    private Float vipprice;
+    private String remark2;
 
-    private Float agreementprice;
-
-    private Float insuranceprice;
-
-    private Float claimprice;
-
-    private String remark1; //照片名字
-
-    private String remark2; //登记名字
-
-    private String remark3; 
+    private String remark3;
 
     private String remark4;
 
     private String remark5;
     
-    
-    //声明字段
+  //声明字段
     private int zgid;         //商品大类表ID
     private String zgame;     //商品类名称 包括大中小类
     private int zparentid;    //商品类父级ID;
@@ -76,8 +65,6 @@ public class CommodityInfo {
     private String zgcname;   //商品等级;
     private String zpname;    //商品产地;
     private String zmfname;   //厂商名称
-    
-    
 
     public int getZgid() {
 		return zgid;
@@ -263,12 +250,12 @@ public class CommodityInfo {
         this.barcode = barcode;
     }
 
-    public String getPackag() {
-        return packag;
+    public String getPack() {
+        return pack;
     }
 
-    public void setPackag(String packag) {
-        this.packag = packag;
+    public void setPack(String pack) {
+        this.pack = pack;
     }
 
     public Float getVolume() {
@@ -319,52 +306,12 @@ public class CommodityInfo {
         this.exchangecode = exchangecode;
     }
 
-    public Float getStandardprice() {
-        return standardprice;
+    public Integer getPtid() {
+        return ptid;
     }
 
-    public void setStandardprice(Float standardprice) {
-        this.standardprice = standardprice;
-    }
-
-    public Float getMemberprice() {
-        return memberprice;
-    }
-
-    public void setMemberprice(Float memberprice) {
-        this.memberprice = memberprice;
-    }
-
-    public Float getVipprice() {
-        return vipprice;
-    }
-
-    public void setVipprice(Float vipprice) {
-        this.vipprice = vipprice;
-    }
-
-    public Float getAgreementprice() {
-        return agreementprice;
-    }
-
-    public void setAgreementprice(Float agreementprice) {
-        this.agreementprice = agreementprice;
-    }
-
-    public Float getInsuranceprice() {
-        return insuranceprice;
-    }
-
-    public void setInsuranceprice(Float insuranceprice) {
-        this.insuranceprice = insuranceprice;
-    }
-
-    public Float getClaimprice() {
-        return claimprice;
-    }
-
-    public void setClaimprice(Float claimprice) {
-        this.claimprice = claimprice;
+    public void setPtid(Integer ptid) {
+        this.ptid = ptid;
     }
 
     public String getRemark1() {

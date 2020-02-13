@@ -15,12 +15,12 @@ public interface BillsMapper {
     int insert(Bills record);
 
     int insertSelective(Bills record);
-
-    List<Bills> selectByExample(BillsExample example);
     
     List<Bills> queryBillBycno(String cno);
- 
+    
     List<Bills> queryBillBycdlicense(String cdlicense);
+
+    List<Bills> selectByExample(BillsExample example);
 
     Bills selectByPrimaryKey(String bid);
 

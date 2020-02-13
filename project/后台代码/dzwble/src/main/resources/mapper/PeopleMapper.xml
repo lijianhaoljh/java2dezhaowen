@@ -22,6 +22,7 @@
     <result column="dcause" property="dcause" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="tmname" property="tmname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,6 +87,17 @@
     pbank, pbanknumber, presidenceaddress, ptid, img, rid, dimission, dcause, remark4, 
     remark5
   </sql>
+  <select id="queryunion" resultMap="BaseResultMap">
+	  	SELECT m.mname tmname,peo.pno,peo.pname,peo.pphone,peo.ptellphone,peo.pemail FROM people AS peo 
+	LEFT JOIN staff AS s ON peo.pno=s.pno
+	LEFT JOIN mechanism AS m ON s.mid=m.mid
+	WHERE peo.ptid=1 AND (peo.pno LIKE concat("%",#{pno},"%") OR peo.pname LIKE concat("%",#{pno},"%")) AND peo.dimission = 0
+	UNION
+	SELECT t.tname tmname,peo.pno,peo.pname,peo.pphone,peo.ptellphone,peo.pemail FROM people AS peo
+	LEFT JOIN mechanic AS me ON me.pno=peo.pno
+	LEFT JOIN team AS t ON t.tid=me.tid
+	WHERE peo.ptid=2 AND (peo.pno LIKE concat("%",#{pno},"%") OR peo.pname LIKE concat("%",#{pno},"%")) AND peo.dimission = 0
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.PeopleExample" >
     select
     <if test="distinct" >

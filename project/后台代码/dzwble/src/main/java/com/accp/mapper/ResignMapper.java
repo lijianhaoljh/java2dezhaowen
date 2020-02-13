@@ -18,6 +18,8 @@ public interface ResignMapper {
 
     List<Resign> selectByExample(ResignExample example);
 
+    List<Resign> queryAllResign(String pno);
+
     Resign selectByPrimaryKey(Integer rid);
 
     int updateByExampleSelective(@Param("record") Resign record, @Param("example") ResignExample example);

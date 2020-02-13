@@ -2,11 +2,19 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Vip {
     private String vno;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date vjoindate;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date venddate;
 
     private String cno;
@@ -26,8 +34,40 @@ public class Vip {
     private String remark4;
 
     private String remark5;
+    
+    private Viplevel vl;
+    
+    private Customer cus;
+    
+    private String limit; //期限
+    
+    
+    
+    public String getLimit() {
+		return limit;
+	}
 
-    public String getVno() {
+	public void setLimit(String limit) {
+		this.limit = limit;
+	}
+
+	public Customer getCus() {
+		return cus;
+	}
+
+	public void setCus(Customer cus) {
+		this.cus = cus;
+	}
+
+	public Viplevel getVl() {
+		return vl;
+	}
+
+	public void setVl(Viplevel vl) {
+		this.vl = vl;
+	}
+
+	public String getVno() {
         return vno;
     }
 

@@ -6,11 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CommodityInfoMapper {
-	
-	List<CommodityInfo>DataQueryFind(@Param("cbno") String cbno);
-	
-	List<CommodityInfo> DataQuery();
-	
     int countByExample(CommodityInfoExample example);
 
     int deleteByExample(CommodityInfoExample example);
@@ -20,6 +15,10 @@ public interface CommodityInfoMapper {
     int insert(CommodityInfo record);
 
     int insertSelective(CommodityInfo record);
+    
+    List<CommodityInfo>DataQueryFind(@Param("cbno") String cbno);
+	
+	List<CommodityInfo> DataQuery();
 
     List<CommodityInfo> selectByExample(CommodityInfoExample example);
 

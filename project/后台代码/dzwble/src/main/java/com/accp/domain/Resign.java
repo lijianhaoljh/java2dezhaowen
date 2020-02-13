@@ -2,11 +2,18 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Resign {
     private Integer rid;
 
     private String sno;
 
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date rdate;
 
     private String rreason;
@@ -20,8 +27,45 @@ public class Resign {
     private String remark4;
 
     private String remark5;
+    
+    private String mname;
+    private String pname;
+    private String psex;
+    private String jname;
+    
+    public String getMname() {
+		return mname;
+	}
 
-    public Integer getRid() {
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getPsex() {
+		return psex;
+	}
+
+	public void setPsex(String psex) {
+		this.psex = psex;
+	}
+
+	public String getJname() {
+		return jname;
+	}
+
+	public void setJname(String jname) {
+		this.jname = jname;
+	}
+
+	public Integer getRid() {
         return rid;
     }
 
