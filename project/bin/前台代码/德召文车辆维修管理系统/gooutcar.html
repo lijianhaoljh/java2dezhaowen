@@ -4,10 +4,8 @@
 		<meta charset="UTF-8">
 		<title>外勤车辆</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/gooutcar.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
 	</head>
 	<body>
 		
@@ -26,22 +24,26 @@
 				<div class="row">
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border-top: 1px solid #E9E9E9;">
 						<ul>
-							<li><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
-							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
-							<li><span class="glyphicon glyphicon-sunglasses"></span>保存</li>
+							<li @click="sendnotes"><span class="glyphicon glyphicon-asterisk"></span>借还车记录</li>
+							<li @click="addcar"><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
+							<li @click="delecar"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="carOK"><span class="glyphicon glyphicon-sunglasses"></span>保存</li>
 						</ul>
 					</div>
-					<div class="col-md-12 col-xs-12 selec" style="box-sizing: border-box;background-color: #F7F7F7;">
+					
+					<div id="in" class="col-md-12 col-xs-12 selec" style="box-sizing: border-box;background-color: #F7F7F7;">
 						<ul>
-							<li>车牌号：<input type="text" /></li>
-							<li>品牌：<input type="text" /></li>
-							<li>车型：<input type="text" /></li>
-							<li>当前里程：<input type="text" /></li>
-							<li>班组：<input type="text" /></li>
+							<li>车牌号：<input type="text" v-model="car.cno" /></li>
+							<li>品牌：<select style="width: 100px;" @change="changebrand($event)" v-model="car.cbno"><option v-for="c in carbrands" :value="c.cbno">{{c.cbname}}</option></select></li>
+							<li>车型：<select name="mo" v-model="car.moid"><option v-for="c in motorcyle" :value="c.moid">{{c.moiname}}</option></select></li>
+							<li>当前里程：<input type="text" v-model="car.cmileage" /></li>
+							<li>班组：<input type="text" disabled="disabled" style="width: 30px;" v-model="car.tid" /><input v-model="car.tname" type="text" />
+							<span @click="chosemechanic" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-bookmark">
+							</li>
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" >
-						<table class="table table-bordered" style="width: 300px;">
+						<table class="table table-hover" style="width: 45%;">
 						  <thead>
 						  	<tr>
 						  		<td>    </td>
@@ -50,16 +52,19 @@
 						  		<td>车型</td>
 						  		<td>当前里程</td>
 						  		<td>班组</td>
+						  		<td>状态</td>
 						  	</tr>
 						  </thead>
 						  <tbody>
-						  	<tr>
-						  		<td>   </td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
+						  	<tr v-for="c in cars">
+						  		<td> <input type="radio" name="mm" @click="chosecar($event,c)" />   </td>
+						  		<td>{{c.cno}}</td>
+						  		<td>{{c.cbname}}</td>
+						  		<td>{{c.moiname}}</td>
+						  		<td>{{c.cmileage}}</td>
+						  		<td>{{c.tname}}</td>
+						  		<td v-if="c.state==0"><button @click="sendcar(c)" class="btn-success">待借出</button></td>
+						  		<td v-else><button @click="backcar" class="btn-danger">待归还</button></td>
 						  	</tr>
 						  </tbody>
 						</table>
@@ -67,7 +72,95 @@
 					
 				</div>
 				<div class="row" style="font-size: 17px;position:absolute;box-sizing: border-box;padding-left: 20px;padding-top: 15px; width: 1533px; background-color: ghostwhite;">
-					合计：<span>12</span>条记录
+					合计：<span id="total">12</span>条记录
+				</div>
+			</div>
+			
+			<div id="custype">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">借还车记录</p>
+				<div style="width: 680px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 120px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">借还车记录</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button @click="custypeOK"  class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">保存</button>
+						<!--<button @click="delecurtype" class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">删除</button>
+						<button @click="addcustype" class="btn-success" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">添加</button>-->
+					</div>
+					<div style="width: 660px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<p class="qqq"><label>车牌号</label><input readonly="readonly" type="text" v-model="send.cno" /> <label>员工编号</label><input v-model="send.pno" type="text" /><span @click="chosepeo" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-bookmark"> </p>
+						<p class="qqq"><label>借车时间</label><input v-model="send.date" type="date" /> </p>
+						<table class="table table-hover" style="border: 1px solid white;width: 600px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>车牌号</td>
+									<td>客户编号</td>
+									<td>借车时间</td>
+									<td>还车时间</td>
+									<td>是否归车</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="s in sends">
+									<td></td>
+									<td>{{s.cno}}</td>
+									<td>{{s.pno}}</td>
+									<td>{{s.date}}</td>
+									<td>{{s.sdate}}</td>
+									<td v-if="s.issend==0"><button @click="bacar(s)" class="btn btn-danger">还车</button></td>
+									<td v-else>已归还</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div id="chosepeople">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>
+				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button @click="chosepeopleOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
+					</div>
+					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 20px;">
+						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>部门</td>
+									<td>工号</td>
+									<td>姓名</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="s in peos">
+									<td><input @click="peop($event,s)" name="ww" type="radio" /></td>
+									<td>{{s.tmname}}</td>
+									<td>{{s.pno}}</td>
+									<td>{{s.pname}}</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div id="chosecustomer">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">维修班组</p>
+				<div style="width: 280px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 260px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">维修班组</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
+					</div>
+					<div style="width: 260px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 20px;">
+						
+						<ul id="treeDemo" class="ztree"></ul> 
+					</div>
 				</div>
 			</div>
 		</div>
@@ -75,8 +168,348 @@
 		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			function queryAllcar(){
+				$.ajax({
+					url:data.ip+"mechanic/queryAlloutcar",
+					data:{},
+					type:"get",
+					dataType:"json",
+					success:function(result){
+						vm.cars = result;
+						$("#total").text(result.length);
+					},error:function(result){
+						alert("发生错误"+result);
+					}
+				});
+			}
 			
+			function querySendcar(){
+				$.ajax({
+					url:data.ip+"mechanic/querySendcar",
+					data:{},
+					type:"get",
+					dataType:"json",
+					success:function(result){
+						vm.sends = result;
+					},error:function(result){
+						alert("发生错误"+result);
+					}
+				});
+			}
+			//查询所有职工技工
+			function queryunion(pno){
+				$.ajax({
+					url:data.ip+"staff/queryunion",
+					data:{pno:pno},
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						vm.peos=data;
+					},error:function(data){
+						alert("发生错误");
+					}
+				});
+			}
+			
+			function queryTree(){
+					//树状结构
+					$.ajax({
+							type:"get",
+							url:data.ip+"mechanic/queryAllTeam",
+							dateType:"json",
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								console.log(response);
+								$.fn.zTree.init($("#treeDemo"), setting, response);//初始化节点数据
+								$.fn.zTree.init($("#treeDemo"), setting, response).expandAll(true);
+							}
+						});	
+						
+						var setting = {
+							  view: {
+							         selectedMulti: true,
+							         showIcon:false
+							     },
+							  check: {
+							   enable: false
+							  },
+							  data: {
+								   key: {
+								        name: "tname",//树节点名称
+								   },
+								   simpleData: {
+								    enable: true,//是否采用简单数据模式
+								        idKey: "tid",//树节点ID名称
+								        pIdKey: "parentid",//父节点ID名称
+								        rootPId: 0,//根节点ID
+								   }
+							  },
+							  callback:{
+							  	onClick:chooseNode,
+							  }
+						};
+							 
+						function chooseNode(event, treeId, treeNode) {
+						    if(treeNode.parentid=="0"){
+						       	vm.cc=0;
+						       
+						    }else{
+						       	vm.cc=parseInt(vm.cc)+1;
+						       	vm.demonMech = treeNode;
+						    }
+						    return;
+						}
+				}
+			
+			//根据车辆品牌查询车辆型号
+				function motorcyle(cbno){
+					$.ajax({
+							url:data.ip+"cus/querymotoBycbno",
+							data:{cbno:cbno},
+							type:"post",
+							dataType:"json",
+							success:function(result){
+								vm.motorcyle=result;
+								
+							},error:function(result){
+								alert("发生错误"+result);
+							}
+						});
+				}
+			
+			var vm = new Vue({
+				el:"#ctx",
+				data(){
+					return {
+						cars:[],//所有技工星级
+						car:{cno:"",cbno:"",moid:"",tid:"",tname:"",state:0},//车辆对象
+						kk:"0",
+						carbrands:[],//车辆品牌
+						motorcyle:[],//车辆型号
+						cc:"0",
+						demonMech:{},//选中的班组
+						sends:[],//借车记录
+						send:{cno:"",pno:""},//借车对象
+						peos:[],//所有职工技工
+						peo:{},//选中的职工技工
+					}
+				},
+				methods:{
+					bacar:function(c){
+						if(confirm("是否确认还车？")){
+							$.ajax({
+									url:data.ip+"mechanic/updateSendcar",
+									data:JSON.stringify(c),
+									type:"put",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if(result=="1"){
+											alert("还车成功");
+											queryAllcar();
+											querySendcar();
+										}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+						}
+					},
+					chosepeopleOK:function(){
+						vm.send.pno=vm.peo.pno;
+						$("#chosepeople").hide();
+					},
+					peop:function(e,p){
+						let checkeds = e.target.checked;
+							if(checkeds){
+								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
+								vm.peo = p;
+							}
+					},
+					chosepeo:function(){
+						$("#chosepeople").show();
+					},
+					sendcar:function(c){
+						vm.send.cno=c.cno;
+						querySendcar();
+						$("#custype").show();
+					},
+					backcar:function(){
+						vm.send={cno:"",pno:""};
+						querySendcar();
+						$("#custype").show();
+					},
+					sendnotes:function(){
+						vm.send={cno:"",pno:""};
+						querySendcar();
+						$("#custype").show();
+					},
+					custypeOK:function(){
+						let a =0;
+						$("#custype .qqq input").each(function(){
+							if($(this).val()==""){
+								a=a+1;
+								alert("请填写完整信息！");
+								return false;
+							}
+						});
+						if(a==0){
+							$.ajax({
+									url:data.ip+"mechanic/addSendcar",
+									data:JSON.stringify(vm.send),
+									type:"post",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if(result=="1"){
+											alert("借车成功");
+											vm.send={cno:"",pno:""};
+											queryAllcar();
+											querySendcar();
+										}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+						}
+					},
+					closeadd:function(){
+						$("#chosecustomer").hide();
+						$("#custype").hide();
+						$("#chosepeople").hide();
+					},
+					chosecustomerOK:function(){
+						if(vm.cc=="0"){
+							alert("请选择班组")
+						}else{
+							vm.car.tid=vm.demonMech.tid;
+							vm.car.tname = vm.demonMech.tname;
+							alert("选择成功");
+							$("#chosecustomer").hide();
+						}
+					},
+					changebrand:function(e){
+							//切换车品牌
+							let cbno = $(e.target).val();
+							motorcyle(cbno)
+						},
+					chosemechanic:function(){
+						$("#chosecustomer").show();
+					},
+					delecar:function(){
+						if(vm.car.cno==undefined){
+							alert("请选中需要删除的星级");
+							return;
+						}else if(vm.car.state==1){
+							alert("该车还未归还，不能删除该车信息");
+						}else{
+							if(confirm("是否确定删除")){
+								$.ajax({
+									url:data.ip+"mechanic/deleteOutcar",
+									data:{cno:vm.car.cno},
+									type:"post",
+									dataType:"json",
+									success:function(result){
+										if(result=="1"){
+												alert("删除成功");
+												queryAllcar();
+												vm.car={cno:"",cbno:"",moid:"",tid:"",tname:""};
+											}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+							}
+						}
+					},
+					addcar:function(){
+						vm.kk="1";
+						vm.car={cno:"",cbno:"",moid:"",tid:"",tname:""};
+					},
+					carOK:function(){
+						var a = 0;
+						$("#in input").each(function(){
+							if($(this).val()==""){
+								a = a+1;
+								alert("请填写完信息");
+								return false;
+							}
+						});
+						if(a==0){
+							if(vm.kk=="1"){
+								//添加
+								$.ajax({
+									url:data.ip+"mechanic/addOutcar",
+									data:JSON.stringify(vm.car),
+									type:"post",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if(result=="1"){
+											alert("添加成功");
+											queryAllcar();
+										}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+							}else if(vm.kk=="2"){
+								//修改
+								$.ajax({
+									url:data.ip+"mechanic/updateOutcar",
+									data:JSON.stringify(vm.car),
+									type:"put",
+									dataType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if(result=="1"){
+											alert("修改成功");
+											queryAllcar();
+										}
+									},error:function(result){
+										alert("发生错误"+result);
+									}
+								});
+							}
+						}
+					},
+					chosecar:function(e,l){
+						let checked = e.target.checked;
+						if(checked){
+							$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
+							vm.car=l;
+							$("select[name=mo]").val(l.mname);
+							vm.kk="2";
+						}
+						
+					}
+				},
+				created:function(){
+					queryTree();
+					queryAllcar();
+					querySendcar();
+					queryunion("");
+					//所有车辆品牌
+						$.ajax({
+								url:data.ip+"cus/queryCarbrand",
+								data:{},
+								type:"post",
+								dataType:"json",
+								success:function(data){
+									vm.carbrands=data;
+								},error:function(data){
+									alert("发生错误");
+								}
+							});
+				}
+			});
 		</script>
 	</body>
 </html>

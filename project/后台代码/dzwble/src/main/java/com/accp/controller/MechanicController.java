@@ -24,6 +24,8 @@ public class MechanicController {
 	@Autowired
 	MechanicService ser;
 	
+	//shshsh
+	
 	@GetMapping(value="/queryAllLevel")
 	public List<Level> queryAllLevel(){
 		return ser.queryAllLevel();

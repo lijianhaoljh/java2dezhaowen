@@ -15,6 +15,101 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Vip" id="BaseResultMapTwo">
+  		<id column="vno" property="vno" jdbcType="VARCHAR" />
+	    <result column="vjoindate" property="vjoindate" jdbcType="TIMESTAMP" />
+	    <result column="venddate" property="venddate" jdbcType="TIMESTAMP" />
+	    <result column="vcno" property="cno" jdbcType="VARCHAR" />
+	    <result column="vlids" property="vlid" jdbcType="INTEGER" />
+	    <result column="currentjifen" property="currentjifen" jdbcType="INTEGER" />
+	    <result column="sumMoney" property="summoney" jdbcType="REAL" />
+	    <result column="vremark1" property="remark1" jdbcType="VARCHAR" />
+	    <result column="vremark2" property="remark2" jdbcType="VARCHAR" />
+	    <result column="vremark3" property="remark3" jdbcType="VARCHAR" />
+	    <result column="vremark4" property="remark4" jdbcType="VARCHAR" />
+	    <result column="vremark5" property="remark5" jdbcType="VARCHAR" />
+  		<association property="cus" column="cno" javaType="com.accp.domain.Customer">
+  			<id column="cno" property="cno" jdbcType="VARCHAR" />
+		    <result column="ctno" property="ctno" jdbcType="VARCHAR" />
+		    <result column="cname" property="cname" jdbcType="VARCHAR" />
+		    <result column="cpeople" property="cpeople" jdbcType="VARCHAR" />
+		    <result column="cphone" property="cphone" jdbcType="VARCHAR" />
+		    <result column="caddress" property="caddress" jdbcType="VARCHAR" />
+		    <result column="cbirthday" property="cbirthday" jdbcType="TIMESTAMP" />
+		    <result column="cperiod" property="cperiod" jdbcType="INTEGER" />
+		    <result column="climit" property="climit" jdbcType="REAL" />
+		    <result column="pno" property="pno" jdbcType="VARCHAR" />
+		    <result column="province" property="province" jdbcType="VARCHAR" />
+		    <result column="city" property="city" jdbcType="VARCHAR" />
+		    <result column="district" property="district" jdbcType="VARCHAR" />
+		    <result column="cremark" property="cremark" jdbcType="VARCHAR" />
+		    <result column="ctaxes" property="ctaxes" jdbcType="VARCHAR" />
+		    <result column="cregistphone" property="cregistphone" jdbcType="VARCHAR" />
+		    <result column="cbank" property="cbank" jdbcType="VARCHAR" />
+		    <result column="cbanknumber" property="cbanknumber" jdbcType="VARCHAR" />
+		    <result column="cregistaddress" property="cregistaddress" jdbcType="VARCHAR" />
+		    <result column="other1" property="other1" jdbcType="VARCHAR" />
+		    <result column="other2" property="other2" jdbcType="VARCHAR" />
+		    <result column="other3" property="other3" jdbcType="VARCHAR" />
+		    <result column="other4" property="other4" jdbcType="VARCHAR" />
+		    <result column="jifen" property="jifen" jdbcType="VARCHAR" />
+		    <result column="creatdate" property="creatdate" jdbcType="VARCHAR" />
+		    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+		    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+		    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+		    <result column="ctname" property="ctname" jdbcType="VARCHAR" />
+		    <result column="isvip" property="isvip" jdbcType="INTEGER" />
+		    <result column="vno" property="vno" jdbcType="VARCHAR" />
+		    <result column="vjoindate" property="vjoindate" jdbcType="TIMESTAMP" />
+		    <result column="venddate" property="venddate" jdbcType="TIMESTAMP" />
+		    <result column="vjifen" property="vjifen" jdbcType="VARCHAR" />
+		    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+		    <result column="pname" property="pname" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="vl" column="vlid" javaType="com.accp.domain.Viplevel">
+  				<id column="vlid" property="vlid" jdbcType="INTEGER" />
+			    <result column="vlname" property="vlname" jdbcType="VARCHAR" />
+			    <result column="startpoint" property="startpoint" jdbcType="INTEGER" />
+			    <result column="discount" property="discount" jdbcType="REAL" />
+			    <result column="vlremark1" property="remark1" jdbcType="VARCHAR" />
+			    <result column="vlremark2" property="remark2" jdbcType="VARCHAR" />
+			    <result column="vlremark3" property="remark3" jdbcType="VARCHAR" />
+			    <result column="vlremark4" property="remark4" jdbcType="VARCHAR" />
+			    <result column="vlremark5" property="remark5" jdbcType="VARCHAR" />
+  			</association>
+  </resultMap>
+  
+  <select id="findVips" resultMap="BaseResultMapTwo">
+  	SELECT c.*,v.vno vno,v.`vlid` vlids,v.`cno` vcno,v.`vjoindate` vjoindate,v.`currentjifen` currentjifen,
+	v.venddate venddate,v.sumMoney,v.`remark1` vremark1,v.`remark2` vremark2,v.`remark3` vremark3,v.`remark4` vremark4,
+	v.`remark5` vremark5,vl.`vlid` vlid,vl.`vlname` vlname,vl.`startpoint` `startpoint`,vl.`discount` discount,vl.`remark1` vlremark1,
+	vl.`remark2` vlremark2,
+	vl.`remark3` vlremark3,
+	vl.`remark4` vlremark4,
+	vl.`remark5` vlremark5
+	 FROM `vip` v 
+	INNER JOIN `customer` c
+	ON c.cno=v.cno
+	INNER JOIN `viplevel` vl
+	ON vl.`vlid`=v.`vlid`
+		where 1=1
+		<if test="aa!=null and aa!=''">
+		 and (c.`cname` LIKE concat('%',#{aa},'%') OR v.`remark2` LIKE concat('%',#{aa},'%') OR v.vno LIKE concat('%',#{aa},'%'))
+		</if>
+		<choose>
+			<when test="bb!=null and bb!='' and cc!=null and cc!=''">
+				and v.vjoindate BETWEEN DATE_FORMAT(#{bb},"%Y-%m-%d 00:00:00") AND DATE_FORMAT(#{cc},"%Y-%m-%d 23:59:59") 
+			</when>
+			<when test="bb!=null and bb!=''">
+				and v.vjoindate &lt; DATE_FORMAT(#{bb},"%Y-%m-%d 23:59:59")
+			</when>
+			<when test="cc!=null and cc!=''">
+				and v.vjoindate &gt; DATE_FORMAT(#{bb},"%Y-%m-%d 00:00:00")
+			</when>
+		</choose>
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
