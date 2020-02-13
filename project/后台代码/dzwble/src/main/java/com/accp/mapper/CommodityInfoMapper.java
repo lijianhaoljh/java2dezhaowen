@@ -12,6 +12,10 @@ public interface CommodityInfoMapper {
 
     int deleteByPrimaryKey(Integer cno);
 
+    List<CommodityInfo>DataQueryFind(@Param("cbno") String cbno);
+	
+   	List<CommodityInfo> DataQuery();	
+    
     int insert(CommodityInfo record);
 
     int insertSelective(CommodityInfo record);
