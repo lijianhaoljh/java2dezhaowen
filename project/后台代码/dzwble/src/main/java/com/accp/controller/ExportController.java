@@ -103,7 +103,7 @@ public class ExportController {
 		wb.write(baos);
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDispositionFormData("attachment",new String("导出数据".getBytes("utf-8"),"iso-8859-1"));
+		headers.setContentDispositionFormData("attachment",new String("导出数据.xlsx".getBytes("utf-8"),"iso-8859-1"));
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		return new ResponseEntity<byte[]>(baos.toByteArray(),headers,HttpStatus.OK);
 	}
