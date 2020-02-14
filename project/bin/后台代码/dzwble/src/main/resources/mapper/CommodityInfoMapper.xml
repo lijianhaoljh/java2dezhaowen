@@ -29,6 +29,7 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+<<<<<<< HEAD
   <select id="DataQuery"  resultMap="BaseResultMap">
 		SELECT b.gid AS zgid, b.gname AS zgame,
 		b.parentid AS zparentid,c.cbname AS zcbname,
@@ -83,6 +84,66 @@
 		b.gname  LIKE  CONCAT ('%',#{cbno},'%') 
 		
   </select>
+=======
+  
+  <select id="DataQuery"  resultMap="BaseResultMap">
+		SELECT b.gid AS zgid, b.gname AS zgame,
+		b.parentid AS zparentid,c.cbname AS zcbname,
+		d.cuname AS zcuname,e.toname AS ztoname,
+		f.coname AS zconame,g.gcname AS zgcname,
+		h.pname AS zpname,i.mfname AS zmfname,a.* 	
+		FROM commodity_info AS a
+		LEFT JOIN goods_category  AS b
+		ON a.`gid`=b.gid
+		LEFT JOIN commodity_brand AS c
+		ON c.cbid = a.cbid
+		LEFT JOIN commodity_unit AS d
+		ON d.`cuid`=a.`cuid`
+		LEFT JOIN income_type AS e
+		ON e.`toino`=a.`toino`
+		LEFT JOIN country_origin AS f
+		ON f.`coid`=a.`coid`
+		LEFT JOIN grade_commodity AS g
+		ON g.`gcid`=a.`gcid`
+		LEFT JOIN place_origin AS h
+		ON h.`pid`=a.`pid`
+		LEFT JOIN manufacturer AS i
+		ON i.`mfid`=a.`mfid`
+  </select>
+  
+    <select id="DataQueryFind"  resultMap="BaseResultMap">
+		SELECT b.gid AS zgid, b.gname AS zgame,
+		b.parentid AS zparentid,c.cbname AS zcbname,
+		d.cuname AS zcuname,e.toname AS ztoname,
+		f.coname AS zconame,g.gcname AS zgcname,
+		h.pname AS zpname,i.mfname AS zmfname,a.* 	
+		FROM commodity_info AS a
+		LEFT JOIN goods_category  AS b
+		ON a.`gid`=b.gid
+		LEFT JOIN commodity_brand AS c
+		ON c.cbid = a.cbid
+		LEFT JOIN commodity_unit AS d
+		ON d.`cuid`=a.`cuid`
+		LEFT JOIN income_type AS e
+		ON e.`toino`=a.`toino`
+		LEFT JOIN country_origin AS f
+		ON f.`coid`=a.`coid`
+		LEFT JOIN grade_commodity AS g
+		ON g.`gcid`=a.`gcid`
+		LEFT JOIN place_origin AS h
+		ON h.`pid`=a.`pid`
+		LEFT JOIN manufacturer AS i
+		ON i.`mfid`=a.`mfid`
+		WHERE a.cno=#{cbno} or a.cname LIKE  CONCAT ('%',#{cbno},'%') or
+		a.origin LIKE  CONCAT ('%',#{cbno},'%') or
+		c.cbname  LIKE  CONCAT ('%',#{cbno},'%') or
+		b.gname  LIKE  CONCAT ('%',#{cbno},'%') 
+		
+  </select>
+  
+  
+  
+>>>>>>> refs/remotes/origin/zhongpenggen
   
   <sql id="Example_Where_Clause" >
     <where >

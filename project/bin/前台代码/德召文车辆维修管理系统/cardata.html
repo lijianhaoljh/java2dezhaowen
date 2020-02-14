@@ -329,6 +329,7 @@
 					</div>
 					<div style="width: 660px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						
+<<<<<<< HEAD
 						<p class="ddd">
 							<label style="width: 150px;">保养名称</label><input style="width: 200px;" type="text" v-model="keep.ckname" />
 						</p>
@@ -338,6 +339,17 @@
 						</p>
 						<p>
 							<label style="width: 150px;">备注</label><input style="width: 200px;" type="text" v-model="keep.remark" />
+=======
+						<p>
+							<label style="width: 150px;">保养名称</label><input style="width: 200px;" type="text" v-model="keep.ckname" />
+						</p>
+						<p>
+							<label style="width: 150px;">计划保养日期</label><input style="width: 120px;" type="date" v-model="keep.plandate" />
+							<label style="width: 150px;">计划里程</label><input type="text" v-model="keep.planmillage" />
+						</p>
+						<p>
+							<label style="width: 150px;">备注</label><input width="200px" type="text" v-model="keep.remark" />
+>>>>>>> refs/remotes/origin/zhongpenggen
 						</p>
 					</div>
 				</div>
@@ -441,7 +453,10 @@
 							dataType:"json",
 							success:function(data){
 								queryCus(data[0].cno);
+<<<<<<< HEAD
 								vm.demoncar = data;
+=======
+>>>>>>> refs/remotes/origin/zhongpenggen
 								vm.cars=data;
 								$("#total").text(data.length);
 							},error:function(data){
@@ -541,6 +556,7 @@
 							vm.keep.cdlicense=vm.demoncar.cdlicense;
 							console.log(vm.keep)
 							console.log(vm.kk)
+<<<<<<< HEAD
 							var c = 0;
 							$("#addcar .ddd input").each(function(){
 								if($(this).val()==""){
@@ -585,6 +601,42 @@
 												}
 											});
 								}
+=======
+							if(vm.kk=="5"){
+								$.ajax({
+											url:data.ip+"cus/addCarkeep",
+											data:JSON.stringify(vm.keep),
+											type:"post",
+											dataType:"json",
+											contentType:"application/json;charset=utf-8",
+											success:function(result){
+												if(result=="1"){
+													alert("添加成功");
+													$("#addkeep").hide();
+													queryKeep(vm.demoncar.cdlicense);
+												}
+											},error:function(result){
+												alert("发生错误");
+											}
+										});
+							}else if(vm.kk=="6"){
+								$.ajax({
+											url:data.ip+"cus/upCarkeep",
+											data:JSON.stringify(vm.keep),
+											type:"post",
+											dataType:"json",
+											contentType:"application/json;charset=utf-8",
+											success:function(result){
+												if(result=="1"){
+													alert("修改成功");
+													$("#addkeep").hide();
+													queryKeep(vm.demoncar.cdlicense);
+												}
+											},error:function(result){
+												alert("发生错误");
+											}
+										});
+>>>>>>> refs/remotes/origin/zhongpenggen
 							}
 						},
 						addcarkeep:function(){
