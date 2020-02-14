@@ -12,9 +12,8 @@
 				  <div class="panel-heading">
 				   	<span class="glyphicon glyphicon-globe"></span> 角色管理
 				   	<span style="position:relative;top:-7px;float: right;" >
-					   		<button class="btn btn-success">保存</button>
-					   		<button class="btn btn-danger">关闭</button>
-					   	</span>
+					  	<button class="btn btn-danger" @click="closeThis">关闭</button>
+					</span>
 				  </div>
 				</div>
 			</div>
@@ -22,22 +21,204 @@
 				<div class="panel panel-success">
 				  <div class="panel-body">
 				  	<div class="form-inline">
-					    <input type="text" class="form-control" placeholder="Text input">
-						<button type="button" class="btn btn-success" >查询</button>
-						<button type="button" class="btn btn-success" >添加</button>
-						<button type="button" class="btn btn-success" >修改</button>
-						<button type="button" class="btn btn-success" >删除</button>
+					    <input type="text" class="form-control" v-model="condition" placeholder="Text input">
+						<button v-perms="'findRole'" type="button" class="btn btn-success" @click="findRoleMe">查询</button>
+						<button v-perms="'addRole'" type="button" class="btn btn-success" @click="opAddModal">添加</button>
 					</div>
 				  </div>
 				</div>
 			</div>
-			
+			<div class="row">
+				<div class="panel panel-success">
+				  <div class="panel-body">
+				  		<table class="table" v-if="$perms('findRole')">
+				  			<tr>
+				  				<td>角色编号</td>
+				  				<td>角色名称</td>
+				  				<td>操作</td>
+				  			</tr>
+				  			<tr v-for="item in roles">
+								<td>{{item.rid}}</td>
+								<td>{{item.rname}}</td>
+								<td>
+									<button v-perms="'updateRole'" type="button" class="btn btn-success" @click="findByRid(item.rid)">修改</button>
+									<button v-perms="'deleteRole'" type="button" class="btn btn-success" @click="deleteRole(item.rid)">删除</button>
+								</td>
+				  			</tr>
+				  		</table>
+				  		<div v-else class="alert alert-danger" role="alert">权限不足</div>
+				  </div>
+				</div>
+			</div>
+			<div id="insertModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">新增角色</h4>
+			      </div>
+			      <div class="modal-body text-center">
+			        	<input type="text" v-model="role.rname" placeholder="name/角色名称"/>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="addRole">保存</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<div id="updateModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">修改角色</h4>
+			      </div>
+			      <div class="modal-body text-center">
+			        <input type="text" v-model="findRole.rname" placeholder="name/角色名称"/>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="updateRole">保存</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/my.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+		<script type="text/javascript" src="js/perms.js" ></script>
 		<script>
-			
+			var fatherBody = $(window.top.document.body);
+			var vm=new Vue({
+				el:"#ctx",
+				data(){
+					return{
+						roles:[], //角色集合
+						role:{}, //角色对象
+						findRole:{}, //修改查询角色对象
+						condition:""
+					}
+				},methods:{
+					addRole(){
+						if(JSON.stringify(vm.role)=="{}"){
+							alert("请输入角色名称！");
+							return;
+						}
+						$.ajax({
+							url:data.ip+"role/addRole",
+							type:"post",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:vm.role,
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('添加角色成功!');
+									f(vm.condition);
+									fatherBody.find("#insertModal").modal("hide");
+								}else{
+									alert('添加角色失败');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},deleteRole(rid){
+						if(!confirm("确定要删除吗?")){
+							return;
+						}
+						$.ajax({
+							url:data.ip+"role/deleteRole/"+rid,
+							type:"delete",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"text",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('删除角色成功!');
+									f(vm.condition);
+								}else{
+									alert('删除角色失败');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},updateRole(){
+						if(JSON.stringify(vm.findRole)=="{}"){
+							return;
+						}
+						$.ajax({
+							url:data.ip+"role/updateRole",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:JSON.stringify(vm.findRole),
+							type:"put",
+							contentType:"application/json;charset=utf-8",
+							success:function(response){
+								if(response.indexOf('1')!=-1){
+									alert('修改角色成功!');
+									f(vm.condition);
+									fatherBody.find("#updateModal").modal("hide");
+								}else{
+									alert('修改角色失败');
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findByRid(rid){
+						$.ajax({
+							url:data.ip+"role/findByRid",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:{rid:rid},
+							dataType:"json",
+							success:function(response){
+								vm.findRole=response;
+								var dialog=$("#updateModal");
+								dialog.modal("show");
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findRoleMe(){
+						f(this.condition);
+					},opAddModal(){
+						var dialog=$("#insertModal");
+						dialog.modal("show");
+					},closeThis(){
+						
+					}
+				},created:function(){
+					f(this.condition);
+				}
+			});
+			function f(condition){
+					$.ajax({
+						type:"get",
+						url:data.ip+"role/findRole",
+						xhrFields: {
+							withCredentials: true
+						},
+						data:{condition:condition},
+						dataType:"json",
+						success:function(response){
+							vm.roles=response;
+							console.log(vm.roles);
+						},error:function(error){
+							console.log(error);
+						}
+					});
+			}
 		</script>
 	</body>
 </html>

@@ -5,11 +5,8 @@
 		<meta charset="utf-8" />
 		<title>客户资料</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css" />
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css" />
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/customer_information.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="css/customer_information.css"/>
 	</head>
 
 	<body>
@@ -100,16 +97,9 @@
 								</tr>
 							</thead>
 							<tbody>
-<<<<<<< HEAD
-								<tr v-for="c,index in customers" v-if="index==0" style="background-color: #C9E2B3;">
-									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
-									<td v-else><input type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
-									<td>{{c.cno}}</td>
-=======
 								<tr v-for="c,index in customers">
 									<td><input type="radio" v-bind:id="c.cno" name="cus" @click="chose($event,c)"  /> </td>
 									<td class="ccno">{{c.cno}}</td>
->>>>>>> refs/remotes/origin/pengyumei
 									<td>{{c.cname}}</td>
 									<td>{{c.caddress}}</td>
 									<td>{{c.cpeople}}</td>
@@ -127,43 +117,6 @@
 									<td>{{c.climit}}</td>
 									<td v-if="c.isvip==0">{{c.jifen}}</td>
 									<td v-else>{{c.jifen+c.vjifen}}</td>
-<<<<<<< HEAD
-									<td>{{c.province}}</td>
-									<td>{{c.city}}</td>
-									<td>{{c.district}}</td>
-									<td>{{c.ctaxes}}</td>
-									<td>{{c.cregistphone}}</td>
-									<td>{{c.cbank}}</td>
-									<td>{{c.cbanknumber}}</td>
-									<td>{{c.cregistaddress}}</td>
-									<td>{{c.other1}}</td>
-									<td>{{c.other2}}</td>
-									<td>{{c.other3}}</td>
-									<td>{{c.other4}}</td>
-								</tr>
-								<tr v-else>
-									<td v-if="index==0"><input checked="checked" type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
-									<td v-else><input type="radio" v-bind:id="c.cno" name="cus" @click="chose($event)" /> </td>
-									<td>{{c.cno}}</td>
-									<td>{{c.cname}}</td>
-									<td>{{c.caddress}}</td>
-									<td>{{c.cpeople}}</td>
-									<td>{{c.cphone}}</td>
-									<td>{{c.cbirthday}}</td>
-									<td>{{c.ctname}}</td>
-									<td>{{c.vno}}</td>
-									<td>{{c.vjoindate}}</td>
-									<td>{{c.venddate}}</td>
-									<td>{{c.cremark}}</td>
-									<td>{{c.creatdate}}</td>
-									<td>{{c.pname}}</td>
-									<td>{{c.pphone}}</td>
-									<td>{{c.cperiod}}</td>
-									<td>{{c.climit}}</td>
-									<td v-if="c.isvip==0">{{c.jifen}}</td>
-									<td v-else>{{c.jifen+c.vjifen}}</td>
-=======
->>>>>>> refs/remotes/origin/pengyumei
 									<td>{{c.province}}</td>
 									<td>{{c.city}}</td>
 									<td>{{c.district}}</td>
@@ -222,44 +175,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="ca in cars">
-<<<<<<< HEAD
-=======
 									<td><input type="radio" v-bind:id="ca.cdlicense" name="car" @click="chosecar($event,ca)"  /> </td>
-									<td>{{ca.cdlicense}}</td>
-									<td>{{ca.cbnam}}</td>
-									<td>{{ca.moiname}}</td>
-									<td>{{ca.cddriver}}</td>
-									<td>{{ca.cddriverphone}}</td>
-									<td>{{ca.cddriverbirth}}</td>
-									<td>{{ca.clname}}</td>
-									<td>{{ca.cdlicenseend}}</td>
-									<td>{{ca.cdframe}}</td>
-									<td>{{ca.mid}}</td>
-									<td>{{ca.mname}}</td>
-									<td>{{ca.cdyearprice}}</td>
-									<td>{{ca.cdmileage}}</td>
-									<td>{{ca.cdload}}</td>
-									<td>{{ca.cdbuydate}}</td>
-									<td>{{ca.cdgolicense}}</td>
-									<td>{{ca.cdcarcheckdate}}</td>
-									<td v-for="i in insu" v-if="i.inid==ca.inid">{{i.inname}}</td>
-									<td>{{ca.indate}}</td>
-									<td v-for="ins in insu" v-if="ins.inid==ca.inidBusiness">{{ins.inname}}</td>
-									<td>{{ca.inidBdate}}</td>
-									<td v-if="ca.cdisinsure==0">否</td>
-									<td v-else>是</td>
-									<td>{{ca.fname}}</td>
-									<td>{{ca.cdnextmileage}}</td>
-									<td>{{ca.cdnextkeepdate}}</td>
-								</tr>
-							</tbody>
-						</table>
-						<table id="thehistoryvisitor" class="table table-bordered" style="width: 1000px; display: none;">
-							<thead>
-								<tr>
->>>>>>> refs/remotes/origin/pengyumei
-									<td> </td>
-<<<<<<< HEAD
 									<td>{{ca.cdlicense}}</td>
 									<td>{{ca.cbnam}}</td>
 									<td>{{ca.moiname}}</td>
@@ -286,7 +202,13 @@
 									<td>{{ca.fname}}</td>
 									<td>{{ca.cdnextmileage}}</td>
 									<td>{{ca.cdnextkeepdate}}</td>
-=======
+								</tr>
+							</tbody>
+						</table>
+						<table id="thehistoryvisitor" class="table table-bordered" style="width: 1000px; display: none;">
+							<thead>
+								<tr>
+									<td> </td>
 									<td v-for="v in visitor">{{v}}</td>
 								</tr>
 							</thead>
@@ -323,14 +245,13 @@
 									<td>{{b.comtime}}</td>
 									<td>{{b.atime}}</td>
 									<td>{{b.total}}</td>
->>>>>>> refs/remotes/origin/pengyumei
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 8px;background-color: gainsboro;">
-					合计：<span>2</span>条记录
+					合计：<span id="total">2</span>条记录
 				</div>
 			</div>
 			<div id="addcusandcar">
@@ -421,34 +342,21 @@
 					</div>
 					<div style="width: 960px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p style="padding-top: 10px;" class="ddd">
-<<<<<<< HEAD
-							<label><span style="color: red;">*</span>客户编码</label><input type="test" v-model="cus.cno" />
-=======
 							<label><span style="color: red;">*</span>客户编码</label><input type="test" readonly="readonly" v-model="cus.cno" />
->>>>>>> refs/remotes/origin/pengyumei
 							<label><span style="color: red;">*</span>客户名称</label><input type="test" v-model="cus.cname" />
 							<label><span style="color: red;">*</span>联系人</label><input type="test" v-model="cus.cpeople" />
 							<label><span style="color: red;">*</span>手机号码</label><input type="test" v-model="cus.cphone" />
 						</p>
 						<p>
 							<label>客户地址</label><input style="width: 300px;" type="text" v-model="cus.caddress" />
-<<<<<<< HEAD
-							<label>客户生日</label><input type="datetime"  v-model="cus.cbirthday" />
-=======
 							<label>客户生日</label><input type="date"  v-model="cus.cbirthday" />
 							<label><span style="color: red;">*</span>客户类别</label><select v-model="cus.ctno"><option v-for="c in custype" :value="c.ctno">{{c.ctname}}</option></select>
->>>>>>> refs/remotes/origin/pengyumei
 						</p>
 						<p>
 							<label>账期(天)</label><input type="text" v-model="cus.cperiod" />
 							<label>挂账额度</label><input type="text" v-model="cus.climit" />
-<<<<<<< HEAD
-							<label>专属顾问</label><input type="text" v-model="cus.pno" /><span style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
-							<label>顾问电话</label><input type="text" v-model="cus.pphone"/>
-=======
 							<label :pno="cus.pno"><span style="color: red;">*</span>专属顾问</label><input type="text" v-model="cus.pname" readonly="readonly" /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
 							<label>顾问电话</label><input readonly="readonly" type="text" v-model="cus.pphone"/>
->>>>>>> refs/remotes/origin/pengyumei
 						</p>
 						<p>
 							<label>省</label><input type="text" v-model="cus.province" />
@@ -571,39 +479,6 @@
 					<div style="width: 560px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-<<<<<<< HEAD
-						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
-					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
-						<select style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
-							<option v-for="m1 in mechanismis1" value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
-						</select>
-						<select style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
-							<option value="00">所有</option>
-							<option v-for="mn1 in mechanismnot1" value="mn1.mid">{{mn1.mid}}--{{mn1.mname}}</option>
-						</select>
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
-							<thead>
-								<tr>
-									<td></td>
-									<td>部门</td>
-									<td>工号</td>
-									<td>姓名</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>   </td>
-									<td>id</td>
-									<td>编号</td>
-									<td><input type="checkbox" /></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-=======
 						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
 					</div>
 					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
@@ -624,7 +499,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="s in staffs">
-									<td><input @click="peop($event)" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
+									<td><input @click="peop($event)" name="ss" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
 									<td>{{s.mname}}</td>
 									<td>{{s.pno}}</td>
 									<td>{{s.pname}}</td>
@@ -679,7 +554,6 @@
 				</div>
 			</div>
 			
->>>>>>> refs/remotes/origin/pengyumei
 		</div>
 
 			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -688,33 +562,6 @@
 			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
-<<<<<<< HEAD
-				//查询客户
-				function query(cname){
-					$.ajax({
-							url:data.ip+"cus/queryCusAll",
-							data:{cname:cname},
-							type:"post",
-							dataType:"json",
-							success:function(result){
-								vm.customers=result;
-								car(vm.customers[0].cno);
-							},error:function(result){
-								alert("发生错误"+result);
-							}
-						});
-				}
-				//查询车辆
-				function car(cno){
-					$.ajax({
-							url:data.ip+"cus/queryCarBycno",
-							data:{cno:cno},
-							type:"post",
-							dataType:"json",
-							success:function(data){
-								vm.cars=data;
-=======
-				
 				function queryBill(cno){
 					//根据客户编号查询历史单据
 					$.ajax({
@@ -798,6 +645,7 @@
 							dataType:"json",
 							success:function(result){
 								vm.customers=result;
+								$("#total").text(result.length);
 							},error:function(result){
 								alert("发生错误"+result);
 							}
@@ -821,7 +669,7 @@
 					//查询职工
 						$.ajax({
 							url:data.ip+"cus/queryPeopleByMid",
-							data:{mid:mid},
+							data:{pno:"",mid:mid},
 							type:"post",
 							dataType:"json",
 							success:function(data){
@@ -841,7 +689,6 @@
 							dataType:"json",
 							success:function(data){
 								vm.mechanismnot1=data;
->>>>>>> refs/remotes/origin/pengyumei
 							},error:function(data){
 								alert("发生错误");
 							}
@@ -851,14 +698,6 @@
 					el:"#ctx",
 					data(){
 						return {
-<<<<<<< HEAD
-							customers:[],
-							cars:[],
-							insu:[],
-							cus:{},
-							mechanismis1:[],
-							mechanismnot1:[]
-=======
 							customers:[],//所有客户集合
 							cars:[],//所有车辆集合
 							insu:[],//保险公司集合
@@ -880,52 +719,10 @@
 							historypayhead:["单据类型","销售单号","车牌号","维修业务","进厂时间","完工时间","结算时间","消费金额"],
 							visitor:["回访时间","客户编码","客户名称","地址","车牌号","联系电话","回放效果","服务顾问","详细说明","开单人"],
 							bills:[],//历史单据
->>>>>>> refs/remotes/origin/pengyumei
+							kk:"0",
 						}
 					},
 					methods:{
-<<<<<<< HEAD
-						addcustomer:function(){
-							$(".ddd input").each(function(){
-								if($(this).val()==""){
-									alert("请填写完整重要信息");
-									return;
-								}
-								$.ajax({
-									url:data.ip+"cus/addCus",
-									data:vm.cus,
-									type:"post",
-									dataType:"json",
-									success:function(result){
-										if(result=="1"){
-											alert("添加成功");
-											$(".ddd input").each(function(){
-												$(this).val("");
-											});
-										}
-									},error:function(result){
-										alert("发生错误");
-									}
-								});
-							});
-						},
-						chose:function(e){
-							//复选框
-							let checkeds = e.target.checked;
-							if(checkeds){
-								let cno = $(e.target).attr("id");
-								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
-								car(cno);
-							}else{
-								$(e.target).parent().parent().css("background-color","white");
-							}
-						},
-						check:function(){
-							//查询按钮
-							let content = $("[name=checklike]").val();
-							alert(content);
-							query(content);
-=======
 						cardata:function(e){
 							$("#thecar").show();
 							$("#thehistorypay").hide()
@@ -1233,11 +1030,14 @@
 							let checkeds = e.target.checked;
 							if(checkeds){
 								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
-								vm.ctype=c;
+								if(vm.kk=="1"){
+									vm.ctype=c;
+									console.log(vm.ctype);
+								}
 							}else{
 								$(e.target).parent().parent().css("background-color","#D6D6CE");
 							}
-							console.log(vm.ctype);
+							
 						},
 						changepeople:function(e){
 							//切换部门
@@ -1348,7 +1148,6 @@
 							vm.cars=[];
 							vm.bills=[];
 							
->>>>>>> refs/remotes/origin/pengyumei
 						},
 						addcusandcar:function(){
 							$("#addcusandcar").show();
@@ -1367,7 +1166,7 @@
 						},
 						mmm:function(){
 							$("#custype").show();
-							
+							vm.kk="1";
 							
 						},
 						checkstaff:function(){
@@ -1396,10 +1195,7 @@
 					created:function(){
 						//查询客户
 						query("");
-<<<<<<< HEAD
-=======
 						
->>>>>>> refs/remotes/origin/pengyumei
 						//查询保险公司
 						$.ajax({
 							url:data.ip+"cus/queryInsurance",
@@ -1424,22 +1220,6 @@
 								alert("发生错误");
 							}
 						});
-<<<<<<< HEAD
-						//查询组织机构父级id不为1和0
-						$.ajax({
-							url:data.ip+"cus/queryParentidnot1",
-							data:{},
-							type:"post",
-							dataType:"json",
-							success:function(data){
-								vm.mechanismnot1=data;
-							},error:function(data){
-								alert("发生错误");
-							}
-						});
-						
-						
-=======
 						//查询价格类型
 						$.ajax({
 							url:data.ip+"cus/queryPriceType",
@@ -1502,13 +1282,13 @@
 								alert("发生错误");
 							}
 						});
+							
 						me(2);
 						staff(3);
->>>>>>> refs/remotes/origin/pengyumei
 					}
 						
 				});
-				
+				//结尾
 		</script>
 	</body>
 

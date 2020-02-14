@@ -41,20 +41,26 @@
   </resultMap>
   
   <select id="queryBillBycno" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
+WHERE cd.cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
   </select>
   
   <select id="queryBillBycdlicense" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
 WHERE cdlicense = #{cdlicense}
   </select>
   

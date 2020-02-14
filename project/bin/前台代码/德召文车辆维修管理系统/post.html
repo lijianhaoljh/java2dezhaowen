@@ -4,9 +4,6 @@
 		<meta charset="UTF-8">
 		<title>岗位定义</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/post.css"/>
 	</head>
 	<body>
@@ -26,20 +23,20 @@
 				<div class="row">
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border-top: 1px solid #E9E9E9;">
 						<ul>
-							<li><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
-							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
-							<li><span class="glyphicon glyphicon-sunglasses"></span>保存</li>
+							<li @click="add"><span class="glyphicon glyphicon-plus-sign"></span>增加</li>
+							<li @click="dele"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="jobOK"><span class="glyphicon glyphicon-sunglasses"></span>保存</li>
 							<li><span class="glyphicon glyphicon-export"></span>导出</li>
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;">
 						<ul>
-							<li>岗位编码：<input type="text" /></li>
-							<li>岗位名称：<input type="text" /></li>
+							<li>岗位编码：<input readonly="readonly" type="text" v-model="job.jid" /></li>
+							<li>岗位名称：<input name="name" type="text" v-model="job.jname" /></li>
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" >
-						<table class="table table-bordered" style="width: 300px;">
+						<table class="table table-hover" style="width: 300px;">
 						  <thead>
 						  	<tr>
 						  		<td>    </td>
@@ -48,10 +45,10 @@
 						  	</tr>
 						  </thead>
 						  <tbody>
-						  	<tr>
-						  		<td>   </td>
-						  		<td>1</td>
-						  		<td>1</td>
+						  	<tr v-for="j in jobs" @click="choseJob($event,j)">
+						  		<td>  </td>
+						  		<td>{{j.jid}}</td>
+						  		<td>{{j.jname}}</td>
 						  	</tr>
 						  </tbody>
 						</table>
@@ -59,7 +56,7 @@
 					
 				</div>
 				<div class="row" style="font-size: 17px;position:absolute;box-sizing: border-box;padding-left: 20px;padding-top: 15px; width: 1533px; background-color: ghostwhite;">
-					合计：<span>12</span>条记录
+					合计：<span id="total">12</span>条记录
 				</div>
 			</div>
 		</div>
@@ -67,8 +64,117 @@
 		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			
+			//查询所有岗位
+			function queryAllJob(){
+				$.ajax({
+						type:"get",
+						url:data.ip+"staff/queryAllJob",
+						data:{},
+						dateType:"json",
+						success:function(response){
+							vm.jobs= response;
+							$("#total").text(response.length);
+						},error:function(response){
+							alert("发生错误"+response);
+						}
+					});	
+			}
+			var vm = new Vue({
+				el:"#ctx",
+				data(){
+					return {
+						jobs:[],//所有岗位
+						job:{jid:""},//选中的岗位
+						kk:"0",
+					}
+				},
+				methods:{
+					choseJob:function(e,item){
+						vm.job=item;
+						vm.kk="0";
+					},
+					add:function(){
+						queryAllJob();
+						vm.job={jid:""};
+						let id = vm.jobs[vm.jobs.length-1].jid;
+						vm.job.jid = id+1;
+						vm.kk="1";
+					},
+					dele:function(){
+						if(vm.job.jname==undefined){
+							alert("请选中删除对象");
+							return;
+						}
+						console.log(vm.job.jid)
+						let jid = vm.job.jid;
+						if(confirm("是否确定删除")){
+							$.ajax({
+									type:"post",
+									url:data.ip+"post/deleJob",
+									data:{jid:jid},
+									dateType:"json",
+									success:function(response){
+										if(response=="1"){
+											alert("删除成功");
+											queryAllJob();
+											vm.job={jid:""};
+										}
+									},error:function(response){
+										alert("发生错误"+response);
+									}
+								});	
+						}
+					},
+					jobOK:function(){
+						var a = 0;
+						if($("input[name=name]").val()==""){
+							a = a+1;
+							alert("请填写完整信息");
+							return;
+						}
+						if(a==0){
+							if(vm.kk=="1"){
+								$.ajax({
+									type:"post",
+									url:data.ip+"post/addJob",
+									data:JSON.stringify(vm.job),
+									dateType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(response){
+										if(response=="1"){
+											alert("添加成功");
+											queryAllJob();
+										}
+									},error:function(response){
+										alert("发生错误"+response);
+									}
+								});	
+							}else if(vm.kk=="0"){
+								$.ajax({
+									type:"put",
+									url:data.ip+"post",
+									data:JSON.stringify(vm.job),
+									dateType:"json",
+									contentType:"application/json;charset=utf-8",
+									success:function(response){
+										if(response=="1"){
+											alert("修改成功");
+											queryAllJob();
+										}
+									},error:function(response){
+										alert("发生错误"+response);
+									}
+								});	
+							}
+						}
+					}
+				},
+				created:function(){
+					queryAllJob();
+				}
+			});
 		</script>
 	</body>
 </html>

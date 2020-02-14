@@ -121,5 +121,13 @@ public class StaffService {
 		public List<People> queryunion(String pno){
 			return pmapper.queryunion(pno);
 		}
+		//更改员工角色
+		public int updatePeoRole(Staff staff) {
+			People peo = staff.getPeople();
+			peo.setRid(staff.getRid());
+			int a = pmapper.updateByPrimaryKey(peo);
+			int c = stamapper.updateByPrimaryKey(staff);
+			return c;
+		}
 	
 }

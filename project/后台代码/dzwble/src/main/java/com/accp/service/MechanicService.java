@@ -136,7 +136,9 @@ public class MechanicService {
 			People peo = mechanic.getPeople();
 			int a = pmapper.updateByPrimaryKey(peo);
 			if(a>0) {
-				return mmapper.updateByExampleSelective(mechanic, null);
+				MechanicExample ex = new MechanicExample();
+				ex.createCriteria().andPnoEqualTo(mechanic.getPno());
+				return mmapper.updateByExample(mechanic, ex);
 			}else {
 				return 0;
 			}

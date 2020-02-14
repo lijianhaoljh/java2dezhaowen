@@ -61,6 +61,8 @@
     <result column="parentid" property="parentid" jdbcType="INTEGER" />
     
     <result column="jname" property="jname" jdbcType="VARCHAR" />
+    
+    <result column="rname" property="rname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -129,11 +131,41 @@
   </sql>
   
   <select id="queryPeopleByMid" resultMap="BaseResultMap">
-	  	SELECT me.parentid parentid,me.mid,me.mname mname,peo.*,job.jname jname,sta.*  FROM staff AS sta
-	LEFT JOIN people AS peo ON sta.pno=peo.pno
-	LEFT JOIN mechanism AS me ON sta.mid=me.mid
-	LEFT JOIN job AS job ON sta.jid=job.jid
-	WHERE me.mid=#{mid}
+	  	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
+	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND st.mid=#{mid} AND peo.dimission =0
+	ORDER BY st.pno
+  </select>
+  
+  <select id="queryBypno" resultMap="BaseResultMap">
+  	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
+	WHERE peo.pno=#{pno}
+  </select>
+  
+   <select id="queryPeople" resultMap="BaseResultMap">
+	  	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
+	ORDER BY st.pno
+  </select>
+  
+   <select id="queryPeopleByParentid" resultMap="BaseResultMap">
+	  	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
+	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND mech.parentid=#{parentid} AND peo.dimission =0
+	ORDER BY st.pno
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.StaffExample" >

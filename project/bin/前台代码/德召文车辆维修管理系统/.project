@@ -18,6 +18,12 @@
 		<filter>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'pengyumei' of https://github.com/lijianhaoljh/java2dezhaowen.git
+=======
+>>>>>>> refs/remotes/origin/master
 			<id>1580718639507</id>
 			<name></name>
 			<type>26</type>
@@ -28,11 +34,13 @@
 		</filter>
 		<filter>
 			<id>1580731330550</id>
-=======
 			<id>1580729242916</id>
->>>>>>> branch 'master' of https://github.com/lijianhaoljh/java2dezhaowen.git
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/lijianhaoljh/java2dezhaowen.git
 =======
+=======
+>>>>>>> refs/remotes/origin/master
 			<id>1580730567328</id>
 			<name></name>
 			<type>26</type>
@@ -43,9 +51,6 @@
 		</filter>
 		<filter>
 			<id>1580821494539</id>
->>>>>>> refs/remotes/origin/zhongpenggen
-=======
->>>>>>> refs/remotes/origin/pengyumei
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -54,7 +59,39 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1581082717863</id>
+			<id>1581135796785</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-node_modules</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1581147091674</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-node_modules</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1581180138307</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-node_modules</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1581227949883</id>
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'pengyumei' of https://github.com/lijianhaoljh/java2dezhaowen.git
+=======
+>>>>>>> refs/remotes/origin/master
 			<name></name>
 			<type>26</type>
 			<matcher>

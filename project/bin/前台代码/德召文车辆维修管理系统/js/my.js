@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //全局参数定义
 var data = {
 	ip:"http://localhost:8080/",
@@ -24,27 +23,29 @@ function loadPerms(){
 		}
 	});
 }
-//loadPerms();
 
-function openIFM(item){
-	var flag = $(".my-tab>li>a[href='#"+item.ename+"']");
+loadPerms();
+
+function openIFM(it){
+	if(it==0){
+		$(".my-tab>li").removeClass("active");
+		$(".tab-content>div").removeClass("active");
+		$("[href='#index']").parent().addClass("active");
+		$("#index").addClass("active");
+		return;
+	}
+	var flag = $(".my-tab>li>a[href='#"+it.cename+"']");
 	$(".my-tab>li").removeClass("active");
 	$(".tab-content>div").removeClass("active");
 	if(flag[0]) {
 		flag.parent().addClass("active");
-		$(".tab-content>div#"+item.ename).addClass("active");
+		$(".tab-content>div#"+it.cename).addClass("active");
 		return;
 	};
-	let nav_li = `<li class="active"><a href="#${item.ename}" data-toggle="tab">${item.name}</a></li>`;
-	let tab_div = `<div id="${item.ename}" class="active tab-pane">
-					<iframe src="./html/${item.path}"></iframe>
-				</div>`;
+	let nav_li = `<li class="active"><a href="#${it.cename}" data-toggle="tab">${it.name}</a></li>`;
+	let tab_div = `<div id="${it.cename}" style="height: 100%;" class="active tab-pane">
+				   <iframe src="${it.path}"></iframe>
+				   </div>`;
 	$(".my-tab").append(nav_li);
 	$(".tab-content").append(tab_div);
-=======
-
-
-var data = {
-	ip:"http://localhost:8080/"
->>>>>>> refs/remotes/origin/pengyumei
 }
