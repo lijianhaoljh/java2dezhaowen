@@ -2,6 +2,10 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Bills {
     private String bid;
 
@@ -29,8 +33,12 @@ public class Bills {
 
     private String reworkreason;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date expectedtime;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date completiontime;
 
     private Float penaltyamount;
@@ -39,8 +47,12 @@ public class Bills {
 
     private String pickcar;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date ordertime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date clearingtime;
 
     private Float forecastmoney;
@@ -65,8 +77,62 @@ public class Bills {
     private String total;
     private String mname;
     
+    private String cname;
+    private String cphone;
+    private String vno;
+    private String pname;
+    private String pnames;
+    private String btname;
+    
+    public String getBtname() {
+		return btname;
+	}
 
-    public String getMbname() {
+	public void setBtname(String btname) {
+		this.btname = btname;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getCphone() {
+		return cphone;
+	}
+
+	public void setCphone(String cphone) {
+		this.cphone = cphone;
+	}
+
+	public String getVno() {
+		return vno;
+	}
+
+	public void setVno(String vno) {
+		this.vno = vno;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getPnames() {
+		return pnames;
+	}
+
+	public void setPnames(String pnames) {
+		this.pnames = pnames;
+	}
+
+	public String getMbname() {
 		return mbname;
 	}
 
