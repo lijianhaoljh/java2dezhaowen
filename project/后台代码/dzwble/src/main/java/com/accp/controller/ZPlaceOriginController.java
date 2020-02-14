@@ -90,8 +90,8 @@ public class ZPlaceOriginController {
 		}
 		
 		@PutMapping(value = "updatwo")
-		public int updatwo(@RequestBody Linkman maun) {
-			return zm.updatwo(maun);
+		public int updatwo(@RequestBody Linkman mdaun) {
+			return zm.updatwo(mdaun);
 		}
 		
 		@PostMapping(value = "deletes")
