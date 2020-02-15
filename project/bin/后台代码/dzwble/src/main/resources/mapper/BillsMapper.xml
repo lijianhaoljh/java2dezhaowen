@@ -41,45 +41,114 @@
   </resultMap>
   
   <select id="queryBillBycno" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
+WHERE cd.cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
   </select>
   
   <select id="queryBillBycdlicense" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
 WHERE cdlicense = #{cdlicense}
-<<<<<<< HEAD
-=======
   </select>
   
-  <sql id="Base_Column_List" >
-    bid, bstate, tid, cdlicense, pno, mid, person, delays_reason, quality, qualified, 
-    n_rework, p_amount, rid, remark1, remark2, remark3, remark4, remark5
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.BillsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from bills
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
->>>>>>> refs/remotes/origin/zhongpenggen
-  </select>
-  
+  <select id="findBills" resultMap="BaseResultMap">
+  SELECT b.bstate,bt.btname,c.cname,cd.cdlicense,c.cphone,v.vno,b.bid,mb.mbname,rb.rbname,b.ordertime,b.Expectedtime,b.Completiontime,
+a.atime,b.forecastmoney,p.pname,pp.pname pnames
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb
+ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb
+ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd
+ON b.cdlicense=cd.cdlicense
+LEFT JOIN people AS p
+ON b.pno=p.pno 
+LEFT JOIN `business_types` AS bt
+ON b.btid=bt.btid
+LEFT JOIN people AS pp
+ON b.pickcar=pp.pno 
+LEFT JOIN `customer` AS c
+ON cd.cno=c.cno
+LEFT JOIN `vip` AS v
+ON c.cno=v.cno
+LEFT JOIN account AS a
+ON b.bid=a.bid
+ORDER BY b.ordertime DESC
+</select>
+<select id="findByCdlicenseOne" resultMap="BaseResultMap">
+	SELECT b.`bid`,c.`cdlicense`,b.`Ordertime`,bt.`btname`,b.`Completiontime`,ct.`cname`,ct.`cphone`,a.`atime`,a.`total` FROM `cardata` AS c
+LEFT JOIN `bills` AS b
+ON c.`cdlicense`=b.`cdlicense`
+LEFT JOIN `business_types` AS bt
+ON b.`btid`=bt.`btid`
+LEFT JOIN customer AS ct
+ON c.`cno`=ct.`cno`
+LEFT JOIN account AS a
+ON b.`bid`=a.`bid`
+LEFT JOIN vip AS v
+ON ct.`cno`=v.`cno`
+WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+</select>
+<select id="findByCdlicenseTwo" resultMap="BaseResultMap">
+	SELECT b.`bid`,b.`Ordertime`,bt.`btname`,b.`Completiontime`,a.`atime`,si.sidno,si.sidname,pc.pcname,
+dm.remark1,dm.remark2,p.pname,dm.Faultdescription,dm.problem
+ FROM `cardata` AS c
+LEFT JOIN `bills` AS b
+ON c.`cdlicense`=b.`cdlicense`
+LEFT JOIN `business_types` AS bt
+ON b.`btid`=bt.`btid`
+LEFT JOIN `d_maintenance` AS dm
+ON b.`bid`=dm.bid
+LEFT JOIN `service_item` AS si
+ON dm.cno=si.sidno
+LEFT JOIN `price_class` AS  pc
+ON dm.pcid=pc.pcid
+LEFT JOIN team AS t
+ON dm.tid=t.tid
+LEFT JOIN account AS a
+ON b.`bid`=a.`bid`
+LEFT JOIN people AS p
+ON dm.pno=p.pno
+WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+</select> 
+<select id="findByCdlicenseThree" resultMap="BaseResultMap">
+	SELECT b.`bid`,b.`Ordertime`,bt.`btname`,b.`Completiontime`,a.`atime`,r.rtype,r.rtime,ps.pname,ci.cno,ci.cname,cu.cuname,bt.`btname`,
+r.Bpreferential,r.apreferential,r.bpreferentialM,r.servicepeo
+ FROM `cardata` AS c
+LEFT JOIN `bills` AS b
+ON c.`cdlicense`=b.`cdlicense`
+LEFT JOIN `business_types` AS bt
+ON b.`btid`=bt.`btid`
+LEFT JOIN `requisition` AS r
+ON b.bid=r.bid
+LEFT JOIN `commodity_info` AS ci
+ON r.cno=ci.cno
+LEFT JOIN `commodity_unit` AS cu
+ON ci.cuid=cu.cuid
+LEFT JOIN `price_class` AS pc
+ON r.pcid=pc.pcid
+LEFT JOIN people AS p
+ON r.servicepeo=p.pno
+LEFT JOIN `account` AS a
+ON b.`bid`=a.`bid`
+LEFT JOIN people AS ps
+ON r.pno=ps.pno
+WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+</select> 
+ 
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -591,5 +660,4 @@ WHERE cdlicense = #{cdlicense}
       remark5 = #{remark5,jdbcType=VARCHAR}
     where bid = #{bid,jdbcType=VARCHAR}
   </update>
- 
 </mapper>

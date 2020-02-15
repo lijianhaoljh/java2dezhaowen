@@ -25,6 +25,53 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="queryFind" resultMap="BaseResultMap">
+  		SELECT b.pmname AS zpmname,c.lpname AS zlpname,d.pname AS zpname,a.* FROM manufacturer AS a
+		LEFT JOIN payment_method  AS b
+		ON a.pmid=b.pmid
+		LEFT JOIN level_producers AS c
+		ON a.lpid=c.lpid
+		LEFT JOIN place_origin AS d
+		ON a.pid=d.pid
+  </select>
+  
+  
+  <select id="queryFindTwo" resultMap="BaseResultMap">
+  		SELECT b.pmname AS zpmname,c.lpname AS zlpname,d.pname AS zpname,a.* FROM manufacturer AS a
+		LEFT JOIN payment_method  AS b
+		ON a.pmid=b.pmid
+		LEFT JOIN level_producers AS c
+		ON a.lpid=c.lpid
+		LEFT JOIN place_origin AS d
+		ON a.pid=d.pid
+		WHERE a.pid=#{pid}
+  </select>
+  
+  
+  <select id="queryFindname" resultMap="BaseResultMap">
+  		SELECT b.pmname AS zpmname,c.lpname AS zlpname,d.pname AS zpname,a.* FROM manufacturer AS a
+		LEFT JOIN payment_method  AS b
+		ON a.pmid=b.pmid
+		LEFT JOIN level_producers AS c
+		ON a.lpid=c.lpid
+		LEFT JOIN place_origin AS d
+		ON a.pid=d.pid
+		WHERE a.`mfid`= #{name}  OR a.`mfname` LIKE  CONCAT ('%',#{name},'%') or
+		a.mftellphone = #{name}
+  </select>
+  
+   <select id="queryFindmfid" resultMap="BaseResultMap">
+  		SELECT b.linkno AS zlinkno,b.mfid AS zmfid,b.linkname AS zlinkname,
+		b.phone AS zphone,b.linkphone AS zlinkphone,b.linkemail AS zlinkemail,
+		b.position AS zposition ,a.* FROM manufacturer AS a
+		LEFT JOIN linkman AS b
+		ON a.mfid=b.mfid
+		WHERE a.mfid=#{mfid}
+  </select>
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

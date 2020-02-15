@@ -10,7 +10,6 @@ public class Carkeep {
     private Integer ckid;
 
     private String cdlicense;
-
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")

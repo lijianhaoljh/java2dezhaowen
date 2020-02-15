@@ -23,6 +23,7 @@
 				 	</div>
 			 	</div>
 			 	<div class="row" id="button_1" style="padding: 20px;">
+			 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">调价</button>
 				 		<button type="button" class="btn btn-default">导入</button>
 				 		<button type="button" class="btn btn-default" @click="deleteid">删除</button>
 				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">修改</button>
@@ -109,7 +110,30 @@
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-				 
+			
+			
+			 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content" style="width:800px; height:700;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">品牌定义</h4>
+				      </div>
+				      <div class="modal-body" id="inputx">
+				      	<button @click="updaproce">保存</button>
+				      	<br />
+				         	<select v-model="jg">
+				         		 <option v-for="item10 in pricequery" :value="item10">{{item10.ptname}}</option>
+				         	</select>
+				           	 = 标准价*
+				           	<input type="text"  v-model="jg.ptprice"/>
+				      </div>
+				      <div class="modal-footer">
+				       		
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 				 			 	
 			</div>
 			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
@@ -196,7 +220,9 @@
 							queryac:[],
 							mainquery:[],
 							sitem:{},
-							isok:false
+							isok:false,
+							pricequery:[],
+							jg:{},
 						}
 					},
 					created:function() { 
@@ -204,14 +230,15 @@
 						this.Querytwo();
 						this.Queryac();
 						this.Mainquery();
+						this.Pricequery();
 					},
 					methods: {
 						Price(){
-							vm.sitem.memberprice=vm.sitem.standardprice*0.8;
-							vm.sitem.vipprice=vm.sitem.standardprice*0.8;
-							vm.sitem.agreementprice=vm.sitem.standardprice*0.9;
-							vm.sitem.insuranceprice=vm.sitem.standardprice*0.9;
-							vm.sitem.claimprice=vm.sitem.standardprice*0.9;
+							vm.sitem.memberprice=vm.sitem.standardprice*vm.pricequery[0].ptprice;
+							vm.sitem.vipprice=vm.sitem.standardprice*vm.pricequery[1].ptprice;
+							vm.sitem.agreementprice=vm.sitem.standardprice*vm.pricequery[2].ptprice;
+							vm.sitem.insuranceprice=vm.sitem.standardprice*vm.pricequery[3].ptprice;
+							vm.sitem.claimprice=vm.sitem.standardprice*vm.pricequery[4].ptprice;
 						},
 						Querytwo:function(){
 							$.ajax({
@@ -380,6 +407,48 @@
 									}
 								})
 							}	
+						},
+						
+						/**
+						 * j价格
+						 */
+						Pricequery:function(){
+						$.ajax({
+								url: "http://localhost:8080/ServiceItemRest/pricequery",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.pricequery=result;
+									vm.jg=result[0];
+									console.log(vm.jg)
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						
+						/**
+						 * 调价
+						 */
+						updaproce:function(){
+							$.ajax({
+									url:"http://localhost:8080/ServiceItemRest/updaproce",
+									data:JSON.stringify(vm.jg),						
+									type:"put",
+									xhrFields: {
+											withCredentials: true
+										},
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										alert("修改成功")
+										vm.Querytwo();
+									},error:function(result){
+										console.log(result+"upda")
+									}
+								})	
 						},
 					}
 				});

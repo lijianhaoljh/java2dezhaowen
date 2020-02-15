@@ -6,6 +6,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BillsMapper {
+	//查询维修历史
+	List<Bills> findByCdlicenseOne(String cdlicense);
+	//查训维修项目
+	List<Bills> findByCdlicenseTwo(String cdlicense);
+	//查询领料情况
+	List<Bills> findByCdlicenseThree(String cdlicense);
+	
 	List<Bills> findBills();
 	
     int countByExample(BillsExample example);
