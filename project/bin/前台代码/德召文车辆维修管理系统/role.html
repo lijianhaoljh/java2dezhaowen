@@ -185,6 +185,7 @@
 							success:function(response){
 								vm.findRole=response;
 								var dialog=$("#updateModal");
+<<<<<<< HEAD
 								dialog.modal("show");
 							},error:function(error){
 								console.log(error);
@@ -194,6 +195,19 @@
 						f(this.condition);
 					},opAddModal(){
 						var dialog=$("#insertModal");
+=======
+								dialog.appendTo(fatherBody);
+								dialog.modal("show");
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findRoleMe(){
+						f(this.condition);
+					},opAddModal(){
+						var dialog=$("#insertModal");
+						dialog.appendTo(fatherBody);
+>>>>>>> refs/remotes/origin/zhongpenggen
 						dialog.modal("show");
 					},closeThis(){
 						

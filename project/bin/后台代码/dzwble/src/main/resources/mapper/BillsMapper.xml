@@ -56,6 +56,28 @@ LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
 LEFT JOIN account AS ac ON ac.bid = b.bid
 LEFT JOIN maintenance AS mt ON mt.mid=b.mid
 WHERE cdlicense = #{cdlicense}
+<<<<<<< HEAD
+=======
+  </select>
+  
+  <sql id="Base_Column_List" >
+    bid, bstate, tid, cdlicense, pno, mid, person, delays_reason, quality, qualified, 
+    n_rework, p_amount, rid, remark1, remark2, remark3, remark4, remark5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.BillsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bills
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+>>>>>>> refs/remotes/origin/zhongpenggen
   </select>
   
   <sql id="Example_Where_Clause">
