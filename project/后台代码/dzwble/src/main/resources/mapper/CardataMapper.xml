@@ -117,7 +117,7 @@
 	LEFT JOIN maintenance AS mainte ON mainte.mid=moto.mid
 	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
-	WHERE card.cno=#{cno}
+	WHERE card.cno=#{cno} AND card.moid=moto.moid
   </select>
   
   <select id="querylicensewillexpire" resultMap="BaseResultMap">
