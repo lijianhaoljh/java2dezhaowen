@@ -19,6 +19,10 @@ public interface CustomerMapper {
     List<Customer> selectByExample(CustomerExample example);
 
     List<Customer> querytodaybirthcus();
+
+    List<Customer> querymisscus();
+
+    List<Customer> queryvipwillnone();
     
     List<Customer> queryCusAll(@Param("cn") String cname);
 

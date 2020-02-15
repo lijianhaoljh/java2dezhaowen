@@ -36,21 +36,38 @@ public class ExportController {
 		Workbook wb = new XSSFWorkbook();//构建新的excel
 		Sheet sheet = wb.createSheet("导出数据");//创建页签
 		
+		Row titleRow = sheet.createRow(0);
+		titleRow.createCell(0).setCellValue("部门编号");
+		titleRow.createCell(1).setCellValue("部门名称");
+		titleRow.createCell(2).setCellValue("员工编号");
+		titleRow.createCell(3).setCellValue("员工姓名");
+		titleRow.createCell(4).setCellValue("员工性别");
+		titleRow.createCell(5).setCellValue("岗位名称");
+		titleRow.createCell(6).setCellValue("专业名称");
+		titleRow.createCell(7).setCellValue("专业资格");
+		titleRow.createCell(8).setCellValue("身份证号");
+		titleRow.createCell(9).setCellValue("户口地址");
+		titleRow.createCell(10).setCellValue("邮箱");
+		titleRow.createCell(11).setCellValue("现住地址");
+		titleRow.createCell(12).setCellValue("手机");
+		titleRow.createCell(13).setCellValue("电话");
+		titleRow.createCell(14).setCellValue("邮编");
+		
 		for(int i = 0; i < list.size(); i++) {
-			Row row = sheet.createRow(i);//创建行
+			Row row = sheet.createRow(i+1);//创建行
 			 Cell mid1 = row.createCell(0);
 			 Cell mname = row.createCell(1); 
 			 Cell pno  = row.createCell(2);
 			 Cell pname = row.createCell(3);
 			 Cell psex = row.createCell(4);
 			 Cell jname = row.createCell(5);
-			 Cell shealth = row.createCell(6);
-			 Cell sheight = row.createCell(7);
-			 Cell splace = row.createCell(8);
-			 Cell snation = row.createCell(9);
-			 Cell smarry = row.createCell(10);
-			 Cell seducation = row.createCell(11);
-			 Cell sschool = row.createCell(12);
+//			 Cell shealth = row.createCell(6);
+//			 Cell sheight = row.createCell(7);
+//			 Cell splace = row.createCell(8);
+//			 Cell snation = row.createCell(9);
+//			 Cell smarry = row.createCell(10);
+//			 Cell seducation = row.createCell(11);
+//			 Cell sschool = row.createCell(12);
 			 Cell smajor = row.createCell(13);
 			 Cell smajorlevel = row.createCell(14);
 			 Cell pidcard = row.createCell(15);
@@ -60,13 +77,13 @@ public class ExportController {
 			 Cell pphone = row.createCell(19);
 			 Cell ptellphone = row.createCell(20);
 			 Cell pemails = row.createCell(21);
-			 Cell speople = row.createCell(22);
-			 Cell speoplephone = row.createCell(23);
-			 Cell sinterniship = row.createCell(24);
-			 Cell sindate = row.createCell(25);
-			 Cell sbirthday = row.createCell(26);
-			 Cell sstarttime = row.createCell(27);
-			 Cell sendtime = row.createCell(28);
+//			 Cell speople = row.createCell(22);
+//			 Cell speoplephone = row.createCell(23);
+//			 Cell sinterniship = row.createCell(24);
+//			 Cell sindate = row.createCell(25);
+//			 Cell sbirthday = row.createCell(26);
+//			 Cell sstarttime = row.createCell(27);
+//			 Cell sendtime = row.createCell(28);
 			 
 			  mid1.setCellValue(list.get(i).getMid());
 			  mname.setCellValue(list.get(i).getMname());

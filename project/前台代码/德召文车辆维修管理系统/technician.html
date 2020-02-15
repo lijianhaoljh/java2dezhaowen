@@ -175,13 +175,13 @@
 			
 			<div id="mmm">
 				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">部门定义</p>
-				<div style="width: 480px;height: 250px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 460px;height: 50px;margin-left: 10px;">
+				<div style="width: 530px;height: 250px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 510px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">部门定义</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;"></div>
 						<button @click="addmOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
 					</div>
-					<div style="width: 460px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;padding-top: 20px;">
+					<div style="width: 510px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;padding-top: 20px;">
 						
 						<p class="ddd">
 							<label style="width: 150px;">班组编码</label><input readonly="readonly"  type="text" v-model="banzu.tid" />
@@ -192,6 +192,9 @@
 						</p>
 						<p class="ddd">
 							<label style="width: 150px;">班组权重</label><input v-model="banzu.tpower" type="text" />
+						</p>
+						<p class="ddd">
+							<label style="width: 150px;">加工费:</label><input placeholder="按小时计算" v-model="banzu.remark1" type="text" />
 						</p>
 					</div>
 				</div>
@@ -761,8 +764,8 @@
 											if(result=="1"){
 												alert("修改成功");
 												queryMechanicBytid("",vm.chose.tid);
-												vm.mechanic={tid:"",mcisgroup:0,pno:"",people:{pno:""}};
-												queryAllStaff();
+												//vm.mechanic={tid:"",mcisgroup:0,pno:"",people:{pno:""}};
+												
 											}
 										},error:function(result){
 											alert("发生错误");

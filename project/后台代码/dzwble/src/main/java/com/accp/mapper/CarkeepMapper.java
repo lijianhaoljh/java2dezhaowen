@@ -18,6 +18,8 @@ public interface CarkeepMapper {
 
     List<Carkeep> selectByExample(CarkeepExample example);
 
+    List<Carkeep> querykeepcar();
+
     Carkeep selectByPrimaryKey(Integer ckid);
 
     int updateByExampleSelective(@Param("record") Carkeep record, @Param("example") CarkeepExample example);

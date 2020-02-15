@@ -18,6 +18,14 @@ public interface CardataMapper {
 
     List<Cardata> selectByExample(CardataExample example);
 
+    List<Cardata> querylicensewillexpire();
+
+    List<Cardata> queryinsurexpirecar();
+
+    List<Cardata> querycheckcar();
+
+    List<Cardata> querytodatbirthdriver();
+
     List<Cardata> queryCarBycno(String cno);
 
     List<Cardata> queryCars(String cddriver);
