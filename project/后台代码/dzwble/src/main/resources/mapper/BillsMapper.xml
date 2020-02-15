@@ -61,7 +61,7 @@ LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
 LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
 LEFT JOIN `customer` AS c ON cd.cno=c.cno
 LEFT JOIN  account AS a ON b.bid=a.bid
-WHERE cdlicense = #{cdlicense}
+WHERE b.cdlicense = #{cdlicense}
   </select>
   
   <sql id="Example_Where_Clause">

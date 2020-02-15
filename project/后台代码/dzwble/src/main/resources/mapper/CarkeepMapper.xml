@@ -8,6 +8,9 @@
     <result column="planmillage" jdbcType="INTEGER" property="planmillage" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="ckname" jdbcType="VARCHAR" property="ckname" />
+    
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="cphone" jdbcType="VARCHAR" property="cphone" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,6 +73,13 @@
   <sql id="Base_Column_List">
     ckid, cdlicense, plandate, planmillage, remark, ckname
   </sql>
+  
+  <select id="querykeepcar" resultMap="BaseResultMap">
+  	SELECT ck.*,cus.cname cname,cus.cphone cphone FROM carkeep AS ck
+LEFT JOIN cardata AS cd ON ck.cdlicense=cd.cdlicense
+LEFT JOIN customer AS cus ON cus.cno=cd.cno
+WHERE TIMESTAMPDIFF(DAY, ck.plandate ,NOW())BETWEEN 0 AND 3
+  </select>
   
   <select id="selectByExample" parameterType="com.accp.domain.CarkeepExample" resultMap="BaseResultMap">
     select
