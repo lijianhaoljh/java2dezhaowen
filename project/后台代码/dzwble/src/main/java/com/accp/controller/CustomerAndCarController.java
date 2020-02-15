@@ -74,6 +74,7 @@ public class CustomerAndCarController {
 	@ResponseBody
 	@RequestMapping("/queryParentideq1")
 	public List<Mechanism> queryParentideq1(){
+		
 		return ser.queryParentideq1();
 	}
 	//查询组织机构父级ID不为1和0的

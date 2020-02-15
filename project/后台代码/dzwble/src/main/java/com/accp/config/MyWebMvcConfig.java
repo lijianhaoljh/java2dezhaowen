@@ -32,7 +32,7 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	@Value("${fileupload-url}")
 	private String fileuploadUrl;
 	
-	@Value("${fileupload-urls}")
+	@Value("${fileupload-url}")
 	private String fileuploadUrls;
 
 	@Override
