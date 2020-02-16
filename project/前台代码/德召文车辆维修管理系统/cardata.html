@@ -289,7 +289,7 @@
 							<label>里程</label><input type="text" v-model="car.cdmileage" />
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>发动机品牌</label><select v-model="car.mid"><option v-for="m in maintenance" v-if="m.parentid==1" :value="m.mid">{{m.mid}}--{{m.mname}}</option></select>
+							<label><span style="color: red;">*</span>发动机品牌</label><select v-model="car.mid"><option v-for="m in maintenance" v-if="m.parentid==2" :value="m.mid">{{m.mid}}--{{m.mname}}</option></select>
 							<label>载重</label><input type="text" v-model="car.cdload" />
 							<label>购买日期</label><input type="date" v-model="car.cdbuydate" />
 						</p>

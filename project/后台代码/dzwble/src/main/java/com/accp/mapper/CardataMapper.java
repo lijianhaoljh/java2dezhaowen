@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CardataMapper {
+	//根据车牌查询车辆信息
+	List<Cardata> findCardata(String cdlicense);
+	
     int countByExample(CardataExample example);
 
     int deleteByExample(CardataExample example);

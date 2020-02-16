@@ -1,5 +1,8 @@
 package com.accp.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Team {
     private Integer tid;
 
@@ -20,8 +23,18 @@ public class Team {
     private String remark4;
 
     private String remark5;
+    
+    private List<Team> childrens=new ArrayList<Team>();
+    
+	public List<Team> getChildrens() {
+		return childrens;
+	}
 
-    public Integer getTid() {
+	public void setChildrens(List<Team> childrens) {
+		this.childrens = childrens;
+	}
+
+	public Integer getTid() {
         return tid;
     }
 

@@ -39,6 +39,30 @@
     <result column="fname" property="fname" jdbcType="VARCHAR" />
     <result column="cname" property="cname" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findCardata" resultMap="BaseResultMap">
+SELECT c.`cdlicense`,ct.`cname`,vl.`vlname`,ct.`caddress`,ct.`cphone`,c.`cddriver`,cb.`cbname`,mo.`moiname`,mt.`mname`,v.currentjifen,cp.`plandate`,
+ct.`remark3` AS r3,
+ct.`remark4` AS r4,ct.`remark5` AS r5
+ FROM `cardata` AS c
+LEFT JOIN `customer` AS ct
+ON c.cno=ct.`cno`
+LEFT JOIN vip AS v
+ON ct.`cno`=v.`cno`
+LEFT JOIN `viplevel` AS vl
+ON v.`vlid`=vl.`vlid` 
+LEFT JOIN `motorcycle` AS mo
+ON c.`moid`=mo.`moid`
+LEFT JOIN `carbrand` AS cb
+ON mo.`cbno`=cb.`cbno`
+LEFT JOIN `maintenance` AS mt
+ON c.`mid`=mt.`mid`
+LEFT JOIN `carkeep` AS cp
+ON c.`cdlicense`=cp.`cdlicense`
+WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+ORDER BY c.cdlicense DESC
+</select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
