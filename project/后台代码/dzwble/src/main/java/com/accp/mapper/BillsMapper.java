@@ -16,6 +16,12 @@ public interface BillsMapper {
 
     int insert(Bills record);
 
+    int queryincar();
+
+    int queryoutcar();
+
+    int querytodayCount();
+
     int insertSelective(Bills record);
     
     List<Bills> queryBillBycno(String cno);

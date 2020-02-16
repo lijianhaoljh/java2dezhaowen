@@ -16,8 +16,41 @@ public class Work {
     private Integer woutnight;
 
     private Date wdate;
+    
 
-    private String remark1;
+    private String tname;
+
+
+    private Integer tpower;
+
+    private String tremark;
+    
+
+    public String getTname() {
+		return tname;
+	}
+
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+
+	public Integer getTpower() {
+		return tpower;
+	}
+
+	public void setTpower(Integer tpower) {
+		this.tpower = tpower;
+	}
+
+	public String getTremark() {
+		return tremark;
+	}
+
+	public void setTremark(String tremark) {
+		this.tremark = tremark;
+	}
+
+	private String remark1;
 
     private String remark2;
 

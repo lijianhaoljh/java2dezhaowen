@@ -15,6 +15,7 @@ import com.accp.domain.Level;
 import com.accp.domain.Mechanic;
 import com.accp.domain.Sendcar;
 import com.accp.domain.Team;
+import com.accp.domain.Work;
 import com.accp.service.MechanicService;
 
 @RestController
@@ -198,6 +199,11 @@ public class MechanicController {
 	@PostMapping(value="/queryTeamson")
 	public List<Team> queryTeamson(Integer parentid) {
 		return ser.queryTeamson(parentid);
+	}
+	
+	@PostMapping(value="/queryTeamByParentid")
+	public List<Work> queryTeamByParentid(Integer parentid){
+		return ser.queryTeamByParentid(parentid);
 	}
 	
 }
