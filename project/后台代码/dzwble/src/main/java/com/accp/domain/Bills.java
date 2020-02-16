@@ -77,14 +77,158 @@ public class Bills {
     private String total;
     private String mname;
     
-    private String cname;
-    private String cphone;
-    private String vno;
-    private String pname;
-    private String pnames;
+    private String cname; //商品名称
+    private String cphone;//电话
+    private String vno;//会员编码
+    private String pname;//服务顾问
+    private String pnames;//
     private String btname;
-    
-    public String getBtname() {
+    private Integer sidno;  //项目编号
+    private String sidname; //项目名称
+    private String pcname; //价类
+    private Integer r1; //结算工时
+    private float r2; //工时金额
+    private String problem; //故障原因
+    private String faultdescription; //故障描述
+    private Integer rtype; //领料类别
+    private Date rtime; //领料日期
+    private Integer cno; //商品编号
+    private String cuname; //商品单位
+    private float bpreferential; //优惠前单价
+    private float apreferential; //优惠后单价
+    private float bpreferentialm; //优惠后金额
+    public String psname; //服务顾问
+    public Integer num;
+
+    public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
+	}
+
+	public Integer getSidno() {
+		return sidno;
+	}
+
+	public void setSidno(Integer sidno) {
+		this.sidno = sidno;
+	}
+
+	public String getSidname() {
+		return sidname;
+	}
+
+	public void setSidname(String sidname) {
+		this.sidname = sidname;
+	}
+
+	public String getPcname() {
+		return pcname;
+	}
+
+	public void setPcname(String pcname) {
+		this.pcname = pcname;
+	}
+
+	public Integer getR1() {
+		return r1;
+	}
+
+	public void setR1(Integer r1) {
+		this.r1 = r1;
+	}
+
+	public float getR2() {
+		return r2;
+	}
+
+	public void setR2(float r2) {
+		this.r2 = r2;
+	}
+
+	public String getProblem() {
+		return problem;
+	}
+
+	public void setProblem(String problem) {
+		this.problem = problem;
+	}
+
+	public String getFaultdescription() {
+		return faultdescription;
+	}
+
+	public void setFaultdescription(String faultdescription) {
+		this.faultdescription = faultdescription;
+	}
+
+	public Integer getRtype() {
+		return rtype;
+	}
+
+	public void setRtype(Integer rtype) {
+		this.rtype = rtype;
+	}
+
+	public Date getRtime() {
+		return rtime;
+	}
+
+	public void setRtime(Date rtime) {
+		this.rtime = rtime;
+	}
+
+	public Integer getCno() {
+		return cno;
+	}
+
+	public void setCno(Integer cno) {
+		this.cno = cno;
+	}
+
+	public String getCuname() {
+		return cuname;
+	}
+
+	public void setCuname(String cuname) {
+		this.cuname = cuname;
+	}
+
+	public float getBpreferential() {
+		return bpreferential;
+	}
+
+	public void setBpreferential(float bpreferential) {
+		this.bpreferential = bpreferential;
+	}
+
+	public float getApreferential() {
+		return apreferential;
+	}
+
+	public void setApreferential(float apreferential) {
+		this.apreferential = apreferential;
+	}
+
+	public float getBpreferentialm() {
+		return bpreferentialm;
+	}
+
+	public void setBpreferentialm(float bpreferentialm) {
+		this.bpreferentialm = bpreferentialm;
+	}
+
+	public String getPsname() {
+		return psname;
+	}
+
+	public void setPsname(String psname) {
+		this.psname = psname;
+	}
+
+	public String getBtname() {
 		return btname;
 	}
 

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TeamMapper {
+	List<Team> findTeam(Integer tid);
+	
     int countByExample(TeamExample example);
 
     int deleteByExample(TeamExample example);
