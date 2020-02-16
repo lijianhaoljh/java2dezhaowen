@@ -550,9 +550,7 @@
 						perms: [],
 						user:{},
 						p:{},
-<<<<<<< HEAD
-						index:0
-=======
+						index:0,
 						trees:[
 								{id:1,name:"提醒情况",parentid:0},
 								{id:2,name:"今天过生日的客户",parentid:1},
@@ -583,7 +581,6 @@
 							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
 							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
 							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
->>>>>>> refs/remotes/origin/pengyumei
 					}
 				},methods:{
 					clo:function(){
@@ -631,28 +628,11 @@
 							console.log(222)
 						}
 					});
-<<<<<<< HEAD
 				},computed:{
 					getPerms(){
 						return this.perms;
-					}
-=======
+					},
 					
-					queryTree();
-						$.ajax({
-						       		url:data.ip+"day/querytodaybirthcus",
-						       		type:"get",
-						       		dataType:"json",
-						       		success:function(result){
-						       			vm.tabs = result;
-						       			$("#total").text(result.length);
-						       		},error:function(){
-						       			alert("发生错误");
-						       		}
-						       	});
-						       	
-					//$("#myModal").modal("show");
->>>>>>> refs/remotes/origin/pengyumei
 				}
 			});
 			
