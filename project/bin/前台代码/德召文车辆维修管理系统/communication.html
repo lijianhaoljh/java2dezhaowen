@@ -4,9 +4,6 @@
 		<meta charset="utf-8" />
 		<title>通讯名录</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css"/>
-		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/communication.css"/>
 	</head>
 	<body>
@@ -19,8 +16,8 @@
 					</div>
 					<div>
 						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
-							<input type="text" placeholder="匹配工号/姓名" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
-							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
+							<input name="name" type="text" placeholder="匹配工号/姓名" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<button @click="query" class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
 							<button class="btn btn-default" style="width: 70px;">关闭</button>
 						</div>
 					</div>
@@ -28,8 +25,8 @@
 				<div class="row">
 					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
 						<ul>
-							<li><span class="glyphicon glyphicon-folder-open"></span>保存</li>
-							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>
+							<!--<li><span class="glyphicon glyphicon-folder-open"></span>保存</li>
+							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>-->
 							<li><span class="glyphicon glyphicon-export"></span>导出</li>
 						</ul>
 					</div>
@@ -42,28 +39,26 @@
 						  		<td>员工编号</td>
 						  		<td>姓名</td>
 						  		<td>分机/短号</td>
-						  		<td>直拨</td>
 						  		<td>手机</td>
 						  		<td>邮箱</td>
 						  	</tr>
 						  </thead>
 						  <tbody>
-						  	<tr>
+						  	<tr v-for="p in peos">
 						  		<td>   </td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
-						  		<td>1</td>
+						  		<td>{{p.tmname}}</td>
+						  		<td>{{p.pno}}</td>
+						  		<td>{{p.pname}}</td>
+						  		<td>{{p.pphone}}</td>
+						  		<td>{{p.ptellphone}}</td>
+						  		<td>{{p.pemail}}</td>
 						  	</tr>
 						  </tbody>
 						</table>
 					</div>
 				</div>
 				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
-					合计：<span>12</span>条记录
+					合计：<span id="total">12</span>条记录
 				</div>
 			</div>
 			<div id="checkstaff">
@@ -126,20 +121,43 @@
 		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			function queryunion(pno){
+				$.ajax({
+					url:data.ip+"staff/queryunion",
+					data:{pno:pno},
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						vm.peos=data;
+						$("#total").text(data.length);
+					},error:function(data){
+						alert("发生错误");
+					}
+				});
+			}
 			var vm = new Vue({
 				el:"#ctx",
 				data (){
-					return {}
+					return {
+						peos:[],//所有在职员工和技工
+					}
 				},
 				methods:{
-					
+					query:function(){
+						let pno = $("input[name=name]").val();
+						queryunion(pno);
+					},
 					closeadd:function(){
 							$("#checkstaff").hide();
 					},
 					checkstaff:function(){
 						$("#checkstaff").show();
 					}
+				},
+				created:function(){
+					queryunion("");
 				}
 			});
 		</script>

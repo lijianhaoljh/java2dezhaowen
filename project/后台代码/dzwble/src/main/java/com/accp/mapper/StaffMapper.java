@@ -18,6 +18,10 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
+    List<Staff> querytodaybirthstaf();
+
+    List<Staff> queryoverstaf();
+
     Staff queryBypno(String pno);
 
     List<Staff> queryPeople();

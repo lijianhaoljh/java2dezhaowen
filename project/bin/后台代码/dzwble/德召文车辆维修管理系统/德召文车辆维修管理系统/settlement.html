@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>结算中心</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<style type="text/css">
+			select{
+				height: 30px;
+				width: 100px;
+				margin-right: 10px;
+			}
+			
+			input{
+				height: 30px;
+				margin-right: 10px;
+				
+			}
+	</style>
+	
+	<body>
+		<div class="container-fluid" style="margin: 20px;">
+				<div id="title"  style="padding: 20px;background: #C9E2B3;">
+				 	<span style="font-size: 30px;"> 
+				 		<strong>结算中心</strong>
+				 	</span>
+				 	<div style="float: right;">				 		
+				 		<button type="button" class="btn btn-success">搜索</button>
+				 		<button type="button" class="btn btn-warning">关闭</button>
+				 	</div>
+			 	</div>
+			 	
+			 	<div class="row" style="padding: 20px;">
+				 		<div style="margin-bottom: 20px;">
+				 			结算日期 <input type="text" /><input type="text" />
+				 			销售单号 <input type="text" />
+				 			结算状态 <select>
+				 						<option>已经算</option>
+				 					</select>
+				 			车牌号 <input type="text" />
+				 		</div>
+				 		
+				 		<div>
+				 			客户名称 <select>
+				 						<option>已经算</option>
+				 					</select>
+				 			服务顾问 <select>
+				 						<option>已经算</option>
+				 					</select>
+				 			业务类型 <select>
+				 						<option>已经算</option>
+				 					</select>
+				 			单据类型 <select>
+				 						<option>已经算</option>
+				 					</select>
+				 			备注 <input type="text" />		 					
+				 		</div>
+				</div>
+				
+				<div>
+					<div style="float:right;">				 	
+						<button type="button" class="btn btn-success">回滚</button>
+				 		<button type="button" class="btn btn-success">打开单据</button>
+				 		<button type="button" class="btn btn-warning">导出</button>
+				 	</div>
+				</div>
+				
+				<div>
+					<table class="table table-hover">
+				 				<tr style="color: white; background-color: #C1E2B3;">
+				 					<td>销售单号</td>
+				 					<td>单据类型</td>
+				 					<td>结算方式</td>
+				 					<td>单据状态</td>
+				 					<td>结算状态</td>
+				 					<td>结算时间</td>
+				 					<td>结算人</td>
+				 					<td>结算金额</td>
+				 					<td>业务类型</td>
+				 					<td>客户名称</td>
+				 					<td>车牌号</td>
+				 					<td>车型</td>
+				 				</tr>
+				 				
+				 				<tr>
+				 					<td>销售单号</td>
+				 					<td>单据类型</td>
+				 					<td>结算方式</td>
+				 					<td>单据状态</td>
+				 					<td>结算状态</td>
+				 					<td>结算时间</td>
+				 					<td>结算人</td>
+				 					<td>结算金额</td>
+				 					<td>业务类型</td>
+				 					<td>客户名称</td>
+				 					<td>车牌号</td>
+				 					<td>车型</td>
+				 				</tr>	
+				 	</table>					
+				</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+	</body>
+</html>

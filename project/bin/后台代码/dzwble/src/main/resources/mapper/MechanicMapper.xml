@@ -15,6 +15,26 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="psex" property="psex" jdbcType="CHAR" />
+    <result column="pidcard" property="pidcard" jdbcType="VARCHAR" />
+    <result column="paddress" property="paddress" jdbcType="VARCHAR" />
+    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+    <result column="ptellphone" property="ptellphone" jdbcType="VARCHAR" />
+    <result column="pemail" property="pemail" jdbcType="VARCHAR" />
+    <result column="spassword" property="spassword" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="pbank" property="pbank" jdbcType="VARCHAR" />
+    <result column="pbanknumber" property="pbanknumber" jdbcType="VARCHAR" />
+    <result column="presidenceaddress" property="presidenceaddress" jdbcType="VARCHAR" />
+    <result column="ptid" property="ptid" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="dimission" property="dimission" jdbcType="INTEGER" />
+    <result column="dcause" property="dcause" jdbcType="VARCHAR" />
+    
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
+    <result column="lname" property="lname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,6 +94,23 @@
       </foreach>
     </where>
   </sql>
+  
+  <select id="queryMechanicBytid" resultMap="BaseResultMap">
+	  	SELECT m.*,peo.*,t.tname tname,l.lname FROM mechanic AS m
+	LEFT JOIN people AS peo ON m.pno=peo.pno
+	LEFT JOIN team AS t ON t.tid=m.tid
+	LEFT JOIN `level` AS l ON m.lid=l.lid
+	WHERE peo.dimission=0 AND t.tid=#{tid} AND (peo.pno LIKE concat("%",#{pno},"%") OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%"))
+  </select>
+
+  <select id="queryMechanicByparentid" resultMap="BaseResultMap">
+	  	SELECT m.*,peo.*,t.tname tname,l.lname FROM mechanic AS m
+	LEFT JOIN people AS peo ON m.pno=peo.pno
+	LEFT JOIN team AS t ON t.tid=m.tid
+	LEFT JOIN `level` AS l ON m.lid=l.lid
+	WHERE peo.dimission=0 AND t.parentid=#{parentid} AND (peo.pno LIKE concat("%",#{pno},"%") OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%"))
+  </select>
+  
   <sql id="Base_Column_List" >
     pno, tid, jid, rid, mcisgroup, lid, mcworktype, mcbrand, remark1, remark2, remark3, 
     remark4, remark5

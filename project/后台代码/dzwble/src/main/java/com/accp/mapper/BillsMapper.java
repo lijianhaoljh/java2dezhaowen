@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BillsMapper {
+	List<Bills> findBills();
+	
     int countByExample(BillsExample example);
 
     int deleteByExample(BillsExample example);
@@ -13,6 +15,12 @@ public interface BillsMapper {
     int deleteByPrimaryKey(String bid);
 
     int insert(Bills record);
+
+    int queryincar();
+
+    int queryoutcar();
+
+    int querytodayCount();
 
     int insertSelective(Bills record);
     

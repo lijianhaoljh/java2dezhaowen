@@ -16,12 +16,14 @@ import com.accp.domain.People;
 import com.accp.domain.Sendcar;
 import com.accp.domain.Team;
 import com.accp.domain.TeamExample;
+import com.accp.domain.Work;
 import com.accp.mapper.CarMapper;
 import com.accp.mapper.LevelMapper;
 import com.accp.mapper.MechanicMapper;
 import com.accp.mapper.PeopleMapper;
 import com.accp.mapper.SendcarMapper;
 import com.accp.mapper.TeamMapper;
+import com.accp.mapper.WorkMapper;
 
 @Service
 @Transactional
@@ -39,6 +41,8 @@ public class MechanicService {
 	MechanicMapper mmapper;
 	@Autowired
 	PeopleMapper pmapper;
+	@Autowired
+	WorkMapper wmapper;
 	
 	//查询所有技工星级
 	public List<Level> queryAllLevel(){
@@ -162,6 +166,22 @@ public class MechanicService {
 		
 		//增加班组
 		public int add(Team team) {
+			Work work = new Work();
+			work.setTid(team.getTid());
+			Integer hourMoney = Integer.valueOf(team.getRemark1());
+			work.setWinmorning(hourMoney);
+			if(hourMoney>1) {
+				work.setWinnight(0);
+				work.setWoutmoning(0);
+				work.setWoutnight(1);
+			}else {
+				work.setWinnight(0);
+				work.setWoutmoning(0);
+				work.setWoutnight(0);
+			}
+			Date curenttime = new Date();
+			work.setWdate(curenttime);
+			int a  = wmapper.insert(work);
 			return tmapper.insert(team);
 		}
 		//修改班组
@@ -183,5 +203,10 @@ public class MechanicService {
 			TeamExample ex = new TeamExample();
 			ex.createCriteria().andParentidEqualTo(parentid);
 			return tmapper.selectByExample(ex);
+		}
+		
+		//根据父级ID查询班组分工
+		public List<Work> queryTeamByParentid(Integer parentid){
+			return wmapper.queryTeamByParentid(parentid);
 		}
 }

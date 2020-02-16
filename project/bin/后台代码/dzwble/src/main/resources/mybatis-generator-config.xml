@@ -14,7 +14,11 @@
     	c.andNameLike("%"+name+"%");
     	c.andParentidEqualTo(parentId); -->
 	<classPathEntry
-		location="F:/code/mysql/mysql-connector-java/5.1.38//mysql-connector-java-5.1.38.jar" />
+<<<<<<< HEAD
+		location="F:\code\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
+=======
+		location="D:\\path\to\local\repo\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" />
+>>>>>>> refs/remotes/origin/zhongpenggen
 	<context id="context1">
 		<!-- 注释 -->
 		<commentGenerator>
@@ -22,7 +26,7 @@
 			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
 		</commentGenerator>
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/dezhaowen?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMutilQueries=true"
-			driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" />
+			driverClass="com.mysql.jdbc.Driver" password="123456789" userId="root" />
 		<!-- 实体生成位置 -->
 		<javaModelGenerator targetPackage="com.accp.domain"
 			targetProject="src/main/java" />
@@ -32,52 +36,18 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
-			<table schema="account" tableName="account"></table>
+<<<<<<< HEAD
+			<table schema="work" tableName="work"></table>
+			<table schema="sendcar" tableName="sendcar"></table>
 			<table schema="bills" tableName="bills"></table>
-			<table schema="car" tableName="car"></table>
-			<table schema="carbelong" tableName="carbelong"></table>
-			<table schema="carbrand" tableName="carbrand"></table>
-			<table schema="cardata" tableName="cardata"></table>
-			<table schema="commodity_brand" tableName="commodity_brand"></table>
+			<table schema="business_types" tableName="business_types"></table>
 			<table schema="commodity_info" tableName="commodity_info"></table>
-			<table schema="commodity_unit" tableName="commodity_unit"></table>
-			<table schema="country_origin" tableName="country_origin"></table>
-			<table schema="customer" tableName="customer"></table>
-			<table schema="customer_type" tableName="customer_type"></table>
-			<table schema="fuel" tableName="fuel"></table>
-			<table schema="goods_category" tableName="goods_category"></table>
-			<table schema="grade_commodity" tableName="grade_commodity"></table>
-			<table schema="income_type" tableName="income_type"></table>
-			<table schema="insurance" tableName="insurance"></table>
-			<table schema="invoice" tableName="invoice"></table>
-			<table schema="invoice_type" tableName="invoice_type"></table>
-			<table schema="job" tableName="job"></table>
-			<table schema="level" tableName="level"></table>
-			<table schema="level_producers" tableName="level_producers"></table>
-			<table schema="linkman" tableName="linkman"></table>
+			<table schema="d_maintenance" tableName="d_maintenance"></table>
 			<table schema="maintain_bill" tableName="maintain_bill"></table>
-			<table schema="maintenance" tableName="maintenance"></table>
-			<table schema="manufacturer" tableName="manufacturer"></table>
-			<table schema="mechanic" tableName="mechanic"></table>
-			<table schema="mechanism" tableName="mechanism"></table>
-			<table schema="motorcycle" tableName="motorcycle"></table>
-			<table schema="payment_method" tableName="payment_method"></table>
-			<table schema="people" tableName="people"></table>
-			<table schema="people_roles" tableName="people_roles"></table>
-			<table schema="peopletype" tableName="peopletype"></table>
-			<table schema="permission" tableName="permission"></table>
-			<table schema="place_origin" tableName="place_origin"></table>
-			<table schema="price_type" tableName="price_type"></table>
 			<table schema="rescue_bill" tableName="rescue_bill"></table>
-			<table schema="resign" tableName="resign"></table>
-			<table schema="rework_reason" tableName="rework_reason"></table>
-			<table schema="role" tableName="role"></table>
-			<table schema="roles_perms" tableName="roles_perms"></table>
-			<table schema="service_item" tableName="service_item"></table>
-			<table schema="staff" tableName="staff"></table>
-			<table schema="team" tableName="team"></table>
-			<table schema="viplevel" tableName="viplevel"></table>
-			<table schema="vip" tableName="vip"></table>
+=======
+			<table schema="carkeep" tableName="carkeep"></table>
+>>>>>>> refs/remotes/origin/zhongpenggen
 	</context>
 </generatorConfiguration>
 

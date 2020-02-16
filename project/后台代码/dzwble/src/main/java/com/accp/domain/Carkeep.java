@@ -21,8 +21,27 @@ public class Carkeep {
     private String remark;
 
     private String ckname;
+    
+    private String cname;
+    private String cphone;
+    
+    public String getCname() {
+		return cname;
+	}
 
-    public Integer getCkid() {
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getCphone() {
+		return cphone;
+	}
+
+	public void setCphone(String cphone) {
+		this.cphone = cphone;
+	}
+
+	public Integer getCkid() {
         return ckid;
     }
 

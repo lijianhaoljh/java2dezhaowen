@@ -139,6 +139,27 @@
 	WHERE (st.pno LIKE concat("%",#{pno},"%")  OR peo.pname LIKE concat("%",#{pno},"%") OR peo.pphone LIKE concat("%",#{pno},"%")) AND st.mid=#{mid} AND peo.dimission =0
 	ORDER BY st.pno
   </select>
+
+  <select id="querytodaybirthstaf" resultMap="BaseResultMap">
+	  	
+		SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
+	WHERE MONTH(st.sbirthday) = MONTH(NOW()) AND DAY(st.sbirthday) = DAY(NOW())
+	ORDER BY st.pno
+  </select>
+
+  <select id="queryoverstaf" resultMap="BaseResultMap">
+	  	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st
+	LEFT JOIN people AS peo ON st.pno = peo.pno 
+	LEFT JOIN mechanism AS mech ON st.mid = mech.mid
+	LEFT JOIN job AS j ON j.jid = st.jid
+	LEFT JOIN role AS r ON r.rid = st.rid
+	WHERE TIMESTAMPDIFF(DAY, st.sendtime ,NOW())BETWEEN 0 AND 3
+	ORDER BY st.pno
+  </select>
   
   <select id="queryBypno" resultMap="BaseResultMap">
   	SELECT st.*,peo.*,mech.mname mname,mech.parentid,j.jname jname,r.rname rname FROM staff AS st

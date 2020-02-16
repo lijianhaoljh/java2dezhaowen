@@ -104,7 +104,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Team" >
+  <insert id="insert" parameterType="com.accp.domain.Team"  useGeneratedKeys="true" keyProperty="tid" >
     insert into team (tid, tname, catalog, 
       parentid, tpower, remark1, 
       remark2, remark3, remark4, 

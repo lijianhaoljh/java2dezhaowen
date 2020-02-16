@@ -2,6 +2,7 @@
 .row:nth-child(1){background-color:#F7FFFF;display: flex;}
 .row:nth-child(1)>div:nth-child(1){padding-bottom:13px;flex-grow: 1;box-sizing: border-box;width: 200px;text-align: center;font-size: 25px;padding-top: 15px;}
 .row:nth-child(1)>div:nth-child(2){padding-bottom:13px;flex-grow: 3;box-sizing: border-box;width: 600px;}
+input{color: black;}
 /*主体*/
 .container-fluid{position: relative;z-index: 0;}
 .row:nth-child(2){height: 635px;}
@@ -17,7 +18,21 @@
 #checkstaff{display: none; width: 900px;height: 500px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 10%;left: 20%;background-color: #DEDEDE;}
 #checkstaff label{width: 100px;text-align: right;padding-right: 10px;}
 #checkstaff input{width:110px;}
+
+#chosebanzu{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+#chosebanzu ul{list-style-type: none;}
+#chosebanzu ul li{display: inline-block;text-align: center;font-size: 17px;}
+#chosebanzu td{border: 1px solid white;}
 /*弹出框*/
 #addstaff{}
+
+#mmm{display: none; width: 500px;height:300px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 20%;left: 35%;background-color: #DEDEDE;}
+#mmm ul{list-style-type: none;}
+#mmm ul li{display: inline-block;text-align: center;font-size: 17px;}
+#mmm td{border: 1px solid white;}
+
+#mmm p label{width: 80px;text-align: right;padding-right: 10px;margin-top: 10px;}
+#mmm p input{width:110px;margin-top: 10px;}
 /*尾部*/
+.row:nth-child(2)>div:nth-child(1)>ul li{font-size: 14px;}
 .row:nth-child(3){height: 50px;}

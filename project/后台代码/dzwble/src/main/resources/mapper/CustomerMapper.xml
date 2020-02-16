@@ -114,6 +114,43 @@
 	GROUP BY cus.cno ORDER BY cus.cno
   </select>
   
+  <select id="querytodaybirthcus" resultMap="BaseResultMap">
+	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,
+	vip.venddate venddate,vip.currentjifen vjifen,peo.pname pname,peo.pphone pphone,card.* FROM customer AS cus
+	LEFT JOIN customer_type AS custy ON cus.ctno = custy.ctno
+	LEFT JOIN vip AS vip ON vip.cno=cus.cno
+	LEFT JOIN people AS peo ON peo.pno=cus.pno
+	LEFT JOIN cardata AS card ON card.cno=cus.cno
+	WHERE MONTH(cus.cbirthday) = MONTH(NOW()) AND DAY(cus.cbirthday) = DAY(NOW())
+	GROUP BY cus.cno ORDER BY cus.cno
+  </select>
+
+  <select id="queryvipwillnone" resultMap="BaseResultMap">
+	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,
+	vip.venddate venddate,vip.currentjifen vjifen,peo.pname pname,peo.pphone pphone,card.* FROM customer AS cus
+	LEFT JOIN customer_type AS custy ON cus.ctno = custy.ctno
+	LEFT JOIN vip AS vip ON vip.cno=cus.cno
+	LEFT JOIN people AS peo ON peo.pno=cus.pno
+	LEFT JOIN cardata AS card ON card.cno=cus.cno
+	WHERE TIMESTAMPDIFF(DAY, card.indate ,NOW()) BETWEEN 0 AND 3
+	GROUP BY cus.cno ORDER BY cus.cno
+  </select>
+
+  <select id="querymisscus" resultMap="BaseResultMap">
+	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,
+	vip.venddate venddate,vip.currentjifen vjifen,peo.pname pname,peo.pphone pphone,card.* FROM customer AS cus
+	LEFT JOIN customer_type AS custy ON cus.ctno = custy.ctno
+	LEFT JOIN vip AS vip ON vip.cno=cus.cno
+	LEFT JOIN people AS peo ON peo.pno=cus.pno
+	LEFT JOIN cardata AS card ON card.cno=cus.cno
+	WHERE cus.cno IN (SELECT c.cno FROM account AS a
+				LEFT JOIN bills AS b ON a.bid = b.bid
+				LEFT JOIN cardata AS ca ON b.cdlicense=ca.cdlicense
+				LEFT JOIN customer AS c ON c.cno = ca.cno
+				WHERE TIMESTAMPDIFF(DAY, atime ,NOW())BETWEEN 0 AND 30)
+	GROUP BY cus.cno ORDER BY cus.cno
+  </select>
+  
 	<select id="queryCusByCno" resultMap="BaseResultMap">
 	  	SELECT cus.*,custy.ctname ctname,custy.ctisvip isvip,vip.vno vno,vip.vjoindate vjoindate,
 	vip.venddate venddate,vip.currentjifen vjifen,peo.pname pname,peo.pphone pphone,card.* FROM customer AS cus

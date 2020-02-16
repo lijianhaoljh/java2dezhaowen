@@ -39,24 +39,71 @@
     <result column="total" property="total" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
-  
+  <select id="querytodayCount" parameterType="com.accp.domain.Bills" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills WHERE YEAR(Ordertime) = YEAR(NOW()) AND MONTH(Ordertime) = MONTH(NOW()) AND DAY(Ordertime) = DAY(NOW())
+  </select>
   <select id="queryBillBycno" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
+WHERE cd.cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  </select>
+
+  <select id="queryincar" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills AS b
+LEFT JOIN d_maintenance AS d ON b.bid=d.bid
+LEFT JOIN `work` AS w ON w.tid = d.tid
+WHERE  ((w.winmorning = 1 OR w.winnight =1) and w.woutmoning = 0 OR w.woutnight =0) AND YEAR(b.Ordertime) = YEAR(NOW()) AND MONTH(b.Ordertime) = MONTH(NOW()) AND DAY(b.Ordertime) = DAY(NOW())
+  </select>
+
+  <select id="queryoutcar" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills AS b
+LEFT JOIN d_maintenance AS d ON b.bid=d.bid
+LEFT JOIN `work` AS w ON w.tid = d.tid
+WHERE  ((w.woutmoning = 1 OR w.woutnight =1) AND w.winmorning = 0 AND w.winnight = 0 ) AND YEAR(b.Ordertime) = YEAR(NOW()) AND MONTH(b.Ordertime) = MONTH(NOW()) AND DAY(b.Ordertime) = DAY(NOW())
   </select>
   
   <select id="queryBillBycdlicense" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense = #{cdlicense}
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
+WHERE b.cdlicense = #{cdlicense}
   </select>
+  
+  <select id="findBills" resultMap="BaseResultMap">
+  SELECT b.bstate,bt.btname,c.cname,cd.cdlicense,c.cphone,v.vno,b.bid,mb.mbname,rb.rbname,b.ordertime,b.Expectedtime,b.Completiontime,
+a.atime,b.forecastmoney,p.pname,pp.pname pnames
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb
+ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb
+ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd
+ON b.cdlicense=cd.cdlicense
+LEFT JOIN people AS p
+ON b.pno=p.pno 
+LEFT JOIN `business_types` AS bt
+ON b.btid=bt.btid
+LEFT JOIN people AS pp
+ON b.pickcar=pp.pno 
+LEFT JOIN `customer` AS c
+ON cd.cno=c.cno
+LEFT JOIN `vip` AS v
+ON c.cno=v.cno
+LEFT JOIN account AS a
+ON b.bid=a.bid
+ORDER BY b.ordertime DESC
+</select>
   
   <sql id="Example_Where_Clause">
     <where>

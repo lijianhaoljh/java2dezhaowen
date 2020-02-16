@@ -96,6 +96,52 @@
     Internal, Points_deduction, profit_loss, itid, invid, remark1, remark2, remark3, 
     remark4, remark5
   </sql>
+  
+  <select id="querytodayPay" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM account WHERE YEAR(atime) = YEAR(NOW()) AND MONTH(atime) = MONTH(NOW()) AND DAY(atime) = DAY(NOW())
+  </select>
+  
+  <select id="querynopaytotalmoneytoday" resultMap="BaseResultMap" >
+  	SELECT SUM(buying) FROM account WHERE astate = 1 AND YEAR(atime) = YEAR(NOW()) AND MONTH(atime) = MONTH(NOW()) AND DAY(atime) = DAY(NOW())
+  </select>
+
+  <select id="querynopaycounttoday" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM account WHERE astate = 1 AND YEAR(atime) = YEAR(NOW()) AND MONTH(atime) = MONTH(NOW()) AND DAY(atime) = DAY(NOW())
+  </select>
+  
+  
+
+  <select id="querycashcounttoday" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM account AS a
+LEFT JOIN bills AS b ON a.bid=b.bid
+LEFT JOIN payment_method AS p ON b.pmid=p.pmid
+WHERE b.pmid=4 AND 
+YEAR(a.atime) = YEAR(NOW()) AND MONTH(a.atime) = MONTH(NOW()) AND DAY(a.atime) = DAY(NOW())
+  </select>
+
+
+  <select id="querycashtotaltoday" resultMap="BaseResultMap">
+  	SELECT SUM(a.total) FROM account AS a
+LEFT JOIN bills AS b ON a.bid=b.bid
+LEFT JOIN payment_method AS p ON b.pmid=p.pmid
+WHERE b.pmid=4 AND 
+YEAR(a.atime) = YEAR(NOW()) AND MONTH(a.atime) = MONTH(NOW()) AND DAY(a.atime) = DAY(NOW())
+  </select>
+  
+  <select id="querycashtotal" resultMap="BaseResultMap">
+  	SELECT SUM(a.total) FROM account AS a
+LEFT JOIN bills AS b ON a.bid=b.bid
+LEFT JOIN payment_method AS p ON b.pmid=p.pmid
+WHERE b.pmid=4
+  </select>
+
+  <select id="querywechattotal" resultMap="BaseResultMap">
+  	SELECT SUM(a.total) FROM account AS a
+LEFT JOIN bills AS b ON a.bid=b.bid
+LEFT JOIN payment_method AS p ON b.pmid=p.pmid
+WHERE b.pmid=2
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.AccountExample" >
     select
     <if test="distinct" >

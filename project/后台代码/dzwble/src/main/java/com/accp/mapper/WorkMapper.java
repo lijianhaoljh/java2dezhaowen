@@ -18,6 +18,8 @@ public interface WorkMapper {
 
     List<Work> selectByExample(WorkExample example);
 
+    List<Work> queryTeamByParentid(@Param ("parentid") Integer parentid);
+
     Work selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Work record, @Param("example") WorkExample example);

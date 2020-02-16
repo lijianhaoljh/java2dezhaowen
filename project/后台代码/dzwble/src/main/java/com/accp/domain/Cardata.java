@@ -99,6 +99,8 @@ public class Cardata {
     
     private String cname;//客户名称
     
+    
+    
     public String getCname() {
 		return cname;
 	}
