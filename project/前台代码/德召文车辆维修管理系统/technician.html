@@ -207,29 +207,35 @@
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">班组权重</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
 					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;overflow: auto; box-sizing: border-box;padding-left: 20px;">
 						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="m1 in banzu0" :value="m1.tid">{{m1.tid}}--{{m1.tname}}</option>
 						</select>
-						<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
+						<!--<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="mn1 in banzuson" :value="mn1.tid">{{mn1.tid}}--{{mn1.tname}}</option>
-						</select>
+						</select>-->
 						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
 							<thead>
 								<tr>
 									<td></td>
-									<td>部门</td>
-									<td>工号</td>
-									<td>姓名</td>
+									<td>编号</td>
+									<td>班组名称</td>
+									<td>工时费--站内白天</td>
+									<td>站内晚上</td>
+									<td>站外白天</td>
+									<td>站外晚上</td>
 								</tr>
 							</thead>
 							<tbody>
-								<!--<tr v-for="s in staffs">
-									<td><input @click="peop($event)" name="ss" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
-									<td>{{s.mname}}</td>
-									<td>{{s.pno}}</td>
-									<td>{{s.pname}}</td>
-								</tr>-->
+								<tr v-for="s in teamByPar">
+									<td> </td>
+									<td>{{s.tid}}</td>
+									<td>{{s.tname}}</td>
+									<td>{{s.tremark}}</td>
+									<td>{{s.winnight}}</td>
+									<td>{{s.woutmoning}}</td>
+									<td>{{s.woutnight}}</td>
+								</tr>
 								
 							</tbody>
 						</table>
@@ -476,6 +482,24 @@
 							}
 						});	
 			}
+			//根据班组父级ID查询权重
+			function queryteamByPar(parentid){
+				$.ajax({
+							type:"post",
+							url:data.ip+"mechanic/queryTeamByParentid",
+							dateType:"json",
+							data:{parentid:parentid},
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								//alert(response.length);
+								vm.teamByPar = response;
+							},error:function(){
+								alert("发生错误");
+							}
+						});	
+			}
 			
 			function queryBanzuson(parentid){
 				$.ajax({
@@ -503,13 +527,14 @@
 							mechanic:{tid:"",mcisgroup:0,pno:"",people:{pno:""}},//技工
 							levels:[],//所有星级
 							kk:"0",
-							cc:"0",
+							cc:"3",
 							demon:{tid:"",mcisgroup:0,pno:"",people:{pno:""}},//选中的技工
 							chose:{tid:""},//选中的班组
 							choseP:{tid:""},
 							banzu:{tid:"",parentid:""},
 							banzu0:[],//父级为0的班组
 							banzuson:[],//父级不为0的班组
+							teamByPar:[],//根据班组父级ID查询权重
 						}
 					},
 					methods:{
@@ -518,10 +543,11 @@
 						},
 						changedepart:function(e){
 							let parentid = $(e.target).val();
-							queryBanzuson(parentid);
+							queryteamByPar(parentid);
 						},
 						openbanzu:function(){
 							queryBanzu0(0);
+							queryteamByPar(1);
 							$("#chosebanzu").show();
 						},
 						addmOK:function(){

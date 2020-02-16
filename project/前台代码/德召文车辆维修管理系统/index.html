@@ -5,6 +5,7 @@
 		<title>德召文车辆维修管理系统-页签</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
 		<style>
 			iframe{
 				width:100%;height:100%;border:0px;
@@ -98,7 +99,7 @@
 									  </button>
 								    <ul class="dropdown-menu" style="position: absolute;left: -80px;">
 								      <li><a href="#" ><span class="glyphicon glyphicon-cog"></span> 设置</a></li>
-								      <li><a href="#"><span class="glyphicon glyphicon-th"></span> 今日提醒</a></li>
+								      <li><a data-toggle="modal" @click="ddd" data-target="#myModal"><span class="glyphicon glyphicon-th"></span> 今日提醒</a></li>
 								      <li @click="signOut"><a href="#"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
 								    </ul>
 								  </div>
@@ -106,6 +107,7 @@
 							  </div>
 							</nav>
 						</div>
+						
 						<div class="me_content" style="height: 92.8%;overflow: scroll;">
 							<ul class="nav nav-tabs metab my-tab" >
 							  <li role="presentation" class="active"><a href="#index" data-toggle="tab">首页</a></li>
@@ -118,14 +120,428 @@
 						</div>
 					</div>
 			</div>
+			<!--今日提醒模态框-->
+			
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog" style="width: 1000px;" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span @click="clo" aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">今日提醒</h4>
+				      </div>
+				      <div class="modal-body" style="height: 480px;padding: 0px 15px 0px 15px;background-color: white;">
+				        	<div class="col-md-3 col-sm-3 col-xs-3" style="border-right: 5px solid gainsboro;height: 480px;padding: 0px; padding-top: 20px;">
+				        		<ul id="treeDemo" class="ztree"></ul> 
+				        	</div>
+				        	<div class="col-md-9 col-sm-9 col-xs-9" style="border-left: 5px solid gainsboro;height: 480px;padding-top: 20px;overflow: auto;">
+				        		<table id="ttt" class="table table-hover" style="width: 2500px;">
+				        			<thead>
+				        				<tr>
+				        					<td v-for="d in dian">{{d}}</td>
+				        				</tr>
+				        			</thead>
+				        			<tbody id="one">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cno}}</td>
+											<td>{{c.cname}}</td>
+											<td>{{c.caddress}}</td>
+											<td>{{c.cpeople}}</td>
+											<td>{{c.cphone}}</td>
+											<td>{{c.cbirthday}}</td>
+											<td>{{c.ctname}}</td>
+											<td>{{c.vno}}</td>
+											<td>{{c.vjoindate}}</td>
+											<td>{{c.venddate}}</td>
+											<td>{{c.cremark}}</td>
+											<td>{{c.creatdate}}</td>
+											<td>{{c.pname}}</td>
+											<td>{{c.pphone}}</td>
+											<td>{{c.cperiod}}</td>
+											<td>{{c.climit}}</td>
+											<td v-if="c.isvip==0">{{c.jifen}}</td>
+											<td v-else>{{c.jifen+c.vjifen}}</td>
+											<td>{{c.province}}</td>
+											<td>{{c.city}}</td>
+											<td>{{c.district}}</td>
+											<td>{{c.ctaxes}}</td>
+											<td>{{c.cregistphone}}</td>
+											<td>{{c.cbank}}</td>
+											<td>{{c.cbanknumber}}</td>
+											<td>{{c.cregistaddress}}</td>
+											
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="four" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.cdlicenseend}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="five" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.indate}}</td>
+											<td>{{c.inid_bdate}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="six" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.cdcarcheckdate}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="eight" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.cddriverbirth}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="nine" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.ckname}}</td>
+											<td>{{c.plandate}}</td>
+											<td>{{c.planmillage}}</td>
+											<td>{{c.cname}}</td>
+											<td>{{c.cphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="ten" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.sbirthday}}</td>
+											<td>{{c.mname}}</td>
+											<td>{{c.pno}}</td>
+											<td>{{c.pname}}</td>
+											<td>{{c.psex}}</td>
+											<td>{{c.jname}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="eleven" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.sendtime}}</td>
+											<td>{{c.mname}}</td>
+											<td>{{c.pno}}</td>
+											<td>{{c.pname}}</td>
+											<td>{{c.psex}}</td>
+											<td>{{c.jname}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        		</table>
+				        		
+				        	</div>
+				      </div>
+				      <div class="modal-footer">
+							总共：<span id="total"></span>条记录				        
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			
 		</div>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
 		<script type="text/javascript" src="js/my.js" ></script>
+		<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
+			
+			function queryTree(){
+					//树状结构
+					$.ajax({
+							type:"get",
+							url:data.ip+"staff/queryAllMechanism",
+							dateType:"json",
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								response = vm.trees;
+								$.fn.zTree.init($("#treeDemo"), setting, response);//初始化节点数据
+								$.fn.zTree.init($("#treeDemo"), setting, response).expandAll(true);
+							}
+						});	
+						
+						var setting = {
+							  view: {
+							         selectedMulti: true,
+							         showIcon:false
+							     },
+							  check: {
+							   enable: false
+							  },
+							  data: {
+								   key: {
+								        name: "name",//树节点名称
+								   },
+								   simpleData: {
+								    enable: true,//是否采用简单数据模式
+								        idKey: "id",//树节点ID名称
+								        pIdKey: "parentid",//父节点ID名称
+								        rootPId: 1,//根节点ID
+								   }
+							  },
+							  callback:{
+							  	onClick:chooseNode,
+							  }
+						};
+							 
+						function chooseNode(event, treeId, treeNode) {
+						    if (treeNode.id == "1") {
+						        return;
+						    }else if(treeNode.id == "2"){
+						    	vm.dian = vm.todaybirthcus;
+						       	$.ajax({
+						       		url:data.ip+"day/querytodaybirthcus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       				$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").show();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       
+						       	$("#ttt").css("width","2500px");
+						    }else if(treeNode.id == "3"){
+						       	vm.dian = vm.vipwillnone;
+						       	$.ajax({
+						       		url:data.ip+"day/queryvipwillnone",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").show();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","2500px");
+						    }else if(treeNode.id == "4"){
+						       	vm.dian = vm.licensewillexpire;
+						       	$.ajax({
+						       		url:data.ip+"day/querylicensewillexpire",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").show();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "5"){
+						       	vm.dian = vm.insurexpirecar;
+						       	$.ajax({
+						       		url:data.ip+"day/queryinsurexpirecar",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").show();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","600px");
+						    }else if(treeNode.id == "6"){
+						       	vm.dian = vm.checkcar;
+						       	$.ajax({
+						       		url:data.ip+"day/querycheckcar",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").show();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       		$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "7"){
+						       	vm.dian = vm.misscus;
+						       	$.ajax({
+						       		url:data.ip+"day/querymisscus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").show();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","2500px");
+						    }else if(treeNode.id == "8"){
+						       	vm.dian = vm.todatbirthdriver;
+						       	$.ajax({
+						       		url:data.ip+"day/querytodatbirthdriver",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").show();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       		$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "9"){
+						       	vm.dian = vm.keepcar;
+						       	$.ajax({
+						       		url:data.ip+"day/querykeepcar",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").show();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "10"){
+						       	vm.dian = vm.todaybirthstaf;
+						       	$.ajax({
+						       		url:data.ip+"day/querytodaybirthstaf",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").show();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "11"){
+						       	vm.dian = vm.overstaf ;
+						       	$.ajax({
+						       		url:data.ip+"day/queryoverstaf",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").show();
+						       	$("#ttt").css("width","500px");
+						    }
+						    return;
+						}
+				}
+				
 			//权限
 			var vm = new Vue({
 				el: "#ctx",
@@ -134,9 +550,48 @@
 						perms: [],
 						user:{},
 						p:{},
+<<<<<<< HEAD
 						index:0
+=======
+						trees:[
+								{id:1,name:"提醒情况",parentid:0},
+								{id:2,name:"今天过生日的客户",parentid:1},
+								{id:3,name:"即将到期的会员",parentid:1},
+								{id:4,name:"驾证到期的驾驶员",parentid:1},
+								{id:5,name:"须续办的保险车辆",parentid:1},
+								{id:6,name:"须车检车辆",parentid:1},
+								{id:7,name:"流失客户",parentid:1},
+								{id:8,name:"过生日的驾驶员",parentid:1},
+								{id:9,name:"车辆保养提醒",parentid:1},
+								{id:10,name:"今天过生日员工",parentid:1},
+								{id:11,name:"合同即将到期员工",parentid:1}
+//								{id:12,name:"超高库存商品",parentid:1},
+//								{id:13,name:"超低库存商品",parentid:1}
+							],
+							tabs:[],
+							dian:[],
+							todaybirthcus:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别","会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度","累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"],
+							vipwillnone:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别","会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度","累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"],
+							licensewillexpire:["车牌号","品牌","车型","驾证到期","驾驶员","手机"],
+							insurexpirecar:["车牌号","品牌","车型","交强险到期时间","商业保险到期时间","驾驶员","手机"],
+							checkcar:["车牌号","品牌","车型","车检日期","驾驶员","手机"],
+							misscus:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别",
+										"会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度",
+										"累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"
+							],
+							todatbirthdriver:["车牌号","品牌","车型","出生日期","驾驶员","手机"],
+							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
+							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
+							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
+>>>>>>> refs/remotes/origin/pengyumei
 					}
 				},methods:{
+					clo:function(){
+						
+					},
+					ddd:function(){
+							vm.dian = vm.todaybirthcus;
+					},
 					signOut(){
 						//退出登录
 						sessionStorage.removeItem("user");
@@ -176,10 +631,28 @@
 							console.log(222)
 						}
 					});
+<<<<<<< HEAD
 				},computed:{
 					getPerms(){
 						return this.perms;
 					}
+=======
+					
+					queryTree();
+						$.ajax({
+						       		url:data.ip+"day/querytodaybirthcus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	
+					//$("#myModal").modal("show");
+>>>>>>> refs/remotes/origin/pengyumei
 				}
 			});
 			

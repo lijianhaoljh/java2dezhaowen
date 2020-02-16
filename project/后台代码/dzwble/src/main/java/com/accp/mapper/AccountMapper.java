@@ -14,6 +14,20 @@ public interface AccountMapper {
 
     int insert(Account record);
 
+    int querytodayPay();
+
+    int querynopaycounttoday();
+
+    String querycashtotal();
+
+    String querywechattotal();
+
+    String querynopaytotalmoneytoday();
+
+    int querycashcounttoday();
+    
+    String querycashtotaltoday();
+
     int insertSelective(Account record);
 
     List<Account> selectByExample(AccountExample example);

@@ -39,7 +39,9 @@
     <result column="total" property="total" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
-  
+  <select id="querytodayCount" parameterType="com.accp.domain.Bills" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills WHERE YEAR(Ordertime) = YEAR(NOW()) AND MONTH(Ordertime) = MONTH(NOW()) AND DAY(Ordertime) = DAY(NOW())
+  </select>
   <select id="queryBillBycno" resultMap="BaseResultMap">
   	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
  FROM `bills` AS b
@@ -50,6 +52,20 @@ LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
 LEFT JOIN `customer` AS c ON cd.cno=c.cno
 LEFT JOIN  account AS a ON b.bid=a.bid
 WHERE cd.cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  </select>
+
+  <select id="queryincar" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills AS b
+LEFT JOIN d_maintenance AS d ON b.bid=d.bid
+LEFT JOIN `work` AS w ON w.tid = d.tid
+WHERE  ((w.winmorning = 1 OR w.winnight =1) and w.woutmoning = 0 OR w.woutnight =0) AND YEAR(b.Ordertime) = YEAR(NOW()) AND MONTH(b.Ordertime) = MONTH(NOW()) AND DAY(b.Ordertime) = DAY(NOW())
+  </select>
+
+  <select id="queryoutcar" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills AS b
+LEFT JOIN d_maintenance AS d ON b.bid=d.bid
+LEFT JOIN `work` AS w ON w.tid = d.tid
+WHERE  ((w.woutmoning = 1 OR w.woutnight =1) AND w.winmorning = 0 AND w.winnight = 0 ) AND YEAR(b.Ordertime) = YEAR(NOW()) AND MONTH(b.Ordertime) = MONTH(NOW()) AND DAY(b.Ordertime) = DAY(NOW())
   </select>
   
   <select id="queryBillBycdlicense" resultMap="BaseResultMap">
