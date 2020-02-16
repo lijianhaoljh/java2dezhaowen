@@ -11,6 +11,7 @@ import com.accp.service.HomeService;
 @RequestMapping("/hom")
 public class HomeController {
 
+	
 	@Autowired
 	HomeService ser;
 	
