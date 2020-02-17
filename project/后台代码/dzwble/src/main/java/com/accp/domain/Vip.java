@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Vip {
     private String vno;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd hh:ss:mm")
-    @JsonFormat(pattern = "yyyy-mm-dd hh:Ss:mm")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date vjoindate;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd hh:ss:mm")
-    @JsonFormat(pattern = "yyyy-mm-dd hh:Ss:mm")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date venddate;
 
     private String cno;

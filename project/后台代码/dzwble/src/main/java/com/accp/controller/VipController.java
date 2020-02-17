@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +31,28 @@ public class VipController {
 		return vipService.findVips(condition, startTime, endTime);
 	}
 	
+	@PostMapping("/insertVip")
+	public String insertVip(@RequestBody Vip v) {
+		Integer count=vipService.insertVip(v);
+		return "result:"+count;
+	}
+	@DeleteMapping("/deleteVip/{vno}")
+	public String deleteVip(@PathVariable("vno")String vno) {
+		return "result"+vipService.deleteVip(vno);
+	}
 	
+	@PutMapping("/cleanPoint")
+	public String cleanPoint(@RequestBody Vip v) {
+		return "result:"+vipService.cleanPoint(v);
+	}
 	
+	@PutMapping("/czVip")
+	public String czVip(@RequestBody Vip v) {
+		return "result:"+vipService.updateVip(v);
+	}
+	
+	@PutMapping("/updateVip")
+	public String updateVip(@RequestBody Vip v) {
+		return "result:"+vipService.updateVip(v);
+	}
 }

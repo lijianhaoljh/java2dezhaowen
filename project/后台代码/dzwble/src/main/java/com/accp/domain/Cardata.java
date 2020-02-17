@@ -99,7 +99,100 @@ public class Cardata {
     
     private String cname;//客户名称
     
-    public String getCname() {
+    private String vlname; ///会员类型名称
+    
+    private String caddress; //客户地址
+    
+    private String cphone; //手机
+    
+    private String cbname;//发动机品牌名称
+    
+    private Integer currentjifen;//当前积分
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date plandate;//保养日期
+    
+    private float r3; //储值卡余额
+    
+    private float r4;//挂账余额
+    
+    private float r5;//订金余额
+    
+    
+    public String getVlname() {
+		return vlname;
+	}
+
+	public void setVlname(String vlname) {
+		this.vlname = vlname;
+	}
+
+	public String getCaddress() {
+		return caddress;
+	}
+
+	public void setCaddress(String caddress) {
+		this.caddress = caddress;
+	}
+
+	public String getCphone() {
+		return cphone;
+	}
+
+	public void setCphone(String cphone) {
+		this.cphone = cphone;
+	}
+
+	public String getCbname() {
+		return cbname;
+	}
+
+	public void setCbname(String cbname) {
+		this.cbname = cbname;
+	}
+
+	public Integer getCurrentjifen() {
+		return currentjifen;
+	}
+
+	public void setCurrentjifen(Integer currentjifen) {
+		this.currentjifen = currentjifen;
+	}
+
+	public Date getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(Date plandate) {
+		this.plandate = plandate;
+	}
+
+	public float getR3() {
+		return r3;
+	}
+
+	public void setR3(float r3) {
+		this.r3 = r3;
+	}
+
+	public float getR4() {
+		return r4;
+	}
+
+	public void setR4(float r4) {
+		this.r4 = r4;
+	}
+
+	public float getR5() {
+		return r5;
+	}
+
+	public void setR5(float r5) {
+		this.r5 = r5;
+	}
+
+	public String getCname() {
 		return cname;
 	}
 

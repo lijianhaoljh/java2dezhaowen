@@ -3,41 +3,31 @@ package com.accp.domain;
 import java.util.Date;
 
 public class RescueBill {
-    private Integer id;
-
     private String bid;
 
     private String rbname;
 
-    private Float currentMileage;
+    private Float currentmileage;
 
-    private Date dispatchingTime;
+    private Date dispatchingtime;
 
-    private Date ecompletionDate;
+    private Integer tid;
 
-    private String clearingForm;
+    private Date gotime;
 
-    private Integer inid;
-
-    private Date goOff;
-
-    private String goAddress;
+    private String goaddress;
 
     private String cno;
 
-    private Float roadHaul;
+    private Float driving;
 
-    private Date constructionTime;
+    private Date constructiontime;
 
-    private String raddress;
+    private String rescueaddress;
 
-    private Date timeCompletion;
+    private String maintenancenote;
 
-    private Float ecompletionMoney;
-
-    private String maintainRemark;
-
-    private String rescue;
+    private String rescuestatement;
 
     private String remark1;
 
@@ -48,14 +38,6 @@ public class RescueBill {
     private String remark4;
 
     private String remark5;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getBid() {
         return bid;
@@ -73,60 +55,44 @@ public class RescueBill {
         this.rbname = rbname;
     }
 
-    public Float getCurrentMileage() {
-        return currentMileage;
+    public Float getCurrentmileage() {
+        return currentmileage;
     }
 
-    public void setCurrentMileage(Float currentMileage) {
-        this.currentMileage = currentMileage;
+    public void setCurrentmileage(Float currentmileage) {
+        this.currentmileage = currentmileage;
     }
 
-    public Date getDispatchingTime() {
-        return dispatchingTime;
+    public Date getDispatchingtime() {
+        return dispatchingtime;
     }
 
-    public void setDispatchingTime(Date dispatchingTime) {
-        this.dispatchingTime = dispatchingTime;
+    public void setDispatchingtime(Date dispatchingtime) {
+        this.dispatchingtime = dispatchingtime;
     }
 
-    public Date getEcompletionDate() {
-        return ecompletionDate;
+    public Integer getTid() {
+        return tid;
     }
 
-    public void setEcompletionDate(Date ecompletionDate) {
-        this.ecompletionDate = ecompletionDate;
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
-    public String getClearingForm() {
-        return clearingForm;
+    public Date getGotime() {
+        return gotime;
     }
 
-    public void setClearingForm(String clearingForm) {
-        this.clearingForm = clearingForm;
+    public void setGotime(Date gotime) {
+        this.gotime = gotime;
     }
 
-    public Integer getInid() {
-        return inid;
+    public String getGoaddress() {
+        return goaddress;
     }
 
-    public void setInid(Integer inid) {
-        this.inid = inid;
-    }
-
-    public Date getGoOff() {
-        return goOff;
-    }
-
-    public void setGoOff(Date goOff) {
-        this.goOff = goOff;
-    }
-
-    public String getGoAddress() {
-        return goAddress;
-    }
-
-    public void setGoAddress(String goAddress) {
-        this.goAddress = goAddress;
+    public void setGoaddress(String goaddress) {
+        this.goaddress = goaddress;
     }
 
     public String getCno() {
@@ -137,60 +103,44 @@ public class RescueBill {
         this.cno = cno;
     }
 
-    public Float getRoadHaul() {
-        return roadHaul;
+    public Float getDriving() {
+        return driving;
     }
 
-    public void setRoadHaul(Float roadHaul) {
-        this.roadHaul = roadHaul;
+    public void setDriving(Float driving) {
+        this.driving = driving;
     }
 
-    public Date getConstructionTime() {
-        return constructionTime;
+    public Date getConstructiontime() {
+        return constructiontime;
     }
 
-    public void setConstructionTime(Date constructionTime) {
-        this.constructionTime = constructionTime;
+    public void setConstructiontime(Date constructiontime) {
+        this.constructiontime = constructiontime;
     }
 
-    public String getRaddress() {
-        return raddress;
+    public String getRescueaddress() {
+        return rescueaddress;
     }
 
-    public void setRaddress(String raddress) {
-        this.raddress = raddress;
+    public void setRescueaddress(String rescueaddress) {
+        this.rescueaddress = rescueaddress;
     }
 
-    public Date getTimeCompletion() {
-        return timeCompletion;
+    public String getMaintenancenote() {
+        return maintenancenote;
     }
 
-    public void setTimeCompletion(Date timeCompletion) {
-        this.timeCompletion = timeCompletion;
+    public void setMaintenancenote(String maintenancenote) {
+        this.maintenancenote = maintenancenote;
     }
 
-    public Float getEcompletionMoney() {
-        return ecompletionMoney;
+    public String getRescuestatement() {
+        return rescuestatement;
     }
 
-    public void setEcompletionMoney(Float ecompletionMoney) {
-        this.ecompletionMoney = ecompletionMoney;
-    }
-
-    public String getMaintainRemark() {
-        return maintainRemark;
-    }
-
-    public void setMaintainRemark(String maintainRemark) {
-        this.maintainRemark = maintainRemark;
-    }
-
-    public String getRescue() {
-        return rescue;
-    }
-
-    public void setRescue(String rescue) {
-        this.rescue = rescue;
+    public void setRescuestatement(String rescuestatement) {
+        this.rescuestatement = rescuestatement;
     }
 
     public String getRemark1() {

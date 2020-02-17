@@ -14,15 +14,12 @@
 					    今日前台
 					  </a>
 					  <ul class="list-group">
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
-						  <li class="list-group-item list-group-item-warning">接车台次: <span></span></li>
+						  <li class="list-group-item list-group-item-warning">接车台次: <span id="querytodayCount">0</span></li>
+						  <li class="list-group-item list-group-item-warning">结算台次: <span id="querytodayPay">0</span></li>
+						  <li class="list-group-item list-group-item-warning">在修台次: <span id="queryworkcar">0</span></li>
+						  <li class="list-group-item list-group-item-warning">返修台次: <span id="queryagainwork">0</span></li>
+						  <li class="list-group-item list-group-item-warning">站内维修台次: <span id="queryinmaintain">0</span></li>
+						  <li class="list-group-item list-group-item-warning">站外维修台次: <span id="queryoutcar">0</span></li>
 					  </ul>
 					</div>
 					<div class="list-group col-md-4">
@@ -30,15 +27,12 @@
 					  	今日库房
 					  </a>
 					  <ul class="list-group">
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
-						  <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
+						  <li class="list-group-item list-group-item-info">现金入库数: <span id="querycashcounttoday">0</span></li>
+						  <li class="list-group-item list-group-item-info">现金入库额: ￥<span id="querycashtotaltoday"> 0</span> 元</li>
+						  <li class="list-group-item list-group-item-info">挂账入库数: <span id="querynopaycounttoday">0</span></li>
+						  <li class="list-group-item list-group-item-info">挂账入库额: ￥<span id="querynopaytotalmoneytoday"> 0</span> 元</li>
+						  <!--<li class="list-group-item list-group-item-info">销售数量: <span id="querysellcount">0</span></li>-->
+						  <li class="list-group-item list-group-item-info">当前库存数量: <span id="querystockcount">0</span></li>
 					  </ul>
 					</div>
 					<div class="list-group col-md-4">
@@ -46,8 +40,8 @@
 					          今日结算
 					  </a>
 					  <ul class="list-group">
-						  <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
-						  <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
+						  <li class="list-group-item list-group-item-success">现金: ￥<span id="querycashtotal"> 0</span> 元</li>
+						  <li class="list-group-item list-group-item-success">微信: ￥<span id="querywechattotal"> 0</span> 元</li>
 					  </ul>
 					</div>
 					<div class="list-group col-md-4">
@@ -55,8 +49,7 @@
 					          今日统计
 					  </a>
 					  <ul class="list-group">
-						  <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
-						  <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
+						  <li class="list-group-item list-group-item-success">挂账: ￥<span id="querynopaycount"> 0</span> 元</li>
 					  </ul>
 					</div>
 				</div>
@@ -65,5 +58,190 @@
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				//今日接车
+				$.ajax({
+					url:data.ip+"hom/querytodayCount",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#querytodayCount").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querytodayPay",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#querytodayPay").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/queryworkcar",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#queryworkcar").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/queryagainwork",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#queryagainwork").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/queryinmaintain",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#queryinmaintain").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/queryoutcar",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#queryoutcar").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				
+				
+				
+				$.ajax({
+					url:data.ip+"hom/querycashcounttoday",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#querycashcounttoday").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querycashtotaltoday",
+					data:{},
+					type:"get",
+					success:function(result){
+						if(result==null){
+							result = 0;
+						}
+						$("#querycashtotaltoday").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querynopaycounttoday",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#querynopaycounttoday").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querynopaytotalmoneytoday",
+					data:{},
+					type:"get",
+					success:function(result){
+						if(result==null){
+							result = 0;
+						}
+						$("#querynopaytotalmoneytoday").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+//				$.ajax({
+//					url:data.ip+"hom/querysellcount",
+//					data:{},
+//					type:"get",
+//					success:function(result){
+//						$("#querysellcount").text(result);
+//					},error:function(){
+//						alert("发生错误");
+//					}
+//				});
+				
+				$.ajax({
+					url:data.ip+"hom/querystockcount",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#querystockcount").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querycashtotal",
+					data:{},
+					type:"get",
+					success:function(result){
+						if(result==null){
+							result = 0;
+						}
+						$("#querycashtotal").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querywechattotal",
+					data:{},
+					type:"get",
+					success:function(result){
+						if(result==null){
+							result = 0;
+						}
+						$("#querywechattotal").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+				
+				$.ajax({
+					url:data.ip+"hom/querynopaycount",
+					data:{},
+					type:"get",
+					success:function(result){
+						$("#querynopaycount").text(result);
+					},error:function(){
+						alert("发生错误");
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

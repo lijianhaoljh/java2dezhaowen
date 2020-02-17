@@ -924,73 +924,73 @@ public class CommodityInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andPackagIsNull() {
-            addCriterion("packag is null");
+        public Criteria andPackIsNull() {
+            addCriterion("pack is null");
             return (Criteria) this;
         }
 
-        public Criteria andPackagIsNotNull() {
-            addCriterion("packag is not null");
+        public Criteria andPackIsNotNull() {
+            addCriterion("pack is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPackagEqualTo(String value) {
-            addCriterion("packag =", value, "packag");
+        public Criteria andPackEqualTo(String value) {
+            addCriterion("pack =", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotEqualTo(String value) {
-            addCriterion("packag <>", value, "packag");
+        public Criteria andPackNotEqualTo(String value) {
+            addCriterion("pack <>", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagGreaterThan(String value) {
-            addCriterion("packag >", value, "packag");
+        public Criteria andPackGreaterThan(String value) {
+            addCriterion("pack >", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagGreaterThanOrEqualTo(String value) {
-            addCriterion("packag >=", value, "packag");
+        public Criteria andPackGreaterThanOrEqualTo(String value) {
+            addCriterion("pack >=", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagLessThan(String value) {
-            addCriterion("packag <", value, "packag");
+        public Criteria andPackLessThan(String value) {
+            addCriterion("pack <", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagLessThanOrEqualTo(String value) {
-            addCriterion("packag <=", value, "packag");
+        public Criteria andPackLessThanOrEqualTo(String value) {
+            addCriterion("pack <=", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagLike(String value) {
-            addCriterion("packag like", value, "packag");
+        public Criteria andPackLike(String value) {
+            addCriterion("pack like", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotLike(String value) {
-            addCriterion("packag not like", value, "packag");
+        public Criteria andPackNotLike(String value) {
+            addCriterion("pack not like", value, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagIn(List<String> values) {
-            addCriterion("packag in", values, "packag");
+        public Criteria andPackIn(List<String> values) {
+            addCriterion("pack in", values, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotIn(List<String> values) {
-            addCriterion("packag not in", values, "packag");
+        public Criteria andPackNotIn(List<String> values) {
+            addCriterion("pack not in", values, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagBetween(String value1, String value2) {
-            addCriterion("packag between", value1, value2, "packag");
+        public Criteria andPackBetween(String value1, String value2) {
+            addCriterion("pack between", value1, value2, "pack");
             return (Criteria) this;
         }
 
-        public Criteria andPackagNotBetween(String value1, String value2) {
-            addCriterion("packag not between", value1, value2, "packag");
+        public Criteria andPackNotBetween(String value1, String value2) {
+            addCriterion("pack not between", value1, value2, "pack");
             return (Criteria) this;
         }
 

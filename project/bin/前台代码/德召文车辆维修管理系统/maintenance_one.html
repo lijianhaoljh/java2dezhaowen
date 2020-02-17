@@ -14,8 +14,6 @@
 				   	<span class="glyphicon glyphicon-globe"></span> 接车登记
 				   	<span style="position:relative;top:-7px;float: right;" >
 				   			<div class="form-inline">
-				   				<input type="text" class="form-control" placeholder="Text input">
-					   			<button class="btn btn-success">搜索</button>
 					   			<button class="btn btn-danger">关闭</button>
 					   		</div>
 					</span>
@@ -24,11 +22,26 @@
 			</div>
 			<div class="row">
 				<div class="panel panel-success" >
-				  <div class="panel-heading" style="overflow: hidden;">
-				   		<div class="form-inline" style="float: right;">
-				   			<button class="btn btn-success">维修开单</button>
-				   			<button class="btn btn-success">救援开单</button>
-				   			<button class="btn btn-success">关注公众号</button>
+				  <div class="panel-heading" >
+				  		<div class="form-inline">
+				  			<div class="form-group">
+								<input type="text" class="form-control" placeholder="车牌号">
+						   		<div class="btn-group" role="group" >
+									<button type="button" class="btn btn-success">查询</button>
+								</div>
+								<div class="btn-group" role="group" >
+									<button disabled="disabled" type="button" class="btn btn-warning" >level:</button>
+									<button disabled="disabled" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										一般客户
+									</button>
+								</div>
+							</div>
+				   				
+							<div class="form-group" style="float: right;">
+								<button class="btn btn-success">维修开单</button>
+					   			<button class="btn btn-success">救援开单</button>
+					   			<button class="btn btn-success">关注公众号</button>								
+							</div>
 				   		</div>
 				  </div>
 				</div>
@@ -36,55 +49,19 @@
 			<div class="row">
 				<div class="panel panel-success" >
 				  <div class="panel-heading">
-				   		<div class="form-inline" >
-				   			<input type="text" class="form-control" placeholder="Text input">
-					   		<div class="btn-group" role="group" >
-								<button type="button" class="btn btn-success" >选择</button>
-								<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="caret" ></span>
-								</button>
-								<ul class="dropdown-menu" style="position: absolute;left: -80px;">
-									<li><a href="#" >查询</a></li>
-									<li><a href="#" >like</a></li>
-								</ul>
-							</div>
-							<div class="btn-group" role="group" >
-								<button disabled="disabled" type="button" class="btn btn-warning" >level:</button>
-								<button disabled="disabled" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									一般客户
-								</button>
-							</div>
-				   		</div>
 				   		<table class="table table-hover table-condensed">
 				   			<thead>
 					   			<tr>
-					   				<th colspan="5">车主信息:</th>
+					   				<th colspan="5">信息:</th>
 					   			</tr>
 					   			<tr>
 					   				<td>#</td>
+					   				<td>车牌号</td>
 					   				<td>车主</td>
+					   				<td>会员类型</td>
 					   				<td>地址</td>
 					   				<td>驾驶员</td>
 					   				<td>手机</td>
-					   			</tr>
-				   			</thead>
-				   			<tbody>
-				   				<tr>
-					   				<td>dzw001</td>
-					   				<td>李顺</td>
-					   				<td>湖南</td>
-					   				<td>李顺</td>
-					   				<td>438</td>
-					   			</tr>
-				   			</tbody>
-				   		</table>
-				   		<table class="table table-hover table-condensed">
-				   			<thead>
-					   			<tr>
-					   				<th colspan="5">车辆信息:</th>
-					   			</tr>
-					   			<tr>
-					   				<td>#</td>
 					   				<td>品牌</td>
 					   				<td>车型</td>
 					   				<td>发动机品牌</td>
@@ -96,9 +73,15 @@
 				   			</thead>
 				   			<tbody>
 				   				<tr>
-					   				<td>001</td>
-					   				<td>大众</td>
-					   				<td>大众</td>
+					   				<td><input type="radio" name="rad"></td>
+					   				<td>车牌号</td>
+					   				<td>车主</td>
+					   				<td>会员类型</td>
+					   				<td>地址</td>
+					   				<td>驾驶员</td>
+					   				<td>手机</td>
+					   				<td>品牌</td>
+					   				<td>车型</td>
 					   				<td>发动机品牌</td>
 					   				<td>发动机号</td>
 					   				<td>发动机</td>
@@ -112,29 +95,116 @@
 			</div>
 			<div class="row">
 				<div class="panel panel-success" >
-				  <div class="panel-heading" style="overflow: hidden;">
-				   		<ul class="nav nav-pills" >
-							<li role="presentation" class="active"><a href="#">作业中车辆</a></li>
-							<li role="presentation"><a href="#">维修历史</a></li>
-							<li role="presentation"><a href="#">维修项目</a></li>
-							<li role="presentation"><a href="#">领料情况</a></li>
-							<li role="presentation"><a href="#">历史回访</a></li>
+				  <div class="panel-heading" style="overflow: scroll;">
+				   		<ul class="nav nav-tabs" >
+							<li role="presentation" class="active"><a href="#carInfo" data-toggle="tab">作业中车辆</a></li>
+							<li role="presentation"><a href="#mh" data-toggle="tab">维修历史</a></li>
+							<li role="presentation"><a href="#mp" data-toggle="tab">维修项目</a></li>
+							<li role="presentation"><a href="#acq" data-toggle="tab">领料情况</a></li>
+							<li role="presentation"><a href="#hv" data-toggle="tab">历史回访</a></li>
 						</ul>
-						<div class="tab-pane active" id="index" style="height: 100%;">
-							<table class="table">
-								<thead>
+						<div class="tab-content" style="padding: 5px;;">
+							<div id="carInfo" class="active tab-pane bg-warning">
+								<table class="table table-hover">
+									<thead>
 									<tr>
-										<td>111</td>
-										<td>111</td>
+										<td>单据状态</td>
+										<td>业务类型</td>
+										<td>客户名称</td>
+										<td>车牌号</td>
+										<td>手机号</td>
+										<td>会员卡号</td>
+										<td>单号</td>
+										<td>类型</td>
+										<td>开单时间</td>
+										<td>预计完工</td>
+										<td>完工时间</td>
+										<td>结算时间</td>
+										<td>预估金额</td>
+										<td>服务顾问</td>
+										<td>接车人</td>
 									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>111</td>
-										<td>111</td>
-									</tr>
-								</tbody>
-							</table>
+									</thead>
+									<tbody v-for="item in page.list">
+										<tr v-if="item.completiontime==null" class="danger">
+											<td v-if="item.bstate==0">接车中</td>
+											<td v-else-if="item.bstate==1">作业中</td>
+											<td v-else>完成</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.cname}}</td>
+											<td>{{item.cdlicense}}</td>
+											<td>{{item.cphone}}</td>
+											<td>{{item.vno}}</td>
+											<td>{{item.bid}}</td>
+											<td v-if="item.mbname!=null">{{item.mbname}}</td>
+											<td v-else>{{item.rbname}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.expectedtime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.forecastmoney}}</td>
+											<td>{{item.pname}}</td>
+											<td>{{item.pnames}}</td>
+										</tr>
+										<tr v-else class="success">
+											<td v-if="item.bstate==0">接车中</td>
+											<td v-else-if="item.bstate==1">作业中</td>
+											<td v-else>完成</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.cname}}</td>
+											<td>{{item.cdlicense}}</td>
+											<td>{{item.cphone}}</td>
+											<td>{{item.vno}}</td>
+											<td>{{item.bid}}</td>
+											<td v-if="item.mbname!=null">{{item.mbname}}</td>
+											<td v-else>{{item.rbname}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.expectedtime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.forecastmoney}}</td>
+											<td>{{item.pname}}</td>
+											<td>{{item.pnames}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<nav aria-label="Page navigation">
+								  <ul class="pager form-inline">
+								    <li><a @click="findBills(page.prePage)">上一页</a></li>
+								    <li><a>数据量:{{page.total}}</a></li>
+								    <li><a>总页数:{{page.pages}}</a></li>
+								    <li>
+								    	<select class="form-control" @change="findBills(1)" v-model="pageSize">
+								    		<option :value="2">2</option>
+								    		<option :value="4">4</option>
+								    		<option :value="6">6</option>
+								    		<option :value="8">8</option>
+								    		<option :value="10">10</option>
+								    	</select>
+								    </li>
+								    <li><a @click="findBills(page.firstPage)">第一页:{{page.firstPage}}</a></li>
+								    <li><a @click="findBills(page.lastPage)">最末页:{{page.lastPage}}</a></li>
+								    <li><a>当前页:{{page.pageNum==0?1:page.pageNum}}</a></li>
+								    <li><a @click="findBills(page.nextPage)">下一页</a></li>
+								  </ul>
+								</nav>
+							</div>
+							
+							<div id="mh" class="tab-pane bg-warning">
+								维修历史
+							</div>
+							
+							<div id="mp" class="tab-pane bg-warning">
+								维修项目
+							</div>
+							
+							<div id="acq" class="tab-pane bg-warning">
+								领料情况
+							</div>
+							
+							<div id="hv" class="tab-pane bg-warning">
+								历史回访
+							</div>
 						</div>
 				  </div>
 				</div>
@@ -143,5 +213,44 @@
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/my.js" ></script>
+		<script type="text/javascript" src="js/perms.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+		<script>
+			var vm=new Vue({
+				el:"#ctx",
+				data(){
+					return{
+						page:{},
+						pageSize:2
+					}
+				},
+				methods:{
+					findBills(pageNum){
+						let that=this;
+						//查询单据
+						$.ajax({
+							url:data.ip+"bills/findBills",
+							type:"get",
+							data:{
+								pageNum:pageNum,
+								pageSize:that.pageSize
+							},
+							xhrFields:{
+								withCredentials:true
+							},dataType:"json",
+							success:function(response){
+								vm.page=response;
+								console.log(vm.page);
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					}
+				},created:function(){
+					this.findBills(1);
+				}
+			});
+		</script>
 	</body>
 </html>

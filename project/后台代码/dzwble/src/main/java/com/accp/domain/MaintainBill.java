@@ -3,33 +3,23 @@ package com.accp.domain;
 import java.util.Date;
 
 public class MaintainBill {
-    private Integer id;
-
     private String bid;
 
     private String mbname;
 
-    private Float mileFactory;
+    private Float factorymeil;
 
-    private Float oilFactory;
+    private Float factoryoil;
 
-    private Float mile;
+    private Float mileage;
 
-    private Date efactoryTime;
+    private Date intotime;
 
-    private Date ecompletionDate;
+    private Date lastinto;
 
-    private String clearingForm;
+    private String receptionnote;
 
-    private Integer inid;
-
-    private Date timeCompletion;
-
-    private Date factory;
-
-    private String report;
-
-    private Float ecompletionMoney;
+    private String statement;
 
     private String remark1;
 
@@ -40,14 +30,6 @@ public class MaintainBill {
     private String remark4;
 
     private String remark5;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getBid() {
         return bid;
@@ -65,92 +47,60 @@ public class MaintainBill {
         this.mbname = mbname;
     }
 
-    public Float getMileFactory() {
-        return mileFactory;
+    public Float getFactorymeil() {
+        return factorymeil;
     }
 
-    public void setMileFactory(Float mileFactory) {
-        this.mileFactory = mileFactory;
+    public void setFactorymeil(Float factorymeil) {
+        this.factorymeil = factorymeil;
     }
 
-    public Float getOilFactory() {
-        return oilFactory;
+    public Float getFactoryoil() {
+        return factoryoil;
     }
 
-    public void setOilFactory(Float oilFactory) {
-        this.oilFactory = oilFactory;
+    public void setFactoryoil(Float factoryoil) {
+        this.factoryoil = factoryoil;
     }
 
-    public Float getMile() {
-        return mile;
+    public Float getMileage() {
+        return mileage;
     }
 
-    public void setMile(Float mile) {
-        this.mile = mile;
+    public void setMileage(Float mileage) {
+        this.mileage = mileage;
     }
 
-    public Date getEfactoryTime() {
-        return efactoryTime;
+    public Date getIntotime() {
+        return intotime;
     }
 
-    public void setEfactoryTime(Date efactoryTime) {
-        this.efactoryTime = efactoryTime;
+    public void setIntotime(Date intotime) {
+        this.intotime = intotime;
     }
 
-    public Date getEcompletionDate() {
-        return ecompletionDate;
+    public Date getLastinto() {
+        return lastinto;
     }
 
-    public void setEcompletionDate(Date ecompletionDate) {
-        this.ecompletionDate = ecompletionDate;
+    public void setLastinto(Date lastinto) {
+        this.lastinto = lastinto;
     }
 
-    public String getClearingForm() {
-        return clearingForm;
+    public String getReceptionnote() {
+        return receptionnote;
     }
 
-    public void setClearingForm(String clearingForm) {
-        this.clearingForm = clearingForm;
+    public void setReceptionnote(String receptionnote) {
+        this.receptionnote = receptionnote;
     }
 
-    public Integer getInid() {
-        return inid;
+    public String getStatement() {
+        return statement;
     }
 
-    public void setInid(Integer inid) {
-        this.inid = inid;
-    }
-
-    public Date getTimeCompletion() {
-        return timeCompletion;
-    }
-
-    public void setTimeCompletion(Date timeCompletion) {
-        this.timeCompletion = timeCompletion;
-    }
-
-    public Date getFactory() {
-        return factory;
-    }
-
-    public void setFactory(Date factory) {
-        this.factory = factory;
-    }
-
-    public String getReport() {
-        return report;
-    }
-
-    public void setReport(String report) {
-        this.report = report;
-    }
-
-    public Float getEcompletionMoney() {
-        return ecompletionMoney;
-    }
-
-    public void setEcompletionMoney(Float ecompletionMoney) {
-        this.ecompletionMoney = ecompletionMoney;
+    public void setStatement(String statement) {
+        this.statement = statement;
     }
 
     public String getRemark1() {

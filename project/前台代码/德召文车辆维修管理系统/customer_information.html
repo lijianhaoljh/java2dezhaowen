@@ -60,7 +60,7 @@
 							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
 						</ul>
 					</div>
-					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 400px;">
+					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 300px;">
 						<table id="onlyone" class="table table-bordered" style="width: 3000px;">
 							<thead>
 								<tr>
@@ -231,7 +231,7 @@
 									<td>{{b.cdlicense}}</td>
 									<td>{{b.mname}}</td>
 									<td>{{b.etime}}</td>
-									<td>{{b.edate}}</td>
+									<td>{{b.completiontime}}</td>
 									<td>{{b.atime}}</td>
 									<td>{{b.total}}</td>
 								</tr>
@@ -242,7 +242,7 @@
 									<td>{{b.cdlicense}}</td>
 									<td>{{b.mname}}</td>
 									<td>{{b.contime}}</td>
-									<td>{{b.comtime}}</td>
+									<td>{{b.completiontime}}</td>
 									<td>{{b.atime}}</td>
 									<td>{{b.total}}</td>
 								</tr>
@@ -256,13 +256,13 @@
 			</div>
 			<div id="addcusandcar">
 				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加客户和车资料</p>
-				<div style="width: 980px;height: 600px;border:1px solid white;margin-left: 10px;background-color: white;">
+				<div style="width: 980px;height: 530px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加客户和车资料</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
 						<button @click="addcusandcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
 					</div>
-					<div style="width: 960px;height: 540px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 960px;height: 470px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p style="padding-top: 10px;" class="ddd">
 							<label><span style="color: red;">*</span>客户编码</label><input type="test" readonly="readonly" v-model="cus.cno" />
 							<label><span style="color: red;">*</span>客户名称</label><input type="test" v-model="cus.cname" />

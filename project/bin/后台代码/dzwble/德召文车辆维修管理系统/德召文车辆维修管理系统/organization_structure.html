@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>组织结构定义</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/css/vendor.bundle.base.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/mdi/css/materialdesignicons.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/organization_structure.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
+	</head>
+
+	<body>
+
+		<div id="ctx">
+			<div class="container-fluid">
+				<div class="row">
+					<div>
+						<span>组织结构定义</span>
+					</div>
+					<div>
+						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
+							<input type="text" placeholder="匹配工号/姓名/手机" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
+							<button class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
+							<button class="btn btn-default" style="width: 70px;">关闭</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
+						<ul>
+							<li @click="addstaff"><span class="glyphicon glyphicon-plus-sign"></span>增加员工</li>
+							<li><span class="glyphicon glyphicon-leaf"></span>修改</li>
+							<li><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
+							<li @click="checkstaff"><span class="glyphicon glyphicon-sunglasses"></span>查询</li>
+							<li><span class="glyphicon glyphicon-lock"></span>置空密码</li>
+							<li><span class="glyphicon glyphicon-export"></span>导出</li>
+							<li><span class="glyphicon glyphicon-import"></span>导入</li>
+							<li @click="staffrole"><span class="glyphicon glyphicon-user"></span>员工角色</li>
+							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
+						</ul>
+					</div>
+					<div class="col-md-3 col-xs-3">
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
+					<div class="col-md-9 col-xs-9" style="border-left: 1px solid #E9E9E9;">
+						<table class="table table-bordered" style="width: 3000px;">
+							<thead>
+								<tr>
+									<td> </td>
+									<td>机构</td>
+									<td>部门代码</td>
+									<td>部门名称</td>
+									<td>工号</td>
+									<td>姓名</td>
+									<td>性别</td>
+									<td>岗位名称</td>
+									<td>身体状况</td>
+									<td>身高</td>
+									<td>籍贯</td>
+									<td>民族</td>
+									<td>婚姻状况</td>
+									<td>学历</td>
+									<td>毕业学校</td>
+									<td>专业</td>
+									<td>专业资格</td>
+									<td>学位</td>
+									<td>编制</td>
+									<td>身份证号</td>
+									<td>户口地址</td>
+									<td>邮编</td>
+									<td>现住地址</td>
+									<td>邮编</td>
+									<td>联系电话</td>
+									<td>手机</td>
+									<td>EMail</td>
+									<td>紧急情况联系人</td>
+									<td>联系电话</td>
+									<td>现在何处</td>
+									<td>试用到期</td>
+									<td>入职日期</td>
+									<td>出生日期</td>
+									<td>合同开始日期</td>
+									<td>合同结束日期</td>
+									<td>生日</td>
+									<td>年龄</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> </td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
+					合计：<span>2</span>条记录
+				</div>
+			</div>
+			<div id="addstaff">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>
+				<div style="width: 980px;height: 630px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 960px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
+						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
+					</div>
+					<div style="width: 960px;height: 555px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+						<p style="padding-top: 10px;">
+							<label><span style="color: red;">*</span>员工编号</label><input />
+							<label><span style="color: red;">*</span>员工姓名</label><input />
+							<label><span style="color: red;">*</span>性别</label><input />
+						</p>
+						<p>
+							<label><span style="color: red;">*</span>所在门店</label><input />
+							<label><span style="color: red;">*</span>所在部门</label><input />
+						</p>
+						<p>
+							<label>登录账号</label><input />
+							<label>岗位</label><input />
+							<label>身体状况</label><input />
+						</p>
+						<p>
+							<label>身高</label><input />
+							<label>籍贯</label><input />
+							<label>名族</label><input />
+						</p>
+						<p>
+							<label>婚姻状况</label><input />
+							<label>学历</label><input />
+							<label>毕业学校</label><input />
+						</p>
+						<p>
+							<label>专业</label><input />
+							<label>专业资格</label><input />
+							<label><span style="color: red;">*</span>属性</label><input />
+							<label>学位</label><input />
+						</p>
+						<p>
+							<label>编制</label><input />
+							<label>身份证号</label><input />
+							<label>户口地址</label><input />
+						</p>
+						<p>
+							<label>现住地址</label><input />
+							<label>联系电话</label><input />
+							<label>手机</label><input />
+						</p>
+						<p>
+							<label>EMAIL</label><input />
+							<label>开户银行</label><input />
+							<label>银行账号</label><input />
+						</p>
+						<p style="padding-top: 20px;">
+							<label>紧急联系人</label><input />
+							<label>联系电话</label><input />
+						</p>
+						<p>
+							<label>入职日期</label><input />
+							<label>试用到期</label><input />
+							<label>出生日期</label><input />
+							<label>合同开始</label><input />
+						</p>
+						<p>
+							<label>合同结束</label><input />
+							<label>卡自编号</label><input />
+							<label>卡内部号</label><input />
+							<label>推荐人</label><input />
+						</p>
+						<p>
+							<label>整单折扣权%</label><input />
+							<label>工时折扣权%</label><input />
+							<label>商品折扣权%</label><input />
+							<label>减免权</label><input />
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="checkstaff">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工查询</p>
+				<div style="width: 880px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 860px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 30px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">员工查询</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+					</div>
+					<div style="width: 860px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+						<p style="padding-top: 10px;">
+							<label><span style="color: red;">*</span>员工编号</label><input />
+							<label><span style="color: red;">*</span>员工姓名</label><input />
+							<label><span style="color: red;">*</span>性别</label><input />
+						</p>
+						<p>
+							<label><span style="color: red;">*</span>岗位</label><input />
+							<label><span style="color: red;">*</span>所在部门</label><input />
+						</p>
+						<p>
+							<label>身体状况</label><input />
+							<label>身高</label><input />
+							<label>籍贯</label><input />
+						</p>
+						<p>
+							<label>名族</label><input />
+							<label>婚姻状况</label><input />
+							<label>学历</label><input />
+						</p>
+						<p>
+							<label>毕业学校</label><input />
+							<label>专业</label><input />
+							<label>专业资格</label><input />
+						</p>
+						<p>
+							<label>生日</label><input />
+							<label>学位</label><input />
+							<label>编制</label><input />
+						</p>
+						<p>
+							<label>身份证号</label><input />
+							<label>入职日期&nbsp;&nbsp;从</label><input />
+							<label style="text-align: left;">至</label><input />
+						</p>
+						<p>
+							<label>试用到期&nbsp;&nbsp;从</label><input />
+							<label style="text-align: left;">至</label><input />
+							<label>属性</label><input />
+						</p>
+						<p>
+							<label>合同开始&nbsp;&nbsp;从</label><input />
+							<label style="text-align: left;">至</label><input />
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="role">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工角色</p>
+				<div style="width: 430px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 410px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">员工角色</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+					</div>
+					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<ul>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
+						</ul>
+						<table class="table table-bordered" style="border: 1px solid white;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>角色名称</td>
+									<td>包含</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>   </td>
+									<td>总经理</td>
+									<td><input /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div id="setting">
+				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">字段设置</p>
+				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 50px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">字段设置</div>
+						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+					</div>
+					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<ul>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
+						</ul>
+						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+							<thead>
+								<tr>
+									<td></td>
+									<td>字段</td>
+									<td>字段名称</td>
+									<td>显示</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>   </td>
+									<td>id</td>
+									<td>编号</td>
+									<td><input type="checkbox" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				var vm = new Vue({
+					el:"#ctx",
+					data(){
+						return {}
+					},
+					methods:{
+						addstaff:function(){
+							$("#addstaff").show();
+						},
+						closeadd:function(){
+							$("#addstaff").hide();
+							$("#checkstaff").hide();
+							$("#role").hide();
+							$("#setting").hide();
+						},
+						checkstaff:function(){
+							$("#checkstaff").show();
+						},
+						staffrole:function(){
+							$("#role").show();
+						},
+						setting:function(){
+							$("#setting").show();
+						}
+					}
+				});
+				var setting = {
+					check: {
+						
+						enable: true
+					},
+					data: {
+						simpleData: {
+							enable: true
+						}
+					},
+					edit: {
+						enable: true
+					}
+				};
+			//数据结构，从后台查询数据进行赋值就可使用
+			var zNodes =[
+				{id:1, pId:0, name:"[core] 基本功能 演示", open:true},
+			{id:101, pId:1, name:"最简单的树 --  标准 JSON 数据"},
+			{id:10101, pId:101, name:"最简单的树 --  标准 JSON 数据"},
+			{id:1010101, pId:10101, name:"最简单的树 --  简单 JSON 数据"},
+			{id:101010101, pId:1010101, name:"最简单的树 --  简单 JSON 数据"},
+			{id:102, pId:1, name:"最简单的树 --  简单 JSON 数据"},
+			{id:103, pId:1, name:"不显示 连接线"},
+			{id:104, pId:1, name:"不显示 节点 图标"},
+			{id:108, pId:1, name:"异步加载 节点数据"},
+			{id:109, pId:1, name:"用 zTree 方法 异步加载 节点数据"},
+			{id:110, pId:1, name:"用 zTree 方法 更新 节点数据"},
+			{id:111, pId:1, name:"单击 节点 控制"},
+			{id:112, pId:1, name:"展开 / 折叠 父节点 控制"},
+			{id:113, pId:1, name:"根据 参数 查找 节点"},
+			{id:114, pId:1, name:"其他 鼠标 事件监听"},
+			
+			{id:2, pId:0, name:"[excheck] 复/单选框功能 演示", open:false},
+			{id:201, pId:2, name:"Checkbox 勾选操作"},
+			{id:206, pId:2, name:"Checkbox nocheck 演示"},
+			{id:207, pId:2, name:"Checkbox chkDisabled 演示"},
+			{id:208, pId:2, name:"Checkbox halfCheck 演示"},
+			{id:202, pId:2, name:"Checkbox 勾选统计"},
+			{id:203, pId:2, name:"用 zTree 方法 勾选 Checkbox"},
+			{id:204, pId:2, name:"Radio 勾选操作"},
+			{id:209, pId:2, name:"Radio nocheck 演示"},
+			{id:210, pId:2, name:"Radio chkDisabled 演示"},
+			{id:211, pId:2, name:"Radio halfCheck 演示"},
+			{id:205, pId:2, name:"用 zTree 方法 勾选 Radio"},
+		
+			];
+		
+			$(document).ready(function(){
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			});
+		
+		</script>
+	</body>
+
+</html>

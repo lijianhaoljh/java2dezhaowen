@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>德召文车辆维修管理系统-登录</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/login.css" />
+		<style>
+			body{
+				background: #337AB7;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="mydiv" class="container-fluid">
+				<div class="row">
+					<div class="center-block" style="width: 350px;margin-top: 165px;">
+					<div class="panel panel-default">
+						  <div class="panel-body text-center">
+						    	<h3>登录</h3>
+						  </div>
+						  <div class="panel-footer">
+						  		<div class="form-group">
+						  			<label>门店:</label>
+									<select class="form-control">
+										<option value="">请选择</option>
+										<option >111</option>
+										<option >111</option>
+										<option >111</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>用户:</label>
+									<input type="text" class="form-control"  placeholder="user">
+								</div>
+								<div class="form-group">
+									<label>密码:</label>
+									<input type="password" class="form-control" placeholder="Password">
+								</div>
+								<div class="form-group text-center">
+									<a href="index.html" class="btn btn-success btn-lg">登录 <span class="glyphicon glyphicon-arrow-right"></span></a>
+								</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				l
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/canvas-particle.js" ></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript">
+			window.onload = function() {
+			    //配置
+			    var config = {
+			        vx: 4,	//小球x轴速度,正为右，负为左
+			        vy: 4,	//小球y轴速度
+			        height: 2,	//小球高宽，其实为正方形，所以不宜太大
+			        width: 2,
+			        count: 400,		//点个数
+			        color: "121, 162, 185", 	//点颜色
+			        stroke: "130,255,255", 		//线条颜色
+			        dist: 6000, 	//点吸附距离
+			        e_dist: 20000, 	//鼠标吸附加速距离
+			        max_conn: 10 	//点到点最大连接数
+			    }
+			    //调用
+			    CanvasParticle(config);
+			}
+		</script>
+	</body>
+</html>

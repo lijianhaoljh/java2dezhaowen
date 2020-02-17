@@ -1,25 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.BillsMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.Bills" >
-    <id column="bid" property="bid" jdbcType="VARCHAR" />
-    <result column="bstate" property="bstate" jdbcType="INTEGER" />
-    <result column="tid" property="tid" jdbcType="INTEGER" />
-    <result column="cdlicense" property="cdlicense" jdbcType="VARCHAR" />
-    <result column="pno" property="pno" jdbcType="VARCHAR" />
-    <result column="mid" property="mid" jdbcType="INTEGER" />
-    <result column="person" property="person" jdbcType="VARCHAR" />
-    <result column="delays_reason" property="delaysReason" jdbcType="VARCHAR" />
-    <result column="quality" property="quality" jdbcType="VARCHAR" />
-    <result column="qualified" property="qualified" jdbcType="INTEGER" />
-    <result column="n_rework" property="nRework" jdbcType="INTEGER" />
-    <result column="p_amount" property="pAmount" jdbcType="REAL" />
-    <result column="rid" property="rid" jdbcType="INTEGER" />
-    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
-    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
-    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
-    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
-    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.BillsMapper">
+  <resultMap id="BaseResultMap" type="com.accp.domain.Bills">
+    <id column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="bstate" jdbcType="INTEGER" property="bstate" />
+    <result column="cdlicense" jdbcType="VARCHAR" property="cdlicense" />
+    <result column="pno" jdbcType="VARCHAR" property="pno" />
+    <result column="btid" jdbcType="INTEGER" property="btid" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="pmid" jdbcType="INTEGER" property="pmid" />
+    <result column="inid" jdbcType="INTEGER" property="inid" />
+    <result column="qualified" jdbcType="INTEGER" property="qualified" />
+    <result column="reworknum" jdbcType="INTEGER" property="reworknum" />
+    <result column="respeople" jdbcType="VARCHAR" property="respeople" />
+    <result column="Delaysreason" jdbcType="VARCHAR" property="delaysreason" />
+    <result column="Reworkreason" jdbcType="VARCHAR" property="reworkreason" />
+    <result column="Expectedtime" jdbcType="TIMESTAMP" property="expectedtime" />
+    <result column="Completiontime" jdbcType="TIMESTAMP" property="completiontime" />
+    <result column="Penaltyamount" jdbcType="REAL" property="penaltyamount" />
+    <result column="qmember" jdbcType="VARCHAR" property="qmember" />
+    <result column="Pickcar" jdbcType="VARCHAR" property="pickcar" />
+    <result column="Ordertime" jdbcType="TIMESTAMP" property="ordertime" />
+    <result column="Clearingtime" jdbcType="TIMESTAMP" property="clearingtime" />
+    <result column="forecastmoney" jdbcType="REAL" property="forecastmoney" />
+    <result column="remark1" jdbcType="VARCHAR" property="remark1" />
+    <result column="remark2" jdbcType="VARCHAR" property="remark2" />
+    <result column="remark3" jdbcType="VARCHAR" property="remark3" />
+    <result column="remark4" jdbcType="VARCHAR" property="remark4" />
+    <result column="remark5" jdbcType="VARCHAR" property="remark5" />
     
     <result column="mbname" property="mbname" jdbcType="VARCHAR" />
     <result column="etime" property="etime" jdbcType="VARCHAR" />
@@ -31,411 +39,634 @@
     <result column="total" property="total" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  
+  <select id="querytodayCount" parameterType="com.accp.domain.Bills" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills WHERE YEAR(Ordertime) = YEAR(NOW()) AND MONTH(Ordertime) = MONTH(NOW()) AND DAY(Ordertime) = DAY(NOW())
+  </select>
   <select id="queryBillBycno" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
+WHERE cd.cdlicense IN (SELECT ca.cdlicense FROM cardata ca WHERE cno = #{cno} )
+  </select>
+
+  <select id="queryincar" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills AS b
+LEFT JOIN d_maintenance AS d ON b.bid=d.bid
+LEFT JOIN `work` AS w ON w.tid = d.tid
+WHERE  ((w.winmorning = 1 OR w.winnight =1) and w.woutmoning = 0 OR w.woutnight =0) AND YEAR(b.Ordertime) = YEAR(NOW()) AND MONTH(b.Ordertime) = MONTH(NOW()) AND DAY(b.Ordertime) = DAY(NOW())
+  </select>
+
+  <select id="queryoutcar" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM bills AS b
+LEFT JOIN d_maintenance AS d ON b.bid=d.bid
+LEFT JOIN `work` AS w ON w.tid = d.tid
+WHERE  ((w.woutmoning = 1 OR w.woutnight =1) AND w.winmorning = 0 AND w.winnight = 0 ) AND YEAR(b.Ordertime) = YEAR(NOW()) AND MONTH(b.Ordertime) = MONTH(NOW()) AND DAY(b.Ordertime) = DAY(NOW())
   </select>
   
   <select id="queryBillBycdlicense" resultMap="BaseResultMap">
-  	SELECT b.*,mt.mname mname,mb.mbname mbname,mb.efactory_time etime,mb.ecompletion_date edate,rb.rbname rbname,rb.construction_time contime,rb.time_completion comtime,ac.atime atime,ac.total total FROM bills AS b
-LEFT JOIN maintain_bill AS mb ON b.bid = mb.bid
-LEFT JOIN rescue_bill AS rb ON b.bid = rb.bid
-LEFT JOIN account AS ac ON ac.bid = b.bid
-LEFT JOIN maintenance AS mt ON mt.mid=b.mid
-WHERE cdlicense = #{cdlicense}
+  	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt ON b.btid=bt.btid
+LEFT JOIN `customer` AS c ON cd.cno=c.cno
+LEFT JOIN  account AS a ON b.bid=a.bid
+WHERE b.cdlicense = #{cdlicense}
   </select>
   
-  <sql id="Base_Column_List" >
-    bid, bstate, tid, cdlicense, pno, mid, person, delays_reason, quality, qualified, 
-    n_rework, p_amount, rid, remark1, remark2, remark3, remark4, remark5
+  <select id="findBills" resultMap="BaseResultMap">
+  SELECT b.bstate,bt.btname,c.cname,cd.cdlicense,c.cphone,v.vno,b.bid,mb.mbname,rb.rbname,b.ordertime,b.Expectedtime,b.Completiontime,
+a.atime,b.forecastmoney,p.pname,pp.pname pnames
+ FROM `bills` AS b
+LEFT JOIN `maintain_bill` AS mb
+ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb
+ON b.bid=rb.bid
+LEFT JOIN `cardata` AS cd
+ON b.cdlicense=cd.cdlicense
+LEFT JOIN people AS p
+ON b.pno=p.pno 
+LEFT JOIN `business_types` AS bt
+ON b.btid=bt.btid
+LEFT JOIN people AS pp
+ON b.pickcar=pp.pno 
+LEFT JOIN `customer` AS c
+ON cd.cno=c.cno
+LEFT JOIN `vip` AS v
+ON c.cno=v.cno
+LEFT JOIN account AS a
+ON b.bid=a.bid
+ORDER BY b.ordertime DESC
+</select>
+<select id="findByCdlicenseOne" resultMap="BaseResultMap">
+	SELECT b.bid,b.ordertime,b.Completiontime,bt.btname,ct.`cname`,b.cdlicense,ct.`cphone`,v.`vno`,a.atime,a.total FROM `maintain_bill` AS mb
+LEFT JOIN `bills` AS  b
+ON mb.bid=b.bid
+LEFT JOIN `cardata` AS cd
+ON b.cdlicense=cd.cdlicense
+LEFT JOIN `business_types` AS bt
+ON b.btid=bt.btid
+LEFT JOIN `customer` AS ct
+ON cd.cno=ct.cno
+LEFT JOIN `vip` AS v
+ON ct.cno=v.cno
+LEFT JOIN `account` AS a
+ON b.bid=a.bid
+where b.cdlicense like concat('%',#{cdlicense},'%')
+order by b.ordertime desc
+</select>
+<select id="findByCdlicenseTwo" resultMap="BaseResultMap">
+	SELECT b.`bid`,b.`Ordertime`,bt.`btname`,b.`Completiontime`,a.`atime`,si.sidno,si.sidname,pc.pcname,
+dm.remark1 AS r1,dm.remark2 AS r2,p.pname,dm.Faultdescription,dm.problem,dm.num
+ FROM d_maintenance AS dm
+LEFT JOIN `bills` AS b
+ON dm.bid=b.bid
+LEFT JOIN`business_types` AS bt
+ON b.btid=bt.btid
+LEFT JOIN account AS a
+ON b.bid=a.bid
+LEFT JOIN `service_item` AS si
+ON dm.cno=si.sidno
+LEFT JOIN `price_class` AS pc
+ON dm.pcid=pc.pcid
+LEFT JOIN people AS p
+ON dm.pno=p.pno
+WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+ORDER BY b.ordertime DESC
+</select> 
+<select id="findByCdlicenseThree" resultMap="BaseResultMap">
+	SELECT b.`bid`,b.`Ordertime`,bt.`btname`,b.`Completiontime`,a.`atime`,r.rtype,r.rtime,p.pname,ci.cno,ci.cname,cu.cuname,
+r.Bpreferential,r.apreferential,r.bpreferentialM,ps.pname AS psname,r.num
+ FROM `requisition` AS r
+ LEFT JOIN bills AS b
+ ON r.bid=b.bid
+ LEFT JOIN `business_types` AS bt
+ ON b.btid=bt.btid
+ LEFT JOIN people AS p
+ ON r.pno=p.pno
+ LEFT JOIN `commodity_info` AS ci
+ ON r.cno=ci.cno
+ LEFT JOIN `commodity_unit` AS cu
+ ON ci.cuid=cu.cuid
+ LEFT JOIN `price_class` AS pc
+ ON r.pcid=pc.pcid
+ LEFT JOIN people AS ps
+ ON r.servicepeo=ps.pno
+ LEFT JOIN account AS a
+ ON r.bid=a.bid
+WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+ORDER BY b.ordertime DESC
+</select> 
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.BillsExample" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    bid, bstate, cdlicense, pno, btid, id, pmid, inid, qualified, reworknum, respeople, 
+    Delaysreason, Reworkreason, Expectedtime, Completiontime, Penaltyamount, qmember, 
+    Pickcar, Ordertime, Clearingtime, forecastmoney, remark1, remark2, remark3, remark4, 
+    remark5
+  </sql>
+  <select id="selectByExample" parameterType="com.accp.domain.BillsExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from bills
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from bills
     where bid = #{bid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from bills
     where bid = #{bid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.BillsExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.BillsExample">
     delete from bills
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Bills" >
-    insert into bills (bid, bstate, tid, 
-      cdlicense, pno, mid, 
-      person, delays_reason, quality, 
-      qualified, n_rework, p_amount, 
-      rid, remark1, remark2, 
-      remark3, remark4, remark5
-      )
-    values (#{bid,jdbcType=VARCHAR}, #{bstate,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, 
-      #{cdlicense,jdbcType=VARCHAR}, #{pno,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, 
-      #{person,jdbcType=VARCHAR}, #{delaysReason,jdbcType=VARCHAR}, #{quality,jdbcType=VARCHAR}, 
-      #{qualified,jdbcType=INTEGER}, #{nRework,jdbcType=INTEGER}, #{pAmount,jdbcType=REAL}, 
-      #{rid,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
-      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.accp.domain.Bills">
+    insert into bills (bid, bstate, cdlicense, 
+      pno, btid, id, pmid, 
+      inid, qualified, reworknum, 
+      respeople, Delaysreason, Reworkreason, 
+      Expectedtime, Completiontime, Penaltyamount, 
+      qmember, Pickcar, Ordertime, 
+      Clearingtime, forecastmoney, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{bid,jdbcType=VARCHAR}, #{bstate,jdbcType=INTEGER}, #{cdlicense,jdbcType=VARCHAR}, 
+      #{pno,jdbcType=VARCHAR}, #{btid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{pmid,jdbcType=INTEGER}, 
+      #{inid,jdbcType=INTEGER}, #{qualified,jdbcType=INTEGER}, #{reworknum,jdbcType=INTEGER}, 
+      #{respeople,jdbcType=VARCHAR}, #{delaysreason,jdbcType=VARCHAR}, #{reworkreason,jdbcType=VARCHAR}, 
+      #{expectedtime,jdbcType=TIMESTAMP}, #{completiontime,jdbcType=TIMESTAMP}, #{penaltyamount,jdbcType=REAL}, 
+      #{qmember,jdbcType=VARCHAR}, #{pickcar,jdbcType=VARCHAR}, #{ordertime,jdbcType=TIMESTAMP}, 
+      #{clearingtime,jdbcType=TIMESTAMP}, #{forecastmoney,jdbcType=REAL}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.Bills" >
+  <insert id="insertSelective" parameterType="com.accp.domain.Bills">
     insert into bills
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="bid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
         bid,
       </if>
-      <if test="bstate != null" >
+      <if test="bstate != null">
         bstate,
       </if>
-      <if test="tid != null" >
-        tid,
-      </if>
-      <if test="cdlicense != null" >
+      <if test="cdlicense != null">
         cdlicense,
       </if>
-      <if test="pno != null" >
+      <if test="pno != null">
         pno,
       </if>
-      <if test="mid != null" >
-        mid,
+      <if test="btid != null">
+        btid,
       </if>
-      <if test="person != null" >
-        person,
+      <if test="id != null">
+        id,
       </if>
-      <if test="delaysReason != null" >
-        delays_reason,
+      <if test="pmid != null">
+        pmid,
       </if>
-      <if test="quality != null" >
-        quality,
+      <if test="inid != null">
+        inid,
       </if>
-      <if test="qualified != null" >
+      <if test="qualified != null">
         qualified,
       </if>
-      <if test="nRework != null" >
-        n_rework,
+      <if test="reworknum != null">
+        reworknum,
       </if>
-      <if test="pAmount != null" >
-        p_amount,
+      <if test="respeople != null">
+        respeople,
       </if>
-      <if test="rid != null" >
-        rid,
+      <if test="delaysreason != null">
+        Delaysreason,
       </if>
-      <if test="remark1 != null" >
+      <if test="reworkreason != null">
+        Reworkreason,
+      </if>
+      <if test="expectedtime != null">
+        Expectedtime,
+      </if>
+      <if test="completiontime != null">
+        Completiontime,
+      </if>
+      <if test="penaltyamount != null">
+        Penaltyamount,
+      </if>
+      <if test="qmember != null">
+        qmember,
+      </if>
+      <if test="pickcar != null">
+        Pickcar,
+      </if>
+      <if test="ordertime != null">
+        Ordertime,
+      </if>
+      <if test="clearingtime != null">
+        Clearingtime,
+      </if>
+      <if test="forecastmoney != null">
+        forecastmoney,
+      </if>
+      <if test="remark1 != null">
         remark1,
       </if>
-      <if test="remark2 != null" >
+      <if test="remark2 != null">
         remark2,
       </if>
-      <if test="remark3 != null" >
+      <if test="remark3 != null">
         remark3,
       </if>
-      <if test="remark4 != null" >
+      <if test="remark4 != null">
         remark4,
       </if>
-      <if test="remark5 != null" >
+      <if test="remark5 != null">
         remark5,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="bid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
         #{bid,jdbcType=VARCHAR},
       </if>
-      <if test="bstate != null" >
+      <if test="bstate != null">
         #{bstate,jdbcType=INTEGER},
       </if>
-      <if test="tid != null" >
-        #{tid,jdbcType=INTEGER},
-      </if>
-      <if test="cdlicense != null" >
+      <if test="cdlicense != null">
         #{cdlicense,jdbcType=VARCHAR},
       </if>
-      <if test="pno != null" >
+      <if test="pno != null">
         #{pno,jdbcType=VARCHAR},
       </if>
-      <if test="mid != null" >
-        #{mid,jdbcType=INTEGER},
+      <if test="btid != null">
+        #{btid,jdbcType=INTEGER},
       </if>
-      <if test="person != null" >
-        #{person,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="delaysReason != null" >
-        #{delaysReason,jdbcType=VARCHAR},
+      <if test="pmid != null">
+        #{pmid,jdbcType=INTEGER},
       </if>
-      <if test="quality != null" >
-        #{quality,jdbcType=VARCHAR},
+      <if test="inid != null">
+        #{inid,jdbcType=INTEGER},
       </if>
-      <if test="qualified != null" >
+      <if test="qualified != null">
         #{qualified,jdbcType=INTEGER},
       </if>
-      <if test="nRework != null" >
-        #{nRework,jdbcType=INTEGER},
+      <if test="reworknum != null">
+        #{reworknum,jdbcType=INTEGER},
       </if>
-      <if test="pAmount != null" >
-        #{pAmount,jdbcType=REAL},
+      <if test="respeople != null">
+        #{respeople,jdbcType=VARCHAR},
       </if>
-      <if test="rid != null" >
-        #{rid,jdbcType=INTEGER},
+      <if test="delaysreason != null">
+        #{delaysreason,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
+      <if test="reworkreason != null">
+        #{reworkreason,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedtime != null">
+        #{expectedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completiontime != null">
+        #{completiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="penaltyamount != null">
+        #{penaltyamount,jdbcType=REAL},
+      </if>
+      <if test="qmember != null">
+        #{qmember,jdbcType=VARCHAR},
+      </if>
+      <if test="pickcar != null">
+        #{pickcar,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null">
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clearingtime != null">
+        #{clearingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forecastmoney != null">
+        #{forecastmoney,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null">
         #{remark1,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null" >
+      <if test="remark2 != null">
         #{remark2,jdbcType=VARCHAR},
       </if>
-      <if test="remark3 != null" >
+      <if test="remark3 != null">
         #{remark3,jdbcType=VARCHAR},
       </if>
-      <if test="remark4 != null" >
+      <if test="remark4 != null">
         #{remark4,jdbcType=VARCHAR},
       </if>
-      <if test="remark5 != null" >
+      <if test="remark5 != null">
         #{remark5,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.BillsExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.BillsExample" resultType="java.lang.Integer">
     select count(*) from bills
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update bills
-    <set >
-      <if test="record.bid != null" >
+    <set>
+      <if test="record.bid != null">
         bid = #{record.bid,jdbcType=VARCHAR},
       </if>
-      <if test="record.bstate != null" >
+      <if test="record.bstate != null">
         bstate = #{record.bstate,jdbcType=INTEGER},
       </if>
-      <if test="record.tid != null" >
-        tid = #{record.tid,jdbcType=INTEGER},
-      </if>
-      <if test="record.cdlicense != null" >
+      <if test="record.cdlicense != null">
         cdlicense = #{record.cdlicense,jdbcType=VARCHAR},
       </if>
-      <if test="record.pno != null" >
+      <if test="record.pno != null">
         pno = #{record.pno,jdbcType=VARCHAR},
       </if>
-      <if test="record.mid != null" >
-        mid = #{record.mid,jdbcType=INTEGER},
+      <if test="record.btid != null">
+        btid = #{record.btid,jdbcType=INTEGER},
       </if>
-      <if test="record.person != null" >
-        person = #{record.person,jdbcType=VARCHAR},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.delaysReason != null" >
-        delays_reason = #{record.delaysReason,jdbcType=VARCHAR},
+      <if test="record.pmid != null">
+        pmid = #{record.pmid,jdbcType=INTEGER},
       </if>
-      <if test="record.quality != null" >
-        quality = #{record.quality,jdbcType=VARCHAR},
+      <if test="record.inid != null">
+        inid = #{record.inid,jdbcType=INTEGER},
       </if>
-      <if test="record.qualified != null" >
+      <if test="record.qualified != null">
         qualified = #{record.qualified,jdbcType=INTEGER},
       </if>
-      <if test="record.nRework != null" >
-        n_rework = #{record.nRework,jdbcType=INTEGER},
+      <if test="record.reworknum != null">
+        reworknum = #{record.reworknum,jdbcType=INTEGER},
       </if>
-      <if test="record.pAmount != null" >
-        p_amount = #{record.pAmount,jdbcType=REAL},
+      <if test="record.respeople != null">
+        respeople = #{record.respeople,jdbcType=VARCHAR},
       </if>
-      <if test="record.rid != null" >
-        rid = #{record.rid,jdbcType=INTEGER},
+      <if test="record.delaysreason != null">
+        Delaysreason = #{record.delaysreason,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark1 != null" >
+      <if test="record.reworkreason != null">
+        Reworkreason = #{record.reworkreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectedtime != null">
+        Expectedtime = #{record.expectedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.completiontime != null">
+        Completiontime = #{record.completiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.penaltyamount != null">
+        Penaltyamount = #{record.penaltyamount,jdbcType=REAL},
+      </if>
+      <if test="record.qmember != null">
+        qmember = #{record.qmember,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickcar != null">
+        Pickcar = #{record.pickcar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordertime != null">
+        Ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clearingtime != null">
+        Clearingtime = #{record.clearingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.forecastmoney != null">
+        forecastmoney = #{record.forecastmoney,jdbcType=REAL},
+      </if>
+      <if test="record.remark1 != null">
         remark1 = #{record.remark1,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark2 != null" >
+      <if test="record.remark2 != null">
         remark2 = #{record.remark2,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark3 != null" >
+      <if test="record.remark3 != null">
         remark3 = #{record.remark3,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark4 != null" >
+      <if test="record.remark4 != null">
         remark4 = #{record.remark4,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark5 != null" >
+      <if test="record.remark5 != null">
         remark5 = #{record.remark5,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update bills
     set bid = #{record.bid,jdbcType=VARCHAR},
       bstate = #{record.bstate,jdbcType=INTEGER},
-      tid = #{record.tid,jdbcType=INTEGER},
       cdlicense = #{record.cdlicense,jdbcType=VARCHAR},
       pno = #{record.pno,jdbcType=VARCHAR},
-      mid = #{record.mid,jdbcType=INTEGER},
-      person = #{record.person,jdbcType=VARCHAR},
-      delays_reason = #{record.delaysReason,jdbcType=VARCHAR},
-      quality = #{record.quality,jdbcType=VARCHAR},
+      btid = #{record.btid,jdbcType=INTEGER},
+      id = #{record.id,jdbcType=INTEGER},
+      pmid = #{record.pmid,jdbcType=INTEGER},
+      inid = #{record.inid,jdbcType=INTEGER},
       qualified = #{record.qualified,jdbcType=INTEGER},
-      n_rework = #{record.nRework,jdbcType=INTEGER},
-      p_amount = #{record.pAmount,jdbcType=REAL},
-      rid = #{record.rid,jdbcType=INTEGER},
+      reworknum = #{record.reworknum,jdbcType=INTEGER},
+      respeople = #{record.respeople,jdbcType=VARCHAR},
+      Delaysreason = #{record.delaysreason,jdbcType=VARCHAR},
+      Reworkreason = #{record.reworkreason,jdbcType=VARCHAR},
+      Expectedtime = #{record.expectedtime,jdbcType=TIMESTAMP},
+      Completiontime = #{record.completiontime,jdbcType=TIMESTAMP},
+      Penaltyamount = #{record.penaltyamount,jdbcType=REAL},
+      qmember = #{record.qmember,jdbcType=VARCHAR},
+      Pickcar = #{record.pickcar,jdbcType=VARCHAR},
+      Ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      Clearingtime = #{record.clearingtime,jdbcType=TIMESTAMP},
+      forecastmoney = #{record.forecastmoney,jdbcType=REAL},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
       remark4 = #{record.remark4,jdbcType=VARCHAR},
       remark5 = #{record.remark5,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Bills" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Bills">
     update bills
-    <set >
-      <if test="bstate != null" >
+    <set>
+      <if test="bstate != null">
         bstate = #{bstate,jdbcType=INTEGER},
       </if>
-      <if test="tid != null" >
-        tid = #{tid,jdbcType=INTEGER},
-      </if>
-      <if test="cdlicense != null" >
+      <if test="cdlicense != null">
         cdlicense = #{cdlicense,jdbcType=VARCHAR},
       </if>
-      <if test="pno != null" >
+      <if test="pno != null">
         pno = #{pno,jdbcType=VARCHAR},
       </if>
-      <if test="mid != null" >
-        mid = #{mid,jdbcType=INTEGER},
+      <if test="btid != null">
+        btid = #{btid,jdbcType=INTEGER},
       </if>
-      <if test="person != null" >
-        person = #{person,jdbcType=VARCHAR},
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
       </if>
-      <if test="delaysReason != null" >
-        delays_reason = #{delaysReason,jdbcType=VARCHAR},
+      <if test="pmid != null">
+        pmid = #{pmid,jdbcType=INTEGER},
       </if>
-      <if test="quality != null" >
-        quality = #{quality,jdbcType=VARCHAR},
+      <if test="inid != null">
+        inid = #{inid,jdbcType=INTEGER},
       </if>
-      <if test="qualified != null" >
+      <if test="qualified != null">
         qualified = #{qualified,jdbcType=INTEGER},
       </if>
-      <if test="nRework != null" >
-        n_rework = #{nRework,jdbcType=INTEGER},
+      <if test="reworknum != null">
+        reworknum = #{reworknum,jdbcType=INTEGER},
       </if>
-      <if test="pAmount != null" >
-        p_amount = #{pAmount,jdbcType=REAL},
+      <if test="respeople != null">
+        respeople = #{respeople,jdbcType=VARCHAR},
       </if>
-      <if test="rid != null" >
-        rid = #{rid,jdbcType=INTEGER},
+      <if test="delaysreason != null">
+        Delaysreason = #{delaysreason,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
+      <if test="reworkreason != null">
+        Reworkreason = #{reworkreason,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedtime != null">
+        Expectedtime = #{expectedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completiontime != null">
+        Completiontime = #{completiontime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="penaltyamount != null">
+        Penaltyamount = #{penaltyamount,jdbcType=REAL},
+      </if>
+      <if test="qmember != null">
+        qmember = #{qmember,jdbcType=VARCHAR},
+      </if>
+      <if test="pickcar != null">
+        Pickcar = #{pickcar,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null">
+        Ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clearingtime != null">
+        Clearingtime = #{clearingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forecastmoney != null">
+        forecastmoney = #{forecastmoney,jdbcType=REAL},
+      </if>
+      <if test="remark1 != null">
         remark1 = #{remark1,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null" >
+      <if test="remark2 != null">
         remark2 = #{remark2,jdbcType=VARCHAR},
       </if>
-      <if test="remark3 != null" >
+      <if test="remark3 != null">
         remark3 = #{remark3,jdbcType=VARCHAR},
       </if>
-      <if test="remark4 != null" >
+      <if test="remark4 != null">
         remark4 = #{remark4,jdbcType=VARCHAR},
       </if>
-      <if test="remark5 != null" >
+      <if test="remark5 != null">
         remark5 = #{remark5,jdbcType=VARCHAR},
       </if>
     </set>
     where bid = #{bid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Bills" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Bills">
     update bills
     set bstate = #{bstate,jdbcType=INTEGER},
-      tid = #{tid,jdbcType=INTEGER},
       cdlicense = #{cdlicense,jdbcType=VARCHAR},
       pno = #{pno,jdbcType=VARCHAR},
-      mid = #{mid,jdbcType=INTEGER},
-      person = #{person,jdbcType=VARCHAR},
-      delays_reason = #{delaysReason,jdbcType=VARCHAR},
-      quality = #{quality,jdbcType=VARCHAR},
+      btid = #{btid,jdbcType=INTEGER},
+      id = #{id,jdbcType=INTEGER},
+      pmid = #{pmid,jdbcType=INTEGER},
+      inid = #{inid,jdbcType=INTEGER},
       qualified = #{qualified,jdbcType=INTEGER},
-      n_rework = #{nRework,jdbcType=INTEGER},
-      p_amount = #{pAmount,jdbcType=REAL},
-      rid = #{rid,jdbcType=INTEGER},
+      reworknum = #{reworknum,jdbcType=INTEGER},
+      respeople = #{respeople,jdbcType=VARCHAR},
+      Delaysreason = #{delaysreason,jdbcType=VARCHAR},
+      Reworkreason = #{reworkreason,jdbcType=VARCHAR},
+      Expectedtime = #{expectedtime,jdbcType=TIMESTAMP},
+      Completiontime = #{completiontime,jdbcType=TIMESTAMP},
+      Penaltyamount = #{penaltyamount,jdbcType=REAL},
+      qmember = #{qmember,jdbcType=VARCHAR},
+      Pickcar = #{pickcar,jdbcType=VARCHAR},
+      Ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      Clearingtime = #{clearingtime,jdbcType=TIMESTAMP},
+      forecastmoney = #{forecastmoney,jdbcType=REAL},
       remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},

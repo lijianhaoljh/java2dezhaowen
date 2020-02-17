@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CardataMapper {
+	//根据车牌查询车辆信息
+	List<Cardata> findCardata(String cdlicense);
+	
     int countByExample(CardataExample example);
 
     int deleteByExample(CardataExample example);
@@ -17,6 +20,14 @@ public interface CardataMapper {
     int insertSelective(Cardata record);
 
     List<Cardata> selectByExample(CardataExample example);
+
+    List<Cardata> querylicensewillexpire();
+
+    List<Cardata> queryinsurexpirecar();
+
+    List<Cardata> querycheckcar();
+
+    List<Cardata> querytodatbirthdriver();
 
     List<Cardata> queryCarBycno(String cno);
 

@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.IncomeType;
 import com.accp.domain.Maintenance;
+import com.accp.domain.PriceType;
 import com.accp.domain.ServiceItem;
 import com.accp.service.ZServiceitemService;
 
@@ -49,8 +52,38 @@ public class ZServiceItemController {
 				return zservice.queryac();
 			}
 			
-			@GetMapping(value = "addaid")
-			public Maintenance addaid(Integer mid){
-				return zservice.addaid(mid);
+			
+			@GetMapping(value = "mainquery")
+			public List<Maintenance> quertm(){
+				return zservice.quertm();
 			}
+					
+			
+			@GetMapping(value = "updaid")
+			public ServiceItem addaid(Integer sidno){
+				return zservice.addaid(sidno);
+			}
+			
+			@PostMapping(value = "addtwo")
+			public int addtwo(@RequestBody ServiceItem sitem) {
+				return zservice.addtwo(sitem);
+			}
+			
+			@PutMapping(value = "updatwo")
+			public int updatwo(@RequestBody ServiceItem sitem) {
+				return zservice.updatwo(sitem);
+			}
+			
+			
+			@GetMapping(value = "pricequery")
+			public List<PriceType> pricequery(){
+				return zservice.pricequery();
+			}
+			
+			@PutMapping(value = "updaproce")
+			public int updaproce(@RequestBody PriceType ptid) {
+				return zservice.updaproce(ptid);
+			}
+			
+			
 }

@@ -18,6 +18,12 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
+    List<Staff> querytodaybirthstaf();
+
+    List<Staff> queryoverstaf();
+
+    Staff queryBypno(String pno);
+
     List<Staff> queryPeople();
 
     List<Staff> queryPeopleByMid(@Param("pno") String pno,@Param("mid") Integer mid);

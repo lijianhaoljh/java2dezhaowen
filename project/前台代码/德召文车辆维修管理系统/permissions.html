@@ -24,7 +24,7 @@
 				  	<div class="form-inline">
 					    <div class="btn-group" role="group" >
 							<select class="form-control" v-model="rid" @change="findRolePerms($event)">
-								<!--<option value="">请选择</option>-->
+								<option value="">请选择</option>
 								<option v-for="item in roles" :value="item.rid" >{{item.rname}}</option>
 							</select>
 						</div>
@@ -83,6 +83,10 @@
 				},methods:{
 					saveRoles(){
 						//保存
+						if(this.rid==""){
+							alert('请选择角色!');
+							return;
+						}
 						var zTree = $.fn.zTree.getZTreeObj("treeDemo"); //ztree对象
 		                var checked = zTree.getCheckedNodes(true);
 						$.ajax({
@@ -90,10 +94,25 @@
 							data:JSON.stringify(checked),
 							type:"post",
 							contentType:"application/json;charset=utf-8",
+							async:false,
 							xhrFields:{
 								withCredentials: true
 							},success:function(response){
 								if(response.indexOf('1')){
+									$.ajax({
+										url: data.ip + "perms/findPerm",
+										type: "get",
+										xhrFields: {
+											withCredentials: true
+										},
+										dataType: "json",
+										success: function(response) {
+											top.vm.perms=response;
+										},
+										error: function(error) {
+											console.log(222)
+										}
+									});
 									alert("保存成功!");
 								}else{
 									alert("保存失败!");
@@ -208,7 +227,6 @@
 						dataType:"json",
 						success:function(response){
 							vm.roles=response;
-							vm.rid=response[0].rid;
 							console.log(vm.roles);
 						},error:function(error){
 							console.log(error);

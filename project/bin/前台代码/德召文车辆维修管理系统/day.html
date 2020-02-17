@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>今日提醒</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/organization_structure.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
+		<style type="text/css">
+			.modal-backdrop {
+				opacity: 0 !important;
+				filter: alpha(opacity=0) !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ctx">
+			<!--<div class="container-fluid">-->
+				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" @click="ddd" data-target="#myModal">
+				  今日提醒
+				</button>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog" style="width: 1000px;" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">今日提醒</h4>
+				      </div>
+				      <div class="modal-body" style="height: 480px;padding: 0px 15px 0px 15px;background-color: white;">
+				        	<div class="col-md-3 col-sm-3 col-xs-3" style="border-right: 5px solid gainsboro;height: 480px;padding: 0px; padding-top: 20px;">
+				        		<ul id="treeDemo" class="ztree"></ul> 
+				        	</div>
+				        	<div class="col-md-9 col-sm-9 col-xs-9" style="border-left: 5px solid gainsboro;height: 480px;padding-top: 20px;overflow: auto;">
+				        		<table id="ttt" class="table table-hover" style="width: 2500px;">
+				        			<thead>
+				        				<tr>
+				        					<td v-for="d in dian">{{d}}</td>
+				        				</tr>
+				        			</thead>
+				        			<tbody>
+				        				<tr v-for="c in tabs">
+											<td>{{c.cno}}</td>
+											<td>{{c.cname}}</td>
+											<td>{{c.caddress}}</td>
+											<td>{{c.cpeople}}</td>
+											<td>{{c.cphone}}</td>
+											<td>{{c.cbirthday}}</td>
+											<td>{{c.ctname}}</td>
+											<td>{{c.vno}}</td>
+											<td>{{c.vjoindate}}</td>
+											<td>{{c.venddate}}</td>
+											<td>{{c.cremark}}</td>
+											<td>{{c.creatdate}}</td>
+											<td>{{c.pname}}</td>
+											<td>{{c.pphone}}</td>
+											<td>{{c.cperiod}}</td>
+											<td>{{c.climit}}</td>
+											<td v-if="c.isvip==0">{{c.jifen}}</td>
+											<td v-else>{{c.jifen+c.vjifen}}</td>
+											<td>{{c.province}}</td>
+											<td>{{c.city}}</td>
+											<td>{{c.district}}</td>
+											<td>{{c.ctaxes}}</td>
+											<td>{{c.cregistphone}}</td>
+											<td>{{c.cbank}}</td>
+											<td>{{c.cbanknumber}}</td>
+											<td>{{c.cregistaddress}}</td>
+											<td>{{c.other1}}</td>
+											<td>{{c.other2}}</td>
+											<td>{{c.other3}}</td>
+											<td>{{c.other4}}</td>
+										</tr>
+				        			</tbody>
+				        		</table>
+				        		
+				        	</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-primary">Save changes</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			<!--</div>-->
+		</div>
+		
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function queryTree(){
+					//树状结构
+					$.ajax({
+							type:"get",
+							url:data.ip+"staff/queryAllMechanism",
+							dateType:"json",
+							xhrFields:{
+								withCredentials:true
+							},
+							success:function(response){
+								response = vm.trees;
+								$.fn.zTree.init($("#treeDemo"), setting, response);//初始化节点数据
+								$.fn.zTree.init($("#treeDemo"), setting, response).expandAll(true);
+							}
+						});	
+						
+						var setting = {
+							  view: {
+							         selectedMulti: true,
+							         showIcon:false
+							     },
+							  check: {
+							   enable: false
+							  },
+							  data: {
+								   key: {
+								        name: "name",//树节点名称
+								   },
+								   simpleData: {
+								    enable: true,//是否采用简单数据模式
+								        idKey: "id",//树节点ID名称
+								        pIdKey: "parentid",//父节点ID名称
+								        rootPId: 1,//根节点ID
+								   }
+							  },
+							  callback:{
+							  	onClick:chooseNode,
+							  }
+						};
+							 
+						function chooseNode(event, treeId, treeNode) {
+						    if (treeNode.id == "1") {
+						        return;
+						    }else if(treeNode.id == "2"){
+						    	vm.dian = vm.todaybirthcus;
+						       	$.ajax({
+						       		url:data.ip+"day/querytodaybirthcus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#ttt").css("width","2500px");
+						    }else if(treeNode.id == "3"){
+						       	vm.dian = vm.vipwillnone;
+						       	$("#ttt").css("width","2500px");
+						    }else if(treeNode.id == "4"){
+						       	vm.dian = vm.licensewillexpire;
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "5"){
+						       	vm.dian = vm.insurexpirecar;
+						       	$("#ttt").css("width","800px");
+						    }else if(treeNode.id == "6"){
+						       	vm.dian = vm.checkcar;
+						       		$("#ttt").css("width","800px");
+						    }else if(treeNode.id == "7"){
+						       	vm.dian = vm.misscus;
+						       	$("#ttt").css("width","2500px");
+						    }else if(treeNode.id == "8"){
+						       	vm.dian = vm.todatbirthdriver;
+						       		$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "9"){
+						       	vm.dian = vm.keepcar;
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "10"){
+						       	vm.dian = vm.todaybirthstaf;
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "11"){
+						       	vm.dian = vm.overstaf ;
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "12"){
+						       	vm.dian = vm.moregoods;
+						       	$("#ttt").css("width","500px");
+						    }else if(treeNode.id == "13"){
+						       	vm.dian = vm.littelgoods;
+						       	$("#ttt").css("width","500px");
+						    }
+						    return;
+						}
+				}
+				var vm = new Vue({
+					el:"#ctx",
+					data(){
+						return {
+							trees:[
+								{id:1,name:"提醒情况",parentid:0},
+								{id:2,name:"今天过生日的客户",parentid:1},
+								{id:3,name:"即将到期的会员",parentid:1},
+								{id:4,name:"驾证到期的驾驶员",parentid:1},
+								{id:5,name:"须续办的保险车辆",parentid:1},
+								{id:6,name:"须车检车辆",parentid:1},
+								{id:7,name:"流失客户",parentid:1},
+								{id:8,name:"过生日的驾驶员",parentid:1},
+								{id:9,name:"车辆保养提醒",parentid:1},
+								{id:10,name:"今天过生日员工",parentid:1},
+								{id:11,name:"合同即将到期员工",parentid:1},
+								{id:12,name:"超高库存商品",parentid:1},
+								{id:13,name:"超低库存商品",parentid:1}
+							],
+							tabs:[],
+							dian:[],
+							todaybirthcus:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别","会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度","累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"],
+							vipwillnone:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别","会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度","累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"],
+							licensewillexpire:["车牌号","品牌","车型","驾证到期","驾驶员","手机"],
+							insurexpirecar:["顾客编号","顾客姓名","性别","地址","客户类别","会员卡号","车牌号",
+											"品牌","车型","保险截至日期","手机"
+							],
+							checkcar:["顾客编号","顾客姓名","性别","地址","客户类别","会员卡号","车牌号",
+											"品牌","车型","车检日期","手机"
+							],
+							misscus:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别",
+										"会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度",
+										"累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"
+							],
+							todatbirthdriver:["车牌号","品牌","车型","出生日期","驾驶员","手机"],
+							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
+							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
+							overstaf:["合同到期","部门","工号","姓名","性别","职位"],
+							moregoods:["商品编号","商品名称","单位","超高库存量","当前库存","相差"],
+							littelgoods:["商品编号","商品名称","单位","安全库存量","当前库存","相差"]
+						}
+					},
+					methods:{
+						ddd:function(){
+							vm.dian = vm.todaybirthcus;
+						}
+					},
+					created:function(){
+						queryTree();
+						$.ajax({
+						       		url:data.ip+"day/querytodaybirthcus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+					}
+				});
+		</script>
+	</body>
+</html>

@@ -43,8 +43,8 @@
 							<li @click="upStaff"><span class="glyphicon glyphicon-leaf"></span>修改</li>
 							<li @click="delStaff"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
 							<li @click="nonepwd"><span class="glyphicon glyphicon-lock"></span>置空密码</li>
-							<li><span class="glyphicon glyphicon-export"></span>导出</li>
-							<li><span class="glyphicon glyphicon-import"></span>导入</li>
+							<li @click="exportexcel"><span class="glyphicon glyphicon-export"></span>导出</li>
+							<li @click="importexcel" ><span class="glyphicon glyphicon-import"></span>导入</li>
 							<li @click="staffrole"><span class="glyphicon glyphicon-user"></span>员工角色</li>
 							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
 						</ul>
@@ -168,13 +168,13 @@
 			</div>
 			<div id="addstaff">
 				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>
-				<div style="width: 980px;height: 630px;border:1px solid white;margin-left: 10px;background-color: white;">
+				<div style="width: 980px;height: 600px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 60px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
 						<button @click="addStaffOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
 					</div>
-					<div style="width: 960px;height: 555px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 960px;height: 525px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p class="ddd" style="padding-top: 10px;">
 							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.people.pno"  />
 							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.people.pname" />
@@ -182,7 +182,12 @@
 						</p>
 						<p>
 							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="demonMech.parentid==m.mid" :value="m.mname"  />
-							<label><span style="color: red;">*</span>所在部门</label><input readonly="readonly" type="text" v-model="staf.mname"  /><input type="text" readonly="readonly" v-model="staf.mid" />
+							<label><span style="color: red;">*</span>所在部门</label>
+							<input v-if="cc==1" type="text" disabled="disabled" style="width: 50px;" v-model="demonMech.mid" />
+							<input v-else disabled="disabled" style="width: 50px;" v-model="staf.mid" />
+							
+							<input v-if="cc==1" readonly="readonly" type="text" v-model="demonMech.mname"  />
+							<input v-else readonly="readonly" type="text" v-model="staf.mname"  />
 																									
 						</p>
 						<p>
@@ -322,13 +327,10 @@
 					<div style="width: 410px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">员工角色</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+						<button @click="roleOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
 					</div>
-					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
-						<ul>
-							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
-							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
-						</ul>
+					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 25px;">
+						
 						<table class="table table-bordered" style="border: 1px solid white;width: 350px; ">
 							<thead>
 								<tr>
@@ -341,7 +343,7 @@
 								<tr v-for="r in role">
 									<td>  </td>
 									<td>{{r.rname}}</td>
-									<td><input type="radio" name="rr" :id="r.rid" /> </td>
+									<td><input type="radio" @click="choserole($event,r)" name="rr" :id="r.rid" /> </td>
 								</tr>
 							</tbody>
 						</table>
@@ -460,13 +462,13 @@
 							 
 						function chooseNode(event, treeId, treeNode) {
 						    if (treeNode.mid == "1") {
-						       	vm.kk=0;
+						       	vm.kk=-1;
 						        return;
 						    }else if(treeNode.parentid=="1"){
 						       	vm.kk=0;
 						       	queryPeopleByParentid("",treeNode.mid)
 						    }else{
-						       	vm.kk=parseInt(vm.kk)+1;
+						       	vm.kk=1;
 						       	vm.demonMech = treeNode;
 						       	queryPeopleByMid("",treeNode.mid)
 						    }
@@ -600,15 +602,62 @@
 							roles:[],//树状结构节点
 							staffs:[],//根据机构编号查询到的所有职工
 							mechanismPa:[],//机构
-							demon:{pno:"",mid:"",people:{ptid:1,pno:""}},//选中的职工对象
+							demon:{pno:"",mid:"",rid:"",people:{ptid:1,pno:""}},//选中的职工对象
 							demonMech:{},//选中的部门
 							staf:{pno:"",mid:"",rid:2,people:{ptid:1,pno:"",rid:2,spassword:"88888"},salt:"951753"},//新增的员工
 							jobs:[],//所有岗位
 							addMechanism:{mid:"",parentid:"",catalog:"0"},//添加部门
 							role:[],//所有角色
+							cc:"0",
+							ro:{rid:""},//选中的角色
+							
 						}
 					},
 					methods:{
+						exportexcel:function(){
+							if(confirm("是否确定导出数据")){
+								if(vm.kk=="0"){
+									//alert("父级");
+									//window.location.href="http://localhost:8080/";
+								}else if(vm.kk=="1"){
+									//alert("子集");
+									window.location.href="http://localhost:8080/exportexcel/export?mid="+vm.demonMech.mid;
+								}
+							}
+						},
+						importexcel:function(){
+							if(confirm("是否确定导入数据")){
+								
+							}
+						},
+						roleOK:function(){
+							if(confirm("是否确定更改员工角色")){
+								vm.demon.rid = vm.ro.rid;
+								console.log(vm.demon)
+								$.ajax({
+										url:data.ip+"staff/updatePeoRole",
+										data:JSON.stringify(vm.demon),
+										type:"put",
+										dataType:"json",
+										contentType:"application/json;charset=utf-8",
+										success:function(result){
+											if(result=="1"){
+												alert("修改成功");
+												queryPeopleByParentid("",1);
+												$("#role").hide();
+											}
+										},error:function(result){
+											alert("发生错误");
+										}
+									});
+							}
+						},
+						choserole:function(e,r){
+							let checked = e.target.checked;
+							if(checked){
+								vm.ro=r;
+							}
+						},
 						check:function(){
 							//查询
 							let pno = $("#querybox").val();
@@ -807,7 +856,7 @@
 						delStaff:function(){
 							//删除选中职工
 							
-							if(vm.demon=="undefined"){
+							if(vm.demon==undefined){
 								alert("请选中需要删除的职工");
 								return;
 							}
@@ -832,9 +881,10 @@
 							
 						},
 						upStaff:function(){
+							vm.cc="2";
 							//修改职工
 							vm.kk="6";
-							if(vm.demon=="undefined"){
+							if(vm.demon==undefined){
 								alert("请选中需要修改的职工");
 								return;
 							}else{
@@ -902,8 +952,9 @@
 							}
 						},
 						addstaff:function(){
+							vm.cc="1";
 							//新增职工
-							if(vm.kk=="0"){
+							if(vm.kk=="0"||vm.kk=="-1"){
 								alert("请选择要增加员工的部门");
 							}else{
 								queryAllStaff();
@@ -924,8 +975,12 @@
 							$("#checkstaff").show();
 						},
 						staffrole:function(){
-							queryAllRole();
-							$("#role").show();
+							if(vm.demon.pno==""){
+								alert("请选中员工");
+							}else{
+								queryAllRole();
+								$("#role").show();
+							}
 						},
 						setting:function(){
 							$("#setting").show();

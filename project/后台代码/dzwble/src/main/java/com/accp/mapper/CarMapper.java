@@ -17,6 +17,8 @@ public interface CarMapper {
     int insertSelective(Car record);
 
     List<Car> selectByExample(CarExample example);
+    
+    List<Car> queryAlloutcar();
 
     Car selectByPrimaryKey(String cno);
 

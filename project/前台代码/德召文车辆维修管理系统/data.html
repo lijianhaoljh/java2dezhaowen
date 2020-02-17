@@ -23,8 +23,15 @@
 				 		<button type="button" class="btn btn-default" @click="QueryByid" data-toggle="modal" data-target="#myModal">修改</button>
 				 		<button type="button" class="btn btn-default" @click="DeleteByid">删除</button>
 				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
-		 		
-				 		<button type="button" class="btn btn-default">导出</button>
+		 				<button type="button" class="btn btn-default">图片</button>
+				 		<button type="button" class="btn btn-default" @click="exportExcel">导出</button>
+				</div>
+				
+				<div class="row" style="padding: 20px;">
+					<form method="post" enctype="multipart/form-data">
+						<input name="file" multiple  type="file" />
+						<button  id="wjsc" type="button" class="btn btn-default">图片</button>
+					</form>
 				</div>
 				
 				<div style="width: 1700px; height:780px;overflow:scroll;">
@@ -69,7 +76,7 @@
 				 					<td>{{item.zmfname}}</td>
 				 					<td>{{item.origin}}</td>
 				 					<td>{{item.barcode}}</td>
-				 					<td>{{item.packag}}</td> 
+				 					<td>{{item.pack}}</td> 
 				 					<td>{{item.volume}}</td>
 				 					<td>{{item.grossweight}}</td>
 				 					<td>{{item.netweight}}</td>
@@ -121,7 +128,7 @@
 							
 							原厂编码:<input type="text" id="input_3" v-model="comc.origin"/>
 							条形码:<input type="text" id="input_4" v-model="comc.barcode"/>
-							包装规格:<input type="text" id="input_5" v-model="comc.package"/>
+							包装规格:<input type="text" id="input_5" v-model="comc.pack"/>
 							
 							<br/><br/><br/>
 							体积A:<input type="text" id="input_6" v-model="comc.volume"/>
@@ -158,6 +165,21 @@
 		<script type="text/javascript" src="js/vue.js" ></script>
 	</body>
 <script type="text/javascript">
+		$(function(){
+			$("#wjsc").click(function(){
+				var formData = new FormData($("form")[0]);
+				$.ajax({
+					type:"post",
+					url:"http://localhost:8080/ZFileAndExport",
+					async:true,
+					data:formData,
+					contentType:false,
+					processData:false,
+				});
+			});
+		})
+	
+	
 		var vm=new Vue({
             el:"#ctx",
 			data(){
@@ -229,6 +251,7 @@
 				 * 新增商品信息
 				 */
 				addCommd:function(){
+					
 					if($("#input_1").val()==""){
 						alert("商品名称不能为空!")
 						return false;
@@ -270,6 +293,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.query=result;
+							vm.comc.cbid=result[0].cbid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -288,6 +312,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.querya=result;
+							vm.comc.cuid=result[0].cuid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -306,6 +331,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryab=result;
+							vm.comc.gid=result[0].gid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -324,6 +350,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryac=result;
+							vm.comc.toino=result[0].toino;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -342,6 +369,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryad=result;
+							vm.comc.coid=result[0].coid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -360,6 +388,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.querye=result;
+							vm.comc.gcid=result[0].gcid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -378,6 +407,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryef=result;
+							vm.comc.pid=result[0].pid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -396,6 +426,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryeg=result;
+							vm.comc.mfid=result[0].mfid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -447,32 +478,35 @@
 				 * 修改商品信息
 				 */
 				UpdaCommd:function(){
-					if($("#input_1").val()==""){
-						alert("商品名称不能为空!")
-						return false;
-					}else if($("#sel1").val()==""){
-						alert("商品品牌不能为空")
-						return false;
-					}else if($("#sel2").val()==""){
-						alert("商品单位不能为空")
-						return false;
-					}else{
-						$.ajax({
-							url:"http://localhost:8080/CommodityInfoRest/updaCommd",
-							data:JSON.stringify(vm.comc),						
-							type:"put",
-							xhrFields: {
-									withCredentials: true
-								},
-							contentType:"application/json;charset=utf-8",
-							success:function(result){
-								alert("修改成功")
-								vm.getData();
-							},error:function(result){
-								console.log(result+"add")
-							}
-						})
+						if($("#input_1").val()==""){
+							alert("商品名称不能为空!")
+							return false;
+						}else if($("#sel1").val()==""){
+							alert("商品品牌不能为空")
+							return false;
+						}else if($("#sel2").val()==""){
+							alert("商品单位不能为空")
+							return false;
+						}else{
+							$.ajax({
+								url:"http://localhost:8080/CommodityInfoRest/updaCommd",
+								data:JSON.stringify(vm.comc),						
+								type:"put",
+								xhrFields: {
+										withCredentials: true
+									},
+								contentType:"application/json;charset=utf-8",
+								success:function(result){
+									alert("修改成功")
+									vm.getData();
+								},error:function(result){
+									console.log(result+"add")
+								}
+							})
 					}
+				},
+				exportExcel:function(){
+					window.location.href="http://localhost:8080/ZFileAndExport/exportExcel"
 				},
 			}
 		})

@@ -40,8 +40,20 @@ public class People {
     private String remark4;
 
     private String remark5;
+    
+    private String tmname;
+    
+    
 
-    public String getPno() {
+    public String getTmname() {
+		return tmname;
+	}
+
+	public void setTmname(String tmname) {
+		this.tmname = tmname;
+	}
+
+	public String getPno() {
         return pno;
     }
 

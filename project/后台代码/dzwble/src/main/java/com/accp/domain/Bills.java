@@ -1,31 +1,61 @@
 package com.accp.domain;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Bills {
     private String bid;
 
     private Integer bstate;
 
-    private Integer tid;
-
     private String cdlicense;
 
     private String pno;
 
-    private Integer mid;
+    private Integer btid;
 
-    private String person;
+    private Integer id;
 
-    private String delaysReason;
+    private Integer pmid;
 
-    private String quality;
+    private Integer inid;
 
     private Integer qualified;
 
-    private Integer nRework;
+    private Integer reworknum;
 
-    private Float pAmount;
+    private String respeople;
 
-    private Integer rid;
+    private String delaysreason;
+
+    private String reworkreason;
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date expectedtime;
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date completiontime;
+
+    private Float penaltyamount;
+
+    private String qmember;
+
+    private String pickcar;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date ordertime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date clearingtime;
+
+    private Float forecastmoney;
 
     private String remark1;
 
@@ -36,7 +66,7 @@ public class Bills {
     private String remark4;
 
     private String remark5;
-
+    
     private String mbname;
     private String etime;
     private String edate;
@@ -47,14 +77,203 @@ public class Bills {
     private String total;
     private String mname;
     
-    
-    
-    public String getMname() {
-		return mname;
+    private String cname; //商品名称
+    private String cphone;//电话
+    private String vno;//会员编码
+    private String pname;//服务顾问
+    private String pnames;//
+    private String btname;
+    private Integer sidno;  //项目编号
+    private String sidname; //项目名称
+    private String pcname; //价类
+    private Integer r1; //结算工时
+    private float r2; //工时金额
+    private String problem; //故障原因
+    private String faultdescription; //故障描述
+    private Integer rtype; //领料类别
+    private Date rtime; //领料日期
+    private Integer cno; //商品编号
+    private String cuname; //商品单位
+    private float bpreferential; //优惠前单价
+    private float apreferential; //优惠后单价
+    private float bpreferentialm; //优惠后金额
+    public String psname; //服务顾问
+    public Integer num;
+
+    public Integer getNum() {
+		return num;
 	}
 
-	public void setMname(String mname) {
-		this.mname = mname;
+	public void setNum(Integer num) {
+		this.num = num;
+	}
+
+	public Integer getSidno() {
+		return sidno;
+	}
+
+	public void setSidno(Integer sidno) {
+		this.sidno = sidno;
+	}
+
+	public String getSidname() {
+		return sidname;
+	}
+
+	public void setSidname(String sidname) {
+		this.sidname = sidname;
+	}
+
+	public String getPcname() {
+		return pcname;
+	}
+
+	public void setPcname(String pcname) {
+		this.pcname = pcname;
+	}
+
+	public Integer getR1() {
+		return r1;
+	}
+
+	public void setR1(Integer r1) {
+		this.r1 = r1;
+	}
+
+	public float getR2() {
+		return r2;
+	}
+
+	public void setR2(float r2) {
+		this.r2 = r2;
+	}
+
+	public String getProblem() {
+		return problem;
+	}
+
+	public void setProblem(String problem) {
+		this.problem = problem;
+	}
+
+	public String getFaultdescription() {
+		return faultdescription;
+	}
+
+	public void setFaultdescription(String faultdescription) {
+		this.faultdescription = faultdescription;
+	}
+
+	public Integer getRtype() {
+		return rtype;
+	}
+
+	public void setRtype(Integer rtype) {
+		this.rtype = rtype;
+	}
+
+	public Date getRtime() {
+		return rtime;
+	}
+
+	public void setRtime(Date rtime) {
+		this.rtime = rtime;
+	}
+
+	public Integer getCno() {
+		return cno;
+	}
+
+	public void setCno(Integer cno) {
+		this.cno = cno;
+	}
+
+	public String getCuname() {
+		return cuname;
+	}
+
+	public void setCuname(String cuname) {
+		this.cuname = cuname;
+	}
+
+	public float getBpreferential() {
+		return bpreferential;
+	}
+
+	public void setBpreferential(float bpreferential) {
+		this.bpreferential = bpreferential;
+	}
+
+	public float getApreferential() {
+		return apreferential;
+	}
+
+	public void setApreferential(float apreferential) {
+		this.apreferential = apreferential;
+	}
+
+	public float getBpreferentialm() {
+		return bpreferentialm;
+	}
+
+	public void setBpreferentialm(float bpreferentialm) {
+		this.bpreferentialm = bpreferentialm;
+	}
+
+	public String getPsname() {
+		return psname;
+	}
+
+	public void setPsname(String psname) {
+		this.psname = psname;
+	}
+
+	public String getBtname() {
+		return btname;
+	}
+
+	public void setBtname(String btname) {
+		this.btname = btname;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getCphone() {
+		return cphone;
+	}
+
+	public void setCphone(String cphone) {
+		this.cphone = cphone;
+	}
+
+	public String getVno() {
+		return vno;
+	}
+
+	public void setVno(String vno) {
+		this.vno = vno;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getPnames() {
+		return pnames;
+	}
+
+	public void setPnames(String pnames) {
+		this.pnames = pnames;
 	}
 
 	public String getMbname() {
@@ -121,6 +340,14 @@ public class Bills {
 		this.total = total;
 	}
 
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
 	public String getBid() {
         return bid;
     }
@@ -135,14 +362,6 @@ public class Bills {
 
     public void setBstate(Integer bstate) {
         this.bstate = bstate;
-    }
-
-    public Integer getTid() {
-        return tid;
-    }
-
-    public void setTid(Integer tid) {
-        this.tid = tid;
     }
 
     public String getCdlicense() {
@@ -161,36 +380,36 @@ public class Bills {
         this.pno = pno;
     }
 
-    public Integer getMid() {
-        return mid;
+    public Integer getBtid() {
+        return btid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setBtid(Integer btid) {
+        this.btid = btid;
     }
 
-    public String getPerson() {
-        return person;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPerson(String person) {
-        this.person = person;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getDelaysReason() {
-        return delaysReason;
+    public Integer getPmid() {
+        return pmid;
     }
 
-    public void setDelaysReason(String delaysReason) {
-        this.delaysReason = delaysReason;
+    public void setPmid(Integer pmid) {
+        this.pmid = pmid;
     }
 
-    public String getQuality() {
-        return quality;
+    public Integer getInid() {
+        return inid;
     }
 
-    public void setQuality(String quality) {
-        this.quality = quality;
+    public void setInid(Integer inid) {
+        this.inid = inid;
     }
 
     public Integer getQualified() {
@@ -201,28 +420,100 @@ public class Bills {
         this.qualified = qualified;
     }
 
-    public Integer getnRework() {
-        return nRework;
+    public Integer getReworknum() {
+        return reworknum;
     }
 
-    public void setnRework(Integer nRework) {
-        this.nRework = nRework;
+    public void setReworknum(Integer reworknum) {
+        this.reworknum = reworknum;
     }
 
-    public Float getpAmount() {
-        return pAmount;
+    public String getRespeople() {
+        return respeople;
     }
 
-    public void setpAmount(Float pAmount) {
-        this.pAmount = pAmount;
+    public void setRespeople(String respeople) {
+        this.respeople = respeople;
     }
 
-    public Integer getRid() {
-        return rid;
+    public String getDelaysreason() {
+        return delaysreason;
     }
 
-    public void setRid(Integer rid) {
-        this.rid = rid;
+    public void setDelaysreason(String delaysreason) {
+        this.delaysreason = delaysreason;
+    }
+
+    public String getReworkreason() {
+        return reworkreason;
+    }
+
+    public void setReworkreason(String reworkreason) {
+        this.reworkreason = reworkreason;
+    }
+
+    public Date getExpectedtime() {
+        return expectedtime;
+    }
+
+    public void setExpectedtime(Date expectedtime) {
+        this.expectedtime = expectedtime;
+    }
+
+    public Date getCompletiontime() {
+        return completiontime;
+    }
+
+    public void setCompletiontime(Date completiontime) {
+        this.completiontime = completiontime;
+    }
+
+    public Float getPenaltyamount() {
+        return penaltyamount;
+    }
+
+    public void setPenaltyamount(Float penaltyamount) {
+        this.penaltyamount = penaltyamount;
+    }
+
+    public String getQmember() {
+        return qmember;
+    }
+
+    public void setQmember(String qmember) {
+        this.qmember = qmember;
+    }
+
+    public String getPickcar() {
+        return pickcar;
+    }
+
+    public void setPickcar(String pickcar) {
+        this.pickcar = pickcar;
+    }
+
+    public Date getOrdertime() {
+        return ordertime;
+    }
+
+    public void setOrdertime(Date ordertime) {
+        this.ordertime = ordertime;
+    }
+
+    public Date getClearingtime() {
+        return clearingtime;
+    }
+
+    public void setClearingtime(Date clearingtime) {
+        this.clearingtime = clearingtime;
+    }
+
+    public Float getForecastmoney() {
+        return forecastmoney;
+    }
+
+    public void setForecastmoney(Float forecastmoney) {
+        this.forecastmoney = forecastmoney;
     }
 
     public String getRemark1() {
