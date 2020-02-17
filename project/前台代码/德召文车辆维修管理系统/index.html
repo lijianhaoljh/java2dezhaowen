@@ -272,7 +272,7 @@
 		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
-			
+			queryTree();
 			function queryTree(){
 					//树状结构
 					$.ajax({
@@ -628,6 +628,19 @@
 							console.log(222)
 						}
 					});
+					queryTree();
+						$.ajax({
+						       		url:data.ip+"day/querytodaybirthcus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	
 				},computed:{
 					getPerms(){
 						return this.perms;
