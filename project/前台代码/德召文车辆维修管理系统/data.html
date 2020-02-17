@@ -19,8 +19,8 @@
 			 	</div>
 			 	
 			 	<div class="row" style="padding: 20px;">
-				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" >增加</button>
-				 		<button type="button" class="btn btn-default" @click="QueryByid" data-toggle="modal" data-target="#myModal">修改</button>
+				 		<button type="button" class="btn btn-default" @click="toAdd" >增加</button>
+				 		<button type="button" class="btn btn-default" @click="QueryByid">修改</button>
 				 		<button type="button" class="btn btn-default" @click="DeleteByid">删除</button>
 				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
 		 				<button type="button" class="btn btn-default">图片</button>
@@ -35,7 +35,7 @@
 				</div>
 				
 				<div style="width: 1700px; height:780px;overflow:scroll;">
-					<table class="table table-bordered">
+					<table class="table table-hover">
 				 				<tr style="color: white; background-color: #C1E2B3;" >
 				 					<td>商品编号</td>
 				 					<td>商品名称</td>
@@ -96,7 +96,7 @@
 				      <div class="modal-body" id="inputx">
 				         	商品名称:<input type="text" id="input_1" v-model="comc.cname"/>
 				         	商品品牌:<select id="sel1" v-model="comc.cbid">
-									  <option v-for="item in query" :value ="item.cbid">{{item.cbname}}</option>
+									  <option v-for="item,index in query" :value ="item.cbid" >{{item.cbname}}</option>
 									</select>
 							适用车辆:<input type="text" id="input_2" v-model="comc.vehicletype"/>		
 				         	<br/><br/><br/>
@@ -151,8 +151,8 @@
 							保险价:<input type="text" id="input_17" v-model="comc.claimprice"/>				         	
 				      </div>
 				      <div class="modal-footer">
-				        	<button @click="UpdaCommd" v-if="isok" type="button" class="btn btn-default">修改</button>
-				        	<button @click="addCommd" v-else="isok"   type="button" class="btn btn-default">新增</button>
+				        	<button @click="UpdaCommd"  type="button" class="btn btn-default">修改</button>
+				        	<button @click="addCommd"    type="button" class="btn btn-default">新增</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -165,6 +165,8 @@
 		<script type="text/javascript" src="js/vue.js" ></script>
 	</body>
 <script type="text/javascript">
+		
+	
 		$(function(){
 			$("#wjsc").click(function(){
 				var formData = new FormData($("form")[0]);
@@ -198,7 +200,7 @@
     				isok:false
         		};
 			},
-			mounted:function() {
+			created:function() {
             this.getData();
             this.Query();
             this.Querya();
@@ -208,6 +210,7 @@
             this.Querye();
             this.Queryef();
             this.Queryeg();
+           	
        		},
 			methods: {
 				getData:function(){
@@ -247,11 +250,21 @@
 						}
 					});
 				},
+				
+				/**
+				 * 打开新增模态框
+				 */
+				
+				toAdd:function(){
+					
+					$("#myModal").modal("show");
+				},
+				
+				
 				/**
 				 * 新增商品信息
 				 */
 				addCommd:function(){
-					
 					if($("#input_1").val()==""){
 						alert("商品名称不能为空!")
 						return false;
@@ -293,7 +306,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.query=result;
-							vm.comc.cbid=result[0].cbid;
+							vm.comc.cbid = result[0].cbid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -460,7 +473,8 @@
 						}
 				},
 				QueryByid:function(){
-						vm.isok=true;
+						$("#myModal").modal("show");
+					
 						$.ajax({
 							url:"http://localhost:8080/CommodityInfoRest/QueryByid",
 							type:"get",
@@ -477,7 +491,7 @@
 				/**
 				 * 修改商品信息
 				 */
-				UpdaCommd:function(){
+				UpdaCommd:function(){					
 						if($("#input_1").val()==""){
 							alert("商品名称不能为空!")
 							return false;

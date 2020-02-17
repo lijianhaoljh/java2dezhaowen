@@ -97,7 +97,8 @@
 								},
 							contentType:"application/json;charset=utf-8",
 							success:function(result){
-								window.location.href="enginebrand.html";
+								alert("新增成功")
+								vm.getData();
 							},error:function(result){
 								console.log(result+"11")
 							}
@@ -118,7 +119,7 @@
 								dataType:"json",
 								success:function(result){
 											alert("删除成功")
-											window.location.href="enginebrand.html";																				
+											vm.getData();																				
 									},error:function(result){
 										console.log(result);
 									},
@@ -139,7 +140,8 @@
 								},
 							contentType:"application/json;charset=utf-8",
 							success:function(result){
-								window.location.href="enginebrand.html";
+								alert("修改成功")
+								vm.getData();
 							},error:function(result){
 								console.log(result+"112")
 							}
