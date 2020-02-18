@@ -1162,7 +1162,7 @@
 							m:{},
 							r:{}
 						},//维修单
-						inBills:false, //所选车辆是否未完工,
+						inBills:true, //所选车辆是否未完工,
 						peoples:[],
 						team:[],
 						b:{}
@@ -1211,26 +1211,55 @@
 							alert("请选择车辆信息!");
 							return;
 						}
-						this.findIsCardata();
-						if(vm.inBills){
-							alert("该车辆还未竣工!");
-							return;
-						}
-						this.findNewBid();
-						$("#openMmodal").modal("show");
+						
+						$.ajax({
+							url:data.ip+"bills/findIsCardata",
+							type:"get",
+							data:{
+								cdlicense:vm.cardata.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							}
+							,dataType:"text",
+							success:function(response){
+								if(response.indexOf("0")!=-1){
+									vm.findNewBid();
+									$("#openMmodal").modal("show");
+								}else{
+									alert("该车辆还未竣工!");
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
 					},openRmodal(){
 						//打开救援模态框
 						if(JSON.stringify(vm.cardata)=="{}"){
 							alert("请选择车辆信息!");
 							return;
 						}
-						this.findIsCardata();
-						if(vm.inBills){
-							alert("该车辆还未竣工!");
-							return;
-						}
-						this.findNewBid();
-						$("#openRmodal").modal("show");
+						$.ajax({
+							url:data.ip+"bills/findIsCardata",
+							type:"get",
+							data:{
+								cdlicense:vm.cardata.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							}
+							,dataType:"text",
+							success:function(response){
+								if(response.indexOf("0")!=-1){
+									vm.findNewBid();
+									$("#openRmodal").modal("show");
+								}else{
+									alert("该车辆还未竣工!");
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
 					},findNewBid(){
 						//生成新单据编号
 						$.ajax({
@@ -1251,26 +1280,7 @@
 							alert("请选择车辆!");
 							return;
 						}
-						$.ajax({
-							url:data.ip+"bills/findIsCardata",
-							type:"get",
-							data:{
-								cdlicense:vm.cardata.cdlicense
-							},
-							xhrFields:{
-								withCredentials:true
-							}
-							,dataType:"text",
-							success:function(response){
-								if(response=="0"){
-									vm.inBills=false;
-								}else{
-									vm.inBills=true;
-								}
-							},error:function(error){
-								console.log(error);
-							}
-						});
+						
 					},
 					findBills(pageNum){
 						let that=this;
@@ -1391,9 +1401,9 @@
 						vm.cdlicense=item.cdlicense;
 						this.findByCdlicense();
 						this.b=item;
-						$(e.target).parent().find("input").attr("checked","checked");
+						$(e.target).parent().find("input").prop("checked",true);
 					},bindCardata(e,data){
-						$(e.target).parent().find("input").attr("checked","checked");
+						$(e.target).parent().find("input").prop("checked",true);
 						vm.cardata=data;
 					}
 				},created:function(){
