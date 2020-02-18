@@ -23,16 +23,10 @@
 				 		<button type="button" class="btn btn-default" @click="QueryByid" data-toggle="modal" data-target="#myModal">修改</button>
 				 		<button type="button" class="btn btn-default" @click="DeleteByid">删除</button>
 				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
-		 				<button type="button" class="btn btn-default">图片</button>
 				 		<button type="button" class="btn btn-default" @click="exportExcel">导出</button>
 				</div>
 				
-				<div class="row" style="padding: 20px;">
-					<form method="post" enctype="multipart/form-data">
-						<input name="file" multiple  type="file" />
-						<button  id="wjsc" type="button" class="btn btn-default">图片</button>
-					</form>
-				</div>
+				
 				
 				<div style="width: 1700px; height:780px;overflow:scroll;">
 					<table class="table table-bordered">
@@ -165,19 +159,6 @@
 		<script type="text/javascript" src="js/vue.js" ></script>
 	</body>
 <script type="text/javascript">
-		$(function(){
-			$("#wjsc").click(function(){
-				var formData = new FormData($("form")[0]);
-				$.ajax({
-					type:"post",
-					url:"http://localhost:8080/ZFileAndExport",
-					async:true,
-					data:formData,
-					contentType:false,
-					processData:false,
-				});
-			});
-		})
 	
 	
 		var vm=new Vue({
