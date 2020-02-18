@@ -148,7 +148,7 @@ ORDER BY c.cdlicense DESC
   	SELECT ca.*,cb.cbname cbnam,m.moiname moiname FROM cardata AS ca
 LEFT JOIN carbrand AS cb ON ca.cdno=cb.cbno
 LEFT JOIN motorcycle AS m ON m.cbno = cb.cbno
-WHERE TIMESTAMPDIFF(DAY, ca.cdlicenseend ,NOW()) BETWEEN 0 AND 3
+WHERE ca.cdlicenseend &lt;= NOW()
 AND ca.moid=m.moid
   </select>
   
