@@ -32,16 +32,10 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
 	@Value("${fileupload-url}")
 	private String fileuploadUrl;
 	
-	@Value("${fileupload-urls}")
-	private String fileuploadUrls;
-
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
 				.addResourceLocations("file:"+fileuploadUrl);
-		registry.addResourceHandler("/**")
-		.addResourceLocations("classpath:/static/")//jar包里面的路径
-				.addResourceLocations("file:"+fileuploadUrls);//盘符目录，本地目录
 		super.addResourceHandlers(registry);
 	}
 

@@ -38,15 +38,14 @@ public class ZFileAndExport {
 		ZCommodityInfoService service;
 	
 		@Value("${fileupload-url}")
-		@Value("${fileupload-urls}")
-		private String fileuploadUrls;
+		private String fileuploadUrl;
 		
 		@PostMapping
 		public String fileUpload(MultipartFile [] file) {
 			for (MultipartFile f :file) {
 				String fileName = UUID.randomUUID().toString(); 
 				String suffix = f.getOriginalFilename().substring(f.getOriginalFilename().lastIndexOf("."), f.getOriginalFilename().length());
-				File toFile = new File(fileuploadUrls+fileName+suffix);
+				File toFile = new File(fileuploadUrl+fileName+suffix);
 				try {
 					f.transferTo(toFile);
 				} catch (IllegalStateException | IOException e) {
