@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface CardataMapper {
     int countByExample(CardataExample example);
+    
+    List<Cardata> findCardata(String cdlicense);
 
     int deleteByExample(CardataExample example);
 

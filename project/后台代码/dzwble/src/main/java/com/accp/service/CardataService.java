@@ -19,10 +19,10 @@ public class CardataService {
 	@Autowired
 	CardataMapper cardataMapper;
 	
-//	public PageInfo<Cardata> findCardata(Integer pageNum,Integer pageSize,String cdlicense){
-//		Page<Cardata> page=PageHelper.startPage(pageNum, pageSize);
-//		cardataMapper.findCardata(cdlicense);
-//		return page.toPageInfo();
-//	}
-//	
+	public PageInfo<Cardata> findCardata(Integer pageNum,Integer pageSize,String cdlicense){
+		Page<Cardata> page=PageHelper.startPage(pageNum, pageSize);
+		cardataMapper.findCardata(cdlicense);
+		return page.toPageInfo();
+	}
+	
 }
