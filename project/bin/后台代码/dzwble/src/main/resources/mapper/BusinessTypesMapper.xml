@@ -240,5 +240,4 @@
       remark5 = #{remark5,jdbcType=VARCHAR}
     where btid = #{btid,jdbcType=INTEGER}
   </update>
-  
 </mapper>

@@ -289,7 +289,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.querya=result;
-							
+							vm.comc.cuid=result[0].cuid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -308,6 +308,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryab=result;
+							vm.comc.gid=result[0].gid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -326,6 +327,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryac=result;
+							vm.comc.toino=result[0].toino;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -344,6 +346,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryad=result;
+							vm.comc.coid=result[0].coid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -362,6 +365,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.querye=result;
+							vm.comc.gcid=result[0].gcid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -380,6 +384,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryef=result;
+							vm.comc.pid=result[0].pid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -398,6 +403,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.queryeg=result;
+							vm.comc.mfid=result[0].mfid;
 						},error:function(result){					
 							console.log(result+"101");
 						}

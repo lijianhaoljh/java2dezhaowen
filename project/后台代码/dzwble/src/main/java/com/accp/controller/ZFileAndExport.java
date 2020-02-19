@@ -38,6 +38,7 @@ public class ZFileAndExport {
 		ZCommodityInfoService service;
 	
 		@Value("${fileupload-url}")
+		@Value("${fileupload-urls}")
 		private String fileuploadUrls;
 		
 		@PostMapping

@@ -55,7 +55,7 @@
 						<div class="row">
 							<ul class="nav nav-pills nav-stacked text-center menav">
 					     		<li role="presentation" class="me_menu1 active" @click="openHTML(0)"><a href="#" data-toggle="tab">首页</a></li>
-								<li role="presentation" class="me_menu1"  v-for='item in p.children' v-if="item.catalog==0">
+								<li role="presentation" class="me_menu1"  v-for='item in getPerms[index].children' v-if="item.catalog==0">
 									  	<a href="#" @click="slideChildrens($event)" data-toggle="tab">{{item.name}}</a>
 									  	<ul class="nav nav-stacked text-center" >
 											<li role="presentation" class="me_menu2" v-for='it in item.children' v-if="it.catalog==0">
@@ -90,7 +90,7 @@
 							    <!-- Collect the nav links, forms, and other content for toggling -->
 							    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							      <ul class="nav navbar-nav">
-							        <li v-for="item in perms" @click="moduleSwitch(item)"><a href="#">{{item.name}}</a></li>
+							        <li v-for="item,index in getPerms" @click="moduleSwitch(index)"><a href="#">{{item.name}}</a></li>
 							      </ul>
 							      <div class="btn-group mebtn" role="group" style="float: right;margin: 8px; position: relative;">
 								      <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-bell"></span></button>
@@ -263,7 +263,6 @@
 			
 		</div>
 		</div>
-	
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
@@ -551,6 +550,7 @@
 						perms: [],
 						user:{},
 						p:{},
+<<<<<<< HEAD
 						trees:[
 								{id:1,name:"提醒情况",parentid:0},
 								{id:2,name:"今天过生日的客户",parentid:1},
@@ -581,6 +581,9 @@
 							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
 							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
 							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
+=======
+						index:0
+>>>>>>> refs/remotes/origin/lijianhao
 					}
 				},methods:{
 					clo:function(){
@@ -604,7 +607,7 @@
 //						切换模块
 						$(".me_menu1").removeClass("active").eq(0).addClass("active");
 						$(".me_menu2").parent().slideUp();
-						vm.p=p;
+						this.index=p;
 					},openHTML(it){
 						openIFM(it);
 					}
@@ -620,16 +623,15 @@
 						dataType: "json",
 						success: function(response) {
 							vm.perms=response;
+							console.log(vm.perms);
 							let user=sessionStorage.getItem("user");
 							vm.user=eval('('+user+')');
-							vm.p=response[0];
-							console.log(vm.user);
-							console.log(response);
 						},
 						error: function(error) {
 							console.log(222)
 						}
 					});
+<<<<<<< HEAD
 					
 					queryTree();
 						$.ajax({
@@ -645,6 +647,12 @@
 						       	});
 						       	
 					//$("#myModal").modal("show");
+=======
+				},computed:{
+					getPerms(){
+						return this.perms;
+					}
+>>>>>>> refs/remotes/origin/lijianhao
 				}
 			});
 			
