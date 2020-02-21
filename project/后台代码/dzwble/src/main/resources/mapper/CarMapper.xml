@@ -86,6 +86,13 @@
 	WHERE m.moid=c.moid
   </select>
   
+   <select id="querykeepcar" resultMap="BaseResultMap">
+  	SELECT ck.*,cus.cname cname,cus.cphone cphone FROM carkeep AS ck
+LEFT JOIN cardata AS cd ON ck.cdlicense=cd.cdlicense
+LEFT JOIN customer AS cus ON cus.cno=cd.cno
+WHERE TIMESTAMPDIFF(DAY, ck.plandate ,NOW()) BETWEEN -2 AND 0
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CarExample" >
     select
     <if test="distinct" >

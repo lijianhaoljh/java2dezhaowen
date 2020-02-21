@@ -26,8 +26,8 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
-						<ul class="menue" style="padding: 0px;margin: 0px;">
+					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #dff0d8;border: 1px solid #E9E9E9;">
+						<ul class="menue" style="padding:3px 0px 3px 0px;margin: 0px;">
 							<li class="btn-group" style="margin-left: 100px;">
 								<button  type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								    客户编辑 <span class="caret"></span>
@@ -56,12 +56,12 @@
 								</button>
 							</li>
 							
-							<li><span class="glyphicon glyphicon-export"></span>导出</li>
-							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
+							<li><span class="glyphicon glyphicon-export" style="color: #FDAB28;position: relative;top: 5px;"></span>导出</li>
+							<!--<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>-->
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 300px;">
-						<table id="onlyone" class="table table-bordered" style="width: 3000px;">
+						<table id="onlyone" class="table table-hover" style="width: 3000px;">
 							<thead>
 								<tr>
 									<td> </td>
@@ -134,7 +134,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
+					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #dff0d8;border: 1px solid #E9E9E9;">
 						<ul style="padding: 0px;margin: 0px;">
 							<li @click="cardata($event)" style="border-top:3px solid green ;">车辆信息</li>
 							<li @click="historypay($event)">历史消费</li>
@@ -142,7 +142,7 @@
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 190px;">
-						<table id="thecar" class="table table-bordered" style="width: 3000px;">
+						<table id="thecar" class="table table-hover" style="width: 3000px;">
 							<thead>
 								<tr>
 									<td> </td>
@@ -205,7 +205,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<table id="thehistoryvisitor" class="table table-bordered" style="width: 1000px; display: none;">
+						<table id="thehistoryvisitor" class="table table-hover" style="width: 1000px; display: none;">
 							<thead>
 								<tr>
 									<td> </td>
@@ -216,7 +216,7 @@
 								
 							</tbody>
 						</table>
-						<table id="thehistorypay" class="table table-bordered" style="width: 1000px;display: none;">
+						<table id="thehistorypay" class="table table-hover" style="width: 1000px;display: none;">
 							<thead>
 								<tr>
 									<td> </td>
@@ -250,7 +250,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 8px;background-color: gainsboro;">
+				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 8px;background-color: #dff0d8;">
 					合计：<span id="total">2</span>条记录
 				</div>
 			</div>
@@ -259,7 +259,7 @@
 				<div style="width: 980px;height: 530px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加客户和车资料</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
+						<div @click="closeadd" class="clo" style=" width: 100px;height: 40px;float:right;font-size: 50px;text-align: center;padding: 0px;position: relative;top:-10px;cursor:pointer; ">&times;</div>
 						<button @click="addcusandcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
 					</div>
 					<div style="width: 960px;height: 470px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
@@ -452,7 +452,7 @@
 							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
 							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
 						</ul>
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 500px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -488,7 +488,7 @@
 						<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="mn1 in mechanismnot1" :value="mn1.mid">{{mn1.mid}}--{{mn1.mname}}</option>
 						</select>
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 500px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -524,7 +524,7 @@
 					<div style="width: 660px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						<p><label>分类代码</label><input readonly="readonly" type="text" v-model="ctype.ctno" /> <label>客户类别</label><input v-model="ctype.ctname" type="text" /> <label>价格类型</label><select v-model="ctype.ptid" style="outline: none;width: 80px;height: 30px;"><option v-for="p in pricetype" :value="p.ptid">{{p.ptname}}</option></select></p>
 						<p><label>有效年限</label><input v-model="ctype.cteffective" type="text" /> <label>会费</label><input v-model="ctype.ctprice" type="text" /> <label>类别</label><select v-model="ctype.ctisvip" style="outline: none;width: 80px;height: 30px;"><option value="0">非会员</option><option value="1">会员</option></select></p>
-						<table class="table table-bordered" style="border: 1px solid white;width: 600px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 600px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -724,19 +724,19 @@
 					},
 					methods:{
 						cardata:function(e){
-							$("#thecar").show();
+							$("#thecar").slideDown("slow");
 							$("#thehistorypay").hide()
 							$("#thehistoryvisitor").hide();
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
 						},
 						historypay:function(e){
-							$("#thehistorypay").show();
+							$("#thehistorypay").slideDown("slow");
 							$("#thecar").hide()
 							$("#thehistoryvisitor").hide();
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
 						},
 						historyvisitor:function(e){
-							$("#thehistoryvisitor").show();
+							$("#thehistoryvisitor").slideDown("slow");
 							$("#thehistorypay").hide()
 							$("#thecar").hide();
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
@@ -852,7 +852,7 @@
 							//修改员工
 							$("#addcar p:eq(0)").text("修改车资料");
 							$("#addcar .changename").text("修改车资料");
-							$("#addcar").show();
+							$("#addcar").slideDown("slow");
 							$(".carlicen").attr("readonly","readonly")
 							vm.car=vm.demoncar;
 							vm.car.cname=vm.demon.cname;
@@ -996,7 +996,7 @@
 							//修改员工
 							$("#addcus p:eq(0)").text("修改客户");
 							$("#addcus .changename").text("修改客户");
-							$("#addcus").show();
+							$("#addcus").slideDown("slow");
 							vm.cus=vm.demon;
 							
 							
@@ -1150,7 +1150,7 @@
 							
 						},
 						addcusandcar:function(){
-							$("#addcusandcar").show();
+							$("#addcusandcar").slideDown("slow");
 							vm.cus={pphone:"",pno:"",pname:"",cno:"",cars:[{inid_bdate:"",inid_business:"",indate:"",inid:"",fid:"",cdcarcheckdate:"",cdgolicense:"",cdbuydate:"",cdload:"",mid:"",cdmileage:"",cdyearprice:"",cdframe:"",cdlicenseend:"",clid:"",cddriverbirth:"",cddriverphone:"",cdlicense:"",cdno:"",moid:"",cddriver:""}]};
 							getcno();
 							
@@ -1165,18 +1165,18 @@
 							$("#custype").hide();
 						},
 						mmm:function(){
-							$("#custype").show();
+							$("#custype").slideDown("slow");
 							vm.kk="1";
 							
 						},
 						checkstaff:function(){
-							$("#checkstaff").show();
+							$("#checkstaff").slideDown("slow");
 						},
 						chosecustomer:function(){
-							$("#chosecustomer").show();
+							$("#chosecustomer").slideDown("slow");
 						},
 						addcus:function(){
-							$("#addcus").show();
+							$("#addcus").slideDown("slow");
 							$("#addcus p:eq(0)").text("增加客户");
 							$("#addcus .changename").text("增加客户");
 							vm.cus={pphone:"",pno:"",pname:"",cno:""};
@@ -1184,12 +1184,12 @@
 						},
 						addcar:function(){
 							vm.car={};
-							$("#addcar").show();
+							$("#addcar").slideDown("slow");
 							vm.car.cno=vm.demon.cno;
 							vm.car.cname=vm.demon.cname;
 						},
 						setting:function(){
-							$("#setting").show();
+							$("#setting").slideDown("slow");
 						}
 					},
 					created:function(){

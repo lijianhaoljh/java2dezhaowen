@@ -146,11 +146,11 @@ ORDER BY c.cdlicense DESC
   </select>
   
   <select id="querylicensewillexpire" resultMap="BaseResultMap">
-  	SELECT ca.*,cb.cbname cbnam,m.moiname moiname FROM cardata AS ca
-LEFT JOIN carbrand AS cb ON ca.cdno=cb.cbno
-LEFT JOIN motorcycle AS m ON m.cbno = cb.cbno
-WHERE TIMESTAMPDIFF(DAY, ca.cdlicenseend ,NOW()) BETWEEN 0 AND 3
-AND ca.moid=m.moid
+	SELECT ca.*,cb.cbname cbnam,m.moiname moiname FROM cardata AS ca
+	LEFT JOIN carbrand AS cb ON ca.cdno=cb.cbno
+	LEFT JOIN motorcycle AS m ON m.cbno = cb.cbno
+	WHERE SUBSTRING(ca.cdlicenseend,1,11) &lt;=SUBSTRING(NOW(),1,11)
+	AND ca.moid=m.moid
   </select>
   
   <select id="queryCars" resultMap="BaseResultMap">
@@ -182,8 +182,10 @@ AND ca.moid=m.moid
 	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
-	WHERE moto.moid=card.moid AND (TIMESTAMPDIFF(DAY, card.indate ,NOW()) BETWEEN 0 AND 3
-	OR TIMESTAMPDIFF(DAY, card.inid_bdate ,NOW()) BETWEEN 0 AND 3)
+	WHERE moto.moid=card.moid AND (TIMESTAMPDIFF(DAY, card.indate ,NOW()) BETWEEN -2 AND 0
+	OR TIMESTAMPDIFF(DAY, card.inid_bdate ,NOW()) BETWEEN -2 AND 0) OR 
+	(SUBSTRING(card.indate,1,11) &lt;= SUBSTRING(NOW(),1,11) OR SUBSTRING(card.inid_bdate,1,11) &lt;= SUBSTRING(NOW(),1,11))
+        GROUP BY card.cdlicense
   </select>
 
   <select id="querycheckcar" resultMap="BaseResultMap">
@@ -196,7 +198,7 @@ AND ca.moid=m.moid
 	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
-	WHERE moto.moid=card.moid AND TIMESTAMPDIFF(DAY, card.cdcarcheckdate ,NOW()) BETWEEN 0 AND 3	
+	WHERE moto.moid=card.moid AND TIMESTAMPDIFF(DAY, card.cdcarcheckdate ,NOW()) BETWEEN -2 AND 0	
   </select>
 
   <select id="querytodatbirthdriver" resultMap="BaseResultMap">
