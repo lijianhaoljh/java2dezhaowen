@@ -18,7 +18,7 @@
 	<body>
 		 <div class="container-fluid" id="ctx">
 		 	<div class="row">
-		 		<div id="title"  style="padding: 20px;background: #C9E2B3;">
+		 		<div id="title"  style="padding: 20px;background: #F7F7F7;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>品牌车型</strong>
 				 	</span>
@@ -26,11 +26,11 @@
 			 	</div>
 			 </div>
 			 <div class="row">
-			 	<div class="col-md-4">
+			 	<div class="col-md-3">
 			 		<div style="margin-bottom: 20px;">
-			 			<button type="button" class="btn btn-success" @click="updaID(0)">新增品牌</button>
-			 			<button type="button" class="btn btn-success">修改</button>
-			 			<button type="button" class="btn btn-success">删除</button>
+			 			<button type="button" class="btn btn-default" @click="addis">新增品牌</button>
+			 			<button type="button" class="btn btn-default"  @click="updaID">修改</button>
+			 			<button type="button" class="btn btn-default" @click="DeleteT">删除</button>
 			 		</div>
 			 		<div id="input1">
 			 			<input type="text" v-model="condition" placeholder="匹配/品牌编码/品牌名称/首字母"/>
@@ -38,19 +38,16 @@
 			 		</div>
 			 		<div>
 			 			<table class="table table-hover">
-			 				<tr style="color: white; background-color: #C1E2B3;">
+			 				<tr>
 			 					<td>编码</td>
 			 					<td>品牌名称</td>
 			 					<td>首字母</td>
-			 					<td>操作</td>
 			 				</tr>
 			 				
 			 				<tr v-for="item in Carbrand" @click="getDataTwo(item)">
 			 					<td>{{item.cbno}}</td>
 			 					<td>{{item.cbname}}</td>
 			 					<td>{{item.cbfirst}}</td>
-			 					<td><button @click="DeleteT(item.cbno)">删除</button>
-			 					<button  @click="updaID(item.cbno)">修改</button>
 			 					</td>
 			 				</tr>
 			 				
@@ -59,12 +56,11 @@
 			 	</div>
 			 	
 			 	
-			 	<div class="col-md-8">
+			 	<div class="col-md-9">
 			 		<div style="margin-bottom: 20px;">
-			 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1" @click="fdjquery">新增车型</button>
-			 			<button type="button" class="btn btn-success">修改</button>
-			 			<button type="button" class="btn btn-success">删除</button>
-			 			<button type="button" class="btn btn-success">照片</button>
+			 			<button type="button" class="btn btn-default" @click="Adds">新增车型</button>
+			 			<button type="button" class="btn btn-default" @click="updaQuery">修改</button>
+			 			<button type="button" class="btn btn-default" @click="DeleteTwo">删除</button>
 			 		</div>
 			 		<div id="input1">
 			 			<input type="text" v-model="cbnos" placeholder="匹配/车型编码/车型名称"/>
@@ -72,7 +68,7 @@
 			 		</div>
 			 		<div>
 			 			<table class="table table-hover">
-			 				<tr style="color: white; background-color: #C1E2B3;">
+			 				<tr>
 			 					<td>车型ID</td>
 			 					<td>车型名称</td>
 			 					<td>发动机品牌</td>
@@ -82,10 +78,9 @@
 			 					<td>进口国产</td>
 			 					<td>燃油标号</td>
 			 					<td>载重</td>
-			 					<td>操作</td>
 			 				</tr>
 			 				
-			 				<tr v-for="item1 in Motorcycle">
+			 				<tr v-for="item1 in Motorcycle" @click="idtwo(item1)">
 			 					<td>{{item1.cbno}}</td>
 			 					<td>{{item1.moiname}}</td>
 			 					<td>{{item1.m.mname}}</td>
@@ -95,10 +90,6 @@
 			 					<td>{{item1.modomestic}}</td>
 			 					<td>{{item1.mofuel}}</td>
 			 					<td>{{item1.load}}</td>
-			 					<td>
-			 						<button @click="DeleteTwo(item1.moid)">删除</button>
-			 						<button @click="updaQuery(item1.moid)" data-toggle="modal" data-target="#myModal1">修改</button>
-			 					</td>
 			 				</tr>
 			 			</table>
 			 		</div>
@@ -131,8 +122,8 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				        <button type="button" v-if="isShow" class="btn btn-primary" @click="upda">修改</button>
-				        <button type="button" v-else class="btn btn-primary" @click="add">保存</button>
+				        <button type="button"  class="btn btn-default" @click="upda">修改</button>
+				        <button type="button"  class="btn btn-default" @click="add">保存</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -151,32 +142,34 @@
 				        <h4 class="modal-title" style="display: inline-block;">
 				       		 <strong>车型定义</strong>
 				        </h4>				 		
-				        <button type="button" class="btn btn-success" style="float: right;" v-if="isok" @click="updaTwo">修改</button>
-				        <button type="button" class="btn btn-success" style="float: right;" v-else="isok" @click="addtwo">新增</button>
+				        <button type="button" class="btn btn-default" style="float: right;"  @click="updaTwo">修改</button>
+				        <button type="button" class="btn btn-default" style="float: right;"  @click="addtwo">新增</button>
 				      </div>
 				      <div class="modal-body">
 				         	车辆品牌:<input type="text" v-model="cbbr.cbno" readonly="readonly"/>
 				         	<input type="text" v-model="cbbr.cbname" readonly="readonly"/>
 				         	<br/><br/><br/>
-				         	车型名称:<input type="text" id="input_3" v-model="cbbr.moiname"/>
-				         	进口国产:<select v-model="cbbr.modomestic">
-									  <option value ="国产">国产</option>
-									  <option value ="进口">进口</option>
-									  <option value ="合资">合资</option>
-									</select>
+				         	车辆载重:<input type="text" id="input_8" v-model="cbbr.load"/>
+							车辆功率:<input type="text" id="input_6" v-model="cbbr.modischarge"/>
+				         	
 				         	<br/><br/><br/>
 							参考价格:<input type="text" id="input_4" v-model="cbbr.moprice"/>
 							车辆年款:<input type="text" id="input_5" v-model="cbbr.moyearprice"/>
 							<br/><br/><br/>
-							功率:<input type="text" id="input_6" v-model="cbbr.modischarge"/>
+							车型名称:<input type="text" id="input_3" v-model="cbbr.moiname"/>
 							燃油标号:<input type="text" id="input_7" v-model="cbbr.mofuel"/>
 							<br/><br/><br/>
-							载重:<input type="text" id="input_8" v-model="cbbr.load"/>
-							发动机品牌:<select v-model="cbbr.mid">
+							发动机品牌:<select v-model="cbbr.mid" style="width: 100px;">
 									  <option  v-for="item3 in fdjs" 
 									  :value ="item3.mid"> {{item3.mname}}
 									  </option>
 									</select>
+				         	进口国产:<select v-model="cbbr.modomestic" style="width: 100px;">
+									  <option value ="国产">国产</option>
+									  <option value ="进口">进口</option>
+									  <option value ="合资">合资</option>
+									</select>
+				         	
 							
 				      </div>
 				      <div class="modal-footer">
@@ -205,9 +198,7 @@
     				Motorcycle:[],	 //查询车型集合
     				cbnos:"",		 //查询车型
     				condition:"",	 //查询车品牌
-    				Motor:{},
-    				isShow:false,	 //模态框
-    				isok:false
+    				tabletwo:{}		 //
         		};
 			},
 			created:function() {
@@ -277,7 +268,6 @@
 						url: "http://localhost:8080/CarbrandRest/query",					
 						type: "get",
 						data:{
-							cbno:that.Carbrand[0].cbno,
 							cbnos:that.cbnos
 						},
 						xhrFields: {
@@ -295,16 +285,17 @@
 						}
 					});	
 				},
+				
 				/**
 				 * 删除车型
 				 * @param {Object} item
 				 */
-				DeleteT:function(item){
-					if (confirm("你确定要删除"+item+"么?")) {
+				DeleteT:function(){
+					if (confirm("你确定要删除"+vm.cbbr.cbno+"么?")) {
 						$.ajax({
 								url:"http://localhost:8080/CarbrandRest/dele",
 								data:{
-									cbno:item
+									cbno:vm.cbbr.cbno
 								},
 								type:"post",
 								xhrFields: {
@@ -313,13 +304,22 @@
 								dataType:"json",
 								success:function(result){
 											alert("删除成功")
-											window.location.href="vehiclefile.html";																				
+											vm.getData();																				
 									},error:function(result){
 										console.log(result);
 									},
 							})
 						}
 				},
+				
+				addis:function(){
+					vm.carbrand={};
+					$("#myModal").modal("show");
+				},
+				Adds:function(){
+					$("#myModal1").modal("show");
+				},
+				
 				/**
 				 * 新增车型
 				 */
@@ -337,6 +337,7 @@
 								},
 							contentType:"application/json;charset=utf-8",
 							success:function(result){
+								alert("新增成功")
 								vm.getData();
 							},error:function(result){
 								console.log(result+"11")
@@ -346,13 +347,10 @@
 				},
 				/**
 				 * 根据id查询车品牌对象
-				 * @param {Object} cbnoid
+				 * @param {Object} 
 				 */
-				updaID:function(cbnoid){
-					vm.carbrand={};
-					vm.isShow=false;
+				updaID:function(){
 					$("#myModal").modal("show");
-					if(cbnoid!=0){
 						vm.isShow=true;
 						$.ajax({
 							url:"http://localhost:8080/CarbrandRest/UpdaID",
@@ -360,13 +358,12 @@
 							xhrFields: {
 								withCredentials: true
 							},
-							data:{cbnoid:cbnoid},
+							data:{cbnoid:vm.cbbr.cbno},
 							dataType:"json",
 							success:function(result){
 								vm.carbrand=result;
 							}
 						})
-					}
 				},
 				/**
 				 * 修改车品牌对象
@@ -385,24 +382,29 @@
 								},
 							contentType:"application/json;charset=utf-8",
 							success:function(result){
-								window.location.href="vehiclefile.html";
+								alert("修改成功")
+								vm.getData();
 							},error:function(result){
 								console.log(result+"112")
 							}
 						})
 					}
 				},
+				
+				
+				idtwo:function(item1){
+					vm.tabletwo=item1;
+				},
 				/**
 				 * 删除车型
 				 * @param {Object} moid
 				 */
-				DeleteTwo:function(moid){
-					alert(moid)		
-					if (confirm("你确定要删除么?")) {
+				DeleteTwo:function(){
+					if (confirm("你确定要删除"+vm.tabletwo.moid+"么?")) {
 						$.ajax({
 								url:"http://localhost:8080/CarbrandRest/deletwo",
 								data:{
-									moid:moid
+									moid:vm.tabletwo.moid
 								},
 								type:"post",
 								xhrFields: {
@@ -411,7 +413,7 @@
 								dataType:"json",
 								success:function(result){
 											alert("删除成功")
-											window.location.href="vehiclefile.html";																				
+											vm.getData();																				
 									},error:function(result){
 										console.log(result);
 									},
@@ -440,14 +442,6 @@
 				 * 新增车型
 				 */
 				addtwo:function(){
-					if($("#input_3").val()=="" && $("#input_4").val()==""
-						&& $("#input_5").val()=="" && $("#input_6").val()==""
-					    && $("#input_7").val()=="" && $("#input_8").val()==""){
-						alert("请完善信息!")
-						return false;
-					}else{
-						console.log("新增：")
-						console.log(vm.cbbr)
 						$.ajax({
 							url:"http://localhost:8080/CarbrandRest/addtwo",
 							data:JSON.stringify(vm.cbbr),						
@@ -458,25 +452,25 @@
 							contentType:"application/json;charset=utf-8",
 							dataType:"json",
 							success:function(result){
+								alert("新增成功")
 								vm.getData();
 							},error:function(result){
 								console.log(result+"11")
 							}
 						})
-					}
 				},
 				/**
 				 * id查询车型做修改
 				 */
-				updaQuery:function(moid){
-					vm.isok=true;
+				updaQuery:function(){		
+					$("#myModal1").modal("show");
 						$.ajax({
 							url:"http://localhost:8080/CarbrandRest/updaQuery",
 							type:"get",
 							xhrFields: {
 								withCredentials: true
 							},
-							data:{moid:moid},
+							data:{moid:vm.tabletwo.moid},
 							dataType:"json",
 							success:function(result){
 								vm.cbbr=result;
@@ -488,12 +482,6 @@
 				 * 修改车型
 				 */
 				updaTwo :function(){
-					if($("#input_3").val()=="" && $("#input_4").val()==""
-						&& $("#input_5").val()=="" && $("#input_6").val()==""
-					    && $("#input_7").val()=="" && $("#input_8").val()==""){
-						alert("请完善信息!")
-						return false;
-					}else{
 						$.ajax({
 							url:"http://localhost:8080/CarbrandRest/updaTwo",
 							data:JSON.stringify(vm.cbbr),						
@@ -504,12 +492,12 @@
 							contentType:"application/json;charset=utf-8",
 							dataType:"json",
 							success:function(result){
-								window.location.href="vehiclefile.html";
+								alert("修改成功")
+								vm.getData();
 							},error:function(result){
 								console.log(result+"119")
 							}
 						})
-					}
 				},
 			}
 		})

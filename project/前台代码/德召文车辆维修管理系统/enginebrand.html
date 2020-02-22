@@ -8,7 +8,7 @@
 	<body>
 		<div class="container-fluid" style="margin: 20px;" id="ctx">
 			<div class="row">
-				<div id="title"  style="padding: 20px;background: #C9E2B3;">
+				<div id="title"  style="padding: 20px;background: #F7F7F7;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>发动机品牌</strong>
 				 	</span>
@@ -17,14 +17,14 @@
 			</div>
 			
 			<div class="row">
-				<div id="title1"  style="padding: 20px;background: #C9E2B3;">		 	 
+				<div id="title1"  style="padding: 20px;background: #F7F7F7;">		 	 
 				 		分类代码:<input readonly="readonly" type="text" id="input_1" v-model="MaintenanceAdd.mid"/>
 				 		分类名称:<input type="text" id="input_2" v-model="MaintenanceAdd.mname"/>
 				 	<div style="float: right;">
-				 		<button type="button" class="btn btn-success" @click="add">新增</button>
-				 		<button type="button" class="btn btn-success" @click="DeleteTwo">删除</button>
-				 		<button type="button" class="btn btn-success" @click="updaTwo">保存</button>
-				 		<button type="button" class="btn btn-success" >导出</button>
+				 		<button type="button" class="btn btn-default" @click="add">新增</button>
+				 		<button type="button" class="btn btn-default" @click="DeleteTwo">删除</button>
+				 		<button type="button" class="btn btn-default" @click="updaTwo">保存</button>
+				 		<button type="button" class="btn btn-default" >导出</button>
 				 	</div>
 			 	</div>
 			</div>
@@ -32,7 +32,7 @@
 			<div class="col-md-3">
 				
 				<table class="table table-hover">
-			 				<tr style="color: white; background-color: #31B0D5;">
+			 				<tr>
 			 					<td>发动机品牌编码</td>
 			 					<td>发动机品牌名称</td>
 			 				</tr>
