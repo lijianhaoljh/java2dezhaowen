@@ -35,11 +35,11 @@
 							<li @click="keepcar"><span class="glyphicon glyphicon-lock"></span>保养</li>
 													
 							<li><span class="glyphicon glyphicon-export"></span>导出</li>
-							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
+							<!--<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>-->
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 280px;">
-						<table class="table table-bordered" style="width: 3000px;">
+						<table class="table table-hover" style="width: 3000px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -141,7 +141,7 @@
 						</ul>
 					</div>
 					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 190px;">
-						<table id="thecar" class="table table-bordered" style="width: 3000px;">
+						<table id="thecar" class="table table-hover" style="width: 3000px;">
 							<thead>
 								<tr style="">
 									<td></td>
@@ -184,7 +184,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<table id="thehistorypay" class="table table-bordered" style="width: 1000px;display: none;">
+						<table id="thehistorypay" class="table table-hover" style="width: 1000px;display: none;">
 							<thead>
 								<tr>
 									<td> </td>
@@ -223,18 +223,18 @@
 				</div>
 			</div>
 			<div id="custype">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆保养登记</p>
-				<div style="width: 680px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 660px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 150px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">车辆保养登记</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="upcarkeep"  class="btn-danger" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">修改</button>
-						<button @click="delecarkeep" class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">删除</button>
-						<button @click="addcarkeep" class="btn-success" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">添加</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆保养登记</p>-->
+				<div style="width: 680px;height: 510px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 150px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">车辆保养登记</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="upcarkeep"  class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 18px;margin-left: 10px;">修改</button>
+						<button @click="delecarkeep" class="btn-danger" style="float: right;width: 60px;height: 30px;margin-top: 18px;margin-left: 10px;">删除</button>
+						<button @click="addcarkeep" class="btn-success" style="float: right;width: 60px;height: 30px;margin-top: 18px;margin-left: 10px;">添加</button>
 					</div>
-					<div style="width: 660px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 660px;height: 450px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						<p style="font-size: 15px; padding: 15px 0px 5px 0px;">车牌号：<span>{{demoncar.cdlicense}}</span></p>
-						<table class="table table-bordered" style="border: 1px solid white;width: 600px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 600px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -263,14 +263,14 @@
 				</div>
 			</div>
 			<div id="addcar">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆资料编辑</p>
-				<div style="width: 1080px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 1060px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">车辆资料编辑</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
-						<button @click="addcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆资料编辑</p>-->
+				<div style="width: 1080px;height: 510px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 1060px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">车辆资料编辑</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 15px;">确定</button>
 					</div>
-					<div id="lll" style="width: 1060px;height: 490px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div id="lll" style="width: 1060px;height: 450px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p class="ddd"  style="padding-top: 20px;">
 							<label><span style="color: red;">*</span>车牌号码</label><input class="carlicen" type="text" v-model="car.cdlicense" />
 							<label><span style="color: red;">*</span>车辆品牌</label><select style="width: 100px;" @change="changebrand($event)" v-model="car.cdno"><option v-for="c in carbrands" :value="c.cbno">{{c.cbname}}</option></select>
@@ -320,24 +320,24 @@
 			
 			
 			<div id="addkeep">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆保养记录</p>
-				<div style="width: 680px;height: 250px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 660px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">车辆保养记录</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;"></div>
-						<button @click="addkeepOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">车辆保养记录</p>-->
+				<div style="width: 530px;height: 250px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 510px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">车辆保养记录</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addkeepOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 15px;">确定</button>
 					</div>
-					<div style="width: 660px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 510px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						
 						<p class="ddd">
-							<label style="width: 150px;">保养名称</label><input style="width: 200px;" type="text" v-model="keep.ckname" />
+							<label style="width: 120px;">保养名称</label><input style="width: 200px;" type="text" v-model="keep.ckname" />
 						</p>
 						<p class="ddd">
-							<label style="width: 150px;">计划保养日期</label><input style="width: 120px;" type="date" v-model="keep.plandate" />
-							<label style="width: 150px;">计划里程</label><input type="text" v-model="keep.planmillage" />
+							<label style="width: 120px;">计划保养日期</label><input style="width: 120px;" type="date" v-model="keep.plandate" />
+							<label style="width: 120px;">计划里程</label><input type="text" v-model="keep.planmillage" />
 						</p>
 						<p>
-							<label style="width: 150px;">备注</label><input style="width: 200px;" type="text" v-model="keep.remark" />
+							<label style="width: 120px;">备注</label><input style="width: 200px;" type="text" v-model="keep.remark" />
 						</p>
 					</div>
 				</div>
@@ -354,7 +354,7 @@
 					</div>
 					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 500px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -389,7 +389,7 @@
 							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
 							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
 						</ul>
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 500px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -592,7 +592,7 @@
 						addcarkeep:function(){
 							vm.ke="5";
 							vm.keep={};
-							$("#addkeep").show();
+							$("#addkeep").fadeIn();
 						},
 						delecarkeep:function(){
 							let ckid = vm.keep.ckid;
@@ -615,11 +615,11 @@
 						},
 						upcarkeep:function(){
 							vm.ke="6";
-							$("#addkeep").show();
+							$("#addkeep").fadeIn();
 						},
 						keepcar:function(){
 							vm.kk="3";
-							$("#custype").show();
+							$("#custype").fadeIn();
 							queryKeep(vm.demoncar.cdlicense);
 						},
 						delcar:function(){
@@ -681,15 +681,15 @@
 						},
 						chosecustomer:function(){
 							vm.kk="4";
-							$("#chosecustomer").show();
+							$("#chosecustomer").fadeIn();
 						},
 						cardata:function(e){
-							$("#thecar").show();
+							$("#thecar").fadeIn();
 							$("#thehistorypay").hide()
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
 						},
 						historypay:function(e){
-							$("#thehistorypay").show();
+							$("#thehistorypay").fadeIn();
 							$("#thecar").hide()
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
 						},
@@ -825,21 +825,21 @@
 						},
 						addcar:function(){
 							vm.gg=1;
-							$("#addcar").show();
+							$("#addcar").fadeIn();
 							console.log(vm.kk);
 						},
 						upcar:function(){
 							vm.gg=2;
 							vm.car = vm.demoncar;
 							$("#addcar .carlicen").attr("readonly","readonly");
-							$("#addcar").show();
+							$("#addcar").fadeIn();
 							console.log(vm.kk);
 						},
 						setting:function(){
-							$("#setting").show();
+							$("#setting").fadeIn();
 						},
 						checkstaff:function(){
-							$("#checkstaff").show();
+							$("#checkstaff").fadeIn();
 						}
 					},
 					created:function(){

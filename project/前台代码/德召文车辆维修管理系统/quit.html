@@ -62,51 +62,28 @@
 					</div>
 				</div>
 				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
-					合计：<span id="total">12</span>条记录
+					合计：<span>12</span>条记录
 				</div>
 			</div>
 			<div id="addstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>
-				<div style="width: 980px;height: 600px;border:1px solid white;margin-left: 10px;background-color: white;">
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>-->
+				<div style="width: 980px;height: 530px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 60px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
-<<<<<<< HEAD
-=======
-						<button @click="addStaffOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
->>>>>>> refs/remotes/origin/lijianhao
+						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;margin-top: 10px;">员工卡片</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
 					</div>
-					<div style="width: 960px;height: 525px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 960px;height: 500px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p class="ddd" style="padding-top: 10px;">
-<<<<<<< HEAD
-=======
-							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.people.pno"  />
-							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.people.pname" />
-							<label><span style="color: red;">*</span>性别</label><input type="text" v-model="staf.people.psex"  />
->>>>>>> refs/remotes/origin/lijianhao
 							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.pno"  />
 							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.pname" />
 							<label><span style="color: red;">*</span>性别</label><input type="text" v-model="staf.psex"  />
 						</p>
 						<p>
-<<<<<<< HEAD
-=======
-							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="demonMech.parentid==m.mid" :value="m.mname"  />
-							<label><span style="color: red;">*</span>所在部门</label>
-							<input v-if="cc==1" type="text" disabled="disabled" style="width: 50px;" v-model="demonMech.mid" />
-							<input v-else disabled="disabled" style="width: 50px;" v-model="staf.mid" />
-							
-							<input v-if="cc==1" readonly="readonly" type="text" v-model="demonMech.mname"  />
-							<input v-else readonly="readonly" type="text" v-model="staf.mname"  />
->>>>>>> refs/remotes/origin/lijianhao
 							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="m.mid==staf.parentid" :value="m.mname"  />
 							<label><span style="color: red;">*</span>所在部门</label>
 							<input disabled="disabled" style="width: 50px;" v-model="staf.mid" />
 							<input readonly="readonly" type="text" v-model="staf.mname"  />
-<<<<<<< HEAD
 																									
-=======
->>>>>>> refs/remotes/origin/lijianhao
 						</p>
 						<p>
 							<label>岗位</label><select v-model="staf.jid"><option v-for="j in jobs" :value="j.jid">{{j.jname}}</option></select>
@@ -146,32 +123,15 @@
 							</select>
 						</p>
 						<p>
-<<<<<<< HEAD
-=======
-							<label><span style="color: red;">*</span>身份证号</label><input type="text" v-model="staf.people.pidcard"  />
-							<label><span style="color: red;">*</span>户口地址</label><input type="text" v-model="staf.people.presidenceaddress"  />
->>>>>>> refs/remotes/origin/lijianhao
 							<label><span style="color: red;">*</span>身份证号</label><input type="text" v-model="staf.pidcard"  />
 							<label><span style="color: red;">*</span>户口地址</label><input type="text" v-model="staf.presidenceaddress"  />
 						</p>
 						<p>
-<<<<<<< HEAD
-=======
-							<label><span style="color: red;">*</span>现住地址</label><input  type="text" v-model="staf.people.paddress" />
-							<label><span style="color: red;">*</span>联系电话</label><input type="text" v-model="staf.people.pphone"  />
-							<label><span style="color: red;">*</span>手机</label><input type="text" v-model="staf.people.ptellphone"  />
->>>>>>> refs/remotes/origin/lijianhao
 							<label><span style="color: red;">*</span>现住地址</label><input  type="text" v-model="staf.paddress" />
 							<label><span style="color: red;">*</span>联系电话</label><input type="text" v-model="staf.pphone"  />
 							<label><span style="color: red;">*</span>手机</label><input type="text" v-model="staf.ptellphone"  />
 						</p>
 						<p>
-<<<<<<< HEAD
-=======
-							<label><span style="color: red;">*</span>EMAIL</label><input type="text" v-model="staf.people.pemail"  />
-							<label>开户银行</label><input type="text" v-model="staf.people.pbank"  />
-							<label>银行账号</label><input type="text" v-model="staf.people.pbanknumber"  />
->>>>>>> refs/remotes/origin/lijianhao
 							<label><span style="color: red;">*</span>EMAIL</label><input type="text" v-model="staf.pemail"  />
 							<label>开户银行</label><input type="text" v-model="staf.pbank"  />
 							<label>银行账号</label><input type="text" v-model="staf.pbanknumber"  />
@@ -192,24 +152,19 @@
 							<label>卡内部号</label><input type="text" v-model="staf.sinnumber" />
 							<label>推荐人</label><input type="text" v-model="staf.srecommed"/>
 						</p>
-						<p>
-							<label>整单折扣权%</label><input type="text" v-model="staf.salldiscount"/>
-							<label>工时折扣权%</label><input type="text" v-model="staf.sworkdiscount"/>
-							<label>商品折扣权%</label><input type="text" v-model="staf.sshopdiscount"/>
-							<label>减免权</label><input type="text" v-model="staf.sdiscount"/>
-						</p>
+						
 					</div>
 				</div>
 			</div>
 			<div id="quitstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">离职登记</p>
-				<div style="width: 680px;height: 350px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 660px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">离职登记</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="resignOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">离职登记</p>-->
+				<div style="width: 680px;height: 300px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">离职登记</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="resignOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 16px;">保存</button>
 					</div>
-					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
+					<div style="width: 660px;height: 270px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
 						<p>
 							<label>员工姓名</label><input style="width: 70px;" type="text" disabled="disabled" name="sno" v-model="quit.sno" /><input v-model="quit.sname" type="text" /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
 							
@@ -221,14 +176,14 @@
 			</div>
 			
 			<div id="chosecustomer">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>
-				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 560px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>-->
+				<div style="width: 580px;height: 400px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">选择员工</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 16px;">确定</button>
 					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 560px;height: 360px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="m1 in mechanismis1" :value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
 						</select>
@@ -360,9 +315,6 @@
 							},
 							success:function(response){
 								vm.quits = response;
-								$("#total").text(response.length);
-							},error:function(){
-								alert("发生错误");
 							}
 						});	
 			}
@@ -427,68 +379,6 @@
 					}
 				},
 				methods:{
-<<<<<<< HEAD
-=======
-					quitchose:function(e,q){
-						//选择员工
-							let checkeds = e.target.checked;
-							if(checkeds){
-								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
-								vm.demon = q;
-							}else{
-								$(e.target).parent().parent().css("background-color","white");
-							}
-					},
-					goBack:function(){
-						console.log(vm.demon.sno);
-						if(vm.demon.sno==undefined){
-							alert("请选中需要回滚的员工");
-						}else{
-							if(confirm("是否确认将该员工恢复入职?")){
-								$.ajax({
-									url:data.ip+"quit",
-									data:JSON.stringify(vm.demon),
-									type:"put",
-									dataType:"json",
-									contentType:"application/json;charset=utf-8",
-									success:function(data){
-										if(data=="1"){
-											alert("恢复入职成功");
-											vm.quit={sno:"",sname:""};
-											queryAllResign();
-										}
-									},error:function(data){
-										alert("发生错误");
-									}
-								});
-							}
-						}
-					},
-					resignOK:function(){
-						var a = 0;
-						if($("#quitstaff input[name=sno]").val()==""||$("#quitstaff input[name=rdate]").val()==""){
-							a=a+1;
-							alert("请填写必要信息");
-							return;
-						}
-						if(a==0){
-							$.ajax({
-								url:data.ip+"quit/addResign",
-								data:JSON.stringify(vm.quit),
-								type:"post",
-								dataType:"json",
-								contentType:"application/json;charset=utf-8",
-								success:function(data){
-									if(data=="1"){
-										alert("离职成功");
-										vm.quit={sno:"",sname:""};
-										queryAllResign();
-									}
-								}
-							});
-						}
-					},
->>>>>>> refs/remotes/origin/lijianhao
 					querybox:function(){
 						let pno = $("input[name=name]").val();
 						queryAllResign(pno);
@@ -653,10 +543,6 @@
 					}
 				},
 				created:function(){
-<<<<<<< HEAD
-=======
-					queryAllResign();
->>>>>>> refs/remotes/origin/lijianhao
 					queryMechanByparentid(1);
 					queryAllResign("");
 					queryJob();

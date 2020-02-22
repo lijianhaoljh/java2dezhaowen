@@ -255,14 +255,14 @@
 				</div>
 			</div>
 			<div id="addcusandcar">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加客户和车资料</p>
-				<div style="width: 980px;height: 530px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 960px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加客户和车资料</div>
-						<div @click="closeadd" class="clo" style=" width: 100px;height: 40px;float:right;font-size: 50px;text-align: center;padding: 0px;position: relative;top:-10px;cursor:pointer; ">&times;</div>
-						<button @click="addcusandcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="border-radius: 10px 10px 10px 10px;padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加客户和车资料</p>-->
+				<div style="border-radius: 10px 10px 10px 10px;width: 980px;height: 530px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="border-radius: 10px 10px 10px 10px;width: 960px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">增加客户和车资料</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addcusandcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top:10px;">确定</button>
 					</div>
-					<div style="width: 960px;height: 470px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="border-radius: 10px 10px 10px 10px;width: 960px;height: 470px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p style="padding-top: 10px;" class="ddd">
 							<label><span style="color: red;">*</span>客户编码</label><input type="test" readonly="readonly" v-model="cus.cno" />
 							<label><span style="color: red;">*</span>客户名称</label><input type="test" v-model="cus.cname" />
@@ -333,14 +333,14 @@
 				</div>
 			</div>
 			<div id="addcus">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加客户</p>
-				<div style="width: 980px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 960px;height: 50px;margin-left: 10px;">
-						<div class="changename" style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加客户</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
-						<button @click="addcustomer" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加客户</p>-->
+				<div style="border-radius: 10px 10px 10px 10px; width: 980px;height: 43[0px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 960px;height: 60px;margin-left: 10px;">
+						<div class="changename" style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;margin-top:10px;border-left: 4px solid orange;">增加客户</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addcustomer" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">确定</button>
 					</div>
-					<div style="width: 960px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="border-radius: 10px 10px 10px 10px; width: 960px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p style="padding-top: 10px;" class="ddd">
 							<label><span style="color: red;">*</span>客户编码</label><input type="test" readonly="readonly" v-model="cus.cno" />
 							<label><span style="color: red;">*</span>客户名称</label><input type="test" v-model="cus.cname" />
@@ -386,12 +386,12 @@
 			</div>
 			
 			<div id="addcar">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加车资料</p>
-				<div style="width: 980px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 960px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">增加车资料</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
-						<button @click="addcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加车资料</p>-->
+				<div style="width: 980px;height: 430px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 960px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">增加车资料</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">确定</button>
 					</div>
 					<div style="width: 960px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p class="ddd"  style="padding-top: 10px;">
@@ -444,7 +444,7 @@
 				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 560px;height: 50px;margin-left: 10px;">
 						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">字段设置</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+						<div @click="closeadd" class="clo" style=" width: 100px;height: 40px;float:right;font-size: 50px;text-align: center;padding: 0px;position: relative;top:-10px;cursor:pointer; ">&times;</div>
 						<button class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
 					</div>
 					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
@@ -474,14 +474,14 @@
 				</div>
 			</div>
 			<div id="chosecustomer">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>
-				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 560px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>-->
+				<div style="width: 580px;height: 410px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">选择员工</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 16px;">确定</button>
 					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 560px;height: 380px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="m1 in mechanismis1" :value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
 						</select>
@@ -512,16 +512,16 @@
 			</div>
 			
 			<div id="custype">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">客户分类</p>
-				<div style="width: 680px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 660px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">客户分类</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="custypeOK"  class="btn-danger" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">保存</button>
-						<button @click="delecurtype" class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">删除</button>
-						<button @click="addcustype" class="btn-success" style="float: right;width: 60px;height: 30px;margin-top: 8px;margin-left: 10px;">添加</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">客户分类</p>-->
+				<div style="width: 680px;height: 510px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">客户分类</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="custypeOK"  class="btn-danger" style="float: right;width: 60px;height: 30px;margin-top: 18px;margin-left: 10px;">保存</button>
+						<button @click="delecurtype" class="btn-warning" style="float: right;width: 60px;height: 30px;margin-top: 18px;margin-left: 10px;">删除</button>
+						<button @click="addcustype" class="btn-success" style="float: right;width: 60px;height: 30px;margin-top: 18px;margin-left: 10px;">添加</button>
 					</div>
-					<div style="width: 660px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 660px;height: 480px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						<p><label>分类代码</label><input readonly="readonly" type="text" v-model="ctype.ctno" /> <label>客户类别</label><input v-model="ctype.ctname" type="text" /> <label>价格类型</label><select v-model="ctype.ptid" style="outline: none;width: 80px;height: 30px;"><option v-for="p in pricetype" :value="p.ptid">{{p.ptname}}</option></select></p>
 						<p><label>有效年限</label><input v-model="ctype.cteffective" type="text" /> <label>会费</label><input v-model="ctype.ctprice" type="text" /> <label>类别</label><select v-model="ctype.ctisvip" style="outline: none;width: 80px;height: 30px;"><option value="0">非会员</option><option value="1">会员</option></select></p>
 						<table class="table table-hover" style="border: 1px solid white;width: 600px;">
@@ -707,8 +707,8 @@
 							staffs:[],//职工
 							pricetype:[],//价格类型
 							custype:[],//客户分类
-							demon:{},//储存选中的客户对象
-							demoncar:{},//储存选中的车辆对象
+							demon:{cno:""},//储存选中的客户对象
+							demoncar:{cdlicense:""},//储存选中的车辆对象
 							car:{},//增加车辆的车辆对象
 							carbrands:[],//车辆品牌
 							motorcyle:[],//车辆型号
@@ -724,19 +724,19 @@
 					},
 					methods:{
 						cardata:function(e){
-							$("#thecar").slideDown("slow");
+							$("#thecar").fadeIn();
 							$("#thehistorypay").hide()
 							$("#thehistoryvisitor").hide();
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
 						},
 						historypay:function(e){
-							$("#thehistorypay").slideDown("slow");
+							$("#thehistorypay").fadeIn();
 							$("#thecar").hide()
 							$("#thehistoryvisitor").hide();
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
 						},
 						historyvisitor:function(e){
-							$("#thehistoryvisitor").slideDown("slow");
+							$("#thehistoryvisitor").fadeIn();
 							$("#thehistorypay").hide()
 							$("#thecar").hide();
 							$(e.target).css("border-top","3px solid green").siblings().css("border-top","0px");
@@ -829,33 +829,41 @@
 						},
 						delecar:function(){
 							//删除车资料
-							let licen = vm.demoncar.cdlicense;
-							if(confirm("是否确认删除车辆信息？")){
-								$.ajax({
-									url:data.ip+"cus/deleteCarBylicen",
-									data:{licen:licen},
-									type:"post",
-									dataType:"json",
-									success:function(result){
-										if(result=="1"){
-											alert("删除成功");
-											query("");
-											car(vm.demon.cno);		
+							if(vm.demoncar.cdlicense==""){
+								alert("请选中需要删除的车辆资料");
+							}else{
+								let licen = vm.demoncar.cdlicense;
+								if(confirm("是否确认删除车辆信息？")){
+									$.ajax({
+										url:data.ip+"cus/deleteCarBylicen",
+										data:{licen:licen},
+										type:"post",
+										dataType:"json",
+										success:function(result){
+											if(result=="1"){
+												alert("删除成功");
+												query("");
+												car(vm.demon.cno);		
+											}
+										},error:function(result){
+											alert("发生错误");
 										}
-									},error:function(result){
-										alert("发生错误");
-									}
-								});
+									});
+								}
 							}
 						},
 						upcar:function(){
 							//修改员工
-							$("#addcar p:eq(0)").text("修改车资料");
-							$("#addcar .changename").text("修改车资料");
-							$("#addcar").slideDown("slow");
-							$(".carlicen").attr("readonly","readonly")
-							vm.car=vm.demoncar;
-							vm.car.cname=vm.demon.cname;
+							if(vm.demoncar.cdlicense==""){
+								alert("请选中需要修改的车辆");
+							}else{
+								$("#addcar p:eq(0)").text("修改车资料");
+								$("#addcar .changename").text("修改车资料");
+								$("#addcar").fadeIn();
+								$(".carlicen").attr("readonly","readonly")
+								vm.car=vm.demoncar;
+								vm.car.cname=vm.demon.cname;
+							}
 							
 						},
 						addcusandcarOK:function(){
@@ -968,38 +976,44 @@
 							},
 						delcus:function(){
 							//删除员工
-							$("#onlyone input[type=radio]").each(function(){
-								if($(this)[0].checked){
-									let cno = $(this).attr("id");
-									if(confirm("是否确认删除客户以及所拥有的车辆信息？")){
-										$.ajax({
-											url:data.ip+"cus/deleteCusAndCarByCno",
-											data:{cno:cno},
-											type:"post",
-											dataType:"json",
-											success:function(result){
-												if(result=="1"){
-													alert("删除成功");
-													query("");
-													vm.cars=[];
+							if(vm.demon.cno==""){
+								alert("请选中需要删除的员工");
+							}else{
+								$("#onlyone input[type=radio]").each(function(){
+									if($(this)[0].checked){
+										let cno = $(this).attr("id");
+										if(confirm("是否确认删除客户以及所拥有的车辆信息？")){
+											$.ajax({
+												url:data.ip+"cus/deleteCusAndCarByCno",
+												data:{cno:cno},
+												type:"post",
+												dataType:"json",
+												success:function(result){
+													if(result=="1"){
+														alert("删除成功");
+														query("");
+														vm.cars=[];
+													}
+												},error:function(result){
+													alert("发生错误");
 												}
-											},error:function(result){
-												alert("发生错误");
-											}
-										});
+											});
+										}
+										return false;
 									}
-									return false;
-								}
-							});
+								});
+							}
 						},
 						upcus:function(){
 							//修改员工
-							$("#addcus p:eq(0)").text("修改客户");
-							$("#addcus .changename").text("修改客户");
-							$("#addcus").slideDown("slow");
-							vm.cus=vm.demon;
-							
-							
+							if(vm.demon.cno == ""){
+								alert("请选中需要修改员工");
+							}else{
+								$("#addcus p:eq(0)").text("修改客户");
+								$("#addcus .changename").text("修改客户");
+								$("#addcus").fadeIn();
+								vm.cus=vm.demon;
+							}
 						},
 						chosecustomerOK:function(){
 							let sphone = "";
@@ -1150,7 +1164,7 @@
 							
 						},
 						addcusandcar:function(){
-							$("#addcusandcar").slideDown("slow");
+							$("#addcusandcar").fadeIn();
 							vm.cus={pphone:"",pno:"",pname:"",cno:"",cars:[{inid_bdate:"",inid_business:"",indate:"",inid:"",fid:"",cdcarcheckdate:"",cdgolicense:"",cdbuydate:"",cdload:"",mid:"",cdmileage:"",cdyearprice:"",cdframe:"",cdlicenseend:"",clid:"",cddriverbirth:"",cddriverphone:"",cdlicense:"",cdno:"",moid:"",cddriver:""}]};
 							getcno();
 							
@@ -1165,18 +1179,18 @@
 							$("#custype").hide();
 						},
 						mmm:function(){
-							$("#custype").slideDown("slow");
+							$("#custype").fadeIn();
 							vm.kk="1";
 							
 						},
 						checkstaff:function(){
-							$("#checkstaff").slideDown("slow");
+							$("#checkstaff").fadeIn();
 						},
 						chosecustomer:function(){
-							$("#chosecustomer").slideDown("slow");
+							$("#chosecustomer").fadeIn();
 						},
 						addcus:function(){
-							$("#addcus").slideDown("slow");
+							$("#addcus").fadeIn();
 							$("#addcus p:eq(0)").text("增加客户");
 							$("#addcus .changename").text("增加客户");
 							vm.cus={pphone:"",pno:"",pname:"",cno:""};
@@ -1184,12 +1198,12 @@
 						},
 						addcar:function(){
 							vm.car={};
-							$("#addcar").slideDown("slow");
+							$("#addcar").fadeIn();
 							vm.car.cno=vm.demon.cno;
 							vm.car.cname=vm.demon.cname;
 						},
 						setting:function(){
-							$("#setting").slideDown("slow");
+							$("#setting").fadeIn();
 						}
 					},
 					created:function(){
