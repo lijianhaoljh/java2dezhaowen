@@ -142,7 +142,7 @@ ORDER BY c.cdlicense DESC
 	LEFT JOIN maintenance AS mainte ON mainte.mid=moto.mid
 	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
-	WHERE card.cno=#{cno} AND card.moid=moto.moid
+	WHERE card.cno=#{cno} AND card.moid=moto.moid AND card.remark1='0'
   </select>
   
   <select id="querylicensewillexpire" resultMap="BaseResultMap">
@@ -169,7 +169,7 @@ ORDER BY c.cdlicense DESC
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	WHERE (card.cddriver LIKE concat('%',#{cddriver},'%') OR card.cddriverphone LIKE concat('%',#{cddriver},'%') OR card.cdlicense LIKE concat('%',#{cddriver},'%') 
-	OR card.cdframe LIKE CONCAT('%',#{cddriver},'%') ) AND moto.moid=card.moid
+	OR card.cdframe LIKE CONCAT('%',#{cddriver},'%') ) AND moto.moid=card.moid AND card.remark1 = '0'
   </select>
 
   <select id="queryinsurexpirecar" resultMap="BaseResultMap">

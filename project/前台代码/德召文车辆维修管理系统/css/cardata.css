@@ -27,7 +27,7 @@ input{color: #000000;}
 #checkstaff{display: none; width: 900px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 20%;background-color: #DEDEDE;}
 #checkstaff label{width: 110px;text-align: right;padding-right: 10px;}
 #checkstaff input{width:110px;}
-#chosecustomer{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 30%;background-color: #DEDEDE;}
+#chosecustomer{border-radius: 10px 10px 10px 10px;display: none; width: 600px;height: 500px;position: absolute;z-index: 111;border: 1px solid darkgrey;border: 1px solid darkgrey;top: 7%;left: 25%;background-color: white;}
 #chosecustomer ul{list-style-type: none;}
 #chosecustomer ul li{display: inline-block;text-align: center;font-size: 17px;cursor:pointer;}
 #chosecustomer td{border: 1px solid white;}

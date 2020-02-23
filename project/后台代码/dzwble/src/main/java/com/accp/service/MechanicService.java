@@ -13,14 +13,17 @@ import com.accp.domain.Level;
 import com.accp.domain.Mechanic;
 import com.accp.domain.MechanicExample;
 import com.accp.domain.People;
+import com.accp.domain.Resign;
 import com.accp.domain.Sendcar;
 import com.accp.domain.Team;
 import com.accp.domain.TeamExample;
 import com.accp.domain.Work;
+import com.accp.domain.WorkExample;
 import com.accp.mapper.CarMapper;
 import com.accp.mapper.LevelMapper;
 import com.accp.mapper.MechanicMapper;
 import com.accp.mapper.PeopleMapper;
+import com.accp.mapper.ResignMapper;
 import com.accp.mapper.SendcarMapper;
 import com.accp.mapper.TeamMapper;
 import com.accp.mapper.WorkMapper;
@@ -43,6 +46,8 @@ public class MechanicService {
 	PeopleMapper pmapper;
 	@Autowired
 	WorkMapper wmapper;
+	@Autowired
+	ResignMapper remapper;
 	
 	//查询所有技工星级
 	public List<Level> queryAllLevel(){
@@ -108,6 +113,9 @@ public class MechanicService {
 	}
 	//删除借还车记录
 	public int deleteSendcar(Integer sid) {
+		WorkExample ex = new WorkExample();
+		ex.createCriteria().andTidEqualTo(sid);
+		int a = wmapper.deleteByExample(ex);
 		return smapper.deleteByPrimaryKey(sid);
 	}
 	//查询所有在职技工根据tid
@@ -150,14 +158,20 @@ public class MechanicService {
 		
 		//删除技工
 		public int deleteMechanic(String pno) {
-			int a = pmapper.deleteByPrimaryKey(pno);
+			People peo = pmapper.selectByPrimaryKey(pno);
+			peo.setDimission(1);
+			int a = pmapper.updateByPrimaryKey(peo);
+			
 			if(a>0) {
-				MechanicExample ex = new MechanicExample();
-				ex.createCriteria().andPnoEqualTo(pno);
-			  return mmapper.deleteByExample(ex);
-			}else {
-				return 0;
+				Resign re = new Resign();
+				re.setSno(pno);
+				Date time = new Date();
+				re.setRdate(time);
+				re.setRreason("强制遣退");
+				int b = remapper.insert(re);
 			}
+			
+			return a;
 		}
 		
 		public List<Team> query(){

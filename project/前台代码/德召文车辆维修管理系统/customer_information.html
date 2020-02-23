@@ -386,10 +386,10 @@
 			</div>
 			
 			<div id="addcar">
-				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加车资料</p>-->
+				<!--<p style=" padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">增加车资料</p>-->
 				<div style="width: 980px;height: 430px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 60px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">增加车资料</div>
+						<div class="panduan" style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">增加车资料</div>
 						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
 						<button @click="addcarOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">确定</button>
 					</div>
@@ -609,8 +609,8 @@
 				//新增客户获取编号
 				function getcno(){
 					$.ajax({
-							url:data.ip+"cus/queryCusAll",
-							data:{cname:""},
+							url:data.ip+"cus/queryAll",
+							data:{},
 							type:"post",
 							dataType:"json",
 							success:function(result){
@@ -932,7 +932,7 @@
 									}else{
 										vm.car.cdisinsure=0;
 									}
-									let message = $("#addcar p:eq(0)").text();
+									let message = $(".panduan").text();
 									alert(message);
 									if(message=="增加车资料"){
 										$.ajax({
@@ -1079,7 +1079,7 @@
 								
 							});
 							if(c==0){
-								let message = $("#addcus p:eq(0)").text();
+								let message = $(".changename").text();
 								if(message=="增加客户"){
 									$.ajax({
 										url:data.ip+"cus/addCus",
