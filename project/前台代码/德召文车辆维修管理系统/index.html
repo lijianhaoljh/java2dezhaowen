@@ -272,7 +272,7 @@
 		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
-			queryTree();
+			
 			function queryTree(){
 					//树状结构
 					$.ajax({
@@ -550,10 +550,6 @@
 						perms: [],
 						user:{},
 						p:{},
-<<<<<<< HEAD
-=======
-						index:0,
->>>>>>> refs/remotes/origin/lijianhao
 						trees:[
 								{id:1,name:"提醒情况",parentid:0},
 								{id:2,name:"今天过生日的客户",parentid:1},
@@ -583,12 +579,8 @@
 							todatbirthdriver:["车牌号","品牌","车型","出生日期","驾驶员","手机"],
 							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
 							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
-<<<<<<< HEAD
 							overstaf:["合同到期","部门","工号","姓名","性别","职位"],
 						index:0
-=======
-							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
->>>>>>> refs/remotes/origin/lijianhao
 					}
 				},methods:{
 					clo:function(){
@@ -636,10 +628,7 @@
 							console.log(222)
 						}
 					});
-<<<<<<< HEAD
 					
-=======
->>>>>>> refs/remotes/origin/lijianhao
 					queryTree();
 						$.ajax({
 						       		url:data.ip+"day/querytodaybirthcus",
@@ -653,19 +642,11 @@
 						       		}
 						       	});
 						       	
-<<<<<<< HEAD
 					//$("#myModal").modal("show");
-=======
->>>>>>> refs/remotes/origin/lijianhao
 				},computed:{
 					getPerms(){
 						return this.perms;
-<<<<<<< HEAD
 					}
-=======
-					},
-					
->>>>>>> refs/remotes/origin/lijianhao
 				}
 			});
 			
