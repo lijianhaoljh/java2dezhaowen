@@ -15,7 +15,7 @@
     <result column="mfid" property="mfid" jdbcType="INTEGER" />
     <result column="origin" property="origin" jdbcType="VARCHAR" />
     <result column="barcode" property="barcode" jdbcType="VARCHAR" />
-    <result column="packag" property="packag" jdbcType="VARCHAR" />
+    <result column="pack" property="pack" jdbcType="VARCHAR" />
     <result column="volume" property="volume" jdbcType="REAL" />
     <result column="grossweight" property="grossweight" jdbcType="REAL" />
     <result column="netweight" property="netweight" jdbcType="REAL" />
@@ -34,7 +34,6 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
-  
   <select id="DataQuery"  resultMap="BaseResultMap">
 		SELECT b.gid AS zgid, b.gname AS zgame,
 		b.parentid AS zparentid,c.cbname AS zcbname,
@@ -89,10 +88,6 @@
 		b.gname  LIKE  CONCAT ('%',#{cbno},'%') 
 		
   </select>
-  
-  
-  
-  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -153,7 +148,7 @@
   </sql>
   <sql id="Base_Column_List" >
     cno, cname, cbid, cuid, vehicletype, gid, toino, coid, gcid, pid, mfid, origin, barcode, 
-    packag, volume, grossweight, netweight, stockprice, markup, exchangecode, standardprice, 
+    pack, volume, grossweight, netweight, stockprice, markup, exchangecode, standardprice, 
     memberprice, vipprice, agreementprice, Insuranceprice, claimprice, remark1, remark2, 
     remark3, remark4, remark5
   </sql>
@@ -192,7 +187,7 @@
       cuid, vehicletype, gid, 
       toino, coid, gcid, 
       pid, mfid, origin, 
-      barcode, packag, volume, 
+      barcode, pack, volume, 
       grossweight, netweight, stockprice, 
       markup, exchangecode, standardprice, 
       memberprice, vipprice, agreementprice, 
@@ -203,7 +198,7 @@
       #{cuid,jdbcType=INTEGER}, #{vehicletype,jdbcType=VARCHAR}, #{gid,jdbcType=INTEGER}, 
       #{toino,jdbcType=INTEGER}, #{coid,jdbcType=INTEGER}, #{gcid,jdbcType=INTEGER}, 
       #{pid,jdbcType=INTEGER}, #{mfid,jdbcType=INTEGER}, #{origin,jdbcType=VARCHAR}, 
-      #{barcode,jdbcType=VARCHAR}, #{packag,jdbcType=VARCHAR}, #{volume,jdbcType=REAL}, 
+      #{barcode,jdbcType=VARCHAR}, #{pack,jdbcType=VARCHAR}, #{volume,jdbcType=REAL}, 
       #{grossweight,jdbcType=REAL}, #{netweight,jdbcType=REAL}, #{stockprice,jdbcType=REAL}, 
       #{markup,jdbcType=REAL}, #{exchangecode,jdbcType=VARCHAR}, #{standardprice,jdbcType=REAL}, 
       #{memberprice,jdbcType=REAL}, #{vipprice,jdbcType=REAL}, #{agreementprice,jdbcType=REAL}, 
@@ -253,8 +248,8 @@
       <if test="barcode != null" >
         barcode,
       </if>
-      <if test="packag != null" >
-        packag,
+      <if test="pack != null" >
+        pack,
       </if>
       <if test="volume != null" >
         volume,
@@ -348,8 +343,8 @@
       <if test="barcode != null" >
         #{barcode,jdbcType=VARCHAR},
       </if>
-      <if test="packag != null" >
-        #{packag,jdbcType=VARCHAR},
+      <if test="pack != null" >
+        #{pack,jdbcType=VARCHAR},
       </if>
       <if test="volume != null" >
         #{volume,jdbcType=REAL},
@@ -452,8 +447,8 @@
       <if test="record.barcode != null" >
         barcode = #{record.barcode,jdbcType=VARCHAR},
       </if>
-      <if test="record.packag != null" >
-        packag = #{record.packag,jdbcType=VARCHAR},
+      <if test="record.pack != null" >
+        pack = #{record.pack,jdbcType=VARCHAR},
       </if>
       <if test="record.volume != null" >
         volume = #{record.volume,jdbcType=REAL},
@@ -526,7 +521,7 @@
       mfid = #{record.mfid,jdbcType=INTEGER},
       origin = #{record.origin,jdbcType=VARCHAR},
       barcode = #{record.barcode,jdbcType=VARCHAR},
-      packag = #{record.packag,jdbcType=VARCHAR},
+      pack = #{record.pack,jdbcType=VARCHAR},
       volume = #{record.volume,jdbcType=REAL},
       grossweight = #{record.grossweight,jdbcType=REAL},
       netweight = #{record.netweight,jdbcType=REAL},
@@ -587,8 +582,8 @@
       <if test="barcode != null" >
         barcode = #{barcode,jdbcType=VARCHAR},
       </if>
-      <if test="packag != null" >
-        packag = #{packag,jdbcType=VARCHAR},
+      <if test="pack != null" >
+        pack = #{pack,jdbcType=VARCHAR},
       </if>
       <if test="volume != null" >
         volume = #{volume,jdbcType=REAL},
@@ -658,7 +653,7 @@
       mfid = #{mfid,jdbcType=INTEGER},
       origin = #{origin,jdbcType=VARCHAR},
       barcode = #{barcode,jdbcType=VARCHAR},
-      packag = #{packag,jdbcType=VARCHAR},
+      pack = #{pack,jdbcType=VARCHAR},
       volume = #{volume,jdbcType=REAL},
       grossweight = #{grossweight,jdbcType=REAL},
       netweight = #{netweight,jdbcType=REAL},

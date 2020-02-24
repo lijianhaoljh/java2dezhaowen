@@ -180,6 +180,7 @@
 			</div><!-- /.modal -->
             
 		 </div>
+		 <script type="text/javascript" src="js/my.js"></script>
 		 <script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		 <script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		 <script type="text/javascript" src="js/vue.js" ></script>
@@ -212,7 +213,7 @@
 				getData:function(){
 						var that=this;
 						$.ajax({
-						url: "http://localhost:8080/CarbrandRest",					
+						url: data.ip+"CarbrandRest",					
 						type: "get",
 						data:{
 							condition:that.condition
@@ -241,7 +242,7 @@
 				getDataTwo:function(cbbrand){
 						vm.cbbr=cbbrand;
 						$.ajax({
-						url: "http://localhost:8080/CarbrandRest",					
+						url: data.ip+"CarbrandRest",					
 						type: "post",
 						data:{cbno:cbbrand.cbno},
 						xhrFields: {
@@ -265,7 +266,7 @@
 				getDataThree:function(){
 					var that=this;
 						$.ajax({
-						url: "http://localhost:8080/CarbrandRest/query",					
+						url: data.ip+"CarbrandRest/query",					
 						type: "get",
 						data:{
 							cbnos:that.cbnos
@@ -293,7 +294,7 @@
 				DeleteT:function(){
 					if (confirm("你确定要删除"+vm.cbbr.cbno+"么?")) {
 						$.ajax({
-								url:"http://localhost:8080/CarbrandRest/dele",
+								url:data.ip+"CarbrandRest/dele",
 								data:{
 									cbno:vm.cbbr.cbno
 								},
@@ -329,7 +330,7 @@
 						return false;
 					}else{
 						$.ajax({
-							url:"http://localhost:8080/CarbrandRest/add",
+							url:data.ip+"CarbrandRest/add",
 							data:JSON.stringify(vm.carbrand),						
 							type:"post",
 							xhrFields: {
@@ -353,7 +354,7 @@
 					$("#myModal").modal("show");
 						vm.isShow=true;
 						$.ajax({
-							url:"http://localhost:8080/CarbrandRest/UpdaID",
+							url:data.ip+"CarbrandRest/UpdaID",
 							type:"get",
 							xhrFields: {
 								withCredentials: true
@@ -374,7 +375,7 @@
 						return false;
 					}else{
 						$.ajax({
-							url:"http://localhost:8080/CarbrandRest/upda",
+							url:data.ip+"CarbrandRest/upda",
 							data:JSON.stringify(vm.carbrand),						
 							type:"put",
 							xhrFields: {
@@ -402,7 +403,7 @@
 				DeleteTwo:function(){
 					if (confirm("你确定要删除"+vm.tabletwo.moid+"么?")) {
 						$.ajax({
-								url:"http://localhost:8080/CarbrandRest/deletwo",
+								url:data.ip+"CarbrandRest/deletwo",
 								data:{
 									moid:vm.tabletwo.moid
 								},
@@ -425,7 +426,7 @@
 				 */
 				fdjquery:function(){
 						$.ajax({
-						url: "http://localhost:8080/CarbrandRest/fdj",					
+						url: data.ip+"CarbrandRest/fdj",					
 						type: "get",
 						xhrFields: {
 							withCredentials: true
@@ -443,7 +444,7 @@
 				 */
 				addtwo:function(){
 						$.ajax({
-							url:"http://localhost:8080/CarbrandRest/addtwo",
+							url:data.ip+"CarbrandRest/addtwo",
 							data:JSON.stringify(vm.cbbr),						
 							type:"post",
 							xhrFields: {
@@ -465,7 +466,7 @@
 				updaQuery:function(){		
 					$("#myModal1").modal("show");
 						$.ajax({
-							url:"http://localhost:8080/CarbrandRest/updaQuery",
+							url:data.ip+"CarbrandRest/updaQuery",
 							type:"get",
 							xhrFields: {
 								withCredentials: true
@@ -483,7 +484,7 @@
 				 */
 				updaTwo :function(){
 						$.ajax({
-							url:"http://localhost:8080/CarbrandRest/updaTwo",
+							url:data.ip+"CarbrandRest/updaTwo",
 							data:JSON.stringify(vm.cbbr),						
 							type:"put",
 							xhrFields: {

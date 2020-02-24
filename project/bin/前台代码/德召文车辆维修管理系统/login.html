@@ -36,14 +36,13 @@
 						</div>
 					</div>
 				</div>
-				l
+				
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/canvas-particle.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
-		<script type="text/javascript" src="js/my.js" ></script>
 		<script type="text/javascript">
 			window.onload = function() {
 			    //配置
@@ -81,7 +80,7 @@
 							return false;
 						}
 						$.ajax({
-							url: data.ip + "loginin",
+							url: "http://localhost:8080/loginin",
 							data: that.people,
 							type: "post",
 							xhrFields: {

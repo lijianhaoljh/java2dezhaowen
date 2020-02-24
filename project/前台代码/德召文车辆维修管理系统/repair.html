@@ -141,6 +141,7 @@
 			</div><!-- /.modal -->
 				 			 	
 			</div>
+			<script type="text/javascript" src="js/my.js"></script>
 			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 			<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 			<script type="text/javascript" src="js/jquery.ztree.core.js" ></script>
@@ -153,7 +154,7 @@
 					//树状结构
 				     $.ajax({
 				       type:"get",
-				       url:"http://localhost:8080/ServiceItemRest",
+				       url:data.ip+"ServiceItemRest",
 				       dateType:"json",
 				       xhrFields:{
 				        withCredentials:true
@@ -194,7 +195,7 @@
 				              return;
 				          }
 				          	$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/queryid",					
+								url: data.ip+"ServiceItemRest/queryid",					
 								type: "get",
 								data:{mid:treeNode.mid},
 								xhrFields: {
@@ -247,7 +248,7 @@
 						},
 						Querytwo:function(){
 							$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/querytwo",					
+								url: data.ip+"ServiceItemRest/querytwo",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -266,7 +267,7 @@
 						Queryname:function(){
 							var that=this;
 							$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/queryname",					
+								url: data.ip+"ServiceItemRest/queryname",					
 								type: "get",
 								data:{name:that.name},
 								xhrFields: {
@@ -290,7 +291,7 @@
 						deleteid:function(){
 							if (confirm("你确定要删除"+vm.ServiceItem.sidno+"么?")) {
 							$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/deleteid",
+									url:data.ip+"ServiceItemRest/deleteid",
 									data:{
 										mid:vm.ServiceItem.sidno
 									},
@@ -313,7 +314,7 @@
 						 */
 						Queryac:function(){
 						$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/queryac",					
+								url: data.ip+"ServiceItemRest/queryac",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -333,7 +334,7 @@
 						 */
 						Mainquery:function(){
 						$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/mainquery",					
+								url: data.ip+"ServiceItemRest/mainquery",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -362,7 +363,7 @@
 							return false;
 						}else{	
 								$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/addtwo",
+									url:data.ip+"ServiceItemRest/addtwo",
 									data:JSON.stringify(vm.sitem),						
 									type:"post",
 									xhrFields: {
@@ -381,7 +382,7 @@
 						
 						Addaid:function(){
 								$.ajax({
-								url:"http://localhost:8080/ServiceItemRest/updaid",
+								url:data.ip+"ServiceItemRest/updaid",
 								type:"get",
 								xhrFields: {
 									withCredentials: true
@@ -401,7 +402,7 @@
 							return false;
 						}else{	
 								$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/updatwo",
+									url:data.ip+"ServiceItemRest/updatwo",
 									data:JSON.stringify(vm.sitem),						
 									type:"put",
 									xhrFields: {
@@ -423,7 +424,7 @@
 						 */
 						Pricequery:function(){
 						$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/pricequery",					
+								url: data.ip+"ServiceItemRest/pricequery",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -444,7 +445,7 @@
 						 */
 						updaproce:function(){
 							$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/updaproce",
+									url:data.ip+"ServiceItemRest/updaproce",
 									data:JSON.stringify(vm.jg),						
 									type:"put",
 									xhrFields: {
