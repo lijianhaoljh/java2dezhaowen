@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MaintenanceMapper {
+	List<Maintenance> findMaintenances(Integer mid);
 	
 	int addfdjtwo(Maintenance record);
 	

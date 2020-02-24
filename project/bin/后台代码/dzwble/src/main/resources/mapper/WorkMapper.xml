@@ -14,6 +14,10 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
+    <result column="tremark" property="tremark" jdbcType="VARCHAR" />
+    <result column="tpower" property="tpower" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -77,6 +81,13 @@
     id, tid, winmorning, winnight, woutmoning, woutnight, wdate, remark1, remark2, remark3, 
     remark4, remark5
   </sql>
+  
+  <select id="queryTeamByParentid" resultMap="BaseResultMap">
+	  	SELECT t.tname tname,t.remark1 tremark,t.tpower tpower, w.* FROM `work` AS w 
+LEFT JOIN team AS t ON t.tid=w.tid
+WHERE t.tid IN (SELECT tid FROM team WHERE parentid=#{parentid})
+  </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.WorkExample" >
     select
     <if test="distinct" >

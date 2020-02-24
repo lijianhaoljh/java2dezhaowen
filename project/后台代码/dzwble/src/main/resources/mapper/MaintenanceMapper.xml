@@ -13,6 +13,14 @@
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
     
+  <resultMap type="com.accp.domain.Maintenance" id="BaseResultMapTwo" extends="BaseResultMap">
+  	<collection property="children" column="mid" ofType="com.accp.domain.Maintenance" select="findMaintenances"></collection>
+  </resultMap>
+  
+  <select id="findMaintenances" resultMap="BaseResultMapTwo">
+  	select * from maintenance where parentid=#{mid}
+  </select>
+    
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

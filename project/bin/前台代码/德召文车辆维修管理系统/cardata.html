@@ -38,7 +38,7 @@
 							<li @click="setting"><span class="glyphicon glyphicon-cog"></span>字段设置</li>
 						</ul>
 					</div>
-					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 380px;">
+					<div class="col-md-12 col-xs-12" style="overflow: auto;height: 280px;">
 						<table class="table table-bordered" style="width: 3000px;">
 							<thead>
 								<tr>
@@ -289,7 +289,7 @@
 							<label>里程</label><input type="text" v-model="car.cdmileage" />
 						</p>
 						<p>
-							<label><span style="color: red;">*</span>发动机品牌</label><select v-model="car.mid"><option v-for="m in maintenance" v-if="m.parentid==1" :value="m.mid">{{m.mid}}--{{m.mname}}</option></select>
+							<label><span style="color: red;">*</span>发动机品牌</label><select v-model="car.mid"><option v-for="m in maintenance" v-if="m.parentid==2" :value="m.mid">{{m.mid}}--{{m.mname}}</option></select>
 							<label>载重</label><input type="text" v-model="car.cdload" />
 							<label>购买日期</label><input type="date" v-model="car.cdbuydate" />
 						</p>
@@ -365,7 +365,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="s in staffs">
-									<td><input @click="peop($event,s)" type="radio"  :cno="s.cno" :cname="s.cname" /></td>
+									<td><input @click="peop($event,s)" name="cu" type="radio"  :cno="s.cno" :cname="s.cname" /></td>
 									<td>{{s.cno}}</td>
 									<td>{{s.cname}}</td>
 									<td>{{s.cphone}}</td>
@@ -531,6 +531,8 @@
 							historypayhead:["单据类型","销售单号","车牌号","维修业务","进厂时间","完工时间","结算时间","消费金额"],
 							staffs:[],//所有客户
 							kk:"0",
+							gg:"0",
+							ke:"0",
 							carkeeps:[],//保养
 							keep:{},//选中的保养
 						}
@@ -542,7 +544,7 @@
 							console.log(vm.keep)
 							console.log(vm.kk)
 							var c = 0;
-							$("#addcar .ddd input").each(function(){
+							$("#addkeep .ddd input").each(function(){
 								if($(this).val()==""){
 									c+=1;
 									alert("请填写完整信息");
@@ -550,7 +552,7 @@
 								}
 							});
 							if(c==0){
-								if(vm.kk=="5"){
+								if(vm.ke=="5"){
 									$.ajax({
 												url:data.ip+"cus/addCarkeep",
 												data:JSON.stringify(vm.keep),
@@ -567,7 +569,7 @@
 													alert("发生错误");
 												}
 											});
-								}else if(vm.kk=="6"){
+								}else if(vm.ke=="6"){
 									$.ajax({
 												url:data.ip+"cus/upCarkeep",
 												data:JSON.stringify(vm.keep),
@@ -588,7 +590,7 @@
 							}
 						},
 						addcarkeep:function(){
-							vm.kk="5";
+							vm.ke="5";
 							vm.keep={};
 							$("#addkeep").show();
 						},
@@ -612,7 +614,7 @@
 							}
 						},
 						upcarkeep:function(){
-							vm.kk="6";
+							vm.ke="6";
 							$("#addkeep").show();
 						},
 						keepcar:function(){
@@ -764,14 +766,15 @@
 									}
 								});
 								if(c==0){
+									
 									if($("#addcar .ischeck")[0].checked){
 										vm.car.cdisinsure=1;
 									}else{
 										vm.car.cdisinsure=0;
 									}
 									let message = $("#addcar p:eq(0)").text();
-									alert(message);
-									if(vm.kk==1){
+									if(vm.gg==1){
+										alert("进来了添加啊");
 										console.log("添加");
 										$.ajax({
 											url:data.ip+"cus/addcarBycno",
@@ -821,12 +824,12 @@
 							$("#custype").hide();
 						},
 						addcar:function(){
-							vm.kk=1;
+							vm.gg=1;
 							$("#addcar").show();
 							console.log(vm.kk);
 						},
 						upcar:function(){
-							vm.kk=2;
+							vm.gg=2;
 							vm.car = vm.demoncar;
 							$("#addcar .carlicen").attr("readonly","readonly");
 							$("#addcar").show();

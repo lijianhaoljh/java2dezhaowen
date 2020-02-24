@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper {
+	List<Account> findAccounts(@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("bid")String bid,@Param("bstate")Integer bstate,@Param("cdlicense")String cdlicense,@Param("cno")String cno,@Param("pno")String pno,@Param("btid")Integer btid);
+	
     int countByExample(AccountExample example);
 
     int deleteByExample(AccountExample example);

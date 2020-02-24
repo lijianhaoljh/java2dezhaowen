@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-693+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -12,51 +11,36 @@
 				width: 100px;
 				margin-right: 10px;
 			}
-			
-			input{
-				height: 30px;
-				margin-right: 10px;
-				
-			}
 	</style>
 	
 	<body>
-		<div class="container-fluid" style="margin: 20px;">
+		<div class="container-fluid" id="ctx" style="margin: 20px;">
 				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>竣工检验</strong>
-				 	</span>
-				 	<div style="float: right;">				 		
-				 		<button type="button" class="btn btn-success">搜索</button>
-				 		<button type="button" class="btn btn-warning">关闭</button>
-				 	</div>
 			 	</div>
+				 	</span>
 			 	
 			 	<div class="row" style="padding: 20px;">
 				 		<div style="margin-bottom: 20px;">
-				 			开单日期 <input type="text" /><input type="text" />
-				 			维修单号 <input type="text" />
-				 			单据状态 <select>
-				 						<option>代竣工车</option>
-				 						<option>已竣工车</option>
-				 					</select>
-				 			车牌号 <input type="text" />
-				 		</div>
-				 		
-				 		<div>
-				 			车架号 <input type="text" />		 					
+				 			开单日期 <input type="date" @input="findCompletions" v-model="startTime"/><input type="date" v-model="endTime" @input="findCompletions"/>
+				 			维修单号 <input type="text" @input="findCompletions" v-model="bid"/>
+				 			单据状态 <select @change="findCompletions" v-model="bstate">
+				 						<option :value="1">待竣工车</option>
+				 						<option :value="2">已竣工车</option>
+				 				</select>
 				 		</div>
 				</div>
-				
 				<div>
 					<div style="float:right;">				 	
 				 		<button type="button" class="btn btn-success">打开单据</button>
 				 	</div>
 				</div>
-				
-				<div>
-					<table class="table table-hover">
-				 				<tr style="color: white; background-color: #C1E2B3;">
+				<div style="width: 1180px;overflow: scroll;">
+					<table class="table table-hover table-condensed" style="width: 1800px;">
+						<thead>
+				 				<tr class="success">
+				 					<td>##</td>
 				 					<td>维修单号</td>
 				 					<td>单据类型</td>
 				 					<td>业务类型</td>
@@ -69,27 +53,84 @@
 				 					<td>预计完工</td>
 				 					<td>完工时间</td>
 				 					<td>误工原因</td>
+				 					<td>误工数</td>
+				 					<td>返工原因</td>
+				 					<td>责任人</td>
+				 					<td>处罚金额</td>
 				 				</tr>
-				 				
+				 		</thead>
+				 		<tbody v-for="item in bills">
 				 				<tr>
-				 					<td>维修单号</td>
-				 					<td>单据类型</td>
-				 					<td>业务类型</td>
-				 					<td>施工班次</td>
-				 					<td>车主姓名</td>
-				 					<td>车牌号</td>
-				 					<td>车型</td>
-				 					<td>车架号</td>
-				 					<td>接车时间</td>
-				 					<td>预计完工</td>
-				 					<td>完工时间</td>
-				 					<td></td>
-				 				</tr>	
+				 					<td><input type="radio" name="com" /></td>
+				 					<td>{{item.bid}}</td>
+				 					<td v-if="item.rbname!=null">救援</td>
+				 					<td v-else>维修</td>
+				 					<td>{{item.btname}}</td>
+				 					<td>{{item.remark1}}</td>
+				 					<td>{{item.ctname}}</td>
+				 					<td>{{item.cdlicense}}</td>
+				 					<td>{{item.moiname}}</td>
+				 					<td>{{item.cdframe}}</td>
+				 					<td>{{item.ordertime}}</td>
+				 					<td>{{item.expectedtime}}</td>
+				 					<td>{{item.completiontime}}</td>
+				 					<td>{{item.delaysreason}}</td>
+				 					<td>{{item.reworknum}}</td>
+				 					<td>{{item.reworkreason}}</td>
+				 					<td>{{item.pname}}</td>
+				 					<td>{{item.Penaltyamount}}</td>
+				 				</tr>
+				 		</tbody>
 				 	</table>					
 				</div>
+				
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/my.js" ></script>
+		<script type="text/javascript" src="js/perms.js" ></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+		<script>
+			var vm=new Vue({
+				el:"#ctx",
+				data(){
+					return{
+						startTime:"",
+						endTime:"",
+						bid:"",
+						bstate:1,
+						bills:[],
+						b:{}
+					}
+				},methods:{
+					findCompletions(){
+						let that=this;
+						$.ajax({
+							url:data.ip+"bills/findCompletions",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:{
+								startTime:that.startTime,
+								endTime:that.endTime,
+								bid:that.bid,
+								bstate:that.bstate
+							},
+							dataType:"json",
+							success:function(result){
+								that.bills=result;
+								that.b=that.bills[0];
+								console.log(that.bills);
+							}
+						});
+					}
+					
+				},created:function(){
+					this.findCompletions();
+				}
+			});
+		</script>
 	</body>
 </html>

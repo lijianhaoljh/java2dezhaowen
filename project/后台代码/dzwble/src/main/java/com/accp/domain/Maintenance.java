@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Maintenance {
     private Integer mid;
 
@@ -18,8 +20,18 @@ public class Maintenance {
     private String remark4;
 
     private String remark5;
+    
+    private List<Maintenance> children;
 
-    public Integer getMid() {
+    public List<Maintenance> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Maintenance> children) {
+		this.children = children;
+	}
+
+	public Integer getMid() {
         return mid;
     }
 

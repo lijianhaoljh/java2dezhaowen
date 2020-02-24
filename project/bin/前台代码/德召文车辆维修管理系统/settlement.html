@@ -20,7 +20,7 @@
 	</style>
 	
 	<body>
-		<div class="container-fluid" style="margin: 20px;">
+		<div id="ctx" class="container-fluid" style="margin: 20px;">
 				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>结算中心</strong>
@@ -33,7 +33,7 @@
 			 	
 			 	<div class="row" style="padding: 20px;">
 				 		<div style="margin-bottom: 20px;">
-				 			结算日期 <input type="text" /><input type="text" />
+				 			开单日期 <input type="text" /><input type="text" />
 				 			销售单号 <input type="text" />
 				 			结算状态 <select>
 				 						<option>已经算</option>
@@ -60,6 +60,7 @@
 				
 				<div>
 					<div style="float:right;">				 	
+						<button type="button" class="btn btn-info" @click="openSettlementModal">收银</button>
 						<button type="button" class="btn btn-success">回滚</button>
 				 		<button type="button" class="btn btn-success">打开单据</button>
 				 		<button type="button" class="btn btn-warning">导出</button>
@@ -81,27 +82,176 @@
 				 					<td>客户名称</td>
 				 					<td>车牌号</td>
 				 					<td>车型</td>
+				 					<td>车架号</td>
+				 					<td>联系人</td>
+				 					<td>保险公司</td>
+				 					<td>赔款公司</td>
+				 					<td>对方车牌</td>
+				 					<td>服务顾问</td>
+				 					<td>完工时间</td>
+				 					<td>备注</td>
 				 				</tr>
-				 				
 				 				<tr>
-				 					<td>销售单号</td>
-				 					<td>单据类型</td>
-				 					<td>结算方式</td>
-				 					<td>单据状态</td>
-				 					<td>结算状态</td>
-				 					<td>结算时间</td>
-				 					<td>结算人</td>
-				 					<td>结算金额</td>
-				 					<td>业务类型</td>
-				 					<td>客户名称</td>
-				 					<td>车牌号</td>
-				 					<td>车型</td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
+				 					<td></td>
 				 				</tr>	
 				 	</table>					
+				</div>
+				<div id="settlement" class="modal fade" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" style="width: 1000px;" role="document">
+				    <div class="modal-content" style="width: 1000px;position: relative;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">前台收银</h4>
+				      </div>
+				      <div class="modal-body">
+				      		<table>
+				      			<tr>
+				      				<td>客总费:</td>
+				      				<td><input type="text" /></td>
+				      				<td>税率(%):</td>
+				      				<td><input type="text" /></td>
+				      				<td>加税金:</td>
+				      				<td><input type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td>抹尾数:</td>
+				      				<td><input type="text" /><button class="btn btn-success">选择</button></td>
+				      				<td>积分抵扣(元):</td>
+				      				<td><input type="text" /><input type="text" placeholder="最大抵扣金额"/></td>
+				      				<td>结算状态:</td>
+				      				<td>
+				      					<select>
+				      						
+				      					</select>
+				      				</td>
+				      			</tr>
+				      			<tr>
+				      				<td>结算状态:</td>
+				      				<td><select>
+				      					
+				      				</select></td>
+				      				<td><input type="checkbox" />现金:</td>
+				      				<td><input type="text" /></td>
+				      				<td>消费密码:</td>
+				      				<td><input type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td><input type="checkbox" />银行卡:</td>
+				      				<td><input type="text" /></td>
+				      				<td>银行卡分类:</td>
+				      				<td><select>
+				      					
+				      				</select></td>
+				      				<td>银联手续费:</td>
+				      				<td><input type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td><input type="checkbox" />票据:</td>
+				      				<td><input type="text" /></td>
+				      				<td>票据分类:</td>
+				      				<td><select>
+				      					
+				      				</select></td>
+				      				<td><input type="checkbox">冲储值:</td>
+				      				<td><input type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td><input type="checkbox">冲订金:</td>
+				      				<td><input type="text" /></td>
+				      				<td><input type="checkbox" />挂账金额:</td>
+				      				<td><input type="text" /></td>
+				      				<td><input type="checkbox" />内部账:</td>
+				      				<td><input type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td>内部账分类:</td>
+				      				<td><select>
+				      					
+				      				</select></td>
+				      				<td><input type="checkbox" />抵用券:</td>
+				      				<td><input type="text" /></td>
+				      				<td>抵用券分类:</td>
+				      				<td><select>
+				      					
+				      				</select></td>
+				      			</tr>
+				      			<tr>
+				      				<td>抵用券编号:</td>
+				      				<td><input type="text" /></td>
+				      				<td><input type="checkbox" />开发票:</td>
+				      				<td><input type="text" /></td>
+				      				<td>发票种类:</td>
+				      				<td><select name="" id=""></select></td>
+				      			</tr>
+				      			<tr>
+				      				<td>发票号:</td>
+				      				<td><input type="text"></td>
+				      				<td>发票金额:</td>
+				      				<td><input type="text" /></td>
+				      				<td>开票日期:</td>
+				      				<td><input type="date" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td>应收金额:</td>
+				      				<td><input type="text" /></td>
+				      				<td>找零:</td>
+				      				<td><input type="" name="" id="" value="" /></td>
+				      				<td>累积挂账:</td>
+				      				<td><input type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td>订金余额:</td>
+				      				<td><input type="text" /></td>
+				      				<td>储值卡余额:</td>
+				      				<td><input type="text" /></td>
+				      				<td colspan="2"><input type="checkbox" />打印小票</td>
+				      			</tr>
+				      		</table>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				        <button type="button" class="btn btn-primary" >确定</button>
+				      </div>
+				    </div>
+				  </div>
 				</div>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script>
+			var vm=new Vue({
+				el:"#ctx",
+				data:{
+					return(){
+						
+					}
+				},methods:{
+					openSettlementModal(){
+						$("#settlement").modal("show");
+					}
+				}
+			});
+		</script>
 	</body>
 </html>
