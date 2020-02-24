@@ -169,6 +169,7 @@ AND ca.moid=m.moid
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	WHERE (card.cddriver LIKE concat('%',#{cddriver},'%') OR card.cddriverphone LIKE concat('%',#{cddriver},'%') OR card.cdlicense LIKE concat('%',#{cddriver},'%') 
 	OR card.cdframe LIKE CONCAT('%',#{cddriver},'%') ) AND moto.moid=card.moid
+<<<<<<< HEAD
   </select>
 
   <select id="queryinsurexpirecar" resultMap="BaseResultMap">
@@ -209,6 +210,8 @@ AND ca.moid=m.moid
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
 	WHERE moto.moid=card.moid AND MONTH(card.cddriverbirth) = MONTH(NOW()) AND DAY(card.cddriverbirth) = DAY(NOW())	
+=======
+>>>>>>> refs/remotes/origin/zhongpenggen
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CardataExample" >

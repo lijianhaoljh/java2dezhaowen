@@ -39,9 +39,13 @@
     <result column="total" property="total" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
+<<<<<<< HEAD
   <select id="querytodayCount" parameterType="com.accp.domain.Bills" resultType="java.lang.Integer">
   	SELECT COUNT(*) FROM bills WHERE YEAR(Ordertime) = YEAR(NOW()) AND MONTH(Ordertime) = MONTH(NOW()) AND DAY(Ordertime) = DAY(NOW())
   </select>
+=======
+  
+>>>>>>> refs/remotes/origin/zhongpenggen
   <select id="queryBillBycno" resultMap="BaseResultMap">
   	SELECT b.bid,a.bid AS abid,cd.cdlicense,bt.btname mname,b.Completiontime,mb.intotime etime,rb.Dispatchingtime contime,a.atime,a.total
  FROM `bills` AS b
@@ -79,6 +83,7 @@ LEFT JOIN `customer` AS c ON cd.cno=c.cno
 LEFT JOIN  account AS a ON b.bid=a.bid
 WHERE b.cdlicense = #{cdlicense}
   </select>
+<<<<<<< HEAD
   
   <select id="findBills" resultMap="BaseResultMap">
   SELECT b.bstate,bt.btname,c.cname,cd.cdlicense,c.cphone,v.vno,b.bid,mb.mbname,rb.rbname,b.ordertime,b.Expectedtime,b.Completiontime,
@@ -163,6 +168,9 @@ r.Bpreferential,r.apreferential,r.bpreferentialM,ps.pname AS psname,r.num
 WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%')
 ORDER BY b.ordertime DESC
 </select> 
+=======
+  
+>>>>>>> refs/remotes/origin/zhongpenggen
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

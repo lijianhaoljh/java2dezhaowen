@@ -544,6 +544,7 @@
 							console.log(vm.keep)
 							console.log(vm.kk)
 							var c = 0;
+<<<<<<< HEAD
 							$("#addkeep .ddd input").each(function(){
 								if($(this).val()==""){
 									c+=1;
@@ -553,6 +554,17 @@
 							});
 							if(c==0){
 								if(vm.ke=="5"){
+=======
+							$("#addcar .ddd input").each(function(){
+								if($(this).val()==""){
+									c+=1;
+									alert("请填写完整信息");
+									return false;
+								}
+							});
+							if(c==0){
+								if(vm.kk=="5"){
+>>>>>>> refs/remotes/origin/zhongpenggen
 									$.ajax({
 												url:data.ip+"cus/addCarkeep",
 												data:JSON.stringify(vm.keep),
@@ -569,7 +581,11 @@
 													alert("发生错误");
 												}
 											});
+<<<<<<< HEAD
 								}else if(vm.ke=="6"){
+=======
+								}else if(vm.kk=="6"){
+>>>>>>> refs/remotes/origin/zhongpenggen
 									$.ajax({
 												url:data.ip+"cus/upCarkeep",
 												data:JSON.stringify(vm.keep),

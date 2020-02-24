@@ -329,8 +329,16 @@
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
 						<button @click="roleOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
 					</div>
+<<<<<<< HEAD
 					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 25px;">
 						
+=======
+					<div style="width: 410px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+						<ul>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部选择</li>
+							<li><span class="glyphicon glyphicon-leaf" style="color: orange;"></span>全部取消</li>
+						</ul>
+>>>>>>> refs/remotes/origin/zhongpenggen
 						<table class="table table-bordered" style="border: 1px solid white;width: 350px; ">
 							<thead>
 								<tr>
@@ -343,7 +351,11 @@
 								<tr v-for="r in role">
 									<td>  </td>
 									<td>{{r.rname}}</td>
+<<<<<<< HEAD
 									<td><input type="radio" @click="choserole($event,r)" name="rr" :id="r.rid" /> </td>
+=======
+									<td><input type="radio" name="rr" :id="r.rid" /> </td>
+>>>>>>> refs/remotes/origin/zhongpenggen
 								</tr>
 							</tbody>
 						</table>
@@ -462,6 +474,7 @@
 							 
 						function chooseNode(event, treeId, treeNode) {
 						    if (treeNode.mid == "1") {
+<<<<<<< HEAD
 						       	vm.kk=-1;
 						        return;
 						    }else if(treeNode.parentid=="1"){
@@ -469,6 +482,15 @@
 						       	queryPeopleByParentid("",treeNode.mid)
 						    }else{
 						       	vm.kk=1;
+=======
+						       	vm.kk=0;
+						        return;
+						    }else if(treeNode.parentid=="1"){
+						       	vm.kk=0;
+						       	queryPeopleByParentid("",treeNode.mid)
+						    }else{
+						       	vm.kk=parseInt(vm.kk)+1;
+>>>>>>> refs/remotes/origin/zhongpenggen
 						       	vm.demonMech = treeNode;
 						       	queryPeopleByMid("",treeNode.mid)
 						    }
@@ -609,11 +631,15 @@
 							addMechanism:{mid:"",parentid:"",catalog:"0"},//添加部门
 							role:[],//所有角色
 							cc:"0",
+<<<<<<< HEAD
 							ro:{rid:""},//选中的角色
 							
+=======
+>>>>>>> refs/remotes/origin/zhongpenggen
 						}
 					},
 					methods:{
+<<<<<<< HEAD
 						exportexcel:function(){
 							if(confirm("是否确定导出数据")){
 								if(vm.kk=="0"){
@@ -658,6 +684,8 @@
 								vm.ro=r;
 							}
 						},
+=======
+>>>>>>> refs/remotes/origin/zhongpenggen
 						check:function(){
 							//查询
 							let pno = $("#querybox").val();
@@ -975,12 +1003,17 @@
 							$("#checkstaff").show();
 						},
 						staffrole:function(){
+<<<<<<< HEAD
 							if(vm.demon.pno==""){
 								alert("请选中员工");
 							}else{
 								queryAllRole();
 								$("#role").show();
 							}
+=======
+							queryAllRole();
+							$("#role").show();
+>>>>>>> refs/remotes/origin/zhongpenggen
 						},
 						setting:function(){
 							$("#setting").show();
