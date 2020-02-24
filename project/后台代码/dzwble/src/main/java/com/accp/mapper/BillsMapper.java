@@ -16,7 +16,13 @@ public interface BillsMapper {
 	List<Bills> findByCdlicenseTwo(String cdlicense);
 	//查询领料情况
 	List<Bills> findByCdlicenseThree(String cdlicense);
-	
+	//鏌ヨ缁翠慨鍘嗗彶
+	List<Bills> findByCdlicenseOne(String cdlicense);
+	//鏌ヨ缁翠慨椤圭洰
+	List<Bills> findByCdlicenseTwo(String cdlicense);
+	//鏌ヨ棰嗘枡鎯呭喌
+	List<Bills> findByCdlicenseThree(String cdlicense);
+
 	List<Bills> findBills();
 	
     int countByExample(BillsExample example);

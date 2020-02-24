@@ -74,9 +74,13 @@ public class CustomerAndCarService {
 	@Autowired
 	CarkeepMapper ckmapper;
 	
-	//查询全部客户
+	//查询全部客户模糊查询
 	public List<Customer> queryAll(String cname){
 		return cusmapper.queryCusAll(cname);
+	}
+	//查询全部客户
+	public List<Customer> queryAll(){
+		return cusmapper.selectByExample(null);
 	}
 	//根据客户编号查询拥有汽车
 	public List<Cardata> queryCarBycno(String cno){
@@ -92,6 +96,7 @@ public class CustomerAndCarService {
 	}
 	//添加客户
 	public int addCus(Customer cus) {
+		cus.setRemark3("0");
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString = formatter.format(currentTime);
@@ -124,10 +129,19 @@ public class CustomerAndCarService {
 	}
 	//根据主键删除客户信息以及他拥有的车辆信息
 	public int deleteCusAndCarByCno(String cno) {
+		
+		Customer cus = cusmapper.selectByPrimaryKey(cno);
+		cus.setRemark3("1");
+		int a = cusmapper.updateByPrimaryKey(cus);
+		
 		CardataExample ex = new CardataExample();
 		ex.createCriteria().andCnoEqualTo(cno);
-		int c = cardamapper.deleteByExample(ex);
-		int a = cusmapper.deleteByPrimaryKey(cno);
+		List<Cardata> list = cardamapper.selectByExample(ex);
+		for(int i = 0; i < list.size(); i++) {
+			list.get(i).setRemark1("1");
+			int b = cardamapper.updateByPrimaryKey(list.get(i));
+		}
+		
 		return a;
 	}
 	//根据客户编号修改客户信息
@@ -136,6 +150,7 @@ public class CustomerAndCarService {
 	}
 	//根据客户编号添加相关车辆
 	public int addcarBycno(Cardata car) {
+		car.setRemark1("0");
 		return cardamapper.insert(car);
 	}
 	//查询所有车辆品牌
@@ -192,7 +207,9 @@ public class CustomerAndCarService {
 	}
 	//根据车牌删除
 	public int deleCar(String cdlicense) {
-		return cardamapper.deleteByPrimaryKey(cdlicense);
+		Cardata car = cardamapper.selectByPrimaryKey(cdlicense);
+		car.setRemark1("1");
+		return cardamapper.updateByPrimaryKey(car);
 	}
 	//根据车牌查询保养记录
 	public List<Carkeep> queryKeepBycdlicense(String cdlicense){

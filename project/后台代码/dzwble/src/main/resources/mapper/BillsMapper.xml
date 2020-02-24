@@ -104,7 +104,8 @@ LEFT JOIN account AS a
 ON b.bid=a.bid
 ORDER BY b.ordertime DESC
 </select>
-<select id="findByCdlicenseOne" resultMap="BaseResultMap">
+  
+  <select id="findByCdlicenseOne" resultMap="BaseResultMap">
 	SELECT b.bid,b.ordertime,b.Completiontime,bt.btname,ct.`cname`,b.cdlicense,ct.`cphone`,v.`vno`,a.atime,a.total FROM `maintain_bill` AS mb
 LEFT JOIN `bills` AS  b
 ON mb.bid=b.bid
@@ -162,6 +163,7 @@ r.Bpreferential,r.apreferential,r.bpreferentialM,ps.pname AS psname,r.num
  ON r.bid=a.bid
 WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%')
 ORDER BY b.ordertime DESC
+<<<<<<< HEAD
 </select> 
 <select id="findCompletions" resultMap="BaseResultMap">
 SELECT b.bid,rb.rbname,mb.mbname,bt.btname,b.remark1,ct.`cname`,c.`cdlicense`,mo.`moiname`,c.`cdframe`,
@@ -202,6 +204,10 @@ AND b.bid LIKE concat('%',#{bid},'%')
 	</when>
 </choose>
 </select>
+=======
+</select>
+
+>>>>>>> refs/remotes/origin/pengyumei
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

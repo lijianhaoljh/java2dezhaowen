@@ -1,5 +1,6 @@
 package com.accp.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,16 @@ import com.accp.domain.Job;
 import com.accp.domain.Mechanism;
 import com.accp.domain.MechanismExample;
 import com.accp.domain.People;
+import com.accp.domain.PeopleExample;
 import com.accp.domain.PeopleRoles;
+import com.accp.domain.Resign;
 import com.accp.domain.Role;
 import com.accp.domain.Staff;
 import com.accp.mapper.JobMapper;
 import com.accp.mapper.MechanismMapper;
 import com.accp.mapper.PeopleMapper;
 import com.accp.mapper.PeopleRolesMapper;
+import com.accp.mapper.ResignMapper;
 import com.accp.mapper.RoleMapper;
 import com.accp.mapper.StaffMapper;
 
@@ -36,6 +40,8 @@ public class StaffService {
 	PeopleRolesMapper prmapper;
 	@Autowired
 	RoleMapper rmapper;
+	@Autowired
+	ResignMapper remapper;
 	
 	public List<Mechanism> queryAll(){
 		return mmmapper.selectByExample(null);
@@ -89,9 +95,22 @@ public class StaffService {
 		}
 		//删除职工
 		public int deleteStaff(Staff staf) {
-			int a = pmapper.deleteByPrimaryKey(staf.getPno());
-			int b = stamapper.deleteByPrimaryKey(staf.getSid());
-			return b;
+			
+
+			People peo = staf.getPeople();
+			peo.setDimission(1);
+			int a = pmapper.updateByPrimaryKey(peo);
+			
+			if(a>0) {
+				Resign re = new Resign();
+				re.setSno(staf.getPno());
+				Date time = new Date();
+				re.setRdate(time);
+				re.setRreason("强制遣退");
+				int b = remapper.insert(re);
+			}
+			
+			return a;
 		}
 		//置空职工密码
 		public int updateStaffPwd(Staff staf) {

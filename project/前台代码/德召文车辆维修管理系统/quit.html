@@ -62,17 +62,19 @@
 					</div>
 				</div>
 				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
-					合计：<span id="total">12</span>条记录
+					合计：<span>12</span>条记录
 				</div>
 			</div>
 			<div id="addstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>
-				<div style="width: 980px;height: 600px;border:1px solid white;margin-left: 10px;background-color: white;">
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>-->
+				<div style="width: 980px;height: 530px;border:1px solid white;margin-left: 10px;background-color: white;">
 					<div style="width: 960px;height: 60px;margin-left: 10px;">
 						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
 						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
+						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;margin-top: 10px;">员工卡片</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
 					</div>
-					<div style="width: 960px;height: 525px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 960px;height: 500px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p class="ddd" style="padding-top: 10px;">
 							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.pno"  />
 							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.pname" />
@@ -152,24 +154,19 @@
 							<label>卡内部号</label><input type="text" v-model="staf.sinnumber" />
 							<label>推荐人</label><input type="text" v-model="staf.srecommed"/>
 						</p>
-						<p>
-							<label>整单折扣权%</label><input type="text" v-model="staf.salldiscount"/>
-							<label>工时折扣权%</label><input type="text" v-model="staf.sworkdiscount"/>
-							<label>商品折扣权%</label><input type="text" v-model="staf.sshopdiscount"/>
-							<label>减免权</label><input type="text" v-model="staf.sdiscount"/>
-						</p>
+						
 					</div>
 				</div>
 			</div>
 			<div id="quitstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">离职登记</p>
-				<div style="width: 680px;height: 350px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 660px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">离职登记</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="resignOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">离职登记</p>-->
+				<div style="width: 680px;height: 300px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 660px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">离职登记</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="resignOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 16px;">保存</button>
 					</div>
-					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
+					<div style="width: 660px;height: 270px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
 						<p>
 							<label>员工姓名</label><input style="width: 70px;" type="text" disabled="disabled" name="sno" v-model="quit.sno" /><input v-model="quit.sname" type="text" /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
 							
@@ -181,14 +178,14 @@
 			</div>
 			
 			<div id="chosecustomer">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>
-				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 560px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>-->
+				<div style="width: 580px;height: 400px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">选择员工</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 16px;">确定</button>
 					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 560px;height: 360px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
 						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="m1 in mechanismis1" :value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
 						</select>
@@ -320,9 +317,6 @@
 							},
 							success:function(response){
 								vm.quits = response;
-								$("#total").text(response.length);
-							},error:function(){
-								alert("发生错误");
 							}
 						});	
 			}

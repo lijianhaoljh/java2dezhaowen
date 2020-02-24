@@ -8,8 +8,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Resign {
     private Integer rid;
+    
+    private Integer ptid;
+    
+    public Integer getPtid() {
+		return ptid;
+	}
 
-    private String sno;
+	public void setPtid(Integer ptid) {
+		this.ptid = ptid;
+	}
+
+	private String sno;
 
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")

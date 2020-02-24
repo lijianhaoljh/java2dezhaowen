@@ -189,7 +189,7 @@
 											<td>{{c.cbnam}}</td>
 											<td>{{c.moiname}}</td>
 											<td>{{c.indate}}</td>
-											<td>{{c.inid_bdate}}</td>
+											<td>{{c.inidBdate}}</td>
 											<td>{{c.cddriver}}</td>
 											<td>{{c.cddriverphone}}</td>
 										</tr>
@@ -404,7 +404,7 @@
 						       	$("#nine").hide();
 						       	$("#ten").hide();
 						       	$("#eleven").hide();
-						       	$("#ttt").css("width","600px");
+						       	$("#ttt").css("width","800px");
 						    }else if(treeNode.id == "6"){
 						       	vm.dian = vm.checkcar;
 						       	$.ajax({
@@ -581,6 +581,8 @@
 							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
 							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
 							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
+							overstaf:["合同到期","部门","工号","姓名","性别","职位"],
+						index:0
 					}
 				},methods:{
 					clo:function(){
@@ -641,11 +643,12 @@
 						       		}
 						       	});
 						       	
+					//$("#myModal").modal("show");
 				},computed:{
 					getPerms(){
 						return this.perms;
 					},
-					
+					}
 				}
 			});
 			
