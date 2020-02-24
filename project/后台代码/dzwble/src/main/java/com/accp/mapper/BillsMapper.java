@@ -16,7 +16,7 @@ public interface BillsMapper {
 	List<Bills> findByCdlicenseTwo(String cdlicense);
 	//查询领料情况
 	List<Bills> findByCdlicenseThree(String cdlicense);
-
+	
 	List<Bills> findBills();
 	
     int countByExample(BillsExample example);

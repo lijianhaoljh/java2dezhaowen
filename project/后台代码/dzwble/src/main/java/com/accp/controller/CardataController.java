@@ -18,7 +18,7 @@ public class CardataController {
 	
 	@GetMapping("/findCardata")
 	public PageInfo<Cardata> findCardata(Integer pageNum,Integer pageSize,String cdlicense){
-		return null;
+		return cardataService.findCardata(pageNum, pageSize, cdlicense);
 	}
 	
 	//查询当前车辆是否正在维修或救援中
