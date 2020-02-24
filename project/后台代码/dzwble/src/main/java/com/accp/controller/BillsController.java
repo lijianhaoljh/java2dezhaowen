@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.Bills;
+import com.accp.domain.BusinessTypes;
+import com.accp.domain.Customer;
+import com.accp.domain.People;
 import com.accp.service.BillsService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -56,4 +59,24 @@ public class BillsController {
 		return billsService.findCardata(cdlicense).toString();
 	}
 	
+	//查询竣工单据
+	@GetMapping("/findCompletions")
+	public List<Bills> findCompletions(String startTime,String endTime,String bid,Integer bstate){
+		return billsService.findCompletions(startTime, endTime, bid, bstate);
+	}
+	//查询全部服务顾问
+		@GetMapping("/findPnos")
+		public List<People> findPnos(){
+			return billsService.findPnos();
+		}
+		//查询客户
+		@GetMapping("/findCnos")
+		public List<Customer> findCnos(){
+			return billsService.findCnos();
+		}
+		//查询业务类型
+		@GetMapping("/findBts")
+		public List<BusinessTypes> findbts(){
+			return billsService.findbts();
+		}
 }

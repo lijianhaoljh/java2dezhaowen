@@ -39,7 +39,7 @@
 				        					<td v-for="d in dian">{{d}}</td>
 				        				</tr>
 				        			</thead>
-				        			<tbody>
+				        			<tbody id="one">
 				        				<tr v-for="c in tabs">
 											<td>{{c.cno}}</td>
 											<td>{{c.cname}}</td>
@@ -67,19 +67,94 @@
 											<td>{{c.cbank}}</td>
 											<td>{{c.cbanknumber}}</td>
 											<td>{{c.cregistaddress}}</td>
-											<td>{{c.other1}}</td>
-											<td>{{c.other2}}</td>
-											<td>{{c.other3}}</td>
-											<td>{{c.other4}}</td>
+											
 										</tr>
 				        			</tbody>
+				        			
+				        			<tbody id="four" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.cdlicenseend}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="five" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.indate}}</td>
+											<td>{{c.inid_bdate}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="six" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.cdcarcheckdate}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="eight" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.cbnam}}</td>
+											<td>{{c.moiname}}</td>
+											<td>{{c.cddriverbirth}}</td>
+											<td>{{c.cddriver}}</td>
+											<td>{{c.cddriverphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="nine" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.cdlicense}}</td>
+											<td>{{c.ckname}}</td>
+											<td>{{c.plandate}}</td>
+											<td>{{c.planmillage}}</td>
+											<td>{{c.cname}}</td>
+											<td>{{c.cphone}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="ten" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.sbirthday}}</td>
+											<td>{{c.mname}}</td>
+											<td>{{c.pno}}</td>
+											<td>{{c.pname}}</td>
+											<td>{{c.psex}}</td>
+											<td>{{c.jname}}</td>
+										</tr>
+				        			</tbody>
+				        			
+				        			<tbody id="eleven" style="display: none;">
+				        				<tr v-for="c in tabs">
+											<td>{{c.sendtime}}</td>
+											<td>{{c.mname}}</td>
+											<td>{{c.pno}}</td>
+											<td>{{c.pname}}</td>
+											<td>{{c.psex}}</td>
+											<td>{{c.jname}}</td>
+										</tr>
+				        			</tbody>
+				        			
 				        		</table>
 				        		
 				        	</div>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">Save changes</button>
+							总共：<span id="total"></span>条记录				        
 				      </div>
 				    </div>
 				  </div>
@@ -146,45 +221,227 @@
 						       		dataType:"json",
 						       		success:function(result){
 						       			vm.tabs = result;
+						       				$("#total").text(result.length);
 						       		},error:function(){
 						       			alert("发生错误");
 						       		}
 						       	});
+						       	$("#one").show();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       
 						       	$("#ttt").css("width","2500px");
 						    }else if(treeNode.id == "3"){
 						       	vm.dian = vm.vipwillnone;
+						       	$.ajax({
+						       		url:data.ip+"day/queryvipwillnone",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").show();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
 						       	$("#ttt").css("width","2500px");
 						    }else if(treeNode.id == "4"){
 						       	vm.dian = vm.licensewillexpire;
+						       	$.ajax({
+						       		url:data.ip+"day/querylicensewillexpire",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").show();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
 						       	$("#ttt").css("width","500px");
 						    }else if(treeNode.id == "5"){
 						       	vm.dian = vm.insurexpirecar;
-						       	$("#ttt").css("width","800px");
+						       	$.ajax({
+						       		url:data.ip+"day/queryinsurexpirecar",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").show();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       	$("#ttt").css("width","600px");
 						    }else if(treeNode.id == "6"){
 						       	vm.dian = vm.checkcar;
-						       		$("#ttt").css("width","800px");
+						       	$.ajax({
+						       		url:data.ip+"day/querycheckcar",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").show();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
+						       		$("#ttt").css("width","500px");
 						    }else if(treeNode.id == "7"){
 						       	vm.dian = vm.misscus;
+						       	$.ajax({
+						       		url:data.ip+"day/querymisscus",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").show();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       		$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
 						       	$("#ttt").css("width","2500px");
 						    }else if(treeNode.id == "8"){
 						       	vm.dian = vm.todatbirthdriver;
+						       	$.ajax({
+						       		url:data.ip+"day/querytodatbirthdriver",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").show();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
 						       		$("#ttt").css("width","500px");
 						    }else if(treeNode.id == "9"){
 						       	vm.dian = vm.keepcar;
+						       	$.ajax({
+						       		url:data.ip+"day/querykeepcar",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").show();
+						       	$("#ten").hide();
+						       	$("#eleven").hide();
 						       	$("#ttt").css("width","500px");
 						    }else if(treeNode.id == "10"){
 						       	vm.dian = vm.todaybirthstaf;
+						       	$.ajax({
+						       		url:data.ip+"day/querytodaybirthstaf",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").show();
+						       	$("#eleven").hide();
 						       	$("#ttt").css("width","500px");
 						    }else if(treeNode.id == "11"){
 						       	vm.dian = vm.overstaf ;
-						       	$("#ttt").css("width","500px");
-						    }else if(treeNode.id == "12"){
-						       	vm.dian = vm.moregoods;
-						       	$("#ttt").css("width","500px");
-						    }else if(treeNode.id == "13"){
-						       	vm.dian = vm.littelgoods;
+						       	$.ajax({
+						       		url:data.ip+"day/queryoverstaf",
+						       		type:"get",
+						       		dataType:"json",
+						       		success:function(result){
+						       			vm.tabs = result;
+						       			$("#total").text(result.length);
+						       		},error:function(){
+						       			alert("发生错误");
+						       		}
+						       	});
+						       	$("#one").hide();
+						       	$("#four").hide();
+						       	$("#five").hide();
+						       	$("#six").hide();
+						       	$("#eight").hide();
+						       	$("#nine").hide();
+						       	$("#ten").hide();
+						       	$("#eleven").show();
 						       	$("#ttt").css("width","500px");
 						    }
+//						    else if(treeNode.id == "12"){
+//						       	vm.dian = vm.moregoods;
+//						       	$("#ttt").css("width","500px");
+//						    }else if(treeNode.id == "13"){
+//						       	vm.dian = vm.littelgoods;
+//						       	$("#ttt").css("width","500px");
+//						    }
 						    return;
 						}
 				}
@@ -203,21 +460,17 @@
 								{id:8,name:"过生日的驾驶员",parentid:1},
 								{id:9,name:"车辆保养提醒",parentid:1},
 								{id:10,name:"今天过生日员工",parentid:1},
-								{id:11,name:"合同即将到期员工",parentid:1},
-								{id:12,name:"超高库存商品",parentid:1},
-								{id:13,name:"超低库存商品",parentid:1}
+								{id:11,name:"合同即将到期员工",parentid:1}
+//								{id:12,name:"超高库存商品",parentid:1},
+//								{id:13,name:"超低库存商品",parentid:1}
 							],
 							tabs:[],
 							dian:[],
 							todaybirthcus:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别","会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度","累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"],
 							vipwillnone:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别","会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度","累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"],
 							licensewillexpire:["车牌号","品牌","车型","驾证到期","驾驶员","手机"],
-							insurexpirecar:["顾客编号","顾客姓名","性别","地址","客户类别","会员卡号","车牌号",
-											"品牌","车型","保险截至日期","手机"
-							],
-							checkcar:["顾客编号","顾客姓名","性别","地址","客户类别","会员卡号","车牌号",
-											"品牌","车型","车检日期","手机"
-							],
+							insurexpirecar:["车牌号","品牌","车型","交强险到期时间","商业保险到期时间","驾驶员","手机"],
+							checkcar:["车牌号","品牌","车型","车检日期","驾驶员","手机"],
 							misscus:["客户编号","客户名称","详细地址","联系人","手机","客户生日","客户类别",
 										"会员卡号","入会日期","会员到期","备注","建档日期","服务日期","业务员电话","账期(天)","挂账额度",
 										"累计积分","客户省","客户市","客户区","纳税人识别号","注册电话","开户银行","银行账号","注册地址"
@@ -225,9 +478,9 @@
 							todatbirthdriver:["车牌号","品牌","车型","出生日期","驾驶员","手机"],
 							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
 							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
-							overstaf:["合同到期","部门","工号","姓名","性别","职位"],
-							moregoods:["商品编号","商品名称","单位","超高库存量","当前库存","相差"],
-							littelgoods:["商品编号","商品名称","单位","安全库存量","当前库存","相差"]
+							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
+//							moregoods:["商品编号","商品名称","单位","超高库存量","当前库存","相差"],
+//							littelgoods:["商品编号","商品名称","单位","安全库存量","当前库存","相差"]
 						}
 					},
 					methods:{
@@ -243,6 +496,7 @@
 						       		dataType:"json",
 						       		success:function(result){
 						       			vm.tabs = result;
+						       			$("#total").text(result.length);
 						       		},error:function(){
 						       			alert("发生错误");
 						       		}

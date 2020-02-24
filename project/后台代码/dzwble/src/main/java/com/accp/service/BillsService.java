@@ -9,7 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Bills;
 import com.accp.domain.BillsExample;
+import com.accp.domain.BusinessTypes;
+import com.accp.domain.Customer;
+import com.accp.domain.People;
 import com.accp.mapper.BillsMapper;
+import com.accp.mapper.BusinessTypesMapper;
+import com.accp.mapper.CustomerMapper;
+import com.accp.mapper.PeopleMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,6 +26,12 @@ public class BillsService {
 
 	@Autowired
 	BillsMapper billsMapper;
+	@Autowired
+	BusinessTypesMapper businessTypesMapper;
+	@Autowired
+	PeopleMapper peopleMapper;
+	@Autowired
+	CustomerMapper customerMapper;
 	
 	public PageInfo<Bills> findBills(Integer pageNum,Integer pageSize){
 		Page<Bills> page=PageHelper.startPage(pageNum, pageSize);
@@ -82,5 +94,22 @@ public class BillsService {
 		BillsExample example=new BillsExample();
 		example.createCriteria().andCompletiontimeIsNull().andCdlicenseEqualTo(cdlicense);
 		return billsMapper.countByExample(example);
+	}
+	//查询竣工检验单据
+	public List<Bills> findCompletions(String startTime,String endTime,String bid,Integer bstate){
+		return billsMapper.findCompletions(startTime, endTime, bid, bstate);
+	}
+	
+	//查询全部服务顾问
+	public List<People> findPnos(){
+		return peopleMapper.selectByExample(null);
+	}
+	//查询客户
+	public List<Customer> findCnos(){
+		return customerMapper.selectByExample(null);
+	}
+	//查询业务类型
+	public List<BusinessTypes> findbts(){
+		return businessTypesMapper.selectByExample(null);
 	}
 }

@@ -4,6 +4,15 @@
 		<meta charset="UTF-8">
 		<title>德召文车辆维修管理系统-维修</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
+		<style>
+			.pane1{
+				overflow: scroll;
+			}
+			.pane1>table{
+				width: 1200px;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="ctx" class="container-fluid" style="margin: 20px;">
@@ -25,22 +34,26 @@
 				  <div class="panel-heading" >
 				  		<div class="form-inline">
 				  			<div class="form-group">
-								<input type="text" class="form-control" placeholder="车牌号">
+								<input type="text" class="form-control" placeholder="车牌号" v-model="cdlicense" @input="findByCdlicense">
 						   		<div class="btn-group" role="group" >
-									<button type="button" class="btn btn-success">查询</button>
 								</div>
 								<div class="btn-group" role="group" >
 									<button disabled="disabled" type="button" class="btn btn-warning" >level:</button>
-									<button disabled="disabled" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button disabled="disabled" type="button" class="btn btn-warning dropdown-toggle"
+										 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="cardata">
+										-{{cardata.vlname}}-
+									</button>
+									<button disabled="disabled" type="button" class="btn btn-warning dropdown-toggle"
+										 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-else>
 										一般客户
 									</button>
 								</div>
 							</div>
 				   				
 							<div class="form-group" style="float: right;">
-								<button class="btn btn-success">维修开单</button>
-					   			<button class="btn btn-success">救援开单</button>
-					   			<button class="btn btn-success">关注公众号</button>								
+								<button class="btn btn-success" type="button" @click="openMmodal">维修开单</button>
+					   			<button class="btn btn-success" type="button" @click="openRmodal">救援开单</button>
+					   			<button class="btn btn-success" type="button" @click="openBills">打开单据</button>								
 							</div>
 				   		</div>
 				  </div>
@@ -65,31 +78,54 @@
 					   				<td>品牌</td>
 					   				<td>车型</td>
 					   				<td>发动机品牌</td>
-					   				<td>发动机号</td>
-					   				<td>发动机</td>
-					   				<td>保险日期</td>
 					   				<td>保养日期</td>
+					   				<td>积分</td>
+					   				<td>储值卡余额</td>
+					   				<td>挂账余额</td>
+					   				<td>订金余额</td>
 					   			</tr>
 				   			</thead>
-				   			<tbody>
-				   				<tr>
-					   				<td><input type="radio" name="rad"></td>
-					   				<td>车牌号</td>
-					   				<td>车主</td>
-					   				<td>会员类型</td>
-					   				<td>地址</td>
-					   				<td>驾驶员</td>
-					   				<td>手机</td>
-					   				<td>品牌</td>
-					   				<td>车型</td>
-					   				<td>发动机品牌</td>
-					   				<td>发动机号</td>
-					   				<td>发动机</td>
-					   				<td>保险日期</td>
-					   				<td>保养日期</td>
+				   			<tbody v-for="item,index in getPage.list" >
+				   				<tr @click="bindCardata($event,item)">
+					   				<td v-if="index==0" ><input type="radio" name="rad" checked="checked"></td>
+					   				<td v-else><input type="radio" name="rad" ></td>
+					   				<td>{{item.cdlicense}}</td>
+					   				<td>{{item.cname}}</td>
+					   				<td>{{item.vlname}}</td>
+					   				<td>{{item.caddress}}</td>
+					   				<td>{{item.cddriver}}</td>
+					   				<td>{{item.cphone}}</td>
+					   				<td>{{item.cbname}}</td>
+					   				<td>{{item.moiname}}</td>
+					   				<td>{{item.mname}}</td>
+					   				<td>{{item.plandate}}</td>
+					   				<td>{{item.currentjifen}}</td>
+					   				<td>{{item.r3}}</td>
+					   				<td>{{item.r4}}</td>
+					   				<td>{{item.r5}}</td>
 					   			</tr>
 				   			</tbody>
 				   		</table>
+				   		<nav aria-label="Page navigation">
+								  <ul class="pager form-inline">
+								    <li><a @click="findCardata(cardataPage.prePage)">上一页</a></li>
+								    <li><a>数据量:{{cardataPage.total}}</a></li>
+								    <li><a>总页数:{{cardataPage.pages}}</a></li>
+								    <li>
+								    	<select class="form-control" v-model="cPageSize" @change="findCardata(1)">
+								    		<option :value="2">2</option>
+								    		<option :value="4">4</option>
+								    		<option :value="6">6</option>
+								    		<option :value="8">8</option>
+								    		<option :value="10">10</option>
+								    	</select>
+								    </li>
+								    <li><a @click="findCardata(cardataPage.firstPage)">第一页:{{cardataPage.firstPage}}</a></li>
+								    <li><a @click="findCardata(cardataPage.lastPage)">最末页:{{cardataPage.lastPage}}</a></li>
+								    <li><a>当前页:{{cardataPage.pageNum==0?1:cardataPage.pageNum}}</a></li>
+								    <li><a @click="findCardata(cardataPage.nextPage)">下一页</a></li>
+								  </ul>
+								</nav>
 				  </div>
 				</div>
 			</div>
@@ -104,29 +140,34 @@
 							<li role="presentation"><a href="#hv" data-toggle="tab">历史回访</a></li>
 						</ul>
 						<div class="tab-content" style="padding: 5px;;">
-							<div id="carInfo" class="active tab-pane bg-warning">
+							<div id="carInfo" class="active tab-pane bg-warning pane1">
 								<table class="table table-hover">
 									<thead>
-									<tr>
-										<td>单据状态</td>
-										<td>业务类型</td>
-										<td>客户名称</td>
-										<td>车牌号</td>
-										<td>手机号</td>
-										<td>会员卡号</td>
-										<td>单号</td>
-										<td>类型</td>
-										<td>开单时间</td>
-										<td>预计完工</td>
-										<td>完工时间</td>
-										<td>结算时间</td>
-										<td>预估金额</td>
-										<td>服务顾问</td>
-										<td>接车人</td>
-									</tr>
+										<tr>
+											<td>##</td>
+											<td>单据状态</td>
+											<td>业务类型</td>
+											<td>客户名称</td>
+											<td>车牌号</td>
+											<td>手机号</td>
+											<td>会员卡号</td>
+											<td>单号</td>
+											<td>类型</td>
+											<td>开单时间</td>
+											<td>预计完工</td>
+											<td>完工时间</td>
+											<td>结算时间</td>
+											<td>预估金额</td>
+											<td>服务顾问</td>
+											<td>接车人</td>
+										</tr>
 									</thead>
-									<tbody v-for="item in page.list">
-										<tr v-if="item.completiontime==null" class="danger">
+									<tbody v-for="item,index in page.list">
+										<tr v-if="item.completiontime==null" class="danger" @click="obtainCdlicense(item,$event)">
+											<td>
+												<input type="radio" name="bill" v-if="index==0" checked="checked"/>
+												<input type="radio" name="bill" v-else/>
+											</td>
 											<td v-if="item.bstate==0">接车中</td>
 											<td v-else-if="item.bstate==1">作业中</td>
 											<td v-else>完成</td>
@@ -146,7 +187,11 @@
 											<td>{{item.pname}}</td>
 											<td>{{item.pnames}}</td>
 										</tr>
-										<tr v-else class="success">
+										<tr v-else class="success" @click="obtainCdlicense(item,$event)">
+											<td>
+												<input type="radio" name="bill" v-if="index==0" checked="checked"/>
+												<input type="radio" name="bill" v-else/>
+											</td>
 											<td v-if="item.bstate==0">接车中</td>
 											<td v-else-if="item.bstate==1">作业中</td>
 											<td v-else>完成</td>
@@ -190,42 +235,1111 @@
 								</nav>
 							</div>
 							
-							<div id="mh" class="tab-pane bg-warning">
-								维修历史
+							<div id="mh" class="tab-pane bg-warning pane1">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<td>维修单号</td>
+											<td>接车时间</td>
+											<td>完工时间</td>
+											<td>业务类型</td>
+											<td>客户名称</td>
+											<td>车牌号</td>
+											<td>手机号</td>
+											<td>会员卡号</td>
+											<td>结算时间</td>
+											<td>消费金额</td>
+										</tr>
+									</thead>
+									<tbody v-for="item in page2.list">
+										<tr v-if="item.completiontime==null" class="danger" >
+											<td>{{item.bid}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.cname}}</td>
+											<td>{{item.cdlicense}}</td>
+											<td>{{item.cphone}}</td>
+											<td>{{item.vno}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.total}}</td>
+										</tr>
+										<tr v-else class="success" >
+											<td>{{item.bid}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.cname}}</td>
+											<td>{{item.cdlicense}}</td>
+											<td>{{item.cphone}}</td>
+											<td>{{item.vno}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.total}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<nav aria-label="Page navigation">
+								  <ul class="pager form-inline">
+								    <li><a @click="findByCdlicenseOne(page2.prePage)">上一页</a></li>
+								    <li><a>数据量:{{page2.total}}</a></li>
+								    <li><a>总页数:{{page2.pages}}</a></li>
+								    <li>
+								    	<select class="form-control" v-model="pageSize2" @change="findByCdlicenseOne(1)">
+								    		<option :value="2">2</option>
+								    		<option :value="4">4</option>
+								    		<option :value="6">6</option>
+								    		<option :value="8">8</option>
+								    		<option :value="10">10</option>
+								    	</select>
+								    </li>
+								    <li><a @click="findByCdlicenseOne(page2.firstPage)">第一页:{{page2.firstPage}}</a></li>
+								    <li><a @click="findByCdlicenseOne(page2.lastPage)">最末页:{{page2.lastPage}}</a></li>
+								    <li><a>当前页:{{page2.pageNum==0?1:page2.pageNum}}</a></li>
+								    <li><a @click="findByCdlicenseOne(page2.nextPage)">下一页</a></li>
+								  </ul>
+								</nav>
 							</div>
 							
-							<div id="mp" class="tab-pane bg-warning">
-								维修项目
+							<div id="mp" class="tab-pane bg-warning pane1">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<td>维修单号</td>
+											<td>接车时间</td>
+											<td>完工时间</td>
+											<td>业务类型</td>
+											<td>结算时间</td>
+											<td>项目编码</td>
+											<td>项目名称</td>
+											<td>价类</td>
+											<td>结算工时</td>
+											<td>数量</td>
+											<td>工时金额</td>
+											<td>工作人员</td>
+											<td>故障描述</td>
+											<td>故障原因</td>
+										</tr>
+									</thead>
+									<tbody v-for="item in page3.list">
+										<tr v-if="item.completiontime==null" class="danger">
+											<td>{{item.bid}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.sidno}}</td>
+											<td>{{item.sidname}}</td>
+											<td>{{item.pcname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.r1}}</td>
+											<td>{{item.r2}}</td>
+											<td>{{item.pname}}</td>
+											<td>{{item.faultdescription}}</td>
+											<td>{{item.problem}}</td>
+										</tr>
+										<tr v-else class="success">
+											<td>{{item.bid}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.sidno}}</td>
+											<td>{{item.sidname}}</td>
+											<td>{{item.pcname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.r1}}</td>
+											<td>{{item.r2}}</td>
+											<td>{{item.pname}}</td>
+											<td>{{item.faultdescription}}</td>
+											<td>{{item.problem}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<nav aria-label="Page navigation">
+								  <ul class="pager form-inline">
+								    <li><a @click="findByCdlicenseTwo(page3.prePage)">上一页</a></li>
+								    <li><a>数据量:{{page3.total}}</a></li>
+								    <li><a>总页数:{{page3.pages}}</a></li>
+								    <li>
+								    	<select class="form-control" v-model="pageSize3" @change="findByCdlicenseTwo(1)">
+								    		<option :value="2">2</option>
+								    		<option :value="4">4</option>
+								    		<option :value="6">6</option>
+								    		<option :value="8">8</option>
+								    		<option :value="10">10</option>
+								    	</select>
+								    </li>
+								    <li><a @click="findByCdlicenseTwo(page3.firstPage)">第一页:{{page3.firstPage}}</a></li>
+								    <li><a @click="findByCdlicenseTwo(page3.lastPage)">最末页:{{page3.lastPage}}</a></li>
+								    <li><a>当前页:{{page3.pageNum==0?1:page3.pageNum}}</a></li>
+								    <li><a @click="findByCdlicenseTwo(page3.nextPage)">下一页</a></li>
+								  </ul>
+								</nav>
 							</div>
 							
-							<div id="acq" class="tab-pane bg-warning">
-								领料情况
+							<div id="acq" class="tab-pane bg-warning pane1">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<td>维修单号</td>
+											<td>接车时间</td>
+											<td>完工时间</td>
+											<td>业务类型</td>
+											<td>结算时间</td>
+											<td>类别</td>
+											<td>领料日期</td>
+											<td>领料人</td>
+											<td>物料编码</td>
+											<td>物料名称</td>
+											<td>单位</td>
+											<td>价类</td>
+											<td>数量</td>
+											<td>优惠前单价</td>
+											<td>优惠后单价</td>
+											<td>优惠后金额</td>
+											<td>服务顾问</td>
+										</tr>
+									</thead>
+									<tbody v-for="item in page4.list">
+										<tr v-if="item.completiontime==null" class="danger">
+											<td>{{item.bid}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.rtype}}</td>
+											<td>{{item.rdate}}</td>
+											<td>{{item.pname}}</td>
+											<td>{{item.cno}}</td>
+											<td>{{item.cname}}</td>
+											<td>{{item.cuname}}</td>
+											<td>{{item.pcname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.bpreferential}}</td>
+											<td>{{item.apreferential}}</td>
+											<td>{{item.bpreferentialm}}</td>
+											<td>{{item.psname}}</td>
+										</tr>
+										<tr v-else class="success">
+											<td>{{item.bid}}</td>
+											<td>{{item.ordertime}}</td>
+											<td>{{item.completiontime}}</td>
+											<td>{{item.btname}}</td>
+											<td>{{item.atime}}</td>
+											<td>{{item.rtype}}</td>
+											<td>{{item.rdate}}</td>
+											<td>{{item.pname}}</td>
+											<td>{{item.cno}}</td>
+											<td>{{item.cname}}</td>
+											<td>{{item.cuname}}</td>
+											<td>{{item.pcname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.bpreferential}}</td>
+											<td>{{item.apreferential}}</td>
+											<td>{{item.bpreferentialm}}</td>
+											<td>{{item.psname}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<nav aria-label="Page navigation">
+								  <ul class="pager form-inline">
+								    <li><a @click="findByCdlicenseThree(page4.prePage)">上一页</a></li>
+								    <li><a>数据量:{{page4.total}}</a></li>
+								    <li><a>总页数:{{page4.pages}}</a></li>
+								    <li>
+								    	<select class="form-control" v-model="pageSize4" @change="findByCdlicenseThree(1)">
+								    		<option :value="2">2</option>
+								    		<option :value="4">4</option>
+								    		<option :value="6">6</option>
+								    		<option :value="8">8</option>
+								    		<option :value="10">10</option>
+								    	</select>
+								    </li>
+								    <li><a @click="findByCdlicenseThree(page4.firstPage)">第一页:{{page4.firstPage}}</a></li>
+								    <li><a @click="findByCdlicenseThree(page4.lastPage)">最末页:{{page4.lastPage}}</a></li>
+								    <li><a>当前页:{{page4.pageNum==0?1:page4.pageNum}}</a></li>
+								    <li><a @click="findByCdlicenseThree(page4.nextPage)">下一页</a></li>
+								  </ul>
+								</nav>
 							</div>
 							
 							<div id="hv" class="tab-pane bg-warning">
-								历史回访
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<td>回访内容</td>
+											<td>回访时间</td>
+											<td>客户编码</td>
+											<td>客户名称</td>
+											<td>地址</td>
+											<td>车牌</td>
+											<td>手机</td>
+											<td>电话</td>
+											<td>维修项目</td>
+											<td>单据类型</td>
+											<td>回访效果</td>
+											<td>价类</td>
+											<td>服务顾问</td>
+											<td>详细说明</td>
+											<td>开单人</td>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
 							</div>
 						</div>
 				  </div>
 				</div>
 			</div>
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-17
+            	描述：维修单
+            -->
+			<div id="openMmodal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">维修</h4>
+			        <div class="form-inline" style="float: right;">
+				        <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
+				        <button class="btn btn-warning" v-else-if="bills.bstate==1">作业中</button>
+				        <button class="btn btn-danger"  v-else>竣工检验</button>
+			        </div>
+			      </div>
+			      <div class="modal-body">
+			        	<table class="table">
+			        		<tr>
+			        			<td>单号</td>
+			        			<td><input type="text" v-model="bills.bid" readonly="readonly"/></td>
+			        			<td>车牌号码</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        			<td>车辆型号</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        		</tr>
+			        		<tr>
+			        			<td>车辆品牌</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        			<td>车主姓名</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        			<td>服务顾问</td>
+			        			<td><input type="text" /><button class="btn btn-success">选择</button></td>
+			        		</tr>
+			        		<tr>
+			        			<td>驾驶员</td>
+			        			<td><input type="text" /></td>
+			        			<td>进驶里程</td>
+			        			<td><input type="text"></td>
+			        			<td>联系电话</td>
+			        			<td><input type="text"></td>
+			        		</tr>
+			        		<tr>
+			        			<td>进厂油量</td>
+			        			<td><select>
+			        					<option>1/4</option>
+			        					<option>1/6</option>
+			        					<option>1/8</option>
+			        				</select>
+			        			</td>
+			        			<td>上次里程</td>
+			        			<td><input type="text" readonly="readonly"></td>
+			        			<td>进厂时间</td>
+			        			<td><input type="text" readonly="readonly"></td>
+			        		</tr>
+			        		<tr>
+			        			<td>业务类别</td>
+			        			<td><select>
+			        					
+			        				</select>
+			        			</td>
+			        			<td>施工班次</td>
+			        			<td><select>
+			        					
+			        				</select>
+			        			</td>
+			        			<td>接车人</td>
+			        			<td><input type="text" readonly="readonly"></td>
+			        		</tr>
+			        		<tr>
+			        			<td>预计完工</td>
+			        			<td><input type="text"></td>
+			        			<td>结算方式</td>
+			        			<td><select>
+			        					
+			        				</select>
+			        			</td>
+			        			<td>赔款公司</td>
+			        			<td><select>
+			        					
+			        				</select>
+			        			</td>
+			        		</tr>
+			        		<tr>
+			        			<td>完工时间</td>
+			        			<td><input type="text"></td>
+			        			<td>上次进厂</td>
+			        			<td><input type="text" readonly="readonly"></td>
+			        			<td>预估金额</td>
+			        			<td><input type="text" readonly="readonly"></td>
+			        		</tr>
+			        		<tr>
+			        			<td>接待备注</td>
+			        			<td><input type="text"></td>
+			        			<td>报修陈述</td>
+			        			<td colspan="3"><textarea name="" rows="" cols=""></textarea>
+			        			</td>
+			        		</tr>
+			        	</table>
+			        	<ul class="nav nav-tabs" >
+							<li role="presentation" class="active"><a href="#wxls" data-toggle="tab">维修项目</a></li>
+							<li role="presentation"><a href="#llqk" data-toggle="tab">领料情况</a></li>
+							<li role="presentation"><a href="#fjxm" data-toggle="tab">附加项目</a></li>
+							<li role="presentation"><a href="#lshf" data-toggle="tab">历史回访</a></li>
+						</ul>
+						<div class="tab-content" style="padding: 5px;;">
+							<div id="wxls" class="active tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									         维修项目
+								      </a>
+									</div>
+									    <ul class="nav navbar-nav">
+									       	<li><a href="#">单项项目</a></li>
+									       	<li><a href="#">多项项目</a></li>
+									        <li><a href="#">修改项目</a></li>
+									        <li><a href="#">删除项目</a></li>
+									        <li><a href="#">修改班组</a></li>
+									        <li><a href="#">重置价格</a></li>
+								        </ul>
+								  </div>
+								</nav>
+								<table class="table">
+									<tr>
+										<td>选择</td>
+										<td>项目编码</td>
+										<td>项目名称</td>
+										<td>数量</td>
+										<td>价类</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>故障描述</td>
+										<td>故障原因</td>
+										<td>维修班组</td>
+										<td>作业人员</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+									<tr>
+										<td>选择</td>
+										<td>项目编码</td>
+										<td>项目名称</td>
+										<td>数量</td>
+										<td>价类</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>故障描述</td>
+										<td>故障原因</td>
+										<td>维修班组</td>
+										<td>作业人员</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+								</table>
+							</div>
+							<div id="llqk" class="tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									         领料情况
+								      </a>
+								    </div>
+								    <ul class="nav navbar-nav">
+									       	<li><a href="#">物料需求</a></li>
+									        <li><a href="#">领料</a></li>
+									        <li><a href="#">重置价格</a></li>
+								        </ul>
+								  </div>
+								</nav>
+								<table class="table">
+									<tr>
+										<td>类别</td>
+										<td>领料日期</td>
+										<td>领料人</td>
+										<td>物料编码</td>
+										<td>物料名称</td>
+										<td>单位</td>
+										<td>价类</td>
+										<td>数量</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+									<tr>
+										<td>类别</td>
+										<td>领料日期</td>
+										<td>领料人</td>
+										<td>物料编码</td>
+										<td>物料名称</td>
+										<td>单位</td>
+										<td>价类</td>
+										<td>数量</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+								</table>
+							</div>
+							<div id="fjxm" class="tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									           附加项目
+								      </a>
+								    </div>
+								    <ul class="nav navbar-nav">
+									       	<li><a href="#">添加项目</a></li>
+									        <li><a href="#">修改项目</a></li>
+									        <li><a href="#">删除项目</a></li>
+								        </ul>
+								  </div>
+								</nav>
+								<table>
+									<tr>
+										<td>附加项目</td>
+										<td>价类</td>
+										<td>金额</td>
+										<td>备注</td>
+									</tr>
+								</table>
+							</div>
+							<div id="lshf" class="tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									         结算信息
+								      </a>
+								    </div>
+								  </div>
+								</nav>
+								<table>
+									<tr>
+										<td>结算状态</td>
+										<td>优惠前金额</td>
+										<td>合计金额</td>
+										<td>材料费</td>
+										<td>工时费</td>
+										<td>附加费</td>
+										<td>结算时间</td>
+										<td>结算人</td>
+										<td>现金</td>
+										<td>银行卡</td>
+										<td>票据</td>
+										<td>挂账金额</td>
+										<td>冲储值卡</td>
+										<td>冲订金</td>
+										<td>收税金</td>
+										<td>抵用券</td>
+										<td>抹尾数</td>
+										<td>内部账</td>
+										<td>积分抵扣</td>
+										<td>到账盈亏</td>
+										<td>发票种类</td>
+										<td>发票号</td>
+										<td>发票金额</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			      	<button type="button" class="btn btn-default">保存</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-16
+            	描述：救援单
+            -->
+			<div id="openRmodal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">救援单</h4>
+				        <span>单号:{{bills.bid}}</span>
+			        <div class="form-inline" style="float: right;">
+				        <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
+				        <button class="btn btn-danger"  v-else>竣工检验</button>
+			        </div>
+			      </div>
+			      <div class="modal-body">
+			        	<table class="table">
+			        		<tr>
+			        			<td>单号</td>
+			        			<td><input type="text" v-model="bills.bid" readonly="readonly"/></td>
+			        			<td>车型</td>
+			        			<td><input type="text" readonly="readonly" /></td>
+			        			<td>车品牌</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        		</tr>
+			        		<tr>
+			        			<td>车主</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        			<td>驾驶员</td>
+			        			<td><input type="text" /></td>
+			        			<td>手机</td>
+			        			<td><input type="text" /></td>
+			        		</tr>
+			        		<tr>
+			        			<td>服务顾问</td>
+			        			<td><input type="text" /><button class="btn btn-success">选择</button></td>
+			        			<td>业务类别</td>
+			        			<td><select></select></td>
+			        			<td>施工班次</td>
+			        			<td><select></select></td>
+			        		</tr>
+			        		<tr>
+			        			<td>当前里程</td>
+			        			<td><input type="text" /></td>
+			        			<td>派工时间</td>
+			        			<td><input type="text" readonly=""/></td>
+			        			<td>结算方式</td>
+			        			<td><select></select></td>
+			        		</tr>
+			        		<tr>
+			        			
+			        			<td>赔款公司</td>
+			        			<td><select></select></td>
+			        			<td>派工班组</td>
+			        			<td><input type="text" /><button class="btn btn-success">选择</button></td>
+			        			<td>出发时间</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        		</tr>
+			        		
+			        		<tr>
+			        			<td>出发地址</td>
+			        			<td><input type="text" /></td>
+			        			<td>驾驶车辆</td>
+			        			<td><input type="text" /></td>
+			        			<td>行驶里程</td>
+			        			<td><input type="text" /></td>
+			        		</tr>
+			        		<tr>
+			        			<td>施工时间</td>
+			        			<td><input type="text" /></td>
+			        			<td>施工地址</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        			<td>完工时间</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        		</tr>
+			        		<tr>
+			        			<td>预估金额</td>
+			        			<td><input type="text" readonly="readonly"/></td>
+			        			<td>维修备注</td>
+			        			<td><input type="text" /></td>
+			        			<td>救援陈述</td>
+			        			<td><input type="text" /></td>
+			        		</tr>
+			        	</table>
+			        	<ul class="nav nav-tabs" >
+							<li role="presentation" class="active"><a href="#wxls2" data-toggle="tab">维修项目</a></li>
+							<li role="presentation"><a href="#llqk2" data-toggle="tab">领料情况</a></li>
+							<li role="presentation"><a href="#fjxm2" data-toggle="tab">附加项目</a></li>
+							<li role="presentation"><a href="#lshf2" data-toggle="tab">历史回访</a></li>
+						</ul>
+						<div class="tab-content" style="padding: 5px;;">
+							<div id="wxls2" class="active tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									         维修项目
+								      </a>
+									</div>
+									    <ul class="nav navbar-nav">
+									       	<li><a href="#">单项项目</a></li>
+									       	<li><a href="#">多项添加</a></li>
+									        <li><a href="#">修改项目</a></li>
+									        <li><a href="#">删除项目</a></li>
+									        <li><a href="#">修改班组</a></li>
+									        <li><a href="#">重置价格</a></li>
+								        </ul>
+								  </div>
+								</nav>
+								<table class="table">
+									<tr>
+										<td>选择</td>
+										<td>项目编码</td>
+										<td>项目名称</td>
+										<td>数量</td>
+										<td>价类</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>故障描述</td>
+										<td>故障原因</td>
+										<td>维修班组</td>
+										<td>作业人员</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+									<tr>
+										<td>选择</td>
+										<td>项目编码</td>
+										<td>项目名称</td>
+										<td>数量</td>
+										<td>价类</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>故障描述</td>
+										<td>故障原因</td>
+										<td>维修班组</td>
+										<td>作业人员</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+								</table>
+							</div>
+							<div id="llqk2" class="tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									         领料情况
+								      </a>
+								    </div>
+								  </div>
+								</nav>
+								<table class="table">
+									<tr>
+										<td>类别</td>
+										<td>领料日期</td>
+										<td>领料人</td>
+										<td>物料编码</td>
+										<td>物料名称</td>
+										<td>单位</td>
+										<td>价类</td>
+										<td>数量</td>
+										<td>优惠前单价</td>
+										<td>优惠后单价</td>
+										<td>优惠后金额</td>
+										<td>服务顾问</td>
+										<td>免单原因</td>
+									</tr>
+								</table>
+							</div>
+							<div id="fjxm2" class="tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									           附加项目
+								      </a>
+								    </div>
+								    <ul class="nav navbar-nav">
+									       	<li><a href="#">添加项目</a></li>
+									        <li><a href="#">修改项目</a></li>
+									        <li><a href="#">删除项目</a></li>
+								        </ul>
+								  </div>
+								</nav>
+								<table>
+									<tr>
+										<td>附加项目</td>
+										<td>价类</td>
+										<td>金额</td>
+										<td>备注</td>
+									</tr>
+								</table>
+							</div>
+							<div id="lshf2" class="tab-pane bg-warning">
+								<nav class="navbar navbar-default">
+								  <div class="container-fluid">
+								    <div class="navbar-header">
+								      <a class="navbar-brand" href="#">
+									         结算信息
+								      </a>
+								    </div>
+								  </div>
+								</nav>
+								<table>
+									<tr>
+										<td>结算状态</td>
+										<td>优惠前金额</td>
+										<td>合计金额</td>
+										<td>材料费</td>
+										<td>工时费</td>
+										<td>附加费</td>
+										<td>结算时间</td>
+										<td>结算人</td>
+										<td>现金</td>
+										<td>银行卡</td>
+										<td>票据</td>
+										<td>挂账金额</td>
+										<td>冲储值卡</td>
+										<td>冲订金</td>
+										<td>收税金</td>
+										<td>抵用券</td>
+										<td>抹尾数</td>
+										<td>内部账</td>
+										<td>积分抵扣</td>
+										<td>到账盈亏</td>
+										<td>发票种类</td>
+										<td>发票号</td>
+										<td>发票金额</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			      	<button type="button" class="btn btn-default" >保存</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-16
+            	描述：服务顾问模态框
+            -->
+			<div id="peoModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
+			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">服务顾问</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<table>
+			      		<tr>
+			      			<td>工号</td>
+			      			<td>姓名</td>
+			      		</tr>
+			      		<tr v-for="item in peoples">
+			      			<td>{{item.pno}}</td>
+			      			<td>{{item.pname}}</td>
+			      		</tr>
+			      	</table>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" >保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-16
+            	描述：选择维修项目模态框
+            -->
+            <div id="wxModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
+			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">维修项目</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<div class="row">
+			      		<div class="col-md-3">
+			      			
+			      		</div>
+			      		<div class="col-md-9">
+			      			
+			      		</div>
+			      	</div>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" >保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-16
+            	描述：维修项目选择班组
+            -->
+			<div id="" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
+			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">班组</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<ul id="treeDemo" class="ztree"></ul>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" >保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-17
+            	描述：附加项目模态框
+            -->
+			<div id="" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
+			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">修改会员信息</h4>
+			      </div>
+			      <div class="modal-body">
+			      	
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" >保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
 		</div>
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
+		<script src="js/jquery.ztree.core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/my.js" ></script>
 		<script type="text/javascript" src="js/perms.js" ></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
+			var setting = {
+				check: {
+					enable: true
+					
+				},
+				data: {
+					simpleData: {
+						enable: true
+					}
+				},
+				edit: {
+					enable: true
+				},
+				view:{
+					showIcon:false
+				}
+			};
 			var vm=new Vue({
 				el:"#ctx",
 				data(){
 					return{
+						cdlicense:"",//车牌
+						cardataPage:{},
+						cPageSize:2,
 						page:{},
-						pageSize:2
+						pageSize:2,
+						page2:{},
+						pageSize2:2,
+						page3:{},
+						pageSize3:2,
+						page4:{},
+						pageSize4:2,
+						cardata:{},//选择车辆
+						bills:{ 
+							bid:"",
+							bstate:0,
+							m:{},
+							r:{}
+						},//维修单
+						inBills:true, //所选车辆是否未完工,
+						peoples:[],//服务顾问
+						team:[],//班组
+						business:[],//业务类型
+						pm:[],//支付方式
+						insurance:[],//保险公司
 					}
 				},
 				methods:{
+					openBills(){
+						//打开单据
+					},
+					peoModal(){
+						//打开服务顾问模态框
+						$("#peoModal").modal("show");
+					},findInsurances(){
+						//查询支付方式
+						$.ajax({
+							url:data.ip+"insurance/findInsurances",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.insurance=result;
+								console.log(vm.insurance);
+							}
+						});
+					},
+					findBusiness(){
+						//查询支付方式
+						$.ajax({
+							url:data.ip+"pm/findPaymentMethod",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.pm=result;
+								console.log(vm.pm);
+							}
+						});
+					},
+					findBusiness(){
+						//查询业务类型
+						$.ajax({
+							url:data.ip+"bt/findBusiness",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.business=result;
+								console.log(vm.business);
+							}
+						});
+					},
+					findTeam(){
+						//查询班组
+						$.ajax({
+							url:data.ip+"team/findTeam",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.team=result;
+								$.fn.zTree.init($("#treeDemo"), setting, vm.team);
+							}
+						});
+					},
+					findPeople(){
+						//查询服务顾问
+						$.ajax({
+							url:data.ip+"people/findPeople",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.peoples=result;
+								console.log(vm.peoples);
+							}
+						});
+					},
+					openMmodal(){
+						//打开维修模态框
+						if(JSON.stringify(vm.cardata)=="{}"){
+							alert("请选择车辆信息!");
+							return;
+						}
+						
+						$.ajax({
+							url:data.ip+"bills/findIsCardata",
+							type:"get",
+							data:{
+								cdlicense:vm.cardata.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							}
+							,dataType:"text",
+							success:function(response){
+								if(response.indexOf("0")!=-1){
+									vm.findNewBid();
+									$("#openMmodal").modal("show");
+								}else{
+									alert("该车辆还未竣工!");
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},openRmodal(){
+						//打开救援模态框
+						if(JSON.stringify(vm.cardata)=="{}"){
+							alert("请选择车辆信息!");
+							return;
+						}
+						$.ajax({
+							url:data.ip+"bills/findIsCardata",
+							type:"get",
+							data:{
+								cdlicense:vm.cardata.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							}
+							,dataType:"text",
+							success:function(response){
+								if(response.indexOf("0")!=-1){
+									vm.findNewBid();
+									$("#openRmodal").modal("show");
+								}else{
+									alert("该车辆还未竣工!");
+								}
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findNewBid(){
+						//生成新单据编号
+						$.ajax({
+							url:data.ip+"bills/findNewBid",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},dataType:"text",
+							success:function(response){
+								vm.bills.bid=response;
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findIsCardata(){
+						//查询车辆编号是否存在未竣工单据
+						if(vm.cardata.cdlicense==''){
+							alert("请选择车辆!");
+							return;
+						}
+						
+					},
 					findBills(pageNum){
 						let that=this;
 						//查询单据
@@ -246,9 +1360,132 @@
 								console.log(error);
 							}
 						});
+					},findByCdlicenseOne(pageNum){
+						var that=this;
+						//查询维修历史
+						$.ajax({
+							url:data.ip+"bills/findByCdlicenseOne",
+							type:"get",
+							data:{
+								pageNum:pageNum,
+								pageSize:that.pageSize2,
+								cdlicense:that.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							},dataType:"json",
+							success:function(response){
+								vm.page2=response;
+								console.log(vm.page2);
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findByCdlicenseTwo(pageNum){
+						var that=this;
+						$.ajax({
+							url:data.ip+"bills/findByCdlicenseTwo",
+							type:"get",
+							data:{
+								pageNum:pageNum,
+								pageSize:that.pageSize3,
+								cdlicense:that.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							},dataType:"json",
+							success:function(response){
+								vm.page3=response;
+								console.log(vm.page3);
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findByCdlicenseThree(pageNum){
+						var that=this;
+						$.ajax({
+							url:data.ip+"bills/findByCdlicenseThree",
+							type:"get",
+							data:{
+								pageNum:pageNum,
+								pageSize:that.pageSize4,
+								cdlicense:that.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							},dataType:"json",
+							success:function(response){
+								vm.page4=response;
+								console.log(vm.page4);
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findCardata(pageNum){
+						var that=this;
+						$.ajax({
+							url:data.ip+"cardata/findCardata",
+							type:"get",
+							data:{
+								pageNum:pageNum,
+								pageSize:that.cPageSize,
+								cdlicense:that.cdlicense
+							},
+							xhrFields:{
+								withCredentials:true
+							},dataType:"json",
+							success:function(response){
+								vm.cardataPage=response;
+								vm.cardata=response.list[0];
+							},error:function(error){
+								console.log(error);
+							}
+						});
+					},findByCdlicense(){
+						//输入车牌查询
+						if(this.cdlicense==''){
+							this.cardataPage={};
+							this.page2={};
+							this.page3={};
+							this.page4={};
+							this.cardata={};
+							return;
+						}
+						this.findByCdlicenseOne(1); //查询维修历史
+						this.findByCdlicenseTwo(1); //查询维修项目
+						this.findByCdlicenseThree(1); //查询领料情况
+						this.findCardata(1);//查询车辆信息
+					},obtainCdlicense(item,e){
+						vm.cdlicense=item.cdlicense;
+						this.findByCdlicense();
+						this.b=item;
+						$(e.target).parent().find("input").prop("checked",true);
+					},bindCardata(e,data){
+						$(e.target).parent().find("input").prop("checked",true);
+						vm.cardata=data;
 					}
 				},created:function(){
-					this.findBills(1);
+					this.findBills(1); //查询单据
+					this.findPeople(); //查询服务顾问
+					this.findTeam();//查询班组
+					this.findBusiness();//查询业务类型
+					this.findBusiness();//查询结算方式
+					this.findInsurances();//查询赔款公司
+				},computed:{
+					getPage(){
+						let that=this;
+						return this.cardataPage;
+					},getPage2(){
+						let that=this;
+						return this.page2;
+					},
+					getPage3(){
+						let that=this;
+						return this.page3;
+					},getPage4(){
+						let that=this;
+						return this.page4;
+					}
 				}
 			});
 		</script>

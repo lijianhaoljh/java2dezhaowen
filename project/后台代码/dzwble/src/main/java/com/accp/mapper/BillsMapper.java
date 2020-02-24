@@ -2,10 +2,14 @@ package com.accp.mapper;
 
 import com.accp.domain.Bills;
 import com.accp.domain.BillsExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BillsMapper {
+	//竣工检验查询
+	List<Bills> findCompletions(@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("bid")String bid,@Param("bstate")Integer bstate);
 	//查询维修历史
 	List<Bills> findByCdlicenseOne(String cdlicense);
 	//查训维修项目

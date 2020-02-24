@@ -39,6 +39,30 @@
     <result column="fname" property="fname" jdbcType="VARCHAR" />
     <result column="cname" property="cname" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findCardata" resultMap="BaseResultMap">
+SELECT c.`cdlicense`,ct.`cname`,vl.`vlname`,ct.`caddress`,ct.`cphone`,c.`cddriver`,cb.`cbname`,mo.`moiname`,mt.`mname`,v.currentjifen,cp.`plandate`,
+ct.`remark3` AS r3,
+ct.`remark4` AS r4,ct.`remark5` AS r5
+ FROM `cardata` AS c
+LEFT JOIN `customer` AS ct
+ON c.cno=ct.`cno`
+LEFT JOIN vip AS v
+ON ct.`cno`=v.`cno`
+LEFT JOIN `viplevel` AS vl
+ON v.`vlid`=vl.`vlid` 
+LEFT JOIN `motorcycle` AS mo
+ON c.`moid`=mo.`moid`
+LEFT JOIN `carbrand` AS cb
+ON mo.`cbno`=cb.`cbno`
+LEFT JOIN `maintenance` AS mt
+ON c.`mid`=mt.`mid`
+LEFT JOIN `carkeep` AS cp
+ON c.`cdlicense`=cp.`cdlicense`
+WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+ORDER BY c.cdlicense DESC
+</select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -117,7 +141,15 @@
 	LEFT JOIN maintenance AS mainte ON mainte.mid=moto.mid
 	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
-	WHERE card.cno=#{cno}
+	WHERE card.cno=#{cno} AND card.moid=moto.moid
+  </select>
+  
+  <select id="querylicensewillexpire" resultMap="BaseResultMap">
+  	SELECT ca.*,cb.cbname cbnam,m.moiname moiname FROM cardata AS ca
+LEFT JOIN carbrand AS cb ON ca.cdno=cb.cbno
+LEFT JOIN motorcycle AS m ON m.cbno = cb.cbno
+WHERE TIMESTAMPDIFF(DAY, ca.cdlicenseend ,NOW()) BETWEEN 0 AND 3
+AND ca.moid=m.moid
   </select>
   
   <select id="queryCars" resultMap="BaseResultMap">
@@ -137,6 +169,46 @@
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	WHERE (card.cddriver LIKE concat('%',#{cddriver},'%') OR card.cddriverphone LIKE concat('%',#{cddriver},'%') OR card.cdlicense LIKE concat('%',#{cddriver},'%') 
 	OR card.cdframe LIKE CONCAT('%',#{cddriver},'%') ) AND moto.moid=card.moid
+  </select>
+
+  <select id="queryinsurexpirecar" resultMap="BaseResultMap">
+  	SELECT card.*,ct.ctname ctname,
+	carb.cbname cbnam,
+	moto.moiname moiname,
+	cus.cname cname
+	FROM cardata AS card
+	LEFT JOIN carbrand AS carb ON card.cdno=carb.cbno
+	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
+	LEFT JOIN customer AS cus ON card.cno=cus.cno
+	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
+	WHERE moto.moid=card.moid AND (TIMESTAMPDIFF(DAY, card.indate ,NOW()) BETWEEN 0 AND 3
+	OR TIMESTAMPDIFF(DAY, card.inid_bdate ,NOW()) BETWEEN 0 AND 3)
+  </select>
+
+  <select id="querycheckcar" resultMap="BaseResultMap">
+  	SELECT card.*,ct.ctname ctname,
+	carb.cbname cbnam,
+	moto.moiname moiname,
+	cus.cname cname
+	FROM cardata AS card
+	LEFT JOIN carbrand AS carb ON card.cdno=carb.cbno
+	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
+	LEFT JOIN customer AS cus ON card.cno=cus.cno
+	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
+	WHERE moto.moid=card.moid AND TIMESTAMPDIFF(DAY, card.cdcarcheckdate ,NOW()) BETWEEN 0 AND 3	
+  </select>
+
+  <select id="querytodatbirthdriver" resultMap="BaseResultMap">
+  	SELECT card.*,ct.ctname ctname,
+	carb.cbname cbnam,
+	moto.moiname moiname,
+	cus.cname cname
+	FROM cardata AS card
+	LEFT JOIN carbrand AS carb ON card.cdno=carb.cbno
+	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
+	LEFT JOIN customer AS cus ON card.cno=cus.cno
+	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
+	WHERE moto.moid=card.moid AND MONTH(card.cddriverbirth) = MONTH(NOW()) AND DAY(card.cddriverbirth) = DAY(NOW())	
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CardataExample" >

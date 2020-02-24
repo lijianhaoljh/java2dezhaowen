@@ -13,6 +13,15 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Team" id="BaseResultMapTwo" extends="BaseResultMap">
+  	<collection property="childrens" column="tid" ofType="com.accp.domain.Team" select="findTeam"></collection>
+  </resultMap>
+  
+  <select id="findTeam" resultMap="BaseResultMapTwo">
+  		select * from team where parentid=#{tid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -104,7 +113,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Team" >
+  <insert id="insert" parameterType="com.accp.domain.Team"  useGeneratedKeys="true" keyProperty="tid" >
     insert into team (tid, tname, catalog, 
       parentid, tpower, remark1, 
       remark2, remark3, remark4, 
