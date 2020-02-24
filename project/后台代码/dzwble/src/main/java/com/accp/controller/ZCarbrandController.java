@@ -37,39 +37,39 @@ public class ZCarbrandController {
 			return zCarbrandService.findMotorcycle(cbno);
 		}
 		
-		@GetMapping(value = "/query")
-		public List<Motorcycle> findMotorcyleTwo(Integer cbno,String cbnos){
-			return zCarbrandService.findMotorcyleTwo(cbno,cbnos);
+		@GetMapping(value = "query")
+		public List<Motorcycle> findMotorcyleTwo(String cbnos){
+			return zCarbrandService.findMotorcyleTwo(cbnos);
 		}
 		
-		@PostMapping(value = "/dele")
+		@PostMapping(value = "dele")
 		public int datele(Integer cbno) {	
 			return zCarbrandService.datele(cbno);
 		}
 		
-		@PostMapping(value = "/add")
+		@PostMapping(value = "add")
 		public int add(@RequestBody Carbrand car) {
 			return zCarbrandService.add(car);
 		}
 		
-		@GetMapping(value = "/UpdaID")
+		@GetMapping(value = "UpdaID")
 		public Carbrand UpdaID(Integer cbnoid) {
 			return zCarbrandService.UpdaID(cbnoid);
 		}
 		
-		@PutMapping(value = "/upda")
+		@PutMapping(value = "upda")
 		public int upda(@RequestBody Carbrand car) {
 			return zCarbrandService.upda(car);
 		}
 		
-		@PostMapping(value = "/deletwo")
+		@PostMapping(value = "deletwo")
 		public int deletetwo(Integer moid){
 			return zCarbrandService.deletetwo(moid);
 		}
 		
-		@PostMapping(value = "/addtwo")
-		public String addtwo(@RequestBody Motorcycle cbbr) {
-			return "result"+zCarbrandService.addtwo(cbbr);
+		@PostMapping(value = "addtwo")
+		public int addtwo(@RequestBody Motorcycle cbbr) {
+			return zCarbrandService.addtwo(cbbr);
 		}
 		
 		
@@ -83,7 +83,7 @@ public class ZCarbrandController {
 			return zCarbrandService.updaTwo(cbbr);
 		}
 		
-		@GetMapping(value = "/fdj")
+		@GetMapping(value = "fdj")
 		public List<Maintenance> fdjquery() {
 			return zCarbrandService.fdjquery();
 		}

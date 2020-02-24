@@ -45,7 +45,7 @@
  	 	SELECT m.*,ma.mid maid,ma.mname mname,ma.parentid parentid,ma.catalog catalog FROM `motorcycle` m
 		INNER JOIN `maintenance` ma
 		ON ma.mid=m.mid
-		WHERE m.cbno=#{cbno} and (m.moid=#{cbnos} or m.moiname LIKE  CONCAT ('%',#{cbnos},'%'))
+		WHERE m.cbno=#{cbnos} or m.moid=#{cbnos} or m.moiname LIKE  CONCAT ('%',#{cbnos},'%')
   </select>
   
   

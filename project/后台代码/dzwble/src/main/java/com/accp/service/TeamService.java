@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.Team;
+import com.accp.domain.TeamExample;
 import com.accp.mapper.TeamMapper;
 
 @Service
@@ -17,6 +18,8 @@ public class TeamService {
 	TeamMapper teamMapper;
 	
 	public List<Team> findTeam(){
-		return teamMapper.findTeam(0);
+		TeamExample example=new TeamExample();
+		example.createCriteria().andParentidNotEqualTo(0);
+		return teamMapper.selectByExample(example);
 	}
 }

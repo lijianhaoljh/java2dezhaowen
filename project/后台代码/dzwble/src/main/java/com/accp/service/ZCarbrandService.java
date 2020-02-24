@@ -63,8 +63,8 @@ public class ZCarbrandService {
 			/**
 			 * 根据条件查询车型
 			 */
-			public List<Motorcycle> findMotorcyleTwo(Integer cbno,String cbnos){
-				List<Motorcycle> list=motorcycleMapper.findMotorcyleTwo(cbno, cbnos);
+			public List<Motorcycle> findMotorcyleTwo(String cbnos){
+				List<Motorcycle> list=motorcycleMapper.findMotorcyleTwo(cbnos);
 				if(list!=null&&list.size()>0) {
 					return list;
 				}

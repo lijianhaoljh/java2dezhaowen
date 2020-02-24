@@ -6,13 +6,19 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
 	</head>
-	<style type="text/css">#button_1 button {
-	float: right;
-	margin-right: 10px;
-}</style>
+	<style type="text/css">
+		#button_1 button {
+				float: right;
+				margin-right: 10px;
+				}
+		
+		select{
+			width: 100px;
+		}
+	</style>
 	<body>
 			<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #C9E2B3;">
+				<div id="title"  style="padding: 20px;background: #F7F7F7;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>维修项目</strong>
 				 	</span>
@@ -22,12 +28,12 @@
 				 		<button type="button" class="btn btn-warning">关闭</button>
 				 	</div>
 			 	</div>
-			 	<div class="row" id="button_1" style="padding: 20px;">
+			 	<div class="row" id="button_1" style="padding: 20px;">	 		
+						
 			 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">调价</button>
-				 		<button type="button" class="btn btn-default">导入</button>
 				 		<button type="button" class="btn btn-default" @click="deleteid">删除</button>
 				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">修改</button>
-				 		<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#myModal">新增</button>
+				 		<button type="button" class="btn btn-default" @click="Adds">新增</button>
 				</div>	
 			 	
 				 <div class="row">
@@ -37,8 +43,8 @@
 				 
 					<div class="col-md-10">
 					 	<div>
-					 		<table class="table table-bordered">
-				 				<tr style="color: white; background-color: #C1E2B3;">
+					 		<table class="table table-hover">
+				 				<tr>
 				 					<td>项目类别</td>
 				 					<td>项目编码</td>
 				 					<td>项目名称</td>
@@ -79,6 +85,8 @@
 				      </div>
 				      <div class="modal-body" id="inputx">
 				         	项目名称:<input type="text" v-model="sitem.sidname" id="input_2"/>
+				         	
+							备注:<input type="text" v-model="sitem.remark1" id="input_4"/>
 				         	<br /> <br /><br /> <br />
 				         	收入分类:<select v-model="sitem.toino">
 									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
@@ -86,12 +94,9 @@
 							项目类别:<select v-model="sitem.mid">
 									  <option v-for="item4 in mainquery" :value="item4.mid" v-if="item4.parentid>0">{{item4.mname}}</option>
 									</select>	
-							<br /> <br /><br /> <br />
-							
-							备注:<input type="text" v-model="sitem.remark1" id="input_4"/>
 							按售价:<select v-model="sitem.cbno">
 									  <option v-for="item4 in mainquery" :value="item4.mid" v-if="item4.parentid==0">{{item4.mname}}</option>
-									</select>
+								</select>
 							<br /> <br /><br /> <br />
 							标准价:<input type="text"  v-model="sitem.standardprice" @input="Price()"/>
 							会员价:<input type="text"  v-model="sitem.memberprice" />
@@ -120,7 +125,7 @@
 				        <h4 class="modal-title">品牌定义</h4>
 				      </div>
 				      <div class="modal-body" id="inputx">
-				      	<button @click="updaproce">保存</button>
+				      	<button @click="updaproce" type="button" class="btn btn-default">保存</button>
 				      	<br />
 				         	<select v-model="jg">
 				         		 <option v-for="item10 in pricequery" :value="item10">{{item10.ptname}}</option>
@@ -136,6 +141,7 @@
 			</div><!-- /.modal -->
 				 			 	
 			</div>
+			<script type="text/javascript" src="js/my.js"></script>
 			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 			<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 			<script type="text/javascript" src="js/jquery.ztree.core.js" ></script>
@@ -148,7 +154,7 @@
 					//树状结构
 				     $.ajax({
 				       type:"get",
-				       url:"http://localhost:8080/ServiceItemRest",
+				       url:data.ip+"ServiceItemRest",
 				       dateType:"json",
 				       xhrFields:{
 				        withCredentials:true
@@ -189,7 +195,7 @@
 				              return;
 				          }
 				          	$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/queryid",					
+								url: data.ip+"ServiceItemRest/queryid",					
 								type: "get",
 								data:{mid:treeNode.mid},
 								xhrFields: {
@@ -242,7 +248,7 @@
 						},
 						Querytwo:function(){
 							$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/querytwo",					
+								url: data.ip+"ServiceItemRest/querytwo",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -261,7 +267,7 @@
 						Queryname:function(){
 							var that=this;
 							$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/queryname",					
+								url: data.ip+"ServiceItemRest/queryname",					
 								type: "get",
 								data:{name:that.name},
 								xhrFields: {
@@ -285,7 +291,7 @@
 						deleteid:function(){
 							if (confirm("你确定要删除"+vm.ServiceItem.sidno+"么?")) {
 							$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/deleteid",
+									url:data.ip+"ServiceItemRest/deleteid",
 									data:{
 										mid:vm.ServiceItem.sidno
 									},
@@ -308,7 +314,7 @@
 						 */
 						Queryac:function(){
 						$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/queryac",					
+								url: data.ip+"ServiceItemRest/queryac",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -328,7 +334,7 @@
 						 */
 						Mainquery:function(){
 						$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/mainquery",					
+								url: data.ip+"ServiceItemRest/mainquery",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -343,6 +349,10 @@
 							});
 						},
 						
+						Adds:function(){
+							vm.sitem={};
+							$("#myModal").modal("show");
+						},
 						
 						/**
 						 * 新增
@@ -353,7 +363,7 @@
 							return false;
 						}else{	
 								$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/addtwo",
+									url:data.ip+"ServiceItemRest/addtwo",
 									data:JSON.stringify(vm.sitem),						
 									type:"post",
 									xhrFields: {
@@ -372,7 +382,7 @@
 						
 						Addaid:function(){
 								$.ajax({
-								url:"http://localhost:8080/ServiceItemRest/updaid",
+								url:data.ip+"ServiceItemRest/updaid",
 								type:"get",
 								xhrFields: {
 									withCredentials: true
@@ -392,7 +402,7 @@
 							return false;
 						}else{	
 								$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/updatwo",
+									url:data.ip+"ServiceItemRest/updatwo",
 									data:JSON.stringify(vm.sitem),						
 									type:"put",
 									xhrFields: {
@@ -414,7 +424,7 @@
 						 */
 						Pricequery:function(){
 						$.ajax({
-								url: "http://localhost:8080/ServiceItemRest/pricequery",					
+								url: data.ip+"ServiceItemRest/pricequery",					
 								type: "get",
 								xhrFields: {
 									withCredentials: true
@@ -435,7 +445,7 @@
 						 */
 						updaproce:function(){
 							$.ajax({
-									url:"http://localhost:8080/ServiceItemRest/updaproce",
+									url:data.ip+"ServiceItemRest/updaproce",
 									data:JSON.stringify(vm.jg),						
 									type:"put",
 									xhrFields: {
@@ -444,7 +454,7 @@
 									contentType:"application/json;charset=utf-8",
 									success:function(result){
 										alert("修改成功")
-										vm.Querytwo();
+										window.location.href="repair.html";
 									},error:function(result){
 										console.log(result+"upda")
 									}

@@ -91,16 +91,64 @@ public class Bills {
     private String problem; //故障原因
     private String faultdescription; //故障描述
     private Integer rtype; //领料类别
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date rtime; //领料日期
     private Integer cno; //商品编号
     private String cuname; //商品单位
     private float bpreferential; //优惠前单价
     private float apreferential; //优惠后单价
     private float bpreferentialm; //优惠后金额
-    public String psname; //服务顾问
-    public Integer num;
+    private String psname; //服务顾问
+    private Integer num;
+    private String ctname;//车主名称
+    private String moiname;//车型
+    private String cdframe;//车架号
+    
+    public String getMoiname() {
+		return moiname;
+	}
 
-    public Integer getNum() {
+	public void setMoiname(String moiname) {
+		this.moiname = moiname;
+	}
+
+	public String getCdframe() {
+		return cdframe;
+	}
+
+	public void setCdframe(String cdframe) {
+		this.cdframe = cdframe;
+	}
+
+	public String getCtname() {
+		return ctname;
+	}
+
+	public void setCtname(String ctname) {
+		this.ctname = ctname;
+	}
+
+	private Date startTime;//开单开始时间
+    private Date endTime;//开单最后时间
+    
+    public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getNum() {
 		return num;
 	}
 
