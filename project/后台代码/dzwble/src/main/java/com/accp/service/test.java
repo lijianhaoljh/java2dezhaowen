@@ -14,6 +14,7 @@ import com.accp.domain.CarbrandExample.Criteria;
 @Service
 @Transactional
 public class test {
+	
 	@Autowired
 	CarbrandMapper carbrandMapper;
 	/*
