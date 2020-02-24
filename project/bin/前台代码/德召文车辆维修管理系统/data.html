@@ -3,26 +3,41 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>德召文车辆维修管理系统-商品资料</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />	
 	</head>
+	<style type="text/css">
+		p{
+			margin-bottom: 20px;
+		}
+		
+		p input{
+			margin-bottom: 10px;
+		}
+		
+		select{
+			width: 100px;
+		}
+		
+	</style>
 	<body>
 		<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #C9E2B3;">
+				<div id="title"  style="padding: 20px;background: #F7F7F7;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>商品资料</strong>
 				 	</span>
 				 	<div style="float: right;">
-				 		<input style="width: 400px; height: 37px;" type="text" v-model="cbno" placeholder="匹配编码/名称/简码/品牌/大类+号实现双条件查询"/>
+				 		<input style="width: 400px; height: 37px;" type="text" v-model="cbno" placeholder="匹配编码/名称/简码/品牌/大类"/>
 				 		<button type="button" class="btn btn-success" @click="FindQuery">搜索</button>
 				 		<button type="button" class="btn btn-warning">关闭</button>
 				 	</div>
 			 	</div>
 			 	
 			 	<div class="row" style="padding: 20px;">
-				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" >增加</button>
-				 		<button type="button" class="btn btn-default" @click="QueryByid" data-toggle="modal" data-target="#myModal">修改</button>
+				 		<button type="button" class="btn btn-default" @click="toAdd" >增加</button>
+				 		<button type="button" class="btn btn-default" @click="QueryByid">修改</button>
 				 		<button type="button" class="btn btn-default" @click="DeleteByid">删除</button>
 				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
+<<<<<<< HEAD
 		 				<button type="button" class="btn btn-default">图片</button>
 				 		<button type="button" class="btn btn-default" @click="exportExcel">导出</button>
 				</div>
@@ -32,11 +47,15 @@
 						<input name="file" multiple  type="file" />
 						<button  id="wjsc" type="button" class="btn btn-default">图片</button>
 					</form>
+=======
+				 		<button type="button" class="btn btn-default" @click="exportExcel">导出</button>
+>>>>>>> refs/remotes/origin/zhongpenggen
 				</div>
 				
+				
 				<div style="width: 1700px; height:780px;overflow:scroll;">
-					<table class="table table-bordered">
-				 				<tr style="color: white; background-color: #C1E2B3;" >
+					<table class="table table-hover">
+				 				<tr>
 				 					<td>商品编号</td>
 				 					<td>商品名称</td>
 				 					<td>商品品牌</td>
@@ -94,13 +113,13 @@
 				        <h4 class="modal-title">品牌定义</h4>
 				      </div>
 				      <div class="modal-body" id="inputx">
+				      		<p>
 				         	商品名称:<input type="text" id="input_1" v-model="comc.cname"/>
-				         	商品品牌:<select id="sel1" v-model="comc.cbid">
-									  <option v-for="item in query" :value ="item.cbid">{{item.cbname}}</option>
-									</select>
-							适用车辆:<input type="text" id="input_2" v-model="comc.vehicletype"/>		
-				         	<br/><br/><br/>
 				         	
+							适用车辆:<input type="text" id="input_2" v-model="comc.vehicletype"/>		
+				       		</p>
+				         	
+				         	<p>
 				         	数量单位:<select id="sel2" v-model="comc.cuid">
 									  <option v-for="item1 in querya" :value ="item1.cuid">{{item1.cuname}}</option>
 									</select>
@@ -109,12 +128,16 @@
 								</select>
 							收入分类:<select v-model="comc.toino">
 									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
-								</select>
+							</select>	
 							原厂副厂:<select v-model="comc.coid">
 									  <option v-for="item4 in queryad" :value ="item4.coid">{{item4.coname}}</option>
 								</select>
-							<br/><br/><br/>
+							</p>
 							
+							<p>
+							商品品牌:<select id="sel1" v-model="comc.cbid">
+									  <option v-for="item,index in query" :value ="item.cbid" >{{item.cbname}}</option>
+									</select>			
 							商品等级:<select v-model="comc.gcid">
 									  <option v-for="item5 in querye" :value ="item5.gcid">{{item5.gcname}}</option>
 								</select>
@@ -124,35 +147,52 @@
 							厂商名称:<select v-model="comc.mfid">
 									  <option v-for="item7 in queryeg" :value ="item7.mfid">{{item7.mfname}}</option>
 								</select>
-							<br/><br/><br/>
+							</p>
 							
+<<<<<<< HEAD
 							原厂编码:<input type="text" id="input_3" v-model="comc.origin"/>
 							条形码:<input type="text" id="input_4" v-model="comc.barcode"/>
 							包装规格:<input type="text" id="input_5" v-model="comc.pack"/>
 							
 							<br/><br/><br/>
+=======
+							<p>
+>>>>>>> refs/remotes/origin/zhongpenggen
 							体积A:<input type="text" id="input_6" v-model="comc.volume"/>
-							毛重:<input type="text" id="input_7" v-model="comc.grossweight"/>
-							净重:<input type="text" id="input_8" v-model="comc.netweight"/>
-							<br/><br/><br/>
+							毛重A:<input type="text" id="input_7" v-model="comc.grossweight"/>
+							净重A:<input type="text" id="input_8" v-model="comc.netweight"/>
+							</p>
 							
+							
+							<p>
+							原编码:<input type="text" id="input_3" v-model="comc.origin"/>
+							条形码:<input type="text" id="input_4" v-model="comc.barcode"/>
+							规格A:<input type="text" id="input_5" v-model="comc.pack"/>
+							</p>
+							
+							
+							
+							<p>
 							进货价:<input type="text" id="input_9" v-model="comc.stockprice"/>				
 							加价率:<input type="text" id="input_10" v-model="comc.markup"/>
 							互换码:<input type="text" id="input_11" v-model="comc.exchangecode"/>
-							<br/><br/><br/>
+							<p/>
 							
+							<p>
 							标准价:<input type="text" id="input_12" v-model="comc.standardprice"/>
 							会员价:<input type="text" id="input_13" v-model="comc.memberprice"/>
 							VIP价:<input type="text" id="input_14" v-model="comc.vipprice"/>
-							<br/><br/><br/>
+							</p>
 							
+							<p>
 							协议价:<input type="text" id="input_15" v-model="comc.agreementprice"/>
 							索赔价:<input type="text" id="input_16" v-model="comc.insuranceprice"/>
-							保险价:<input type="text" id="input_17" v-model="comc.claimprice"/>				         	
+							保险价:<input type="text" id="input_17" v-model="comc.claimprice"/>	
+							</p>
 				      </div>
 				      <div class="modal-footer">
-				        	<button @click="UpdaCommd" v-if="isok" type="button" class="btn btn-default">修改</button>
-				        	<button @click="addCommd" v-else="isok"   type="button" class="btn btn-default">新增</button>
+				        	<button @click="UpdaCommd"  type="button" class="btn btn-default">修改</button>
+				        	<button @click="addCommd"    type="button" class="btn btn-default">新增</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -165,6 +205,7 @@
 		<script type="text/javascript" src="js/vue.js" ></script>
 	</body>
 <script type="text/javascript">
+<<<<<<< HEAD
 		$(function(){
 			$("#wjsc").click(function(){
 				var formData = new FormData($("form")[0]);
@@ -179,6 +220,9 @@
 			});
 		})
 	
+=======
+		
+>>>>>>> refs/remotes/origin/zhongpenggen
 	
 		var vm=new Vue({
             el:"#ctx",
@@ -198,7 +242,7 @@
     				isok:false
         		};
 			},
-			mounted:function() {
+			created:function() {
             this.getData();
             this.Query();
             this.Querya();
@@ -208,6 +252,7 @@
             this.Querye();
             this.Queryef();
             this.Queryeg();
+           	
        		},
 			methods: {
 				getData:function(){
@@ -247,6 +292,17 @@
 						}
 					});
 				},
+				
+				/**
+				 * 打开新增模态框
+				 */
+				
+				toAdd:function(){
+					vm.comc={};
+					$("#myModal").modal("show");
+				},
+				
+				
 				/**
 				 * 新增商品信息
 				 */
@@ -293,7 +349,7 @@
 						dataType: "json",
 						success: function(result) {
 							vm.query=result;
-							vm.comc.cbid=result[0].cbid;
+							vm.comc.cbid = result[0].cbid;
 						},error:function(result){					
 							console.log(result+"101");
 						}
@@ -460,7 +516,8 @@
 						}
 				},
 				QueryByid:function(){
-						vm.isok=true;
+						$("#myModal").modal("show");
+					
 						$.ajax({
 							url:"http://localhost:8080/CommodityInfoRest/QueryByid",
 							type:"get",
@@ -477,7 +534,11 @@
 				/**
 				 * 修改商品信息
 				 */
+<<<<<<< HEAD
 				UpdaCommd:function(){
+=======
+				UpdaCommd:function(){					
+>>>>>>> refs/remotes/origin/zhongpenggen
 						if($("#input_1").val()==""){
 							alert("商品名称不能为空!")
 							return false;

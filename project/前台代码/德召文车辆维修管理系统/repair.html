@@ -1,656 +1,468 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
-		<title>离职定义</title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="css/quit.css"/>
+		<meta charset="UTF-8">
+		<title>德召文车辆维修管理系统-维修项目</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrapStyle/bootstrapStyle.css"/>
 	</head>
-	<body>
+	<style type="text/css">
+		#button_1 button {
+				float: right;
+				margin-right: 10px;
+				}
 		
-		<div id="ctx">
-			<div class="container-fluid">
-				<div class="row">
-					<div>
-						<span>离职登记</span>
+		select{
+			width: 100px;
+		}
+	</style>
+	<body>
+			<div class="container-fluid" style="margin: 20px;" id="ctx">
+				<div id="title"  style="padding: 20px;background: #F7F7F7;">
+				 	<span style="font-size: 30px;"> 
+				 		<strong>维修项目</strong>
+				 	</span>
+				 	<div style="float: right;">
+				 		<input style="width: 300px; height: 37px;" v-model="name" type="text" placeholder="匹配编码/名称/名称简码"/>
+				 		<button type="button" class="btn btn-success" @click="Queryname">搜索</button>
+				 		<button type="button" class="btn btn-warning">关闭</button>
+				 	</div>
+			 	</div>
+			 	<div class="row" id="button_1" style="padding: 20px;">	 		
+						
+			 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">调价</button>
+				 		<button type="button" class="btn btn-default" @click="deleteid">删除</button>
+				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">修改</button>
+				 		<button type="button" class="btn btn-default" @click="Adds">新增</button>
+				</div>	
+			 	
+				 <div class="row">
+				 	<div class="col-md-2">
+						<ul id="treeDemo" class="ztree"></ul>
 					</div>
-					<div>
-						<div style="float: right;box-sizing: border-box;padding-right: 100px;padding-top: 13px;">
-							<input name="name" type="text" placeholder="匹配工号/姓名" style="height: 35px;margin-right: 10px;width: 300px;outline:none;" />
-							<button @click="querybox" class="btn btn-success" style="width: 100px;margin-right: 10px;">搜索</button>
-							<button class="btn btn-default" style="width: 70px;">关闭</button>
-						</div>
+				 
+					<div class="col-md-10">
+					 	<div>
+					 		<table class="table table-hover">
+				 				<tr>
+				 					<td>项目类别</td>
+				 					<td>项目编码</td>
+				 					<td>项目名称</td>
+				 					<td>售价按</td>
+				 					<td>收入种类</td>
+				 					<td>标准价</td>
+				 					<td>会员价</td>
+				 					<td>VIP价</td>
+				 					<td>协议价</td>			 					
+				 					<td>保险价</td>
+				 					<td>索赔价</td>
+				 				</tr>
+				 				
+				 				<tr v-for="item in ServiceItem" @click="byid(item)">
+				 					<td>{{item.zmnames}}</td>
+				 					<td>{{item.sidno}}</td>
+				 					<td>{{item.sidname}}</td>
+				 					<td>{{item.zmname}}</td>
+				 					<td>{{item.toname}}</td>
+				 					<td>{{item.standardprice}}</td>
+				 					<td>{{item.memberprice}}</td>
+				 					<td>{{item.vipprice}}</td>
+				 					<td>{{item.agreementprice}}</td>
+				 					<td>{{item.insuranceprice}}</td>
+				 					<td>{{item.claimprice}}</td>
+				 				</tr>
+				 		</table>
+					 	</div>					 	
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 col-xs-12" style="box-sizing: border-box;background-color: #F7F7F7;border: 1px solid #E9E9E9;">
-						<ul>
-							<li @click="quitstaff"><span class="glyphicon glyphicon-user"></span>离职</li>
-							<li @click="goBack"><span class="glyphicon glyphicon-cog"></span>回滚</li>
-							<li @click="open"><span class="glyphicon glyphicon-folder-open"></span>打开</li>
-							<li @click="deleResign"><span class="glyphicon glyphicon-remove-sign"></span>删除</li>
-							<li><span class="glyphicon glyphicon-export"></span>导出</li>
-						</ul>
-					</div>
-					<div class="col-md-12 col-xs-12" style="border-left: 1px solid #E9E9E9;">
-						<table class="table table-hover" style="width: 70%;">
-						  <thead>
-						  	<tr>
-						  		<td>         </td>
-						  		<td>部门</td>
-						  		<td>员工编号</td>
-						  		<td>姓名</td>
-						  		<td>性别</td>
-						  		<td>职位</td>
-						  		<td>离职日期</td>
-						  		<td>离职原因............</td>
-						  	</tr>
-						  </thead>
-						  <tbody>
-						  	<tr v-for="q in quits">
-						  		<td><input @click="quitchose($event,q)" name="aa" type="radio"  />   </td>
-						  		<td>{{q.mname}}</td>
-						  		<td>{{q.sno}}</td>
-						  		<td>{{q.pname}}</td>
-						  		<td>{{q.psex}}</td>
-						  		<td>{{q.jname}}</td>
-						  		<td>{{q.rdate}}</td>
-						  		<td>{{q.rreason}}</td>
-						  	</tr>
-						  </tbody>
-						</table>
-					</div>
-				</div>
-				<div class="row" style="font-size: 17px;box-sizing: border-box;padding-left: 20px; padding-top: 13px;background-color: ghostwhite;">
-					合计：<span id="total">12</span>条记录
-				</div>
+				 </div>
+				 
+				 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content" style="width:800px; height:700;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">品牌定义</h4>
+				      </div>
+				      <div class="modal-body" id="inputx">
+				         	项目名称:<input type="text" v-model="sitem.sidname" id="input_2"/>
+				         	
+							备注:<input type="text" v-model="sitem.remark1" id="input_4"/>
+				         	<br /> <br /><br /> <br />
+				         	收入分类:<select v-model="sitem.toino">
+									  <option v-for="item3 in queryac" :value ="item3.toino">{{item3.toname}}</option>
+									</select>
+							项目类别:<select v-model="sitem.mid">
+									  <option v-for="item4 in mainquery" :value="item4.mid" v-if="item4.parentid>0">{{item4.mname}}</option>
+									</select>	
+							按售价:<select v-model="sitem.cbno">
+									  <option v-for="item4 in mainquery" :value="item4.mid" v-if="item4.parentid==0">{{item4.mname}}</option>
+								</select>
+							<br /> <br /><br /> <br />
+							标准价:<input type="text"  v-model="sitem.standardprice" @input="Price()"/>
+							会员价:<input type="text"  v-model="sitem.memberprice" />
+							<br /> <br /><br /> <br />
+							VIP价:<input type="text"  v-model="sitem.vipprice" >
+							协议价:<input type="text" v-model="sitem.agreementprice"/>
+							<br /> <br /><br /> <br />
+							索赔价:<input type="text" v-model="sitem.insuranceprice" />
+							保险价:<input type="text" v-model="sitem.claimprice"/>
+				           	     	
+				      </div>
+				      <div class="modal-footer">
+				       		<span><button   @click="uptatwo" type="button" class="btn btn-default">修改</button></span> 	
+				        	<span><button   @click="Addtwo"   type="button" class="btn btn-default">新增</button></span>
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+			
+			 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+			     <div class="modal-dialog" role="document">
+				    <div class="modal-content" style="width:800px; height:700;">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">品牌定义</h4>
+				      </div>
+				      <div class="modal-body" id="inputx">
+				      	<button @click="updaproce" type="button" class="btn btn-default">保存</button>
+				      	<br />
+				         	<select v-model="jg">
+				         		 <option v-for="item10 in pricequery" :value="item10">{{item10.ptname}}</option>
+				         	</select>
+				           	 = 标准价*
+				           	<input type="text"  v-model="jg.ptprice"/>
+				      </div>
+				      <div class="modal-footer">
+				       		
+				      </div>
+				    </div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+				 			 	
 			</div>
-			<div id="addstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工卡片</p>
-				<div style="width: 980px;height: 600px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 960px;height: 60px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 60px;font-size: 30px;box-sizing: border-box;padding-top: 5px;">员工卡片</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 60px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;">X</div>
-						<button @click="addStaffOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 10px;">保存</button>
-					</div>
-					<div style="width: 960px;height: 525px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
-						<p class="ddd" style="padding-top: 10px;">
-							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.people.pno"  />
-							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.people.pname" />
-							<label><span style="color: red;">*</span>性别</label><input type="text" v-model="staf.people.psex"  />
-							<label><span style="color: red;">*</span>员工编号</label><input type="text" v-model="staf.pno"  />
-							<label><span style="color: red;">*</span>员工姓名</label><input type="text" v-model="staf.pname" />
-							<label><span style="color: red;">*</span>性别</label><input type="text" v-model="staf.psex"  />
-						</p>
-						<p>
-							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="demonMech.parentid==m.mid" :value="m.mname"  />
-							<label><span style="color: red;">*</span>所在部门</label>
-							<input v-if="cc==1" type="text" disabled="disabled" style="width: 50px;" v-model="demonMech.mid" />
-							<input v-else disabled="disabled" style="width: 50px;" v-model="staf.mid" />
-							
-							<input v-if="cc==1" readonly="readonly" type="text" v-model="demonMech.mname"  />
-							<input v-else readonly="readonly" type="text" v-model="staf.mname"  />
-							<label><span style="color: red;">*</span>所在门店</label><input readonly="readonly" type="text" v-for="m in mechanismPa" v-if="m.mid==staf.parentid" :value="m.mname"  />
-							<label><span style="color: red;">*</span>所在部门</label>
-							<input disabled="disabled" style="width: 50px;" v-model="staf.mid" />
-							<input readonly="readonly" type="text" v-model="staf.mname"  />
-																									
-						</p>
-						<p>
-							<label>岗位</label><select v-model="staf.jid"><option v-for="j in jobs" :value="j.jid">{{j.jname}}</option></select>
-							<label>身体状况</label><input type="text" v-model="staf.shealth"  />
-						</p>
-						<p>
-							<label>身高</label><input type="text" v-model="staf.sheight"  />
-							<label>籍贯</label><input type="text" v-model="staf.splace"  />
-							<label>民族</label><input type="text" v-model="staf.snation"  />
-						</p>
-						<p>
-							<label>婚姻状况</label><input type="text" v-model="staf.smarry"  />
-							<label>学历</label>
-							<select v-model="staf.seducation" >
-								<option selected="selected" value="博士">博士</option>
-								<option value="本科">本科</option>
-								<option value="大专">大专</option>
-								<option value="高中">高中</option>
-							</select>
-							<label>毕业学校</label><input type="text" v-model="staf.sschool"  />
-						</p>
-						<p class="ddd">
-							<label>专业</label><select v-model="staf.smajor" >
-								<option selected="selected" value="计算机软件">计算机软件</option>
-								<option value="网络工程">网络工程</option>
-							</select>
-							<label>专业资格</label><select v-model="staf.smajorlevel" >
-								<option selected="selected" value="初级工程师">中级工程师</option>
-								<option value="中级工程师">中级工程师</option>
-								<option value="高级工程师">高级工程师</option>
-							</select>
-							<label><span style="color: red;">*</span>属性</label><select v-model="staf.sfiel" >
-								<option selected="selected" value="计考勤计薪">计考勤计薪</option>
-								<option value="不计考勤计薪">不计考勤计薪</option>
-								<option value="计考勤不计薪">计考勤不计薪</option>
-								<option value="不计考勤不计薪">不计考勤不计薪</option>
-							</select>
-						</p>
-						<p>
-							<label><span style="color: red;">*</span>身份证号</label><input type="text" v-model="staf.people.pidcard"  />
-							<label><span style="color: red;">*</span>户口地址</label><input type="text" v-model="staf.people.presidenceaddress"  />
-							<label><span style="color: red;">*</span>身份证号</label><input type="text" v-model="staf.pidcard"  />
-							<label><span style="color: red;">*</span>户口地址</label><input type="text" v-model="staf.presidenceaddress"  />
-						</p>
-						<p>
-							<label><span style="color: red;">*</span>现住地址</label><input  type="text" v-model="staf.people.paddress" />
-							<label><span style="color: red;">*</span>联系电话</label><input type="text" v-model="staf.people.pphone"  />
-							<label><span style="color: red;">*</span>手机</label><input type="text" v-model="staf.people.ptellphone"  />
-							<label><span style="color: red;">*</span>现住地址</label><input  type="text" v-model="staf.paddress" />
-							<label><span style="color: red;">*</span>联系电话</label><input type="text" v-model="staf.pphone"  />
-							<label><span style="color: red;">*</span>手机</label><input type="text" v-model="staf.ptellphone"  />
-						</p>
-						<p>
-							<label><span style="color: red;">*</span>EMAIL</label><input type="text" v-model="staf.people.pemail"  />
-							<label>开户银行</label><input type="text" v-model="staf.people.pbank"  />
-							<label>银行账号</label><input type="text" v-model="staf.people.pbanknumber"  />
-							<label><span style="color: red;">*</span>EMAIL</label><input type="text" v-model="staf.pemail"  />
-							<label>开户银行</label><input type="text" v-model="staf.pbank"  />
-							<label>银行账号</label><input type="text" v-model="staf.pbanknumber"  />
-						</p>
-						<p style="padding-top: 20px;">
-							<label><span style="color: red;">*</span>紧急联系人</label><input type="text" v-model="staf.speople"  />
-							<label>联系电话</label><input type="text" v-model="staf.speoplephone" />
-						</p>
-						<p>
-							<label>入职日期</label><input type="date" v-model="staf.sindate" />
-							<label>试用到期</label><input type="date" v-model="staf.sinterniship" />
-							<label>出生日期</label><input type="date" v-model="staf.sbirthday" />
-							<label>合同开始</label><input type="date" v-model="staf.sstarttime" />
-						</p>
-						<p>
-							<label>合同结束</label><input type="date" v-model="staf.sendtime" />
-							<label>卡自编号</label><input type="text" v-model="staf.snonumber" />
-							<label>卡内部号</label><input type="text" v-model="staf.sinnumber" />
-							<label>推荐人</label><input type="text" v-model="staf.srecommed"/>
-						</p>
-						<p>
-							<label>整单折扣权%</label><input type="text" v-model="staf.salldiscount"/>
-							<label>工时折扣权%</label><input type="text" v-model="staf.sworkdiscount"/>
-							<label>商品折扣权%</label><input type="text" v-model="staf.sshopdiscount"/>
-							<label>减免权</label><input type="text" v-model="staf.sdiscount"/>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div id="quitstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">离职登记</p>
-				<div style="width: 680px;height: 350px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 660px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">离职登记</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="resignOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">保存</button>
-					</div>
-					<div style="width: 660px;height: 290px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;padding-top: 30px;">
-						<p>
-							<label>员工姓名</label><input style="width: 70px;" type="text" disabled="disabled" name="sno" v-model="quit.sno" /><input v-model="quit.sname" type="text" /><span @click="chosecustomer" style="position: relative;top: 5px;color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span>
-							
-							<label>离职日期</label><input type="date" name="rdate" v-model="quit.rdate" style="width: 130px;" />
-						</p>
-						<p><label>离职原因</label><input v-model="quit.rreason" type="text" style="width: 500px;" /></p>
-					</div>
-				</div>
-			</div>
-			
-			<div id="chosecustomer">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">选择员工</p>
-				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 560px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">选择员工</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-						<button @click="chosecustomerOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 6px;">确定</button>
-					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
-						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
-							<option v-for="m1 in mechanismis1" :value="m1.mid">{{m1.mid}}--{{m1.mname}}</option>
-						</select>
-						<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
-							<option v-for="mn1 in mechanismnot1" :value="mn1.mid">{{mn1.mid}}--{{mn1.mname}}</option>
-						</select>
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
-							<thead>
-								<tr>
-									<td></td>
-									<td>部门</td>
-									<td>工号</td>
-									<td>姓名</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="s in staffs">
-									<td><input @click="peop($event)" name="ss" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
-									<td>{{s.mname}}</td>
-									<td>{{s.pno}}</td>
-									<td>{{s.pname}}</td>
-								</tr>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			
-			<div id="checkstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">员工查询</p>
-				<div style="width: 880px;height: 450px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 860px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 30px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">员工查询</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
-						<button class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
-					</div>
-					<div style="width: 860px;height: 390px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
-						<p style="padding-top: 10px;">
-							<label><span style="color: red;">*</span>员工编号</label><input />
-							<label><span style="color: red;">*</span>员工姓名</label><input />
-							<label><span style="color: red;">*</span>性别</label><input />
-						</p>
-						<p>
-							<label><span style="color: red;">*</span>岗位</label><input />
-							<label><span style="color: red;">*</span>所在部门</label><input />
-						</p>
-						<p>
-							<label>身体状况</label><input />
-							<label>身高</label><input />
-							<label>籍贯</label><input />
-						</p>
-						<p>
-							<label>名族</label><input />
-							<label>婚姻状况</label><input />
-							<label>学历</label><input />
-						</p>
-						<p>
-							<label>毕业学校</label><input />
-							<label>专业</label><input />
-							<label>专业资格</label><input />
-						</p>
-						<p>
-							<label>生日</label><input />
-							<label>学位</label><input />
-							<label>编制</label><input />
-						</p>
-						<p>
-							<label>身份证号</label><input />
-							<label>入职日期&nbsp;&nbsp;从</label><input />
-							<label style="text-align: left;">至</label><input />
-						</p>
-						<p>
-							<label>试用到期&nbsp;&nbsp;从</label><input />
-							<label style="text-align: left;">至</label><input />
-							<label>属性</label><input />
-						</p>
-						<p>
-							<label>合同开始&nbsp;&nbsp;从</label><input />
-							<label style="text-align: left;">至</label><input />
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		  
-		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			//根据组织机构父级ID查询机构
-				function me(parentid){
-					//查询组织机构父级id不为1和0
-						$.ajax({
-							url:data.ip+"cus/queryParentidnot1",
-							data:{parentid:parentid},
-							type:"post",
-							dataType:"json",
-							success:function(data){
-								vm.mechanismnot1=data;
-							},error:function(data){
-								alert("发生错误");
-							}
-						});
-				}
-			//查询所有在职员工
-			function queryAllStaff(pno,mid){
-					$.ajax({
-							url:data.ip+"cus/queryPeopleByMid",
-							data:{pno:"",mid:mid},
-							type:"post",
-							dataType:"json",
-							success:function(data){
-								vm.staffs=data;
-							},error:function(data){
-								alert("发生错误");
-							}
-						});
-				}
-			function queryAllResign(pno){
-				$.ajax({
-							type:"get",
-							url:data.ip+"quit/queryAllResign",
-							data:{pno:pno},
-							dateType:"json",
-							xhrFields:{
-								withCredentials:true
-							},
-							success:function(response){
-								vm.quits = response;
-								$("#total").text(response.length);
-							},error:function(){
-								alert("发生错误");
-							}
-						});	
-			}
-			
-			function queryBypno(pno){
-				$.ajax({
-							type:"post",
-							url:data.ip+"quit/queryBypno",
-							data:{pno:pno},
-							dateType:"json",
-							xhrFields:{
-								withCredentials:true
-							},
-							success:function(response){
-								vm.staf = response;
-								console.log(vm.staf)
-							}
-						});	
-			}
-			
-			function queryMechanByparentid(parentid){
-					$.ajax({
-						type:"get",
-						url:data.ip+"staff/queryMechanByparentid",
-						data:{parentid:parentid},
-						dateType:"json",
-						success:function(response){
-							vm.mechanismPa = response;
-						},error:function(response){
-							alert("发生错误"+response);
-						}
-					});	
-				}
-			
-			function queryJob(){
-					$.ajax({
-						type:"get",
-						url:data.ip+"staff/queryAllJob",
-						data:{},
-						dateType:"json",
-						success:function(response){
-							vm.jobs=response;
-						},error:function(response){
-							alert("发生错误"+response);
-						}
-					});	
-				}
-			
-			var vm = new Vue({
-				el:"#ctx",
-				data (){
-					return {
-						quits:[],//所有离职员工
-						staffs:[],//所有在职员工
-						mechanismis1:[],//机构
-						mechanismnot1:[],//部门
-						quit:{sno:"",sname:""},//添加的离职对象
-						demon:{},//选中的离职对象
-						staf:{},//选中的离职员工
-						mechanismPa:[],//机构:
-						jobs:[],//所有岗位
-					}
-				},
-				methods:{
-					quitchose:function(e,q){
-						//选择员工
-							let checkeds = e.target.checked;
-							if(checkeds){
-								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
-								vm.demon = q;
-							}else{
-								$(e.target).parent().parent().css("background-color","white");
-							}
-					},
-					goBack:function(){
-						console.log(vm.demon.sno);
-						if(vm.demon.sno==undefined){
-							alert("请选中需要回滚的员工");
-						}else{
-							if(confirm("是否确认将该员工恢复入职?")){
-								$.ajax({
-									url:data.ip+"quit",
-									data:JSON.stringify(vm.demon),
-									type:"put",
-									dataType:"json",
-									contentType:"application/json;charset=utf-8",
-									success:function(data){
-										if(data=="1"){
-											alert("恢复入职成功");
-											vm.quit={sno:"",sname:""};
-											queryAllResign();
-										}
-									},error:function(data){
-										alert("发生错误");
+			<script type="text/javascript" src="js/my.js"></script>
+			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+			<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+			<script type="text/javascript" src="js/jquery.ztree.core.js" ></script>
+			<script src="js/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" src="js/vue.js" ></script>	
+			<script type="text/javascript">
+				
+				function queryTree(){
+					//树状结构
+				     $.ajax({
+				       type:"get",
+				       url:data.ip+"ServiceItemRest",
+				       dateType:"json",
+				       xhrFields:{
+				        withCredentials:true
+				       },
+				       success:function(response){
+				        console.log(response);
+				        $.fn.zTree.init($("#treeDemo"), setting, response);//初始化节点数据
+				        $.fn.zTree.init($("#treeDemo"), setting, response).expandAll(true);
+				       }
+				      }); 
+				      
+				      var setting = {
+				         view: {
+				                selectedMulti: true,
+				                showIcon:false
+				            },
+				         check: {
+				          enable: false
+				         },
+				         data: {
+				           key: {
+				                name: "mname",//树节点名称
+				           },
+				           simpleData: {
+				            enable: true,//是否采用简单数据模式
+				                idKey: "mid",//树节点ID名称
+				                pIdKey: "parentid",//父节点ID名称
+				                rootPId: 0,//根节点ID
+				           }
+				         },
+				         callback:{
+				          	onClick:chooseNode,
+				         }
+				      };
+				      
+				     function chooseNode(event, treeId, treeNode) {
+				          if (treeNode.parentid == "0") {
+				              return;
+				          }
+				          	$.ajax({
+								url: data.ip+"ServiceItemRest/queryid",					
+								type: "get",
+								data:{mid:treeNode.mid},
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "text",
+								success: function(result) {
+									if(result){							
+										vm.ServiceItem=eval('('+result+')');
+									}else{
+										vm.ServiceItem=[];
 									}
-								});
-							}
+								},error:function(result){					
+									console.log(result+"004");
+								}
+							});							
+				         	console.log(treeNode)
+				      }
+				     
+				      
+				}
+				var vm = new Vue({
+					el: "#ctx",
+					data() {
+						return {
+							ServiceItem:[],
+							name:"",
+							queryac:[],
+							mainquery:[],
+							sitem:{},
+							isok:false,
+							pricequery:[],
+							jg:{},
 						}
 					},
-					resignOK:function(){
-						var a = 0;
-						if($("#quitstaff input[name=sno]").val()==""||$("#quitstaff input[name=rdate]").val()==""){
-							a=a+1;
-							alert("请填写必要信息");
-							return;
-						}
-						if(a==0){
+					created:function() { 
+						queryTree();
+						this.Querytwo();
+						this.Queryac();
+						this.Mainquery();
+						this.Pricequery();
+					},
+					methods: {
+						Price(){
+							vm.sitem.memberprice=vm.sitem.standardprice*vm.pricequery[0].ptprice;
+							vm.sitem.vipprice=vm.sitem.standardprice*vm.pricequery[1].ptprice;
+							vm.sitem.agreementprice=vm.sitem.standardprice*vm.pricequery[2].ptprice;
+							vm.sitem.insuranceprice=vm.sitem.standardprice*vm.pricequery[3].ptprice;
+							vm.sitem.claimprice=vm.sitem.standardprice*vm.pricequery[4].ptprice;
+						},
+						Querytwo:function(){
 							$.ajax({
-								url:data.ip+"quit/addResign",
-								data:JSON.stringify(vm.quit),
-								type:"post",
-								dataType:"json",
-								contentType:"application/json;charset=utf-8",
-								success:function(data){
-									if(data=="1"){
-										alert("离职成功");
-										vm.quit={sno:"",sname:""};
-										queryAllResign();
-									}
+								url: data.ip+"ServiceItemRest/querytwo",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.ServiceItem=result;
+								},error:function(result){					
+									console.log(result+"101");
 								}
 							});
-						}
-					},
-					querybox:function(){
-						let pno = $("input[name=name]").val();
-						queryAllResign(pno);
-						
-					},
-					deleResign:function(){
-						if(vm.demon.sno==undefined){
-							alert("请选择员工");
-							return;
-						}else{
-							let rid = vm.demon.rid;
-							if(confirm("是否确认将该员工资料删除")){
-								$.ajax({
-									url:data.ip+"quit/deleResign",
-									data:JSON.stringify(vm.demon),
+						},
+						/**
+						 * 模糊查询
+						 */
+						Queryname:function(){
+							var that=this;
+							$.ajax({
+								url: data.ip+"ServiceItemRest/queryname",					
+								type: "get",
+								data:{name:that.name},
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "text",
+								success: function(result) {
+									if(result){
+									vm.ServiceItem=eval('('+result+')');	
+								}else{
+									vm.ServiceItem=[];
+								}
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						byid:function(item){
+							vm.ServiceItem.sidno=item.sidno;
+						},
+						deleteid:function(){
+							if (confirm("你确定要删除"+vm.ServiceItem.sidno+"么?")) {
+							$.ajax({
+									url:data.ip+"ServiceItemRest/deleteid",
+									data:{
+										mid:vm.ServiceItem.sidno
+									},
 									type:"post",
+									xhrFields: {
+										withCredentials: true
+									},
 									dataType:"json",
-									contentType:"application/json;charset=utf-8",
-									success:function(data){
-										if(data=="1"){
-											alert("删除成功");
-											queryAllResign("");
-										}
-									},error:function(data){
-										alert("发生错误");
-									}
-								});
-							}
-						}
-					},
-					
-					quitchose:function(e,q){
-						//选择员工
-							let checkeds = e.target.checked;
-							if(checkeds){
-								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
-								vm.demon = q;
-								
-							}else{
-								$(e.target).parent().parent().css("background-color","white");
-							}
-					},
-					goBack:function(){
-						console.log(vm.demon.sno);
-						if(vm.demon.sno==undefined){
-							alert("请选中需要回滚的员工");
-						}else{
-							if(confirm("是否确认将该员工恢复入职?")){
-								$.ajax({
-									url:data.ip+"quit",
-									data:JSON.stringify(vm.demon),
-									type:"put",
-									dataType:"json",
-									contentType:"application/json;charset=utf-8",
-									success:function(data){
-										if(data=="1"){
-											alert("恢复入职成功");
-											vm.quit={sno:"",sname:""};
-											queryAllResign("");
-										}
-									},error:function(data){
-										alert("发生错误");
-									}
-								});
-							}
-						}
-					},
-					resignOK:function(){
-						var a = 0;
-						if($("#quitstaff input[name=sno]").val()==""||$("#quitstaff input[name=rdate]").val()==""){
-							a=a+1;
-							alert("请填写必要信息");
-							return;
-						}
-						if(a==0){
-							$.ajax({
-								url:data.ip+"quit/addResign",
-								data:JSON.stringify(vm.quit),
-								type:"post",
-								dataType:"json",
-								contentType:"application/json;charset=utf-8",
-								success:function(data){
-									if(data=="1"){
-										alert("离职成功");
-										vm.quit={sno:"",sname:""};
-										queryAllResign("");
-									}
-								},error:function(data){
-									alert("发生错误");
-								}
-							});
-						}
-					},
-					changepeople:function(e){
-							//切换部门
-							let mid = $(e.target).val();
-							queryAllStaff("",mid);
-						},
-					changedepart:function(e){
-							//切换机构
-							let mid = $(e.target).val();
-							me(mid)
-						},
-					peop:function(e,c){
-							//选择员工
-							let checkeds = e.target.checked;
-							if(checkeds){
-								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","#D6D6CE");
-//								
-							}else{
-								$(e.target).parent().parent().css("background-color","#D6D6CE");
-							}
-							
-						},
-					chosecustomerOK:function(){
-							let spname = "";
-							let pno="";
-							//确定选择的员工
-							let sum = 0;
-							$("#chosecustomer input[type=radio]").each(function(){
-								if($(this)[0].checked){
-									sum=sum+1;
-									spname=$(this).attr("pname");
-									pno = $(this).attr("pno");
-									vm.quit.sname=spname;
-									vm.quit.sno=pno;
-									$("#chosecustomer").hide();
-									return;
-								}
-							});
-							if(sum==0){
-								alert("请选择员工");
-								return;
+									success:function(result){
+												alert("删除成功")
+												vm.Querytwo();																			
+										},error:function(result){
+											console.log(result);
+										},
+								})
 							}
 						},
-					chosecustomer:function(){
-						queryAllStaff("",3);
-						$("#chosecustomer").show();
-					},
-					quitstaff:function(){
-						vm.quit={sno:"",sname:""};
-						$("#quitstaff").show();
-					},
-					closeadd:function(){
-							$("#quitstaff").hide();
-							$("#addstaff").hide();
-							$("#checkstaff").hide();
-							$("#chosecustomer").hide();
-					},
-					open:function(){
-						if(vm.demon.sno==undefined){
-							alert("请选中员工");
-							return;
-						}else{
-							queryBypno(vm.demon.sno);
-							
-							$("#addstaff").show();
-						}
-					},
-					checkstaff:function(){
-						$("#checkstaff").show();
-					}
-				},
-				created:function(){
-					queryAllResign();
-					queryMechanByparentid(1);
-					queryAllResign("");
-					queryJob();
-					queryAllStaff("",3);
-					//alert("12")
-					//查询组织机构父级id为1
+						/**
+						 *  收入分类 
+						 */
+						Queryac:function(){
 						$.ajax({
-							url:data.ip+"cus/queryParentideq1",
-							data:{},
-							type:"post",
-							dataType:"json",
-							success:function(data){
-								vm.mechanismis1=data;
-							},error:function(data){
-								alert("发生错误");
-							}
-						});
-						me(2);
+								url: data.ip+"ServiceItemRest/queryac",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.queryac=result;
+									vm.sitem.toino=result[0].toino;
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
 						
-				}
-			});
-		</script>
+						/**
+						 * 项目类别
+						 */
+						Mainquery:function(){
+						$.ajax({
+								url: data.ip+"ServiceItemRest/mainquery",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.mainquery=result;
+									vm.sitem.mid=result[5].mid;
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						
+						Adds:function(){
+							vm.sitem={};
+							$("#myModal").modal("show");
+						},
+						
+						/**
+						 * 新增
+						 */
+						Addtwo:function(){
+							if($("#input_2").val()==""){
+							alert("项目名称名称不能为空!")
+							return false;
+						}else{	
+								$.ajax({
+									url:data.ip+"ServiceItemRest/addtwo",
+									data:JSON.stringify(vm.sitem),						
+									type:"post",
+									xhrFields: {
+											withCredentials: true
+										},
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										alert("新增成功")
+										vm.Querytwo();
+									},error:function(result){
+										console.log(result+"add")
+									}
+								})
+							}
+						},
+						
+						Addaid:function(){
+								$.ajax({
+								url:data.ip+"ServiceItemRest/updaid",
+								type:"get",
+								xhrFields: {
+									withCredentials: true
+								},
+								data:{sidno:vm.ServiceItem.sidno},
+								dataType:"json",
+								success:function(result){
+									vm.sitem=result;
+								},error:function(result){					
+									console.log(result+"110");
+								}
+							})
+						},
+						uptatwo:function(){
+							if($("#input_2").val()==""){
+							alert("项目名称名称不能为空!")
+							return false;
+						}else{	
+								$.ajax({
+									url:data.ip+"ServiceItemRest/updatwo",
+									data:JSON.stringify(vm.sitem),						
+									type:"put",
+									xhrFields: {
+											withCredentials: true
+										},
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										alert("修改成功")
+										vm.Querytwo();
+									},error:function(result){
+										console.log(result+"add")
+									}
+								})
+							}	
+						},
+						
+						/**
+						 * j价格
+						 */
+						Pricequery:function(){
+						$.ajax({
+								url: data.ip+"ServiceItemRest/pricequery",					
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								dataType: "json",
+								success: function(result) {
+									vm.pricequery=result;
+									vm.jg=result[0];
+									console.log(vm.jg)
+								},error:function(result){					
+									console.log(result+"101");
+								}
+							});
+						},
+						
+						/**
+						 * 调价
+						 */
+						updaproce:function(){
+							$.ajax({
+									url:data.ip+"ServiceItemRest/updaproce",
+									data:JSON.stringify(vm.jg),						
+									type:"put",
+									xhrFields: {
+											withCredentials: true
+										},
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										alert("修改成功")
+										window.location.href="repair.html";
+									},error:function(result){
+										console.log(result+"upda")
+									}
+								})	
+						},
+					}
+				});
+			</script>
 	</body>
 </html>
+

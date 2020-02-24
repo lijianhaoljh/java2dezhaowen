@@ -11,26 +11,29 @@
 				float: right;		
 				margin-right: 10px;		
 			}
+			
+			select{
+				width: 100px;
+			}
+			
 	</style>
 	<body>
 			<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #C9E2B3;">
+				<div id="title"  style="padding: 20px;background: #F7F7F7;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>供货单位</strong>
 				 	</span>
 				 	<div style="float: right;">
-				 		<input style="width: 300px; height: 37px;" v-model="name" type="text" placeholder="匹配名称/联系人/简码/手机+号实现双条件查询"/>
+				 		<input style="width: 300px; height: 37px;" v-model="name" type="text" placeholder="匹配名称/联系人/简码/手机"/>
 				 		<button type="button" class="btn btn-success" @click="Queryname">搜索</button>
 				 		<button type="button" class="btn btn-warning">关闭</button>
 				 	</div>
 			 	</div>
 			 	<div class="row" id="button_1" style="padding: 20px;">
 				 		<button type="button" class="btn btn-default" @click="Updaid" data-toggle="modal" data-target="#myModal1">联系人</button>
-				 		<button type="button" class="btn btn-default">照片</button>
-				 		<button type="button" class="btn btn-default">导出</button>
 				 		<button type="button" class="btn btn-default" @click="Deletes">删除</button>
 				 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" @click="Updaid">修改</button>
-				 		<button type="button" class="btn btn-default"  data-toggle="modal" data-target="#myModal">新增</button>
+				 		<button type="button" class="btn btn-default" @click="Adds">新增</button>
 				</div>	
 			 	
 				 <div class="row">
@@ -41,7 +44,7 @@
 					<div class="col-md-10">
 					 	<div>
 					 		<table class="table table-hover">
-				 				<tr style="color: white; background-color: #C1E2B3;">
+				 				<tr>
 				 					<td>产商编号</td>
 				 					<td>厂商名称</td>
 				 					<td>地址</td>
@@ -86,7 +89,7 @@
 					 		<p>联系人</p>
 					 	<div>
 					 		<table class="table table-bordered" style="width: 620px;">
-				 				<tr style="color: white; background-color: #C1E2B3;">
+				 				<tr style="background-color: #F7F7F7;">
 				 					<td>联系人</td>
 				 					<td>职位</td>
 				 					<td>手机</td>
@@ -115,11 +118,11 @@
 				      </div>
 				      <div class="modal-body" id="inputx">
 				         	厂商名称:<input type="text" id="input_2" v-model="maun.mfname"/>
-				         	地址:<input type="text" v-model="maun.mfaddress" />
+				         	厂商地址:<input type="text" v-model="maun.mfaddress" />
 				         	经营情况:<input type="text" v-model="maun.mfsituation"/>
 				         	<br /> <br /><br /> <br />
 				         	
-				         	网址:<input type="text" v-model="maun.mfwebsite"/>
+				         	网络网址:<input type="text" v-model="maun.mfwebsite"/>
 				         	开户行:<input type="text" v-model="maun.mfopeningbank"/>
 				         	银行账号:<input type="text" v-model="maun.mfbankaccount"/>
 				         	<br /> <br /><br /> <br />
@@ -132,8 +135,9 @@
 							厂商等级:<select v-model="maun.lpid">
 									  <option v-for="item4 in levequery" :value="item4.lpid">{{item4.lpname}}</option>
 									</select>
-							<br /> <br /><br /> <br />
+							
 							经营品牌:<input type="text" v-model="maun.mfmanagementbrand"/>
+							<br /> <br /><br /> <br />
 				         	联系人:<input type="text" v-model="maun.mfcontacts"/>
 				         	电话:<input type="text" v-model="maun.mfphone"/>
 							<br /> <br /><br /> <br />
@@ -146,8 +150,9 @@
 				           	     	
 				      </div>
 				      <div class="modal-footer">
-				       		<span><button  @click="Upda" >修改</button></span> 	
-				        	<span><button  @click="Addt" >新增</button></span>
+				      	    
+				       		<span><button  type="button" class="btn btn-default" @click="Upda" >修改</button></span> 	
+				        	<span><button  type="button" class="btn btn-default" @click="Addt" >新增</button></span>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -164,8 +169,9 @@
 				      </div>
 				      <div class="modal-body" id="inputx">
 				      	
-				      			<button @click="addd">新增</button>
-				      			<button @click="Deletetwo">删除</button><button @click="QueryFindid">保存</button>
+				      			<button @click="addd" type="button" class="btn btn-default">新增</button>
+				      			<button @click="Deletetwo" type="button" class="btn btn-default">删除</button>
+				      			<button @click="QueryFindid" type="button" class="btn btn-default">保存</button>
 				      			
 				      			
 				      			<br /> <br />
@@ -178,8 +184,8 @@
 								产商编号:<input type="text" readonly="readonly" v-model="limiande.zmfid" />
 								<br /> <br />
 								
-								<table class="table table-bordered" style="width: 620px;">
-					 				<tr style="color: white; background-color: #C1E2B3;">
+								<table class="table table-hover" style="width: 620px;">
+					 				<tr style="background-color: #F7F7F7;">
 					 					<td>联系人编号</td>
 					 					<td>联系人</td>
 					 					<td>职位</td>
@@ -209,6 +215,7 @@
 				 
 				 			 	
 			</div>
+			<script type="text/javascript" src="js/my.js"></script>
 			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 			<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 			<script type="text/javascript" src="js/jquery.ztree.core.js" ></script>
@@ -221,7 +228,7 @@
 					//树状结构
 				     $.ajax({
 				       type:"get",
-				       url:"http://localhost:8080/PlaceOriginRest",
+				       url:data.ip+"PlaceOriginRest",
 				       dateType:"json",
 				       xhrFields:{
 				        withCredentials:true
@@ -260,7 +267,7 @@
 				     function chooseNode(event, treeId, treeNode) {
 				     			vm.queryFindmfid=[];
 				     			$.ajax({
-								url: "http://localhost:8080/PlaceOriginRest/queryFindTwo",					
+								url: data.ip+"PlaceOriginRest/queryFindTwo",					
 								type: "get",
 								data:{pid:treeNode.pid},
 								xhrFields: {
@@ -286,7 +293,7 @@
 				
 				function queryTable(mfid){
 					$.ajax({									
-									url: "http://localhost:8080/PlaceOriginRest/queryFindmfid",					
+									url: data.ip+"PlaceOriginRest/queryFindmfid",					
 									type: "get",
 									data:{mfid:mfid},
 									xhrFields: {
@@ -340,7 +347,7 @@
 								},
 								QueryFind:function(){
 								$.ajax({
-									url: "http://localhost:8080/PlaceOriginRest/queryFind",					
+									url: data.ip+"PlaceOriginRest/queryFind",					
 									type: "get",
 									xhrFields: {
 										withCredentials: true
@@ -360,7 +367,7 @@
 							Queryname:function(){
 								var that=this;
 								$.ajax({
-									url: "http://localhost:8080/PlaceOriginRest/queryFindname",					
+									url: data.ip+"PlaceOriginRest/queryFindname",					
 									type: "get",
 									data:{name:that.name},
 									xhrFields: {
@@ -389,7 +396,7 @@
 								 */
 								Fkquery:function(){
 								$.ajax({
-										url: "http://localhost:8080/PlaceOriginRest/fkquery",					
+										url: data.ip+"PlaceOriginRest/fkquery",					
 										type: "get",
 										xhrFields: {
 											withCredentials: true
@@ -397,7 +404,6 @@
 										dataType: "json",
 										success: function(result) {
 											vm.fkquery=result;
-											vm.maun.pmid=result[0].pmid;
 										},error:function(result){					
 											console.log(result+"102");
 										}
@@ -409,7 +415,7 @@
 								 */
 								Levequery:function(){
 								$.ajax({
-										url: "http://localhost:8080/PlaceOriginRest/levequery",					
+										url: data.ip+"PlaceOriginRest/levequery",					
 										type: "get",
 										xhrFields: {
 											withCredentials: true
@@ -417,7 +423,6 @@
 										dataType: "json",
 										success: function(result) {
 											vm.levequery=result;
-											vm.maun.lpid=result[0].lpid;
 										},error:function(result){					
 											console.log(result+"1021");
 										}
@@ -429,7 +434,7 @@
 								 */
 								Query:function(){
 									$.ajax({
-										url: "http://localhost:8080/PlaceOriginRest",					
+										url: data.ip+"PlaceOriginRest",					
 										type: "get",
 										xhrFields: {
 											withCredentials: true
@@ -437,12 +442,20 @@
 										dataType: "json",
 										success: function(result) {
 											vm.query=result;
-											vm.maun.pid=result[0].pid;
 										},error:function(result){					
 											console.log(result+"1021");
 										}
 									});
 								},
+								
+								/**
+								 * 新增模态框
+								 */
+								Adds:function(){
+									vm.maun={};
+									$("#myModal").modal("show");
+								},
+								
 								/**
 								 * 新增
 								 */
@@ -452,7 +465,7 @@
 									return false;
 								}else{	
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/add",
+											url:data.ip+"PlaceOriginRest/add",
 											data:JSON.stringify(vm.maun),						
 											type:"post",
 											xhrFields: {
@@ -477,7 +490,7 @@
 									
 										vm.limiande.zmfid=vm.waimiande.mfid;
 											$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/updaid",
+											url:data.ip+"PlaceOriginRest/updaid",
 											type:"get",
 											xhrFields: {
 												withCredentials: true
@@ -501,7 +514,7 @@
 									return false;
 								}else{	
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/upda",
+											url:data.ip+"PlaceOriginRest/upda",
 											data:JSON.stringify(vm.maun),						
 											type:"put",
 											xhrFields: {
@@ -535,7 +548,7 @@
 					 					vm.maun.linkemail= vm.limiande.zlinkemail;
 					 					vm.maun.mfid = vm.limiande.zmfid;
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/addtwo",
+											url:data.ip+"PlaceOriginRest/addtwo",
 											data:JSON.stringify(vm.maun),						
 											type:"post",
 											xhrFields: {
@@ -559,11 +572,11 @@
 									vm.kk="5";
 									console.log(item);
 									
-								},					
+								},		
 								Deletetwo:function(){
 									if (confirm("你确定要删除"+vm.queryFindmfid.linkno+"么?")) {
 									$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/deletetwo",
+											url:data.ip+"PlaceOriginRest/deletetwo",
 											data:{
 												linkno:vm.queryFindmfid.linkno
 											},
@@ -584,6 +597,9 @@
 									}
 								},
 								
+								/**
+								 * 联系人修改
+								 */
 								Updatwo(){
 									if($("#input_a1").val()==""){
 									alert("联系人不能为空!")
@@ -598,7 +614,7 @@
 					 					vm.maun.mfid = vm.limiande.zmfid;
 									vm.maun.mfid = vm.limiande.zmfid; 
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/updatwo",
+											url:data.ip+"PlaceOriginRest/updatwo",
 											data:JSON.stringify(vm.maun),						
 											type:"put",
 											xhrFields: {
@@ -651,7 +667,7 @@
 								Deletes:function(){
 									if (confirm("你确定要删除"+vm.queryFind.mfid+"么?")) {
 									$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/deletes",
+											url:data.ip+"PlaceOriginRest/deletes",
 											data:{
 												myid:vm.queryFind.mfid
 											},

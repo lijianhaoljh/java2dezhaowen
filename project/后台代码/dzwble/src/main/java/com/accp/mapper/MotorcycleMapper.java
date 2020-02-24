@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface MotorcycleMapper {
 	List<Motorcycle> findMotorcyle(Integer id);
 	
-	List<Motorcycle>findMotorcyleTwo(@Param("cbno")Integer cbno,@Param("cbnos")Object cbnos);
+	List<Motorcycle>findMotorcyleTwo(String cbnos);
 	
     int countByExample(MotorcycleExample example);
 
