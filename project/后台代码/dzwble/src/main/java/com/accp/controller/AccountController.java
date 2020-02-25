@@ -20,6 +20,4 @@ public class AccountController {
 	public List<Account> findAccounts(String startTime,String endTime,String bid,Integer bstate,String cdlicense,String cno,String pno,Integer btno){
 		return accountService.findAccounts(startTime, endTime, bid, bstate, cdlicense, cno, pno, btno);
 	}
-	
-	
 }
