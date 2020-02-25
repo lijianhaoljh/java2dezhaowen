@@ -34,7 +34,7 @@ public class ExportController {
 		List<Staff> list = ser.queryPeopleByMid("", mid);
 		
 		Workbook wb = new XSSFWorkbook();//构建新的excel
-		Sheet sheet = wb.createSheet("导出数据");//创建页签
+		Sheet sheet = wb.createSheet("组织机构数据");//创建页签
 		
 		Row titleRow = sheet.createRow(0);
 		titleRow.createCell(0).setCellValue("部门编号");
@@ -68,15 +68,15 @@ public class ExportController {
 //			 Cell smarry = row.createCell(10);
 //			 Cell seducation = row.createCell(11);
 //			 Cell sschool = row.createCell(12);
-			 Cell smajor = row.createCell(13);
-			 Cell smajorlevel = row.createCell(14);
-			 Cell pidcard = row.createCell(15);
-			 Cell presidenceaddress = row.createCell(16);
-			 Cell pemail = row.createCell(17);
-			 Cell paddress = row.createCell(18);
-			 Cell pphone = row.createCell(19);
-			 Cell ptellphone = row.createCell(20);
-			 Cell pemails = row.createCell(21);
+			 Cell smajor = row.createCell(6);
+			 Cell smajorlevel = row.createCell(7);
+			 Cell pidcard = row.createCell(8);
+			 Cell presidenceaddress = row.createCell(9);
+			 Cell pemail = row.createCell(10);
+			 Cell paddress = row.createCell(11);
+			 Cell pphone = row.createCell(12);
+			 Cell ptellphone = row.createCell(13);
+			 Cell pemails = row.createCell(14);
 //			 Cell speople = row.createCell(22);
 //			 Cell speoplephone = row.createCell(23);
 //			 Cell sinterniship = row.createCell(24);
@@ -120,7 +120,7 @@ public class ExportController {
 		wb.write(baos);
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDispositionFormData("attachment",new String("导出数据.xlsx".getBytes("utf-8"),"iso-8859-1"));
+		headers.setContentDispositionFormData("attachment",new String("组织机构导出数据.xlsx".getBytes("utf-8"),"iso-8859-1"));
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		return new ResponseEntity<byte[]>(baos.toByteArray(),headers,HttpStatus.OK);
 	}
