@@ -35,7 +35,7 @@
 						    </div>
 						    <button class="btn btn-success" type="button" @click="openInsertVip"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button>
 						    <button class="btn btn-success" type="button" @click="openUpdateModal"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
-						    <button class="btn btn-danger" type="button" @click="deleteVip"><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
+						    <button class="btn btn-danger" type="button" @click="deleteVip"><span class="glyphicon glyphicon-trash"></span>&nbsp;注销</button>
 						    <button class="btn btn-danger" type="button" @click="cleanPoint"><span class="glyphicon glyphicon-refresh"></span>&nbsp;积分清零</button>
 							<button class="btn btn-success" @click="openVipCzModal" type="button" data-toggle="modal" data-target="#PayModal"><span class="glyphicon glyphicon-zoom-in"></span>&nbsp;会员充值</button>
 						</div><!-- /.col-lg-6 -->
@@ -351,7 +351,7 @@
 						vm.v=item;
 					},deleteVip(){
 						//删除会员
-						if(!confirm("确定要删除改会员吗？")){
+						if(!confirm("确定要注销该会员吗？")){
 							return;
 						}
 						$.ajax({
@@ -363,10 +363,10 @@
 							dataType:"text",
 							success:function(response){
 								if(response.indexOf('1')!=-1){
-									alert('删除会员成功!');
+									alert('注销会员成功!');
 									findVips(vm);
 								}else{
-									alert('删除会员失败');
+									alert('注销会员失败');
 								}
 							},error:function(error){
 								console.log(error);

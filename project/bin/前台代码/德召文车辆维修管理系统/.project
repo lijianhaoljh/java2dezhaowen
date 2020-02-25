@@ -72,6 +72,8 @@
 			</matcher>
 		</filter>
 		<filter>
+<<<<<<< HEAD
+			<id>1581227949883</id>
 			<id>1581227949883</id>
 			<name></name>
 			<type>26</type>
@@ -81,6 +83,18 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1581558637173</id>
+=======
+			<id>1581227949883</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-node_modules</arguments>
+			</matcher>
+		</filter>
+		<filter>
+>>>>>>> refs/remotes/origin/zhongpenggen
 			<id>1581558637173</id>
 			<name></name>
 			<type>26</type>

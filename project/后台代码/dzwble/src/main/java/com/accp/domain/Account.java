@@ -2,6 +2,10 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Account {
     private Integer id;
 
@@ -19,6 +23,8 @@ public class Account {
 
     private Float addition;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date atime;
 
     private String aname;
@@ -60,8 +66,138 @@ public class Account {
     private String remark4;
 
     private String remark5;
+    
+    private String rbname;
+    private String mbname;
+    private String pmname;
+    private Integer bstate;
+    private String btname;
+    private String cname;
+    private String cdlicense;
+    private String moiname;
+    private String cdframe;
+    private String cpeople;
+    private String inname;
+    private String ieinname;
+    private String pname;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date completiontime;
 
-    public Integer getId() {
+    
+    public String getRbname() {
+		return rbname;
+	}
+
+	public void setRbname(String rbname) {
+		this.rbname = rbname;
+	}
+
+	public String getMbname() {
+		return mbname;
+	}
+
+	public void setMbname(String mbname) {
+		this.mbname = mbname;
+	}
+
+	public String getPmname() {
+		return pmname;
+	}
+
+	public void setPmname(String pmname) {
+		this.pmname = pmname;
+	}
+
+	public Integer getBstate() {
+		return bstate;
+	}
+
+	public void setBstate(Integer bstate) {
+		this.bstate = bstate;
+	}
+
+	public String getBtname() {
+		return btname;
+	}
+
+	public void setBtname(String btname) {
+		this.btname = btname;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getCdlicense() {
+		return cdlicense;
+	}
+
+	public void setCdlicense(String cdlicense) {
+		this.cdlicense = cdlicense;
+	}
+
+	public String getMoiname() {
+		return moiname;
+	}
+
+	public void setMoiname(String moiname) {
+		this.moiname = moiname;
+	}
+
+	public String getCdframe() {
+		return cdframe;
+	}
+
+	public void setCdframe(String cdframe) {
+		this.cdframe = cdframe;
+	}
+
+	public String getCpeople() {
+		return cpeople;
+	}
+
+	public void setCpeople(String cpeople) {
+		this.cpeople = cpeople;
+	}
+
+	public String getInname() {
+		return inname;
+	}
+
+	public void setInname(String inname) {
+		this.inname = inname;
+	}
+
+	public String getIeinname() {
+		return ieinname;
+	}
+
+	public void setIeinname(String ieinname) {
+		this.ieinname = ieinname;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public Date getCompletiontime() {
+		return completiontime;
+	}
+
+	public void setCompletiontime(Date completiontime) {
+		this.completiontime = completiontime;
+	}
+
+	public Integer getId() {
         return id;
     }
 

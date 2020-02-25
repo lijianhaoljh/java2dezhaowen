@@ -10,7 +10,7 @@ public interface CardataMapper {
 	List<Cardata> findCardata(String cdlicense);
 	
     int countByExample(CardataExample example);
-
+    
     int deleteByExample(CardataExample example);
 
     int deleteByPrimaryKey(String cdlicense);

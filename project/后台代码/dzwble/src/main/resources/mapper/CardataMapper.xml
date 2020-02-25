@@ -40,29 +40,6 @@
     <result column="cname" property="cname" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="findCardata" resultMap="BaseResultMap">
-SELECT c.`cdlicense`,ct.`cname`,vl.`vlname`,ct.`caddress`,ct.`cphone`,c.`cddriver`,cb.`cbname`,mo.`moiname`,mt.`mname`,v.currentjifen,cp.`plandate`,
-ct.`remark3` AS r3,
-ct.`remark4` AS r4,ct.`remark5` AS r5
- FROM `cardata` AS c
-LEFT JOIN `customer` AS ct
-ON c.cno=ct.`cno`
-LEFT JOIN vip AS v
-ON ct.`cno`=v.`cno`
-LEFT JOIN `viplevel` AS vl
-ON v.`vlid`=vl.`vlid` 
-LEFT JOIN `motorcycle` AS mo
-ON c.`moid`=mo.`moid`
-LEFT JOIN `carbrand` AS cb
-ON mo.`cbno`=cb.`cbno`
-LEFT JOIN `maintenance` AS mt
-ON c.`mid`=mt.`mid`
-LEFT JOIN `carkeep` AS cp
-ON c.`cdlicense`=cp.`cdlicense`
-WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
-ORDER BY c.cdlicense DESC
-</select>
-  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -128,6 +105,30 @@ ORDER BY c.cdlicense DESC
     cno, remark1, remark2, remark3, remark4, remark5
   </sql>
   
+  
+  <select id="findCardata" resultMap="BaseResultMap">
+SELECT c.`cdlicense`,ct.`cname`,vl.`vlname`,ct.`caddress`,ct.`cphone`,c.`cddriver`,cb.`cbname`,mo.`moiname`,mt.`mname`,v.currentjifen,cp.`plandate`,
+ct.`remark3` AS r3,
+ct.`remark4` AS r4,ct.`remark5` AS r5
+ FROM `cardata` AS c
+LEFT JOIN `customer` AS ct
+ON c.cno=ct.`cno`
+LEFT JOIN vip AS v
+ON ct.`cno`=v.`cno`
+LEFT JOIN `viplevel` AS vl
+ON v.`vlid`=vl.`vlid` 
+LEFT JOIN `motorcycle` AS mo
+ON c.`moid`=mo.`moid`
+LEFT JOIN `carbrand` AS cb
+ON mo.`cbno`=cb.`cbno`
+LEFT JOIN `maintenance` AS mt
+ON c.`mid`=mt.`mid`
+LEFT JOIN `carkeep` AS cp
+ON c.`cdlicense`=cp.`cdlicense`
+WHERE c.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+ORDER BY c.cdlicense DESC
+</select>
+  
   <select id="queryCarBycno" resultMap="BaseResultMap">
   		SELECT card.*,
 	carb.cbname cbnam,
@@ -141,15 +142,23 @@ ORDER BY c.cdlicense DESC
 	LEFT JOIN maintenance AS mainte ON mainte.mid=moto.mid
 	LEFT JOIN carbelong AS cl ON card.clid=cl.clid
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
-	WHERE card.cno=#{cno} AND card.moid=moto.moid
+	WHERE card.cno=#{cno} AND card.moid=moto.moid AND card.remark1='0'
   </select>
   
   <select id="querylicensewillexpire" resultMap="BaseResultMap">
+<<<<<<< HEAD
   	SELECT ca.*,cb.cbname cbnam,m.moiname moiname FROM cardata AS ca
 LEFT JOIN carbrand AS cb ON ca.cdno=cb.cbno
 LEFT JOIN motorcycle AS m ON m.cbno = cb.cbno
-WHERE TIMESTAMPDIFF(DAY, ca.cdlicenseend ,NOW()) BETWEEN 0 AND 3
+WHERE ca.cdlicenseend &lt;= NOW()
 AND ca.moid=m.moid
+=======
+	SELECT ca.*,cb.cbname cbnam,m.moiname moiname FROM cardata AS ca
+	LEFT JOIN carbrand AS cb ON ca.cdno=cb.cbno
+	LEFT JOIN motorcycle AS m ON m.cbno = cb.cbno
+	WHERE SUBSTRING(ca.cdlicenseend,1,11) &lt;=SUBSTRING(NOW(),1,11)
+	AND ca.moid=m.moid
+>>>>>>> refs/remotes/origin/pengyumei
   </select>
   
   <select id="queryCars" resultMap="BaseResultMap">
@@ -168,7 +177,7 @@ AND ca.moid=m.moid
 	LEFT JOIN fuel AS fu ON card.fid=fu.fid
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	WHERE (card.cddriver LIKE concat('%',#{cddriver},'%') OR card.cddriverphone LIKE concat('%',#{cddriver},'%') OR card.cdlicense LIKE concat('%',#{cddriver},'%') 
-	OR card.cdframe LIKE CONCAT('%',#{cddriver},'%') ) AND moto.moid=card.moid
+	OR card.cdframe LIKE CONCAT('%',#{cddriver},'%') ) AND moto.moid=card.moid AND card.remark1 = '0'
   </select>
 
   <select id="queryinsurexpirecar" resultMap="BaseResultMap">
@@ -181,8 +190,10 @@ AND ca.moid=m.moid
 	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
-	WHERE moto.moid=card.moid AND (TIMESTAMPDIFF(DAY, card.indate ,NOW()) BETWEEN 0 AND 3
-	OR TIMESTAMPDIFF(DAY, card.inid_bdate ,NOW()) BETWEEN 0 AND 3)
+	WHERE moto.moid=card.moid AND (TIMESTAMPDIFF(DAY, card.indate ,NOW()) BETWEEN -2 AND 0
+	OR TIMESTAMPDIFF(DAY, card.inid_bdate ,NOW()) BETWEEN -2 AND 0) OR 
+	(SUBSTRING(card.indate,1,11) &lt;= SUBSTRING(NOW(),1,11) OR SUBSTRING(card.inid_bdate,1,11) &lt;= SUBSTRING(NOW(),1,11))
+        GROUP BY card.cdlicense
   </select>
 
   <select id="querycheckcar" resultMap="BaseResultMap">
@@ -195,7 +206,7 @@ AND ca.moid=m.moid
 	LEFT JOIN motorcycle AS moto ON card.cdno=moto.cbno
 	LEFT JOIN customer AS cus ON card.cno=cus.cno
 	LEFT JOIN customer_type AS ct ON cus.ctno=ct.ctno
-	WHERE moto.moid=card.moid AND TIMESTAMPDIFF(DAY, card.cdcarcheckdate ,NOW()) BETWEEN 0 AND 3	
+	WHERE moto.moid=card.moid AND TIMESTAMPDIFF(DAY, card.cdcarcheckdate ,NOW()) BETWEEN -2 AND 0	
   </select>
 
   <select id="querytodatbirthdriver" resultMap="BaseResultMap">

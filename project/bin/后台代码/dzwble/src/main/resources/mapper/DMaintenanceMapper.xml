@@ -429,4 +429,8 @@
       remark5 = #{remark5,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+<<<<<<< HEAD
 </mapper>
+=======
+ </mapper>
+>>>>>>> refs/remotes/origin/zhongpenggen
