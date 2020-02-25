@@ -11,7 +11,9 @@ import com.accp.domain.Bills;
 import com.accp.domain.BillsExample;
 import com.accp.domain.BusinessTypes;
 import com.accp.domain.Customer;
+import com.accp.domain.CustomerExample;
 import com.accp.domain.People;
+import com.accp.domain.PeopleExample;
 import com.accp.mapper.BillsMapper;
 import com.accp.mapper.BusinessTypesMapper;
 import com.accp.mapper.CustomerMapper;
@@ -102,11 +104,15 @@ public class BillsService {
 	
 	//查询全部服务顾问
 	public List<People> findPnos(){
-		return peopleMapper.selectByExample(null);
+		PeopleExample ex = new PeopleExample();
+		ex.createCriteria().andDimissionEqualTo(0).andPtidEqualTo(1);
+		return peopleMapper.selectByExample(ex);
 	}
 	//查询客户
 	public List<Customer> findCnos(){
-		return customerMapper.selectByExample(null);
+		CustomerExample ex = new CustomerExample();
+		ex.createCriteria().andRemark3EqualTo("0");
+		return customerMapper.selectByExample(ex);
 	}
 	//查询业务类型
 	public List<BusinessTypes> findbts(){

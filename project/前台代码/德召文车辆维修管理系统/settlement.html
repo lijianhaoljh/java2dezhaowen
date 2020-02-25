@@ -25,9 +25,9 @@
 				 		<div style="margin-bottom: 20px;">
 				 			开单日期 <input type="date" v-model="startTime" @input="findAccounts"/><input type="date" v-model="endTime" @input="findAccounts"/>
 				 			销售单号 <input type="text" v-model="bid" @input="findAccounts"/>
-				 			结算状态 <select v-model="astate">
-				 						<option value="">未结算</option>
-				 						<option :value="0">已结算</option>
+				 			结算状态 <select v-model="astate" @change="changestate($event)">
+				 						<option value="0">未结算</option>
+				 						<option value="1">已结算</option>
 				 				  </select>
 				 			车牌号 <input type="text" v-model="cdlicense" @input="findAccounts"/>
 				 		</div>
@@ -44,14 +44,14 @@
 				
 				<div>
 					<div style="float:right;">				 	
-						<button type="button" class="btn btn-info" @click="openSettlementModal">收银</button>
-						<button type="button" class="btn btn-success" >回滚</button>
+						<button id="getmoney" type="button" class="btn btn-info" @click="openSettlementModal">收银</button>
+						<button id="backmoney" type="button" class="btn btn-success" >回滚</button>
 				 		<button type="button" class="btn btn-success" >打开单据</button>
 				 		<button type="button" class="btn btn-warning" >导出</button>
 				 	</div>
 				</div>
 				
-				<div style="width: 1180px;overflow: scroll;">
+				<div style="width: 1180px;overflow: scroll;height: 300px;">
 					<table class="table table-hover table-condensed" style="width: 1800px;">
 						<thead>
 				 				<tr style="color: white; background-color: #C1E2B3;">
@@ -253,6 +253,15 @@
 						cnos:[]
 					}
 				},methods:{
+					changestate:function(e){
+						if($(e.target).val()=="0"){
+							$("#getmoney").show();
+							$("#backmoney").hide();
+						}else if($(e.target).val()=="1"){
+							$("#getmoney").hide();
+							$("#backmoney").show();
+						}
+					},
 					openSettlementModal(){
 						$("#settlement").modal("show");
 					},
@@ -307,6 +316,7 @@
 							success:function(result){
 								vm.pnos=result;
 								console.log(vm.pnos);
+								
 							}
 						});
 					},findCnos(){
@@ -329,6 +339,8 @@
 					this.findCnos();
 					this.findPnos();
 					this.findBts();
+					$("#backmoney").hide();
+					this.astate="0";
 				}
 			});
 		</script>
