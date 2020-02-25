@@ -17,7 +17,7 @@ public class AccountController {
 	AccountService accountService;
 	
 	@GetMapping("/findAccounts")
-	public List<Account> findAccounts(String startTime,String endTime,String bid,Integer bstate,String cdlicense,String cno,String pno,Integer btno){
-		return accountService.findAccounts(startTime, endTime, bid, bstate, cdlicense, cno, pno, btno);
+	public List<Account> findAccounts(Integer astate,String startTime,String endTime,String bid,Integer bstate,String cdlicense,String cno,String pno,Integer btno){
+		return accountService.findAccounts(astate,startTime, endTime, bid, bstate, cdlicense, cno, pno, btno);
 	}
 }

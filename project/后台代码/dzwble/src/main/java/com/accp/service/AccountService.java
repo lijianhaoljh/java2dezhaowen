@@ -18,8 +18,8 @@ public class AccountService {
 	AccountMapper accountMapper;
 	
 	//查询结算单
-	public List<Account> findAccounts(String startTime,String endTime,String bid,Integer bstate,String cdlicense,String cno,String pno,Integer btno){
-		return accountMapper.findAccounts(startTime, endTime, bid, bstate, cdlicense, cno, pno, btno);
+	public List<Account> findAccounts(Integer astate,String startTime,String endTime,String bid,Integer bstate,String cdlicense,String cno,String pno,Integer btno){
+		return accountMapper.findAccounts(astate,startTime, endTime, bid, bstate, cdlicense, cno, pno, btno);
 	}
 	
 }

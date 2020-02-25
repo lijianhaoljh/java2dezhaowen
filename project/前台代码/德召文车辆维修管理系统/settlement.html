@@ -78,9 +78,9 @@
 				 					<td>备注</td>
 				 				</tr>
 				 		</thead>
-				 		<tbody>
+				 		<tbody id="tby">
 				 				<tr v-for="item in accounts">
-				 					<td><input type="radio" name="radio"/></td>
+				 					<td><input type="radio" name="radioaccounts" @click="choseAccount($event,item)"/></td>
 				 					<td>{{item.bid}}</td>
 				 					<td v-if="item.mbname!=null">{{item.mbname}}</td>
 				 					<td v-else>{{item.rbname}}</td>
@@ -117,19 +117,20 @@
 				      </div>
 				      <div class="modal-body">
 				      		<table>
+				      			<input type="hidden" v-model="addAccount.bid" />
 				      			<tr>
 				      				<td>客总费:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input type="text" v-model="addAccount.bid" /></td>
 				      				<td>税率(%):</td>
-				      				<td><input type="text" /></td>
+				      				<td><input type="text" v-model="addAccount.bid" /></td>
 				      				<td>加税金:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input type="text" v-model="addAccount.bid" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td>抹尾数:</td>
-				      				<td><input type="text" /><button class="btn btn-success">选择</button></td>
+				      				<td><input type="text" v-model="addAccount.bid" style="width: 100px;" /><button style="width: 40px;height: 20px;font-size: 9px;text-align: center;" class="btn btn-success">选择</button></td>
 				      				<td>积分抵扣(元):</td>
-				      				<td><input type="text" /><input type="text" placeholder="最大抵扣金额"/></td>
+				      				<td><input type="text" v-model="addAccount.bid" /><input v-model="addAccount.bid" style="width: 100px;" type="text" placeholder="最大抵扣金额"/></td>
 				      				<td>结算状态:</td>
 				      				<td>
 				      					<select>
@@ -143,37 +144,37 @@
 				      					
 				      				</select></td>
 				      				<td><input type="checkbox" />现金:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input v-model="addAccount.bid" type="text" /></td>
 				      				<td>消费密码:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid"type="text" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td><input type="checkbox" />银行卡:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>银行卡分类:</td>
 				      				<td><select>
 				      					
 				      				</select></td>
 				      				<td>银联手续费:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td><input type="checkbox" />票据:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>票据分类:</td>
 				      				<td><select>
 				      					
 				      				</select></td>
 				      				<td><input type="checkbox">冲储值:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td><input type="checkbox">冲订金:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td><input type="checkbox" />挂账金额:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td><input type="checkbox" />内部账:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td>内部账分类:</td>
@@ -181,7 +182,7 @@
 				      					
 				      				</select></td>
 				      				<td><input type="checkbox" />抵用券:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>抵用券分类:</td>
 				      				<td><select>
 				      					
@@ -189,33 +190,33 @@
 				      			</tr>
 				      			<tr>
 				      				<td>抵用券编号:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td><input type="checkbox" />开发票:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>发票种类:</td>
 				      				<td><select name="" id=""></select></td>
 				      			</tr>
 				      			<tr>
 				      				<td>发票号:</td>
-				      				<td><input type="text"></td>
+				      				<td><input  v-model="addAccount.bid" type="text"></td>
 				      				<td>发票金额:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>开票日期:</td>
-				      				<td><input type="date" /></td>
+				      				<td><input  v-model="addAccount.bid" type="date" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td>应收金额:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>找零:</td>
-				      				<td><input type="" name="" id="" value="" /></td>
+				      				<td><input  v-model="addAccount.bid" type="" name="" id="" value="" /></td>
 				      				<td>累积挂账:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      			</tr>
 				      			<tr>
 				      				<td>订金余额:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>储值卡余额:</td>
-				      				<td><input type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td colspan="2"><input type="checkbox" />打印小票</td>
 				      			</tr>
 				      		</table>
@@ -239,10 +240,10 @@
 				el:"#ctx",
 				data(){
 					return{
+						astate:"0",
 						startTime:"",
 						endTime:"",
 						bid:"",
-						astate:"",
 						cdlicense:"",
 						cno:"",
 						pno:"",
@@ -250,20 +251,38 @@
 						accounts:[],
 						bts:[],
 						pnos:[],
-						cnos:[]
+						cnos:[],
+						checkedAccount:{bid:""},//选中的单据
+						addAccount:{},//添加收银结算单
+						
 					}
 				},methods:{
 					changestate:function(e){
 						if($(e.target).val()=="0"){
 							$("#getmoney").show();
 							$("#backmoney").hide();
+							this.findAccounts();
 						}else if($(e.target).val()=="1"){
 							$("#getmoney").hide();
 							$("#backmoney").show();
+							this.findAccounts();
 						}
 					},
-					openSettlementModal(){
-						$("#settlement").modal("show");
+					choseAccount:function(e,item){
+						let check = e.target.checked;
+						if(check){
+							$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
+							vm.checkedAccount=item;
+						}
+					},
+					openSettlementModal:function(){
+						let a = 0;
+						if(vm.checkedAccount.bid==""){
+							alert("请选中收银单据");
+							return;
+						}else{
+							$("#settlement").modal("show");
+						}
 					},
 					findAccounts(){
 						let that=this;
@@ -274,10 +293,10 @@
 								withCredentials:true
 							},
 							data:{
+								astate:that.astate,
 								startTime:that.startTime,
 								endTime:that.endTime,
 								bid:that.bid,
-								astate:that.astate,
 								cdlicense:that.cdlicense,
 								cno:that.cno,
 								pno:that.pno,

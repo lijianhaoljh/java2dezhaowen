@@ -61,7 +61,7 @@ ON c.`inid`=ie.inid
 LEFT JOIN people AS po
 ON b.pno=po.pno
 WHERE 1=1
-
+AND a.astate = #{astate}
 <choose>
 			<when test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
 				and b.ordertime BETWEEN DATE_FORMAT(#{startTime},"%Y-%m-%d 00:00:00") AND DATE_FORMAT(#{endTime},"%Y-%m-%d 23:59:59") 
