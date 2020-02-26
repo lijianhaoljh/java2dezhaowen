@@ -33,8 +33,8 @@
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
   <select id="findAccounts" resultMap="BaseResultMap">
-  	SELECT a.bid,mb.mbname,rb.rbname,pm.pmname,b.bstate,a.astate,a.atime,a.aname,a.total,bt.btname,ct.`cname`,c.`cdlicense`,mo.`moiname`,c.`cdframe`,
-ct.`cpeople`,i.inname,ie.inname AS ieinname,po.pname,b.Completiontime
+  	SELECT a.id aid,a.bid,mb.mbname,rb.rbname,pm.pmname,b.bstate,a.astate,a.atime,a.aname,a.total,bt.btname,ct.`cname`,c.`cdlicense`,mo.`moiname`,c.`cdframe`,
+ct.`cpeople`,ct.jifen,ct.cno,i.inname,ie.inname AS ieinname,po.pname,b.Completiontime
  FROM `account` AS a
 LEFT JOIN `bills` AS b
 ON a.bid=b.bid
@@ -61,7 +61,6 @@ ON c.`inid`=ie.inid
 LEFT JOIN people AS po
 ON b.pno=po.pno
 WHERE 1=1
-AND a.astate = #{astate}
 <choose>
 			<when test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
 				and b.ordertime BETWEEN DATE_FORMAT(#{startTime},"%Y-%m-%d 00:00:00") AND DATE_FORMAT(#{endTime},"%Y-%m-%d 23:59:59") 

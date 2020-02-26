@@ -8,8 +8,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Account {
     private Integer id;
+    private Integer aid;
+    
+    public Integer getAid() {
+		return aid;
+	}
 
-    private String bid;
+	public void setAid(Integer aid) {
+		this.aid = aid;
+	}
+
+	private String bid;
 
     private Integer astate;
 
@@ -80,7 +89,49 @@ public class Account {
     private String inname;
     private String ieinname;
     private String pname;
+    private String cno;
+    private String jifen;
+    
+    private String billmoney;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date invdate;
+    
+    
+    
+    public String getBillmoney() {
+		return billmoney;
+	}
+
+	public void setBillmoney(String billmoney) {
+		this.billmoney = billmoney;
+	}
+
+	public Date getInvdate() {
+		return invdate;
+	}
+
+	public void setInvdate(Date invdate) {
+		this.invdate = invdate;
+	}
+
+	public String getCno() {
+		return cno;
+	}
+
+	public void setCno(String cno) {
+		this.cno = cno;
+	}
+
+	public String getJifen() {
+		return jifen;
+	}
+
+	public void setJifen(String jifen) {
+		this.jifen = jifen;
+	}
+
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date completiontime;
 

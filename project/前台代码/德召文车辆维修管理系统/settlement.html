@@ -11,6 +11,16 @@
 				width: 100px;
 				margin-right: 10px;
 			}
+			#modalGetMOney input{outline: none;height: 25px;}
+			#modalGetMOney input[type=radio]{position: relative;top:7px;}
+			#modalGetMOney input[type=checkbox]{position: relative;top:7px;}
+			#modalGetMOney input[type=text]{width: 100px;}
+			#modalGetMOney td{/*border: 1px solid red;*/width: 80px;height: 40px;}
+			#modalGetMOney tr{line-height: 30px;}
+			#modalGetMOney tr:nth-child(4),#modalGetMOney tr:nth-child(5),#modalGetMOney tr:nth-child(6),#modalGetMOney tr:nth-child(7),#modalGetMOney tr:nth-child(8),#modalGetMOney tr:nth-child(9){
+				color: gray;
+			}
+			
 	</style>
 	
 	<body>
@@ -25,9 +35,9 @@
 				 		<div style="margin-bottom: 20px;">
 				 			开单日期 <input type="date" v-model="startTime" @input="findAccounts"/><input type="date" v-model="endTime" @input="findAccounts"/>
 				 			销售单号 <input type="text" v-model="bid" @input="findAccounts"/>
-				 			结算状态 <select v-model="astate" @change="changestate($event)">
-				 						<option value="0">未结算</option>
-				 						<option value="1">已结算</option>
+				 			结算状态 <select v-model="bstate" @change="changestate($event)">
+				 						<option value="2">未结算</option>
+				 						<option value="3">已结算</option>
 				 				  </select>
 				 			车牌号 <input type="text" v-model="cdlicense" @input="findAccounts"/>
 				 		</div>
@@ -98,6 +108,7 @@
 				 					<td>{{item.cdlicense}}</td>
 				 					<td>{{item.moiname}}</td>
 				 					<td>{{item.cdframe}}</td>
+				 					<td>{{item.cpeople}}</td>
 				 					<td>{{item.inname}}</td>
 				 					<td>{{item.ieinname}}</td>
 				 					<td></td>
@@ -115,115 +126,124 @@
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				        <h4 class="modal-title" id="myModalLabel">前台收银</h4>
 				      </div>
-				      <div class="modal-body">
-				      		<table>
+				      <div class="modal-body" style="height: 480px;">
+				      		<table style="margin-left: 35px;margin-top: 10px;"  id="modalGetMOney">
 				      			<input type="hidden" v-model="addAccount.bid" />
 				      			<tr>
 				      				<td>客总费:</td>
-				      				<td><input type="text" v-model="addAccount.bid" /></td>
+				      				<td style="width: 140px;"><input type="text" disabled="disabled" v-model="checkedAccount.total" /></td>
 				      				<td>税率(%):</td>
-				      				<td><input type="text" v-model="addAccount.bid" /></td>
+				      				<td style="width: 140px;"><input @input="getTotal($event)" type="text" value="1.13" /></td>
 				      				<td>加税金:</td>
-				      				<td><input type="text" v-model="addAccount.bid" /></td>
+				      				<td><input disabled="disabled" id="taxMoney" type="text"  /></td>
+				      				<!--<td style="width: 55px;">抹尾数:</td>
+				      				<td style="width: 100px;"><input type="text" v-model="addAccount.wipeMantissa"  style="width: 60px;" /><span  style="position: relative;top: 5px; color: #000000;font-size: 18px;" class="glyphicon glyphicon-user"></span></td>-->
+				      				<td>积分抵扣(元):</td>
+				      				<td><input type="text" @input="jifen($event)" v-model="addAccount.pointsDeduction"   /><span>&nbsp;&nbsp;&nbsp;当前积分{{checkedAccount.jifen}}</span><br />&nbsp;&nbsp;&nbsp;可以抵扣<span>{{dikou}}</span>元</td>
 				      			</tr>
 				      			<tr>
-				      				<td>抹尾数:</td>
-				      				<td><input type="text" v-model="addAccount.bid" style="width: 100px;" /><button style="width: 40px;height: 20px;font-size: 9px;text-align: center;" class="btn btn-success">选择</button></td>
-				      				<td>积分抵扣(元):</td>
-				      				<td><input type="text" v-model="addAccount.bid" /><input v-model="addAccount.bid" style="width: 100px;" type="text" placeholder="最大抵扣金额"/></td>
-				      				<td>结算状态:</td>
+				      				<td style="color: red;font-size: 16px;">应收金额</td>
 				      				<td>
-				      					<select>
-				      						
-				      					</select>
+				      					<span id="total" style="color: blue;font-size: 16px;">  {{addAccount.total}}</span>
 				      				</td>
 				      			</tr>
 				      			<tr>
 				      				<td>结算状态:</td>
-				      				<td><select>
-				      					
+				      				<td><select v-model="addAccount.astate" @change="changeAstate($event)">
+				      					<option value="0">正常结算</option>
+				      					<option value="1">挂账结算</option>
 				      				</select></td>
-				      				<td><input type="checkbox" />现金:</td>
-				      				<td><input v-model="addAccount.bid" type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td><input @click="cashClick($event)" class="ca" type="radio" name="na" />现金:</td>
+				      				<td><input @input="getChangeMoney($event)" disabled="disabled" class="same ca" v-model="addAccount.cash" type="text" /></td>
+				      				<!--<td style="width: 90px;">银联手续费:</td>
+				      				<td><input disabled="disabled" type="text" /></td>-->
 				      				<td>消费密码:</td>
-				      				<td><input  v-model="addAccount.bid"type="text" /></td>
+				      				<td><input disabled="disabled" type="text" /></td>
 				      			</tr>
 				      			<tr>
-				      				<td><input type="checkbox" />银行卡:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      				<td><input type="radio" class="ban" @click="bankClick($event)" name="na" />银行卡:</td>
+				      				<td><input disabled="disabled" class="same ban"  v-model="addAccount.bank" type="text" /></td>
 				      				<td>银行卡分类:</td>
-				      				<td><select>
-				      					
+				      				<td><select disabled="disabled" class="same ban">
+				      					<option value="0">信用卡</option>
+				      					<option value="1">借记卡</option>
 				      				</select></td>
-				      				<td>银联手续费:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      				<td><input type="checkbox" id="billop" class="openBill" @click="openBillClick($event)" />开发票:</td>
 				      			</tr>
 				      			<tr>
-				      				<td><input type="checkbox" />票据:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      				<td><input type="radio" @click="billClick($event)" class="bi" name="na" />票据:</td>
+				      				<td><input disabled="disabled" class="same bi" v-model="addAccount.bill" type="text" /></td>
 				      				<td>票据分类:</td>
-				      				<td><select>
-				      					
+				      				<td><select disabled="disabled" class="same bi">
+				      					<option value="0">电汇</option>
+				      					<option value="1">支票</option>
 				      				</select></td>
-				      				<td><input type="checkbox">冲储值:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      				<td class="openBill">发票种类:</td>
+				      				<td><select disabled="disabled" class="same openBill">
+				      					<option v-for="i in invoiceType" :value="i.itid">{{i.itname}}</option>
+				      				</select></td>
+				      				<td class="openBill">发票号:</td>
+				      				<td><input disabled="disabled" class="same openBill" v-model="addAccount.invid" type="text"></td>
 				      			</tr>
 				      			<tr>
+				      				<!--<td><input type="checkbox">冲储值:</td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td><input type="checkbox">冲订金:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
-				      				<td><input type="checkbox" />挂账金额:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
-				      				<td><input type="checkbox" />内部账:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>-->
+				      				<td style="width: 90px;"><input type="radio" class="nomoney" @click="nomoneyClick($event)" name="na" />挂账金额:</td>
+				      				<td><input disabled="disabled" class="same nomoney" id="nogivemoney" v-model="addAccount.buying" type="text" /></td>
+				      				<td width="200px"></td>
+				      				<td width="200px"></td>
+				      				<td class="openBill">发票金额:</td>
+				      				<td><input disabled="disabled" class="same openBill" v-model="addAccount.billmoney" type="text" /></td>
+				      				<td class="openBill">开票日期:</td>
+				      				<td><input class="same openBill" disabled="disabled" v-model="addAccount.invdate" style="width: 120px;" type="date" /></td>
 				      			</tr>
 				      			<tr>
+				      				<td><input type="radio" class="internal" @click="internalClick($event)" name="na" />内部账:</td>
+				      				<td><input class="same internal" disabled="disabled" v-model="addAccount.internal" type="text" /></td>
 				      				<td>内部账分类:</td>
-				      				<td><select>
-				      					
+				      				<td><select class="same internal" disabled="disabled">
+				      					<option value="总经理">总经理</option>
+				      					<option value="车间经理">车间经理</option>
+				      					<option value="库存车维修">库存车维修</option>
+				      					<option value="置换">置换</option>
 				      				</select></td>
-				      				<td><input type="checkbox" />抵用券:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      			</tr>
+				      			<tr>
+				      				<td><input type="radio" class="voucher" @click="voucherClick($event)" name="na" />抵用券:</td>
+				      				<td><input disabled="disabled" class="same voucher" v-model="addAccount.voucher" type="text" /></td>
 				      				<td>抵用券分类:</td>
-				      				<td><select>
-				      					
+				      				<td><select disabled="disabled" class="same voucher">
+				      					<option value="美容券">美容券</option>
+				      					<option value="车险返券">车险返券</option>
 				      				</select></td>
+				      				<!--<td style="width: 120px;">抵用券编号:</td>
+				      				<td><input  v-model="addAccount.bid" type="text" /></td>-->
+				      				
 				      			</tr>
 				      			<tr>
-				      				<td>抵用券编号:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
-				      				<td><input type="checkbox" />开发票:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
-				      				<td>发票种类:</td>
-				      				<td><select name="" id=""></select></td>
-				      			</tr>
-				      			<tr>
-				      				<td>发票号:</td>
-				      				<td><input  v-model="addAccount.bid" type="text"></td>
-				      				<td>发票金额:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
-				      				<td>开票日期:</td>
-				      				<td><input  v-model="addAccount.bid" type="date" /></td>
-				      			</tr>
-				      			<tr>
-				      				<td>应收金额:</td>
-				      				<td><input  v-model="addAccount.bid" type="text" /></td>
+				      				
 				      				<td>找零:</td>
-				      				<td><input  v-model="addAccount.bid" type="" name="" id="" value="" /></td>
+				      				<td><span id="changeMoney" style="color: blue;font-size: 16px;">  0.00</span></td>
+				      				
+				      			</tr>
+				      			<!--<tr>
 				      				<td>累积挂账:</td>
 				      				<td><input  v-model="addAccount.bid" type="text" /></td>
-				      			</tr>
-				      			<tr>
 				      				<td>订金余额:</td>
 				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td>储值卡余额:</td>
 				      				<td><input  v-model="addAccount.bid" type="text" /></td>
 				      				<td colspan="2"><input type="checkbox" />打印小票</td>
-				      			</tr>
+				      			</tr>-->
 				      		</table>
 				      </div>
 				      <div class="modal-footer">
 				      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				        <button type="button" class="btn btn-primary" >确定</button>
+				        <button type="button" @click="accountClick" class="btn btn-primary" >确定</button>
 				      </div>
 				    </div>
 				  </div>
@@ -240,7 +260,8 @@
 				el:"#ctx",
 				data(){
 					return{
-						astate:"0",
+						astate:"",
+						bstate:"2",
 						startTime:"",
 						endTime:"",
 						bid:"",
@@ -253,16 +274,235 @@
 						pnos:[],
 						cnos:[],
 						checkedAccount:{bid:""},//选中的单据
-						addAccount:{},//添加收银结算单
-						
+						addAccount:{id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""},//添加收银结算单
+						invoiceType:[],//所有发票种类
+						dikou:"",//积分抵扣金额
 					}
 				},methods:{
+					accountClick:function(){
+						alert("...");
+						vm.addAccount.aname = eval('('+sessionStorage.getItem("user")+')').pname;
+						
+						console.log(vm.addAccount)
+						$.ajax({
+							url:data.ip+"account/updateAccount",
+							type:"post",
+							data:JSON.stringify(vm.addAccount),
+							xhrFields:{
+								withCredentials:true
+							},
+							contentType:"application/json;charset=utf-8",
+							dataType:"text",
+							success:function(result){
+								if(result=="1"){
+									alert("收银成功");
+									$('#settlement').modal('hide');
+									vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+									this.findAccounts();
+								}
+							},error:function(error){
+								alert("发生错误");
+							}
+						});
+					},
+					openBillClick:function(e){
+						let checkd = e.target.checked;
+						if(checkd){
+							let cl = $(e.target).attr("class");
+							$("."+cl).removeAttr("disabled");
+							$("."+cl).css("color","#000000");
+							vm.addAccount.billmoney=vm.addAccount.total;
+							vm.addAccount.invid = vm.checkedAccount.bid;
+							vm.addAccount.id = vm.checkedAccount.aid;
+						}else{
+							let cl = $(e.target).attr("class");
+							$("."+cl).attr("disabled","disabled");
+							$(e.target).removeAttr("disabled");
+							$("."+cl).css("color","gray");
+							vm.addAccount.invid = "";
+							vm.addAccount.billmoney="";
+						}
+						console.log(vm.addAccount)
+					},
+					jifen:function(e){
+						let num = parseFloat($(e.target).val());
+						if($(e.target).val()>vm.dikou){
+							alert("当前最大抵扣额为"+vm.dikou);
+							return;
+						}else if($(e.target).val()==""){
+							vm.addAccount.total = vm.checkedAccount.total;
+							return false;
+						}else{
+							let total = parseFloat(vm.addAccount.total);
+							vm.addAccount.total = parseFloat(parseFloat(total)-parseInt(num)).toFixed(2);
+						}
+					},
+					getChangeMoney:function(e){
+						let num = parseFloat($(e.target).val());
+						let total = parseFloat(vm.addAccount.total);
+						$("#changeMoney").text(parseFloat(parseFloat(num)-parseFloat(total)).toFixed(2));
+					},
+					voucherClick:function(e){
+						let bid = vm.addAccount.bid;
+						let total = vm.addAccount.total;
+						let astate = vm.addAccount.astate;
+						vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+						vm.addAccount.bid = bid;
+						vm.addAccount.total = total;
+						vm.addAccount.astate = astate;
+						
+						$(".same").attr("disabled","disabled");
+						$(".same").css("color","gray");
+						//$(".same").val("");
+						$(".same").parent().parent().find("input").css("color","gray");
+						$(".same").parent().parent().find("input[type=radio]").parent().css("color","gray");
+						
+						let cl = $(e.target).attr("class");
+						$("."+cl).removeAttr("disabled");
+						$("."+cl).css("color","#000000");
+						vm.addAccount.voucher = vm.addAccount.total;
+					},
+					internalClick:function(e){
+						let bid = vm.addAccount.bid;
+						let total = vm.addAccount.total;
+						let astate = vm.addAccount.astate;
+						vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+						vm.addAccount.bid = bid;
+						vm.addAccount.total = total;
+						vm.addAccount.astate = astate;
+						
+						$(".same").attr("disabled","disabled");
+						$(".same").css("color","gray");
+						//$(".same").val("");
+						$(".same").parent().parent().find("input").css("color","gray");
+						$(".same").parent().parent().find("input[type=radio]").parent().css("color","gray");
+						
+						let cl = $(e.target).attr("class");
+						$("."+cl).removeAttr("disabled");
+						$("."+cl).css("color","#000000");
+						vm.addAccount.internal = vm.addAccount.total;
+					},
+					nomoneyClick:function(e){
+						let bid = vm.addAccount.bid;
+						let total = vm.addAccount.total;
+						let astate = vm.addAccount.astate;
+						vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+						vm.addAccount.bid = bid;
+						vm.addAccount.total = total;
+						vm.addAccount.astate = astate;
+						
+						$(".same").attr("disabled","disabled");
+						$(".same").css("color","gray");
+						//$(".same").val("");
+						$(".same").parent().parent().find("input").css("color","gray");
+						$(".same").parent().parent().find("input[type=radio]").parent().css("color","gray");
+						
+						let cl = $(e.target).attr("class");
+						$("."+cl).removeAttr("disabled");
+						$("."+cl).css("color","#000000");
+						vm.addAccount.astate = 1;
+						$("#modalGetMOney input[type=radio]").attr("disabled","disabled");
+						$(e.target).removeAttr("disabled");
+						vm.addAccount.buying = vm.addAccount.total;
+					},
+					billClick:function(e){
+						let bid = vm.addAccount.bid;
+						let total = vm.addAccount.total;
+						let astate = vm.addAccount.astate;
+						vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+						vm.addAccount.bid = bid;
+						vm.addAccount.total = total;
+						vm.addAccount.astate = astate;
+						
+						$(".same").attr("disabled","disabled");
+						$(".same").css("color","gray");
+						//$(".same").val("");
+						$(".same").parent().parent().find("input").css("color","gray");
+						$(".same").parent().parent().find("input[type=radio]").parent().css("color","gray");
+						
+						let cl = $(e.target).attr("class");
+						$("."+cl).removeAttr("disabled");
+						$("."+cl).css("color","#000000");
+						vm.addAccount.bill = vm.addAccount.total;
+					},
+					bankClick:function(e){
+						let bid = vm.addAccount.bid;
+						let total = vm.addAccount.total;
+						let astate = vm.addAccount.astate;
+						vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+						vm.addAccount.bid = bid;
+						vm.addAccount.total = total;
+						vm.addAccount.astate = astate;
+						
+						$(".same").css("color","gray");
+						$(".same").attr("disabled","disabled");
+						//$(".same").val("");
+						$(".same").parent().parent().find("input").css("color","gray");
+						$(".same").parent().parent().find("input[type=radio]").parent().css("color","gray");
+						
+						let cl = $(e.target).attr("class");
+						$("."+cl).removeAttr("disabled");
+						$("."+cl).css("color","#000000");
+						vm.addAccount.bank = vm.addAccount.total;
+						
+					},
+					cashClick:function(e){
+						let bid = vm.addAccount.bid;
+						let total = vm.addAccount.total;
+						let astate = vm.addAccount.astate;
+						vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
+						vm.addAccount.bid = bid;
+						vm.addAccount.total = total;
+						vm.addAccount.astate = astate;
+						
+						$(".same").css("color","gray");
+						$(".same").attr("disabled","disabled");
+						//$(".same").val("");
+						$(".same").parent().parent().find("input").css("color","gray");
+						$(".same").parent().parent().find("input[type=radio]").parent().css("color","gray");
+						
+						let cl = $(e.target).attr("class");
+						$("."+cl).removeAttr("disabled");
+						$("."+cl).css("color","#000000");
+						vm.addAccount.cash = vm.addAccount.total;
+						//alert(vm.addAccount.bid);
+					},
+					getTotal:function(e){
+						let num = parseFloat($(e.target).val());
+						if($(e.target).val()==""){
+							num=0;
+						}
+						
+						let total = parseFloat(vm.checkedAccount.total);
+						let tax = parseFloat((total/100)*num).toFixed(2);
+						$("#taxMoney").val(tax);
+						vm.addAccount.total = parseFloat(parseFloat(total)+parseFloat(tax)).toFixed(2);
+					},
+					changeAstate:function(e){
+						let value = $(e.target).val();
+						if(value=="1"){
+							$("#modalGetMOney input[type=radio]").attr("disabled","disabled");
+							$("#nogivemoney").parent().prev().find("input[type=radio]").removeAttr("disabled");
+							$("#nogivemoney").parent().prev().find("input[type=radio]")[0].checked=true;
+							$("#nogivemoney").removeAttr("disabled");
+							vm.addAccount.buying = vm.addAccount.total;
+							$("#nogivemoney").css("color","#000000");
+							$("#nogivemoney").parent().prev().css("color","#000000");
+						}else{
+							$("#modalGetMOney input[type=radio]").removeAttr("disabled");
+							$("#nogivemoney").attr("disabled","disabled");
+							$("#nogivemoney").parent().prev().find("input[type=radio]")[0].checked=false;
+							vm.addAccount.buying = 0;
+							$("#nogivemoney").css("color","gray");
+							$("#nogivemoney").parent().prev().css("color","gray");
+						}
+					},
 					changestate:function(e){
-						if($(e.target).val()=="0"){
+						if($(e.target).val()=="2"){
 							$("#getmoney").show();
 							$("#backmoney").hide();
 							this.findAccounts();
-						}else if($(e.target).val()=="1"){
+						}else if($(e.target).val()=="3"){
 							$("#getmoney").hide();
 							$("#backmoney").show();
 							this.findAccounts();
@@ -273,6 +513,10 @@
 						if(check){
 							$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
 							vm.checkedAccount=item;
+							vm.addAccount.bid=vm.checkedAccount.bid;
+							vm.addAccount.total=vm.checkedAccount.total;
+							console.log("选中的单据")
+							console.log(vm.checkedAccount);
 						}
 					},
 					openSettlementModal:function(){
@@ -281,6 +525,7 @@
 							alert("请选中收银单据");
 							return;
 						}else{
+							vm.dikou=(50/100)*parseInt(vm.checkedAccount.jifen);
 							$("#settlement").modal("show");
 						}
 					},
@@ -293,14 +538,14 @@
 								withCredentials:true
 							},
 							data:{
-								astate:that.astate,
 								startTime:that.startTime,
 								endTime:that.endTime,
 								bid:that.bid,
 								cdlicense:that.cdlicense,
 								cno:that.cno,
 								pno:that.pno,
-								btid:that.btid
+								btid:that.btid,
+								bstate:that.bstate
 							},
 							dataType:"json",
 							success:function(result){
@@ -352,14 +597,29 @@
 								console.log(vm.cnos);
 							}
 						});
+					},queryAllInvoiceType(){
+						//查询所有发票种类
+						$.ajax({
+							url:data.ip+"account/queryAllInvoiceType",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.invoiceType=result;
+								console.log(vm.cnos);
+							}
+						});
 					}
 				},created:function(){
 					this.findAccounts();
 					this.findCnos();
 					this.findPnos();
 					this.findBts();
+					this.queryAllInvoiceType();
 					$("#backmoney").hide();
-					this.astate="0";
+					
 				}
 			});
 		</script>
