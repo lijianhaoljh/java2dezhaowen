@@ -19,7 +19,7 @@
 	</style>
 	<body>
 			<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #F7F7F7;">
+				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>供货单位</strong>
 				 	</span>
@@ -151,8 +151,8 @@
 				      </div>
 				      <div class="modal-footer">
 				      	    
-				       		<span><button  type="button" class="btn btn-default" @click="Upda" >修改</button></span> 	
-				        	<span><button  type="button" class="btn btn-default" @click="Addt" >新增</button></span>
+				       		<span><button v-if="!isok" type="button" class="btn btn-default" @click="Upda" >修改</button></span> 	
+				        	<span><button v-if="isok" type="button" class="btn btn-default" @click="Addt" >新增</button></span>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -326,7 +326,8 @@
 							maun:{},		//新增信息
 							waimiande:{},//外面的点击对象
 							limiande:{mfcontacts:"",zmfid:""}, //模态框里面的点击对象
-							kk:"0"
+							kk:"0",
+							isok:true
 							
 						}
 					},
@@ -452,6 +453,7 @@
 								 * 新增模态框
 								 */
 								Adds:function(){
+									vm.isok=true
 									vm.maun={};
 									$("#myModal").modal("show");
 								},
@@ -482,7 +484,7 @@
 									}
 								},
 								Updaid:function(){
-									
+									vm.isok=false;
 									if(vm.waimiande.mfid==undefined){
 											alert("请选择厂商");
 											return false;

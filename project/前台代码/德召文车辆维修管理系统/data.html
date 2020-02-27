@@ -21,7 +21,7 @@
 	</style>
 	<body>
 		<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #F7F7F7;">
+				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>商品资料</strong>
 				 	</span>
@@ -36,7 +36,6 @@
 				 		<button type="button" class="btn btn-default" @click="toAdd" >增加</button>
 				 		<button type="button" class="btn btn-default" @click="QueryByid">修改</button>
 				 		<button type="button" class="btn btn-default" @click="DeleteByid">删除</button>
-				 		<button type="button" class="btn btn-default" style="margin-right: 50px;">查询</button>
 				 		<button type="button" class="btn btn-default" @click="exportExcel">导出</button>
 				</div>
 				
@@ -171,8 +170,8 @@
 							</p>
 				      </div>
 				      <div class="modal-footer">
-				        	<button @click="UpdaCommd"  type="button" class="btn btn-default">修改</button>
-				        	<button @click="addCommd"    type="button" class="btn btn-default">新增</button>
+				        	<button @click="UpdaCommd" v-if="!isok"  type="button" class="btn btn-default">修改</button>
+				        	<button @click="addCommd"  v-if="isok"  type="button" class="btn btn-default">新增</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -203,7 +202,7 @@
     				queryef:[],         //商品产地
     				queryeg:[],          //产商名称
     				comc:{},          //新增
-    				isok:false
+    				isok:true
         		};
 			},
 			created:function() {
@@ -262,6 +261,7 @@
 				 */
 				
 				toAdd:function(){
+					vm.isok=true;
 					vm.comc={};
 					$("#myModal").modal("show");
 				},
@@ -479,6 +479,7 @@
 						}
 				},
 				QueryByid:function(){
+						vm.isok=false;
 						$("#myModal").modal("show");
 					
 						$.ajax({

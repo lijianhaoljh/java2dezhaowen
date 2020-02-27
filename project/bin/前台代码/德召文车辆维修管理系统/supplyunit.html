@@ -215,6 +215,7 @@
 				 
 				 			 	
 			</div>
+			<script type="text/javascript" src="js/my.js"></script>
 			<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 			<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 			<script type="text/javascript" src="js/jquery.ztree.core.js" ></script>
@@ -227,7 +228,7 @@
 					//树状结构
 				     $.ajax({
 				       type:"get",
-				       url:"http://localhost:8080/PlaceOriginRest",
+				       url:data.ip+"PlaceOriginRest",
 				       dateType:"json",
 				       xhrFields:{
 				        withCredentials:true
@@ -266,7 +267,7 @@
 				     function chooseNode(event, treeId, treeNode) {
 				     			vm.queryFindmfid=[];
 				     			$.ajax({
-								url: "http://localhost:8080/PlaceOriginRest/queryFindTwo",					
+								url: data.ip+"PlaceOriginRest/queryFindTwo",					
 								type: "get",
 								data:{pid:treeNode.pid},
 								xhrFields: {
@@ -292,7 +293,7 @@
 				
 				function queryTable(mfid){
 					$.ajax({									
-									url: "http://localhost:8080/PlaceOriginRest/queryFindmfid",					
+									url: data.ip+"PlaceOriginRest/queryFindmfid",					
 									type: "get",
 									data:{mfid:mfid},
 									xhrFields: {
@@ -346,7 +347,7 @@
 								},
 								QueryFind:function(){
 								$.ajax({
-									url: "http://localhost:8080/PlaceOriginRest/queryFind",					
+									url: data.ip+"PlaceOriginRest/queryFind",					
 									type: "get",
 									xhrFields: {
 										withCredentials: true
@@ -366,7 +367,7 @@
 							Queryname:function(){
 								var that=this;
 								$.ajax({
-									url: "http://localhost:8080/PlaceOriginRest/queryFindname",					
+									url: data.ip+"PlaceOriginRest/queryFindname",					
 									type: "get",
 									data:{name:that.name},
 									xhrFields: {
@@ -395,7 +396,7 @@
 								 */
 								Fkquery:function(){
 								$.ajax({
-										url: "http://localhost:8080/PlaceOriginRest/fkquery",					
+										url: data.ip+"PlaceOriginRest/fkquery",					
 										type: "get",
 										xhrFields: {
 											withCredentials: true
@@ -414,7 +415,7 @@
 								 */
 								Levequery:function(){
 								$.ajax({
-										url: "http://localhost:8080/PlaceOriginRest/levequery",					
+										url: data.ip+"PlaceOriginRest/levequery",					
 										type: "get",
 										xhrFields: {
 											withCredentials: true
@@ -433,7 +434,7 @@
 								 */
 								Query:function(){
 									$.ajax({
-										url: "http://localhost:8080/PlaceOriginRest",					
+										url: data.ip+"PlaceOriginRest",					
 										type: "get",
 										xhrFields: {
 											withCredentials: true
@@ -464,7 +465,7 @@
 									return false;
 								}else{	
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/add",
+											url:data.ip+"PlaceOriginRest/add",
 											data:JSON.stringify(vm.maun),						
 											type:"post",
 											xhrFields: {
@@ -489,7 +490,7 @@
 									
 										vm.limiande.zmfid=vm.waimiande.mfid;
 											$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/updaid",
+											url:data.ip+"PlaceOriginRest/updaid",
 											type:"get",
 											xhrFields: {
 												withCredentials: true
@@ -513,7 +514,7 @@
 									return false;
 								}else{	
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/upda",
+											url:data.ip+"PlaceOriginRest/upda",
 											data:JSON.stringify(vm.maun),						
 											type:"put",
 											xhrFields: {
@@ -547,7 +548,7 @@
 					 					vm.maun.linkemail= vm.limiande.zlinkemail;
 					 					vm.maun.mfid = vm.limiande.zmfid;
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/addtwo",
+											url:data.ip+"PlaceOriginRest/addtwo",
 											data:JSON.stringify(vm.maun),						
 											type:"post",
 											xhrFields: {
@@ -575,7 +576,7 @@
 								Deletetwo:function(){
 									if (confirm("你确定要删除"+vm.queryFindmfid.linkno+"么?")) {
 									$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/deletetwo",
+											url:data.ip+"PlaceOriginRest/deletetwo",
 											data:{
 												linkno:vm.queryFindmfid.linkno
 											},
@@ -613,7 +614,7 @@
 					 					vm.maun.mfid = vm.limiande.zmfid;
 									vm.maun.mfid = vm.limiande.zmfid; 
 										$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/updatwo",
+											url:data.ip+"PlaceOriginRest/updatwo",
 											data:JSON.stringify(vm.maun),						
 											type:"put",
 											xhrFields: {
@@ -666,7 +667,7 @@
 								Deletes:function(){
 									if (confirm("你确定要删除"+vm.queryFind.mfid+"么?")) {
 									$.ajax({
-											url:"http://localhost:8080/PlaceOriginRest/deletes",
+											url:data.ip+"PlaceOriginRest/deletes",
 											data:{
 												myid:vm.queryFind.mfid
 											},

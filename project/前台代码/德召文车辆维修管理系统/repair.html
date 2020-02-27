@@ -18,7 +18,7 @@
 	</style>
 	<body>
 			<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #F7F7F7;">
+				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>维修项目</strong>
 				 	</span>
@@ -32,7 +32,7 @@
 						
 			 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">调价</button>
 				 		<button type="button" class="btn btn-default" @click="deleteid">删除</button>
-				 		<button type="button" class="btn btn-default" @click="Addaid" data-toggle="modal" data-target="#myModal">修改</button>
+				 		<button type="button" class="btn btn-default" @click="Addaid">修改</button>
 				 		<button type="button" class="btn btn-default" @click="Adds">新增</button>
 				</div>	
 			 	
@@ -109,8 +109,8 @@
 				           	     	
 				      </div>
 				      <div class="modal-footer">
-				       		<span><button   @click="uptatwo" type="button" class="btn btn-default">修改</button></span> 	
-				        	<span><button   @click="Addtwo"   type="button" class="btn btn-default">新增</button></span>
+				       		<span><button   @click="uptatwo" v-if="!isok" type="button" class="btn btn-default">修改</button></span> 	
+				        	<span><button   @click="Addtwo"  v-if="isok" type="button" class="btn btn-default">新增</button></span>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -229,6 +229,7 @@
 							isok:false,
 							pricequery:[],
 							jg:{},
+							isok:true
 						}
 					},
 					created:function() { 
@@ -381,6 +382,8 @@
 						},
 						
 						Addaid:function(){
+								vm.isok=false;
+								$("#myModal").modal("show");
 								$.ajax({
 								url:data.ip+"ServiceItemRest/updaid",
 								type:"get",
