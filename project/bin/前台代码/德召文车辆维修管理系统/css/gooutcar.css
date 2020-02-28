@@ -6,15 +6,11 @@
 .row:nth-child(2){height: 535px;}
 .selec li input {width:100px;}
 .row:nth-child(2)>div:nth-child(1)>ul{list-style-type: none;box-sizing: border-box;padding-top: 10px;float: right;}
-.row:nth-child(2) ul li{display: inline-block;text-align: center;font-size: 17px;margin-right: 30px;}
+.row:nth-child(2) ul li{cursor:pointer;display: inline-block;text-align: center;font-size: 17px;margin-right: 30px;}
 .row:nth-child(2) ul li span:nth-child(1){margin-right: 5px;font-size: 19px;}
-<<<<<<< HEAD
 .row:nth-child(2)>div:nth-child(3){height: 488px;overflow: auto;border:0px;}
-=======
-.row:nth-child(2)>div:nth-child(3){height: 588px;overflow: auto;border:0px;}
->>>>>>> refs/remotes/origin/zhongpenggen
 
-#chosecustomer{display: none; width: 300px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 40%;background-color: #DEDEDE;}
+#chosecustomer{border-radius: 10px 10px 10px 10px;box-shadow: 5px 5px 10px darkgrey;display: none; width: 300px;height: 450px;position: absolute;z-index: 111;border: 1px solid darkgrey;top: 7%;left: 40%;background-color: white;}
 /*#chosecustomer ul{list-style-type: none;}
 #chosecustomer ul li{display: inline-block;text-align: center;font-size: 17px;}*/
 #chosecustomer td{border: 1px solid white;}
@@ -23,12 +19,12 @@
 
 #chosepeople{display: none; width: 600px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 10%;left: 40%;background-color: #DEDEDE;}
 #chosepeople ul{list-style-type: none;}
-#chosepeople ul li{display: inline-block;text-align: center;font-size: 17px;}
+#chosepeople ul li{cursor:pointer;display: inline-block;text-align: center;font-size: 17px;}
 #chosepeople td{border: 1px solid white;}
 
-#custype{display: none; width: 700px;height: 600px;position: absolute;z-index: 111;border: 1px solid #DEDEDE;top: 7%;left: 25%;background-color: #DEDEDE;}
+#custype{border-radius: 10px 10px 10px 10px;box-shadow: 5px 5px 10px darkgrey;display: none; width: 700px;height: 520px;position: absolute;z-index: 111;border: 1px solid darkgrey;top: 7%;left: 25%;background-color: white;}
 #custype ul{list-style-type: none;}
-#custype ul li{display: inline-block;text-align: center;font-size: 17px;}
+#custype ul li{cursor:pointer;display: inline-block;text-align: center;font-size: 17px;}
 #custype td{border: 1px solid white;}
 
 #custype p label{width: 100px;text-align: right;padding-right: 10px;margin-top: 10px;}

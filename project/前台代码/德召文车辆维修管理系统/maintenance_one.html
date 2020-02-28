@@ -497,17 +497,12 @@
             	时间：2020-02-17
             	描述：维修单
             -->
-			<div id="openMmodal" class="modal fade" tabindex="-1" role="dialog">
+			<div id="openMmodal" class="modal fade" tabindex="-1" role="dialog" style="overflow: scroll;">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title">维修</h4>
-			        <div class="form-inline" style="float: right;">
-				        <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
-				        <button class="btn btn-danger"  v-else-if="bills.bstate==1">竣工检验</button>
-				        <button class="btn btn-danger"  v-else>完工待结</button>
-			        </div>
 			      </div>
 			      <div class="modal-body">
 			        	<table class="table">
@@ -525,7 +520,7 @@
 			        			<td>车主姓名</td>
 			        			<td><input type="text" v-model="bills.cname" readonly="readonly"/></td>
 			        			<td>服务顾问</td>
-			        			<td><input type="text" v-model="bills.pname" readonly="readonly"/><button class="btn btn-success" @click="peoModal">选择</button></td>
+			        			<td><input type="text" v-model="bills.people.pname" readonly="readonly"/><button class="btn btn-success" @click="peoModal">选择</button></td>
 			        		</tr>
 			        		<tr>
 			        			<td>驾驶员</td>
@@ -561,7 +556,7 @@
 			        				</select>
 			        			</td>
 			        			<td>接车人</td>
-			        			<td><input v-model="bills.psname" type="text" readonly="readonly"></td>
+			        			<td><input v-model="bills.pick.pname" type="text" readonly="readonly"></td>
 			        		</tr>
 			        		<tr>
 			        			<td>预计完工</td>
@@ -597,11 +592,11 @@
 							<li role="presentation" class="active"><a href="#wxls" data-toggle="tab">维修项目</a></li>
 							<li role="presentation"><a href="#llqk" data-toggle="tab">领料情况</a></li>
 							<li role="presentation"><a href="#fjxm" data-toggle="tab">附加项目</a></li>
-							<li role="presentation"><a href="#lshf" data-toggle="tab">历史回访</a></li>
+							<li role="presentation"><a href="#lshf" data-toggle="tab">结算信息</a></li>
 						</ul>
-						<div class="tab-content" style="padding: 5px;;">
-							<div id="wxls" class="active tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+						<div class="tab-content">
+							<div id="wxls" class="active tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -610,45 +605,52 @@
 									</div>
 									    <ul class="nav navbar-nav">
 									       	<li><a href="#" @click="openMainModal">多项项目</a></li>
-									        <li><a href="#">修改项目</a></li>
-									        <li><a href="#">删除项目</a></li>
-									        <li><a href="#">重置价格</a></li>
+									        <li><a href="#" @click="openUpMainModal">修改项目</a></li>
+									        <li><a href="#" @click="openDelMainModal">删除项目</a></li>
+									        <li><a href="#" @click="openResetMainPriceModal">重置价格</a></li>
 								        </ul>
 								  </div>
 								</nav>
-								<table class="table">
-									<tr>
-										<td>选择</td>
-										<td>项目编码</td>
-										<td>项目名称</td>
-										<td>数量</td>
-										<td>价类</td>
-										<td>优惠前单价</td>
-										<td>优惠后单价</td>
-										<td>优惠后金额</td>
-										<td>故障描述</td>
-										<td>故障原因</td>
-										<td>维修班组</td>
-										<td>作业人员</td>
-										<td>服务顾问</td>
-										<td>免单原因</td>
-									</tr>
-									<tr>
-										<td>选择</td>
-										<td>项目编码</td>
-										<td>项目名称</td>
-										<td>数量</td>
-										<td>价类</td>
-										<td>优惠前单价</td>
-										<td>优惠后单价</td>
-										<td>优惠后金额</td>
-										<td>故障描述</td>
-										<td>故障原因</td>
-										<td>维修班组</td>
-										<td>作业人员</td>
-										<td>服务顾问</td>
-										<td>免单原因</td>
-									</tr>
+								<table class="table table-hover" style="width: 1500px;">
+									<thead>
+										<tr>
+											<td>选择</td>
+											<td>项目编码</td>
+											<td>项目名称</td>
+											<td>数量</td>
+											<td>价类</td>
+											<td>优惠前单价</td>
+											<td>优惠后单价</td>
+											<td>优惠后金额</td>
+											<td>故障描述</td>
+											<td>故障原因</td>
+											<td>维修班组</td>
+											<td>作业人员</td>
+											<td>服务顾问</td>
+											<td>免单原因</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item,index in bills.maintenance" @click="xzMaintenance($event,item)">
+											<td>
+												<input type="radio" name="mainten" v-if="index==0" checked="checked"/>
+												<input type="radio" name="mainten" v-else/>
+											</td>
+											<td>{{item.sidno}}</td>
+											<td>{{item.sidname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.pc.pcname}}</td>
+											<td>{{item.bpreferential==null?0.00:item.bpreferential.toFixed(2)}}</td>
+											<td>{{item.apreferential==null?0.00:item.apreferential.toFixed(2)}}</td>
+											<td>{{item.bpreferentialm==null?0.00:item.bpreferentialm.toFixed(2)}}</td>
+											<td>{{item.faultdescription}}</td>
+											<td>{{item.problem}}</td>
+											<td>{{item.team.tname}}</td>
+											<td>{{item.peo.pname}}</td>
+											<td>{{item.pick.pname}}</td>
+											<td>{{item.free}}</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 							<div id="llqk" class="tab-pane bg-warning">
@@ -661,7 +663,7 @@
 								    </div>
 								    <ul class="nav navbar-nav">
 									       	<li><a href="#">物料需求</a></li>
-									        <li><a href="#">领料</a></li>
+									        <li><a href="#" @click="openCategoryModal">领料</a></li>
 									        <li><a href="#">重置价格</a></li>
 								        </ul>
 								  </div>
@@ -764,6 +766,9 @@
 						</div>
 			      </div>
 			      <div class="modal-footer">
+				    <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
+				    <button class="btn btn-danger"  v-else-if="bills.bstate==1">竣工检验</button>
+				    <button class="btn btn-danger"  v-else>完工待结</button>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			      	<button type="button" class="btn btn-default">保存</button>
 			      </div>
@@ -807,7 +812,7 @@
 			        		</tr>
 			        		<tr>
 			        			<td>服务顾问</td>
-			        			<td><input type="text" v-model="bills.pname" readonly="readonly"/><button class="btn btn-success" @click="peoModal">选择</button></td>
+			        			<td><input type="text" v-model="bills.people.pname" readonly="readonly"/><button class="btn btn-success" @click="peoModal">选择</button></td>
 			        			<td>业务类别</td>
 			        			<td><select v-model="bills.btid">
 			        					<option v-for="item in business" :value="item.btid">{{item.btname}}</option>
@@ -1062,12 +1067,12 @@
 			      						<td><input type="checkbox" /></td>
 			      						<td>{{item.sidno}}</td>
 			      						<td>{{item.sidname}}</td>
-			      						<td>{{item.standardprice}}</td>
-			      						<td>{{item.memberprice}}</td>
-			      						<td>{{item.vipprice}}</td>
-			      						<td>{{item.agreementprice}}</td>
-			      						<td>{{item.insuranceprice}}</td>
-			      						<td>{{item.claimprice}}</td>
+			      						<td>{{item.standardprice==null?0.00:item.standardprice.toFixed(2)}}</td>
+			      						<td>{{item.memberprice==null?0.00:item.memberprice.toFixed(2)}}</td>
+			      						<td>{{item.vipprice==null?0.00:item.vipprice.toFixed(2)}}</td>
+			      						<td>{{item.agreementprice==null?0.00:item.agreementprice.toFixed(2)}}</td>
+			      						<td>{{item.insuranceprice==null?0.00:item.insuranceprice.toFixed(2)}}</td>
+			      						<td>{{item.claimprice==null?0.00:item.claimprice.toFixed(2)}}</td>
 			      					</tr>
 			      				</tbody>
 			      			</table>
@@ -1160,18 +1165,97 @@
             <!--
             	作者：2315588974@qq.com
             	时间：2020-02-23
-            	描述：商品资料选择
-            -->
-            <!--
-            	作者：2315588974@qq.com
-            	时间：2020-02-23
-            	描述：物料需求
-            -->
-            <!--
-            	作者：2315588974@qq.com
-            	时间：2020-02-23
             	描述：领料
             -->
+            <div id="categoryModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" style="width: 1000px;" role="document">
+			    <div class="modal-content" style="width: 1000px;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">商品资料</h4>
+			      </div>
+			      <div class="modal-body" >
+			      	<div class="row">
+			      		<div class="col-md-3">
+			      			<ul id="treeDemo2" class="ztree"></ul>
+			      		</div>
+			      		<div class="col-md-9" style="width: 700px;overflow: scroll;">
+			      			<table class="table table-hover" style="width:1800px;">
+			      				<thead>
+			      					<tr>
+			      						<td>选择</td>
+			      						<td>商品编码</td>
+			      						<td>商品名称</td>
+			      						<td>商品品牌</td>
+			      						<td>适用车型</td>
+			      						<td>数量单位</td>
+			      						<td>商品大类</td>
+			      						<td>商品中类</td>
+			      						<td>商品小类</td>
+			      						<td>收入分类</td>
+			      						<td>原厂副厂</td>
+			      						<td>商品等级</td>
+			      						<td>商品产地</td>
+			      						<td>原厂编码</td>
+			      						<td>条形码</td>
+			      						<td>包装规格</td>
+			      						<td>体积A</td>
+			      						<td>毛重</td>
+			      						<td>净重</td>
+			      						<td>加价率</td>
+			      						<td>互换码</td>
+			      						<td>售价按</td>
+			      						<td>标准价</td>
+			      						<td>会员价</td>
+			      						<td>vip价</td>
+			      						<td>协议价</td>
+			      						<td>保险价</td>
+			      						<td>索赔价</td>
+			      					</tr>
+			      				</thead>
+			      				<tbody>
+			      					<tr v-for="item in commodity">
+				      					<td><input type="checkbox" name="comm" @click="xzCommodity($event,item)"/></td>
+				      					<td>{{item.cno}}</td>
+				      					<td>{{item.cname}}</td>
+				      					<td>{{item.cbname}}</td>
+				      					<td>{{item.vehicletype}}</td>
+				      					<td>{{item.cuname}}</td>
+				      					<td>{{item.gsbname}}</td>
+				      					<td>{{item.gccname}}</td>
+				      					<td>{{item.gcsname}}</td>
+				      					<td>{{item.toname}}</td>
+				      					<td>{{item.coname}}</td>
+				      					<td>{{item.gcname}}</td>
+				      					<td>{{item.pname}}</td>
+				      	 				<td>{{item.mfname}}</td>
+				      					<td>{{item.origin}}</td>
+				      					<td>{{item.barcode}}</td>
+				     					<td>{{item.pack}}</td>
+				    					<td>{{item.volume}}</td>
+				      					<td>{{item.grossweight}}</td>
+				      					<td>{{item.netweight}}</td>
+				      					<td>{{item.markup}}</td>
+				     					<td>{{item.exchangecode}}</td>
+				      					<td>{{item.standardprice}}</td>
+				      					<td>{{item.memberprice}}</td>
+				      					<td>{{item.vipprice}}</td>
+				      					<td>{{item.agreementprice}}</td>
+				      					<td>{{item.insuranceprice}}</td>
+				     					<td>{{item.claimprice}}</td>
+				     				</tr>
+			      				</tbody>
+			      			</table>
+			      		</div>
+			      	</div>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="confirmCommodityInfo">选择</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
             <!--
             	作者：2315588974@qq.com
             	时间：2020-02-23
@@ -1272,6 +1356,32 @@
 				vm.findServiceItem();
 				return false;
 			}
+			var setting2 = {
+				check: {
+					enable: false
+					
+				},
+				data: {
+					simpleData: {
+						enable: true
+					},key:{
+						name:"gname"
+					}
+				},
+				edit: {
+					enable: true
+				},
+				view:{
+					showIcon:false
+				},callback:{
+					onClick:chooseNode2
+				}
+			};
+			function chooseNode2(e,id,node){
+				vm.gid=node.gid;
+				vm.findCommodityInfo();
+				return false;
+			}
 			var vm=new Vue({
 				el:"#ctx",
 				data(){
@@ -1290,12 +1400,11 @@
 						cardata:{},//选择车辆
 						user:{},
 						mid:0,
+						gid:0,
 						bills:{ 
 							bid:"",
 							bstate:0,
 							pno:"",
-							pname:"",
-							psname:"",
 							cdlicense:"",
 							moiname:"",
 							mname:"",
@@ -1309,7 +1418,7 @@
 							pmid:"",
 							inid:"",
 							completiontime:"",
-							forecastmoney:"0.0",
+							forecastmoney:"0.00",
 							m:{
 								lastinto:"",
 								receptionnote:"",
@@ -1336,7 +1445,10 @@
 							addtions:[],//附加项目
 							account:{},//结算信息
 							requisition:[],//领料情况
-							maintenance:[]//维修项目
+							requis:[],//领料需求
+							maintenance:[],//维修项目
+							pick:{},//接车人
+							people:{},//服务顾问
 						},//维修单
 						inBills:true, //所选车辆是否未完工,
 						peoples:[],//服务顾问
@@ -1344,21 +1456,199 @@
 						business:[],//业务类型
 						pm:[],//支付方式
 						insurance:[],//保险公司
-						p:{},
-						items:[],
-						it:[]
+						p:{},//服务顾问
+						items:[],//服务项目
+						it:[],//维修项目暂存
+						commodity:[],//商品资料
+						pc:[],//价类查询
+						m:{},//当前选中维修项目
+						com:[],//商品资料
+						
 					}
 				},
 				methods:{
 					openBills(){
 						//打开单据
+					},
+					computedPrice(){
+						//计算价格
 					}
 					,
+					openAddition(){
+						//打开附加项目模态框
+					}
+					,
+					confirmCommodityInfo(){
+						//添加领料
+						//确定选择,遍历添加数据
+						vm.com.forEach(it=>{
+							if(JSON.stringify(vm.bills.requisition)!="[]"){
+								vm.bills.requisition.forEach((ite,index)=>{
+									if(ite.sidno==it.sidno){
+										//出现重复
+										
+									}else{
+										//
+										
+									}
+									this.bills.requisition.splice(index,1,ite);
+								})
+							}else{
+								
+							}
+						});
+						$("#").modal("hide");
+						//重新计算预算金额以及结算信息
+					}
+					,
+					xzCommodity(e,item){
+						//选择商品资料
+						if($(e.target).parent().find("input").prop("checked")){
+							//选中添加
+							vm.com.push(item);
+						}else{
+							//取消删除
+							vm.com.forEach(ite=>{
+								if(ite.sidno=item.sidno){
+									vm.it.splice(vm.com.indexOf(ite),1);
+								}
+							});
+						}
+						console.log(vm.com);
+					}
+					,
+					openCategoryModal(){
+						//打开商品资料
+						if(this.bills.btid==""){
+							alert("请选择业务类型");
+							return;
+						}
+						if(this.bills.pno==""){
+							alert("请选择服务顾问");
+							return;
+						}
+						this.com=[];
+						this.findGoodsCategorys();
+						$("#categoryModal input").prop("checked",false);
+						$("#categoryModal").modal("show");
+					},
+					confirmMainPrice(){
+						//保存价格修改
+						this.bills.maintenance.forEach(it=>{
+						});
+					},
+					openResetMainPriceModal(){
+						//维修项目充值价格模态框打开
+						$("#resetMainPriceModal").modal("show");
+					},
+					confirmUpMain(){
+						//保存项目修改
+					},
+					openUpMainModal(){
+						//修改维修项目模态框打开
+						$("#upMainModal").modal("show");
+					},
+					openDelMainModal(){
+						//删除维修项目模态框打开
+						this.bills.maintenance.splice(this.bills.maintenance.indexOf(this.m),1);
+					},
+					xzMaintenance(e,item){
+						//选择维修项目
+						this.m=item;
+						$(e.target).parent().find("input").prop("checked",true);
+					},
+					findPriceClass(){
+						//查询价类
+						$.ajax({
+							url:data.ip+"priceClass/findPriceClass",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								vm.pc=result;
+							}
+						})
+					},
+					findCommodityInfo(){
+						//查询商品
+						$.ajax({
+							url:data.ip+"commodityInfo/findCommodityInfo",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:{
+								gid:vm.gid
+							},
+							dataType:"json",
+							success:function(result){
+								vm.commodity=result;
+								console.log(vm.commodity);
+							}
+						})
+					}
+					,
+					findGoodsCategorys(){
+						//查询商品类型
+						$.ajax({
+							url:data.ip+"category/findGoodsCategorys",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							dataType:"json",
+							success:function(result){
+								$.fn.zTree.init($("#treeDemo2"), setting2, result);
+								console.log(result);
+							}
+						})
+					},
 					confirmServiceItem(){
 						//确定选择,遍历添加数据
 						vm.it.forEach(it=>{
-							bm.bills.maintenance.push(it);
+							if(JSON.stringify(vm.bills.maintenance)!="[]"){
+								vm.bills.maintenance.forEach((ite,index)=>{
+									if(ite.sidno==it.sidno){
+										//出现重复
+										ite.num+=1;
+										let sum=parseFloat(ite.vipprice)*parseFloat(ite.num);
+										let sum2=parseFloat(ite.standardprice)*parseFloat(ite.num);
+										ite.bpreferential=sum2;
+										ite.apreferential=sum;
+										ite.bpreferentialm=sum;
+									}else{
+										vm.bills.maintenance.push(it);
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num=1;
+										let sum=parseFloat(it.vipprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
+										let sum2=parseFloat(it.standardprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].bpreferential=sum2;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].apreferential=sum;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].bpreferentialm=sum;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].peo={};
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].pick=vm.p;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].team={};
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].pc=vm.pc[0];
+									}
+									this.bills.maintenance.splice(index,1,ite);
+								})
+							}else{
+										vm.bills.maintenance.push(it);
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num=1;
+										let sum=parseFloat(it.vipprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
+										let sum2=parseFloat(it.standardprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].bpreferential=sum2;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].apreferential=sum;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].bpreferentialm=sum;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].peo={};
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].pick=vm.p;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].team={};
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].pc=vm.pc[0];
+							}
 						});
+						$("#mainenance").modal("hide");
+						//重新计算预算金额以及结算信息
 					},
 					xzServiceItem(e,item){
 						//选择服务项目
@@ -1368,13 +1658,65 @@
 						}else{
 							//取消删除
 							vm.it.forEach(ite=>{
-								if(ite.sidno=item.sidno){
+								if(ite.sidno==item.sidno){
 									vm.it.splice(vm.it.indexOf(ite),1);
 								}
 							});
 						}
 						console.log(vm.it);
 					},
+					refreshBills(){
+						this.bills={ 
+							bid:"",
+							bstate:0,
+							pno:"",
+							cdlicense:"",
+							moiname:"",
+							mname:"",
+							cname:"",
+							cddriver:"",
+							cphone:"",
+							btid:"",
+							remark1:"",
+							pickcar:"",
+							expectedtime:"",
+							pmid:"",
+							inid:"",
+							completiontime:"",
+							forecastmoney:"0.00",
+							m:{
+								lastinto:"",
+								receptionnote:"",
+								statement:"",
+								factorymeil:"",
+								factoryoil:"",
+								mileage:"",
+								intotime:""
+							},
+							r:{
+								tid:"",
+								tname:"",
+								currentmileage:"",
+								dispatchingtime:"",
+								gotime:"",
+								goaddress:"",
+								driving:"",
+								cno:"",
+								constructiontime:"",
+								rescueaddress:"",
+								tid:"",
+								tname:""
+							},
+							addtions:[],//附加项目
+							account:{},//结算信息
+							requisition:[],//领料情况
+							requis:[],//领料需求
+							maintenance:[],//维修项目
+							pick:{},//接车人
+							people:{},//服务顾问
+						};
+					}
+					,
 					openMainModal(){
 						//打开维修项目模态框
 						if(this.bills.btid==""){
@@ -1386,6 +1728,8 @@
 							return;
 						}
 						$("#mainenance").modal("show");
+						$("#mainenance input").prop("checked",false)
+						vm.items=[];
 						this.findMainenances();
 					},
 					findMainenances(){
@@ -1404,6 +1748,7 @@
 						});
 					},
 					findServiceItem(){
+						//服务项目
 						$("#mainenance").find("input").prop("checked",false);
 						$.ajax({
 							url:data.ip+"service/findServiceItem",
@@ -1416,6 +1761,7 @@
 							},
 							dataType:"json",
 							success:function(result){
+								vm.it=[];
 								vm.items=result;
 								console.log(result);
 							}
@@ -1433,8 +1779,7 @@
 					},
 					confirmPeo(){
 						this.bills.pno=this.p.pno;
-						this.bills.pname=this.p.pname;
-						console.log(this.bills);
+						this.bills.people=this.p;
 						$("#peoModal").modal("hide");
 					},
 					selectedPeople(e,it){
@@ -1542,6 +1887,9 @@
 							,dataType:"text",
 							success:function(response){
 								if(response.indexOf("0")!=-1){
+									vm.refreshBills();
+									//绑定车辆信息
+									vm.bindCdlicenseInfo();
 									vm.findNewBid();
 									$("#openMmodal").modal("show");
 								}else{
@@ -1569,6 +1917,9 @@
 							,dataType:"text",
 							success:function(response){
 								if(response.indexOf("0")!=-1){
+									vm.refreshBills();
+									//绑定车辆信息
+									vm.bindCdlicenseInfo();
 									vm.findNewBid();
 									var date = new Date();
 									vm.bills.r.dispatchingtime=parseInt(date.getFullYear())+"-"+parseInt(date.getMonth())+1+"-"+parseInt(date.getDate());
@@ -1725,8 +2076,6 @@
 					},bindCardata(e,data){
 						$(e.target).parent().find("input").prop("checked",true);
 						vm.cardata=data;
-						//绑定车辆信息
-						this.bindCdlicenseInfo();
 					}
 				},created:function(){
 					this.findBills(1); //查询单据
@@ -1735,9 +2084,10 @@
 					this.findBusiness();//查询业务类型
 					this.findPaymentMethod();//查询结算方式
 					this.findInsurances();//查询赔款公司
+					this.findPriceClass();//查询价类
 					this.user=eval('('+sessionStorage.getItem("user")+')');
 					this.bills.pickcar=this.user.pno;
-					this.bills.psname=this.user.pname;
+					this.bills.pick=this.user;
 				},computed:{
 					getPage(){
 						let that=this;

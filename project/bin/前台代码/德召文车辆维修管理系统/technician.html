@@ -49,7 +49,7 @@
 						<ul id="treeDemo" class="ztree"></ul>
 					</div>
 					<div class="col-md-10 col-xs-10" style="border-left: 1px solid #E9E9E9;">
-						<table class="table table-bordered" style="width: 1800px;">
+						<table class="table table-hover" style="width: 1800px;">
 						  <thead>
 						  	<tr>
 						  		<td>         </td>
@@ -122,14 +122,14 @@
 				</div>
 			</div>
 			<div id="addstaff">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">技工卡片</p>
-				<div style="width: 880px;height: 350px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 860px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">技工卡片</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;">X</div>
-						<button @click="addOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">技工卡片</p>-->
+				<div style="width: 880px;height: 300px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 860px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">技工卡片</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 15px;">确定</button>
 					</div>
-					<div style="width: 860px;height: 290px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 860px;height: 270px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;">
 						<p class="ddd" style="padding-top: 10px;">
 							<label><span style="color: red;">*</span>技工编号</label><input readonly="readonly" type="text" v-model="mechanic.pno" />
 							<label><span style="color: red;">*</span>技工姓名</label><input type="text" v-model="mechanic.people.pname" />
@@ -174,13 +174,12 @@
 			</div>
 			
 			<div id="mmm">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">部门定义</p>
-<<<<<<< HEAD
-				<div style="width: 530px;height: 250px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 510px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">部门定义</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;"></div>
-						<button @click="addmOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">部门定义</p>-->
+				<div style="width: 530px;height: 210px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 510px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">部门定义</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
+						<button @click="addmOK" class="btn-success" style="float: right;width: 80px;height: 30px;margin-top: 15px;">确定</button>
 					</div>
 					<div style="width: 510px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;padding-top: 20px;">
 						
@@ -202,20 +201,20 @@
 			</div>
 			
 			<div id="chosebanzu">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">班组权重</p>
-				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 560px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">班组权重</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
+				<!--<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">班组权重</p>-->
+				<div style="width: 580px;height: 490px;border:1px solid white;margin-left: 10px;background-color: white;">
+					<div style="width: 560px;height: 60px;margin-left: 10px;">
+						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;margin-top: 10px;">班组权重</div>
+						<div @click="closeadd" class="clo" style=" width: 50px;height: 40px;float:right;font-size: 22px;text-align: center;padding: 0px;position: relative;top:15px;right: -20px; cursor:pointer; ">&times;</div>
 					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;overflow: auto; box-sizing: border-box;padding-left: 20px;">
+					<div style="width: 560px;height: 430px;margin-left: 10px;background-color: #D6D6CE;overflow: auto; box-sizing: border-box;padding-left: 20px;">
 						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="m1 in banzu0" :value="m1.tid">{{m1.tid}}--{{m1.tname}}</option>
 						</select>
 						<!--<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
 							<option v-for="mn1 in banzuson" :value="mn1.tid">{{mn1.tid}}--{{mn1.tname}}</option>
 						</select>-->
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
+						<table class="table table-hover" style="border: 1px solid white;width: 500px;">
 							<thead>
 								<tr>
 									<td></td>
@@ -237,60 +236,6 @@
 									<td>{{s.woutmoning}}</td>
 									<td>{{s.woutnight}}</td>
 								</tr>
-=======
-				<div style="width: 480px;height: 250px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 460px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 200px;height: 40px;font-size: 24px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">部门定义</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 100px;height: 40px;box-sizing: border-box;float:right;font-size: 50px;text-align: right;padding: 0px;"></div>
-						<button @click="addmOK" class="btn-success" style="float: right;width: 100px;height: 40px;margin-top: 5px;">确定</button>
-					</div>
-					<div style="width: 460px;height: 190px;margin-left: 10px;background-color: #D6D6CE;color:#44BDCA;box-sizing: border-box;padding-left: 20px;padding-top: 20px;">
-						
-						<p class="ddd">
-							<label style="width: 150px;">班组编码</label><input readonly="readonly"  type="text" v-model="banzu.tid" />
-							<input v-if="banzu.catalog=='0'" type="checkbox"style="width: 50px;" /><input v-else checked="checked"  type="checkbox" style="width: 50px;" />是否为目录
-						</p>
-						<p class="ddd">
-							<label style="width: 150px;">班组名称</label><input class="mname" style="width: 200px;" type="text" v-model="banzu.tname" />
-						</p>
-						<p class="ddd">
-							<label style="width: 150px;">班组权重</label><input v-model="banzu.tpower" type="text" />
-						</p>
-					</div>
-				</div>
-			</div>
-			
-			<div id="chosebanzu">
-				<p style="padding: 2px;background-color: #858585;font-weight: bold;color: #D6D6CE;">班组权重</p>
-				<div style="width: 580px;height: 550px;border:1px solid white;margin-left: 10px;background-color: white;">
-					<div style="width: 560px;height: 50px;margin-left: 10px;">
-						<div style="display: inline-block;width: 100px;height: 40px;font-size: 20px;box-sizing: border-box;padding-top: 5px;border-left: 4px solid orange;">班组权重</div>
-						<div @click="closeadd" class="clo" style="display: inline-block;width: 50px;height: 40px;box-sizing: border-box;float:right;font-size: 30px;text-align: right;padding: 0px;">X</div>
-					</div>
-					<div style="width: 560px;height: 490px;margin-left: 10px;background-color: #D6D6CE;box-sizing: border-box;padding-left: 20px;">
-						<select @change="changedepart($event)" style="outline: none;width: 80px;height: 30px;margin: 10px;" name="depart">
-							<option v-for="m1 in banzu0" :value="m1.tid">{{m1.tid}}--{{m1.tname}}</option>
-						</select>
-						<select @click="changepeople($event)" style="outline: none;width: 100px;height: 30px;margin: 10px;" name="depart">
-							<option v-for="mn1 in banzuson" :value="mn1.tid">{{mn1.tid}}--{{mn1.tname}}</option>
-						</select>
-						<table class="table table-bordered" style="border: 1px solid white;width: 500px;">
-							<thead>
-								<tr>
-									<td></td>
-									<td>部门</td>
-									<td>工号</td>
-									<td>姓名</td>
-								</tr>
-							</thead>
-							<tbody>
-								<!--<tr v-for="s in staffs">
-									<td><input @click="peop($event)" name="ss" type="radio" :phone="s.pphone" :pno="s.pno" :pname="s.pname" /></td>
-									<td>{{s.mname}}</td>
-									<td>{{s.pno}}</td>
-									<td>{{s.pname}}</td>
-								</tr>-->
->>>>>>> refs/remotes/origin/zhongpenggen
 								
 							</tbody>
 						</table>
@@ -429,7 +374,7 @@
 						    	vm.cc="4";
 						    	vm.chose=treeNode;
 						       	queryMechanicBytid("",treeNode.tid);
-						       	$("#tools li:first").hide().siblings().show();
+						       	$("#tools li:first").hide().siblings().fadeIn();
 						    }
 						    return;
 						}
@@ -537,7 +482,6 @@
 							}
 						});	
 			}
-<<<<<<< HEAD
 			//根据班组父级ID查询权重
 			function queryteamByPar(parentid){
 				$.ajax({
@@ -556,8 +500,6 @@
 							}
 						});	
 			}
-=======
->>>>>>> refs/remotes/origin/zhongpenggen
 			
 			function queryBanzuson(parentid){
 				$.ajax({
@@ -585,7 +527,6 @@
 							mechanic:{tid:"",mcisgroup:0,pno:"",people:{pno:""}},//技工
 							levels:[],//所有星级
 							kk:"0",
-<<<<<<< HEAD
 							cc:"3",
 							demon:{tid:"",mcisgroup:0,pno:"",people:{pno:""}},//选中的技工
 							chose:{tid:""},//选中的班组
@@ -594,15 +535,6 @@
 							banzu0:[],//父级为0的班组
 							banzuson:[],//父级不为0的班组
 							teamByPar:[],//根据班组父级ID查询权重
-=======
-							cc:"0",
-							demon:{tid:"",mcisgroup:0,pno:"",people:{pno:""}},//选中的技工
-							chose:{tid:""},//选中的班组
-							choseP:{tid:""},
-							banzu:{tid:"",parentid:""},
-							banzu0:[],//父级为0的班组
-							banzuson:[],//父级不为0的班组
->>>>>>> refs/remotes/origin/zhongpenggen
 						}
 					},
 					methods:{
@@ -611,13 +543,12 @@
 						},
 						changedepart:function(e){
 							let parentid = $(e.target).val();
-<<<<<<< HEAD
 							queryteamByPar(parentid);
 						},
 						openbanzu:function(){
 							queryBanzu0(0);
 							queryteamByPar(1);
-							$("#chosebanzu").show();
+							$("#chosebanzu").fadeIn();
 						},
 						addmOK:function(){
 							let s  =0;
@@ -646,6 +577,7 @@
 												alert("添加成功");
 												queryTree();
 												$("#mmm").hide();
+												vm.banzu={tid:"",parentid:""};
 											}
 										},error:function(result){
 											alert("发生错误");
@@ -663,6 +595,7 @@
 												alert("修改成功");
 												queryTree();
 												$("#mmm").hide();
+												vm.banzu={tid:"",parentid:""};
 											}
 										},error:function(result){
 											alert("发生错误");
@@ -693,13 +626,13 @@
 						},
 						upmechanism:function(){
 							vm.banzu=vm.chose;
-							$("#mmm").show();
+							$("#mmm").fadeIn();
 						},
 						addsamelevel:function(){
-							banzu={tid:"",parentid:""};
+							vm.banzu={tid:"",parentid:""};
 							vm.banzu.parentid=vm.choseP.tid;
 							queryTid();
-							$("#mmm").show();
+							$("#mmm").fadeIn();
 						},
 						queryBox:function(){
 							
@@ -861,256 +794,6 @@
 												queryMechanicBytid("",vm.chose.tid);
 												//vm.mechanic={tid:"",mcisgroup:0,pno:"",people:{pno:""}};
 												
-=======
-							queryBanzuson(parentid);
-						},
-						openbanzu:function(){
-							queryBanzu0(0);
-							$("#chosebanzu").show();
-						},
-						addmOK:function(){
-							let s  =0;
-							if($("#mmm input[type=checkbox]")[0].checked){
-								vm.banzu.catalog="1";
-							}else{
-								vm.banzu.catalog="0";
-							}
-							$("#mmm .ddd input").each(function(){
-								if($(this).val()==""){
-									s=s+1;
-									alert("填写信息");
-									return false;
-								}
-							});
-							if(s==0){
-								if(vm.cc=="3"){
-									$.ajax({
-										url:data.ip+"mechanic/add",
-										data:JSON.stringify(vm.banzu),
-										type:"post",
-										dataType:"json",
-										contentType:"application/json;charset=utf-8",
-										success:function(result){
-											if(result=="1"){
-												alert("添加成功");
-												queryTree();
-												$("#mmm").hide();
-											}
-										},error:function(result){
-											alert("发生错误");
-										}
-									});
-								}else{
-									$.ajax({
-										url:data.ip+"mechanic/update",
-										data:JSON.stringify(vm.banzu),
-										type:"put",
-										dataType:"json",
-										contentType:"application/json;charset=utf-8",
-										success:function(result){
-											if(result=="1"){
-												alert("修改成功");
-												queryTree();
-												$("#mmm").hide();
-											}
-										},error:function(result){
-											alert("发生错误");
-										}
-									});
-								}
-							}
-						},
-						delmechanism:function(){
-							let tid = vm.chose.tid;
-							if(confirm("是否确认删除？")){
-								$.ajax({
-										url:data.ip+"mechanic/delete",
-										data:{tid:tid},
-										type:"post",
-										dataType:"json",
-										success:function(result){
-											if(result=="1"){
-												alert("删除成功");
-												queryTree();
-												$("#mmm").hide();
-											}
-										},error:function(result){
-											alert("发生错误");
-										}
-									});
-							}
-						},
-						upmechanism:function(){
-							vm.banzu=vm.chose;
-							$("#mmm").show();
-						},
-						addsamelevel:function(){
-							banzu={tid:"",parentid:""};
-							vm.banzu.parentid=vm.choseP.tid;
-							queryTid();
-							$("#mmm").show();
-						},
-						queryBox:function(){
-							
-							let pno = $("input[name=name]").val();
-							//alert(pno+vm.choseP.tid+vm.chose.tid);
-							if(vm.cc=="3"){
-									queryMechanicByparentid(pno,vm.choseP.tid);
-							}else if(vm.cc=="4"){
-									queryMechanicBytid(pno,vm.chose.tid);
-							}
-						},
-						nonepwd:function(){
-							//置空密码
-							if(confirm("是否确认置空")){
-								$.ajax({
-										url:data.ip+"staff/updateStaffPwd",
-										data:JSON.stringify(vm.demon),
-										type:"post",
-										dataType:"json",
-										contentType:"application/json;charset=utf-8",
-										success:function(result){
-											if(result=="1"){
-												alert("置空成功");
-												if(vm.cc=="3"){
-													queryMechanicByparentid("",vm.choseP.tid);
-												}else{
-													queryMechanicBytid("",vm.chose.tid);
-												}
-											}
-										},error:function(result){
-											alert("发生错误");
-										}
-									});
-							}
-						},
-						delestaff:function(){
-							if(vm.demon.pno==""){
-								alert("请选中需要删除的技工");
-							}else{
-								if(confirm("是否确定删除？")){
-									$.ajax({
-										url:data.ip+"mechanic/deleteMechanic",
-										data:{pno:vm.demon.pno},
-										type:"post",
-										dataType:"json",
-										success:function(result){
-											if(result=="1"){
-												alert("删除成功");
-												queryMechanicBytid("",vm.chose.tid);
-												vm.demon={tid:"",mcisgroup:0,pno:"",people:{pno:""}};
-												queryAllStaff();
-											}
-										},error:function(result){
-											alert("发生错误");
-										}
-									});
-								}
-							}
-						},
-						chosestaff:function(e,c){
-							//客户单选框
-							let checkeds = e.target.checked;
-							if(checkeds){
-								let cno = $(e.target).attr("id");
-								$(e.target).parent().parent().css("background-color","#C9E2B3").siblings().css("background-color","white");
-								vm.demon={tid:"",mcisgroup:0,pno:"",people:{pno:"",pname:""}}//选中的技工
-								//console.log(c);
-								
-								vm.demon.people.pno=c.pno;
-								vm.demon.people.pname=c.pname;
-								vm.demon.people.psex=c.psex;
-								vm.demon.people.pidcard=c.pidcard;
-								vm.demon.people.paddress=c.paddress;
-								vm.demon.people.pphone=c.pphone;
-								vm.demon.people.ptellphone=c.ptellphone;
-								vm.demon.people.pemail=c.pemail;
-								vm.demon.people.spassword=c.spassword;
-								vm.demon.people.salt=c.salt;
-								vm.demon.people.pbank=c.pbank;
-								vm.demon.people.pbanknumber=c.pbanknumber;
-								vm.demon.people.presidenceaddress=c.presidenceaddress;
-								vm.demon.people.ptid=c.ptid;
-								vm.demon.people.img=c.img;
-								vm.demon.people.rid=c.rid;
-								vm.demon.people.dimission=c.dimission;
-								vm.demon.people.dcause=c.dcause;
-								
-								
-								vm.demon.pno=c.pno;
-								vm.demon.tid=c.tid;
-								vm.demon.tname=c.tname;
-								vm.demon.jid=c.jid;
-								vm.demon.rid=c.rid;
-								vm.demon.mcisgroup=c.mcisgroup;
-								vm.demon.lid = c.lid;
-								vm.demon.lname = c.lname;
-								vm.demon.mcworktype = c.mcworktype;
-								vm.demon.mcbrand = c.mcbrand;
-								
-								
-								console.log(vm.demon);
-								vm.mechanic = vm.demon;
-								
-							}
-						},
-						addOK:function(){
-							let a = 0;
-							if($("#addstaff input[name=grou]")[0].checked){
-								vm.mechanic.mcisgroup=1;
-							}else{
-								vm.mechanic.mcisgroup=0;
-							}
-							$("#addstaff .ddd input").each(function(){
-								if($(this).val()==""){
-									a=a+1;
-									alert("请填写重要信息")
-									return false;
-								}
-							});
-							$("#addstaff .ddd select").each(function(){
-								if($(this).val()==""){
-									a=a+1;
-									alert("请填写重要信息")
-									return false;
-								}
-							});
-							if(a==0){
-								if(vm.kk=="1"){
-									vm.mechanic.tid=vm.chose.tid;
-									//添加
-									$.ajax({
-										url:data.ip+"mechanic/addMechanic",
-										data:JSON.stringify(vm.mechanic),
-										type:"post",
-										dataType:"json",
-										contentType:"application/json;charset=utf-8",
-										success:function(result){
-											if(result=="1"){
-												alert("添加成功");
-												queryMechanicBytid("",vm.chose.tid);
-												vm.mechanic={tid:"",mcisgroup:0,pno:"",people:{pno:""}};
-												queryAllStaff();
-											}
-										},error:function(result){
-											alert("发生错误");
-										}
-									});
-								}else if(vm.kk=="2"){
-									//修改
-									$.ajax({
-										url:data.ip+"mechanic/updateMechanic",
-										data:JSON.stringify(vm.mechanic),
-										type:"put",
-										dataType:"json",
-										contentType:"application/json;charset=utf-8",
-										success:function(result){
-											if(result=="1"){
-												alert("修改成功");
-												queryMechanicBytid("",vm.chose.tid);
-												vm.mechanic={tid:"",mcisgroup:0,pno:"",people:{pno:""}};
-												queryAllStaff();
->>>>>>> refs/remotes/origin/zhongpenggen
 											}
 										},error:function(result){
 											alert("发生错误");
@@ -1126,7 +809,7 @@
 								vm.kk="2";
 								vm.mechanic=vm.demon;
 								console.log(vm.demon);
-								$("#addstaff").show();
+								$("#addstaff").fadeIn();
 							}
 						},
 						addstaff:function(){
@@ -1135,7 +818,7 @@
 							}else{
 								vm.kk="1";
 								queryAllStaff();
-								$("#addstaff").show();
+								$("#addstaff").fadeIn();
 							}
 						},
 						closeadd:function(){
@@ -1146,13 +829,13 @@
 							$("#chosebanzu").hide();
 						},
 						checkstaff:function(){
-							$("#checkstaff").show();
+							$("#checkstaff").fadeIn();
 						},
 						staffrole:function(){
-							$("#role").show();
+							$("#role").fadeIn();
 						},
 						setting:function(){
-							$("#setting").show();
+							$("#setting").fadeIn();
 						}
 					},
 					created:function(){

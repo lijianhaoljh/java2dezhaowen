@@ -112,8 +112,8 @@
 							<ul class="nav nav-tabs metab my-tab" >
 							  <li role="presentation" class="active"><a href="#index" data-toggle="tab">首页</a></li>
 							</ul>
-							<div class="tab-content" style="height: 100%;">
-								<div id="index" style="height: 100%;" class="active tab-pane">
+							<div class="tab-content" style="height: 92.8%;">
+								<div id="index" style="height: 92.8%;" class="active tab-pane">
 									<iframe src="home.html"></iframe>
 								</div>
 							</div>
@@ -189,7 +189,7 @@
 											<td>{{c.cbnam}}</td>
 											<td>{{c.moiname}}</td>
 											<td>{{c.indate}}</td>
-											<td>{{c.inid_bdate}}</td>
+											<td>{{c.inidBdate}}</td>
 											<td>{{c.cddriver}}</td>
 											<td>{{c.cddriverphone}}</td>
 										</tr>
@@ -263,8 +263,6 @@
 			
 		</div>
 		</div>
-		</div>
-	
 		<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
 		<script type="text/javascript" src="js/vue.js" ></script>
@@ -274,7 +272,7 @@
 		<script src="js/jquery.ztree.exedit.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script>
-			queryTree();
+			
 			function queryTree(){
 					//树状结构
 					$.ajax({
@@ -406,7 +404,7 @@
 						       	$("#nine").hide();
 						       	$("#ten").hide();
 						       	$("#eleven").hide();
-						       	$("#ttt").css("width","600px");
+						       	$("#ttt").css("width","800px");
 						    }else if(treeNode.id == "6"){
 						       	vm.dian = vm.checkcar;
 						       	$.ajax({
@@ -552,7 +550,6 @@
 						perms: [],
 						user:{},
 						p:{},
-						index:0,
 						trees:[
 								{id:1,name:"提醒情况",parentid:0},
 								{id:2,name:"今天过生日的客户",parentid:1},
@@ -582,7 +579,8 @@
 							todatbirthdriver:["车牌号","品牌","车型","出生日期","驾驶员","手机"],
 							keepcar:["车牌号","保养名称","计划日期","计划里程","顾客姓名","手机"],
 							todaybirthstaf:["出生日期","部门","工号","姓名","性别","职位"],
-							overstaf:["合同到期","部门","工号","姓名","性别","职位"]
+							overstaf:["合同到期","部门","工号","姓名","性别","职位"],
+						index:0
 					}
 				},methods:{
 					clo:function(){
@@ -630,6 +628,7 @@
 							console.log(222)
 						}
 					});
+					
 					queryTree();
 						$.ajax({
 						       		url:data.ip+"day/querytodaybirthcus",
@@ -643,11 +642,11 @@
 						       		}
 						       	});
 						       	
+					//$("#myModal").modal("show");
 				},computed:{
 					getPerms(){
 						return this.perms;
-					},
-					
+					}
 				}
 			});
 			

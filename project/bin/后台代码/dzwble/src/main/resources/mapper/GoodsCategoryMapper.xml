@@ -12,6 +12,14 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap type="com.accp.domain.GoodsCategory" id="BaseResultMapTwo" extends="BaseResultMap">
+   <collection property="children" column="gid" ofType="com.accp.domain.GoodsCategory" select="findGoodsCategorys"></collection>
+  </resultMap>
+  
+  <select id="findGoodsCategorys" resultMap="BaseResultMapTwo">
+  	select * from goods_category where parentid=#{gid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

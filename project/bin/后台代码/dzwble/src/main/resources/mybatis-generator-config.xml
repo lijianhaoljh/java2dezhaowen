@@ -32,12 +32,8 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
-<<<<<<< HEAD
 			<table schema="requisition" tableName="requisition"></table>
 			<table schema="addtion" tableName="addtion"></table>
-=======
-			<table schema="commodity_info" tableName="commodity_info"></table>
->>>>>>> refs/remotes/origin/zhongpenggen
 	</context>
 </generatorConfiguration>
 

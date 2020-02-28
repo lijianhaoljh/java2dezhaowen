@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class GoodsCategory {
     private Integer gid;
 
@@ -18,8 +20,18 @@ public class GoodsCategory {
     private String remark4;
 
     private String remark5;
+    
+    private List<GoodsCategory> children;
 
-    public Integer getGid() {
+    public List<GoodsCategory> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<GoodsCategory> children) {
+		this.children = children;
+	}
+
+	public Integer getGid() {
         return gid;
     }
 

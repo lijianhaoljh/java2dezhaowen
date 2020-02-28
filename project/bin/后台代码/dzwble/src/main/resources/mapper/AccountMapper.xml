@@ -32,6 +32,62 @@
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="findAccounts" resultMap="BaseResultMap">
+  	SELECT a.id aid,a.bid,mb.mbname,rb.rbname,pm.pmname,b.bstate,a.astate,a.atime,a.aname,a.total,bt.btname,ct.`cname`,c.`cdlicense`,mo.`moiname`,c.`cdframe`,
+ct.`cpeople`,ct.jifen,ct.cno,i.inname,ie.inname AS ieinname,po.pname,b.Completiontime
+ FROM `account` AS a
+LEFT JOIN `bills` AS b
+ON a.bid=b.bid
+LEFT JOIN `maintain_bill` AS mb
+ON b.bid=mb.bid
+LEFT JOIN `rescue_bill` AS rb
+ON b.bid=rb.bid
+LEFT JOIN `payment_method` AS pm
+ON b.pmid=pm.pmid
+LEFT JOIN people AS pe
+ON a.aname=pe.pno
+LEFT JOIN `business_types` AS bt
+ON b.btid=bt.btid
+LEFT JOIN `cardata` AS c
+ON b.cdlicense=c.`cdlicense`
+LEFT JOIN `customer` AS ct
+ON c.cno=ct.`cno`
+LEFT JOIN `motorcycle` AS mo
+ON c.`moid`=mo.moid
+LEFT JOIN `insurance` AS i
+ON b.inid=i.inid
+LEFT JOIN `insurance` AS ie
+ON c.`inid`=ie.inid
+LEFT JOIN people AS po
+ON b.pno=po.pno
+WHERE 1=1
+<choose>
+			<when test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and b.ordertime BETWEEN DATE_FORMAT(#{startTime},"%Y-%m-%d 00:00:00") AND DATE_FORMAT(#{endTime},"%Y-%m-%d 23:59:59") 
+			</when>
+			<when test="startTime!=null and startTime!=''">
+				and b.ordertime &gt; DATE_FORMAT(#{startTime},"%Y-%m-%d 23:59:59")
+			</when>
+			<when test="endTime!=null and endTime!=''">
+				and b.orderTime &lt; DATE_FORMAT(#{endTime},"%Y-%m-%d 00:00:00")
+			</when>
+</choose>
+<if test="bid!=null">
+AND a.bid LIKE concat('%',#{bid},'%')
+</if>
+<if test="bstate!=null">
+AND b.bstate = #{bstate}
+</if>
+<if test="cdlicense!=null">
+AND c.cdlicense LIKE concat('%',#{cdlicense},'%')
+</if>
+<if test="cno!=null">
+AND ct.cno like concat('%',#{cno},'%')
+</if> 
+<if test="pno!=null">
+AND po.pno like concat('%',#{pno},'%')
+</if>
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

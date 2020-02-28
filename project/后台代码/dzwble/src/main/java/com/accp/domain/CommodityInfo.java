@@ -75,9 +75,98 @@ public class CommodityInfo {
     private String zpname;    //商品产地;
     private String zmfname;   //厂商名称
     
-    
+    private String cbname;//品牌
+    private String cuname;//单位
+    private String gcbname;//大类
+    private String gccname;//中类
+    private String gcsname;//小类
+    private String toname;//收入类型
+    private String coname;//原厂副厂
+    private String gcname;//商品等级
+    private String pname;//产地
+    private String mfname;//产商
 
-    public int getZgid() {
+    public String getCbname() {
+		return cbname;
+	}
+
+	public void setCbname(String cbname) {
+		this.cbname = cbname;
+	}
+
+	public String getCuname() {
+		return cuname;
+	}
+
+	public void setCuname(String cuname) {
+		this.cuname = cuname;
+	}
+
+	public String getGcbname() {
+		return gcbname;
+	}
+
+	public void setGcbname(String gcbname) {
+		this.gcbname = gcbname;
+	}
+
+	public String getGccname() {
+		return gccname;
+	}
+
+	public void setGccname(String gccname) {
+		this.gccname = gccname;
+	}
+
+	public String getGcsname() {
+		return gcsname;
+	}
+
+	public void setGcsname(String gcsname) {
+		this.gcsname = gcsname;
+	}
+
+	public String getToname() {
+		return toname;
+	}
+
+	public void setToname(String toname) {
+		this.toname = toname;
+	}
+
+	public String getConame() {
+		return coname;
+	}
+
+	public void setConame(String coname) {
+		this.coname = coname;
+	}
+
+	public String getGcname() {
+		return gcname;
+	}
+
+	public void setGcname(String gcname) {
+		this.gcname = gcname;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getMfname() {
+		return mfname;
+	}
+
+	public void setMfname(String mfname) {
+		this.mfname = mfname;
+	}
+
+	public int getZgid() {
 		return zgid;
 	}
 
