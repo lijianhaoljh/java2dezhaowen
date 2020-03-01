@@ -111,11 +111,12 @@
 				      <div class="modal-body">
 				         	<table class="table table-hover metable">
 				         		<tr>
-				         			<td>品牌名称:</td>
+				         			<td><span style="color: red;">*</span>品牌名称:</td>
 				         			<td><input type="text" v-model="carbrand.cbname" id="input_1"/></td>
 				         		</tr>
 				         		<tr>
-				         			<td>首字母:</td>
+				         			
+				         			<td><span style="color: red;">*</span>首字母:</td>
 				         			<td><input type="text" v-model="carbrand.cbfirst" id="input_2"/></td>
 				         		</tr>
 				         	</table>
@@ -145,7 +146,7 @@
 				        <button type="button" class="btn btn-default" style="float: right;" v-if="isok"  @click="addtwo">新增</button>
 				      </div>
 				      <div class="modal-body">
-				         	车辆品牌:<input type="text" v-model="cbbr.cbno" readonly="readonly"/>
+				         	<span style="color: red;">*</span>车辆品牌:<input type="text" v-model="cbbr.cbno" readonly="readonly"/>
 				         	<input type="text" v-model="cbbr.cbname" readonly="readonly"/>
 				         	<br/><br/><br/>
 				         	车辆载重:<input type="text" id="input_8" v-model="cbbr.load"/>
@@ -319,6 +320,7 @@
 					$("#myModal").modal("show");
 				},
 				Adds:function(){
+					
 					vm.isok=true;
 					$("#myModal1").modal("show");
 				},
