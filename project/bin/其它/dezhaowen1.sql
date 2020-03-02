@@ -51,7 +51,7 @@ CREATE TABLE `account` (
   `remark4` varchar(10) DEFAULT NULL COMMENT '备注4',
   `remark5` varchar(10) DEFAULT NULL COMMENT '备注5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=gbk COMMENT='结算表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=gbk COMMENT='结算表';
 
 /*Data for the table `account` */
 
@@ -292,7 +292,7 @@ CREATE TABLE `commodity_info` (
   `gcid` int(11) DEFAULT NULL COMMENT '商品等级编号',
   `pid` int(11) DEFAULT NULL COMMENT '产地表',
   `mfid` int(11) DEFAULT NULL COMMENT '产商表',
-  `origin` varchar(20) DEFAULT NULL COMMENT '原产编码',
+  `origin` varchar(20) DEFAULT NULL COMMENT '原产',
   `barcode` varchar(20) DEFAULT NULL COMMENT '条形编码',
   `pack` varchar(20) DEFAULT NULL COMMENT '包装规格',
   `volume` float DEFAULT NULL COMMENT '体积',
@@ -317,7 +317,7 @@ CREATE TABLE `commodity_info` (
 
 /*Data for the table `commodity_info` */
 
-insert  into `commodity_info`(`cno`,`cname`,`cbid`,`cuid`,`vehicletype`,`gid`,`toino`,`coid`,`gcid`,`pid`,`mfid`,`origin`,`barcode`,`pack`,`volume`,`grossweight`,`netweight`,`stockprice`,`markup`,`exchangecode`,`standardprice`,`memberprice`,`vipprice`,`agreementprice`,`Insuranceprice`,`claimprice`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'大花猫',1,1,'小型汽车',1,1,1,1,1,1,'z0520','zph9999','大包',20,10,19.2,5000,1,'0',6000,5900,5800,5800,5700,5000,'Z20','成高',NULL,NULL,NULL),(2,'11',2,2,'1',2,2,2,2,2,2,'1','1','1',1,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'22',2,2,'3',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'礼拜w',2,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'nip',1,2,'1',6,1,1,1,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `commodity_info`(`cno`,`cname`,`cbid`,`cuid`,`vehicletype`,`gid`,`toino`,`coid`,`gcid`,`pid`,`mfid`,`origin`,`barcode`,`pack`,`volume`,`grossweight`,`netweight`,`stockprice`,`markup`,`exchangecode`,`standardprice`,`memberprice`,`vipprice`,`agreementprice`,`Insuranceprice`,`claimprice`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'大花猫',1,1,'小型汽车',10,1,1,1,1,1,'z0520','zph9999','大包',20,10,19.2,5000,1,'0',6000,5900,5800,5800,5700,5000,'Z20','成高',NULL,NULL,NULL),(2,'11',2,2,'1',2,2,2,2,2,2,'1','1','1',1,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'22',2,2,'3',2,2,2,2,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'礼拜w',2,3,'1',5,1,1,1,2,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'nip',1,2,'1',6,1,1,1,1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `commodity_unit` */
 
@@ -355,7 +355,7 @@ CREATE TABLE `country_origin` (
 
 /*Data for the table `country_origin` */
 
-insert  into `country_origin`(`coid`,`coname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'贝思达',NULL,NULL,NULL,NULL,NULL),(2,'马亚蒂',NULL,NULL,NULL,NULL,NULL);
+insert  into `country_origin`(`coid`,`coname`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'原厂',NULL,NULL,NULL,NULL,NULL),(2,'副厂',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `customer` */
 
@@ -489,7 +489,7 @@ CREATE TABLE `goods_category` (
 
 /*Data for the table `goods_category` */
 
-insert  into `goods_category`(`gid`,`gname`,`parentid`,`catalog`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'发动机',0,0,NULL,NULL,NULL,NULL,NULL),(2,'传动系统',0,0,NULL,NULL,NULL,NULL,NULL),(3,'制动系统',0,0,NULL,NULL,NULL,NULL,NULL),(4,'行驶系统',0,0,NULL,NULL,NULL,NULL,NULL),(5,'车身',0,0,NULL,NULL,NULL,NULL,NULL),(6,'电气',0,0,NULL,NULL,NULL,NULL,NULL),(7,'通用件与标准件',0,0,NULL,NULL,NULL,NULL,NULL),(8,'轮胎',0,0,NULL,NULL,NULL,NULL,NULL),(9,'汽车用品',0,0,NULL,NULL,NULL,NULL,NULL),(10,'油漆',0,0,NULL,NULL,NULL,NULL,NULL);
+insert  into `goods_category`(`gid`,`gname`,`parentid`,`catalog`,`remark1`,`remark2`,`remark3`,`remark4`,`remark5`) values (1,'发动机',0,0,NULL,NULL,NULL,NULL,NULL),(2,'传动系统',0,0,NULL,NULL,NULL,NULL,NULL),(3,'制动系统',0,0,NULL,NULL,NULL,NULL,NULL),(4,'行驶系统',0,0,NULL,NULL,NULL,NULL,NULL),(5,'车身',4,0,NULL,NULL,NULL,NULL,NULL),(6,'电气',0,0,NULL,NULL,NULL,NULL,NULL),(7,'通用件与标准件',0,0,NULL,NULL,NULL,NULL,NULL),(8,'轮胎',0,0,NULL,NULL,NULL,NULL,NULL),(9,'汽车用品',0,0,NULL,NULL,NULL,NULL,NULL),(10,'油漆',5,0,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `grade_commodity` */
 
