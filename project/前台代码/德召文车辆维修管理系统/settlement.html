@@ -298,7 +298,7 @@
 									alert("收银成功");
 									$('#settlement').modal('hide');
 									vm.addAccount={id:"",aname:"",bid:"",total:"",astate:"0",buying:"",cash:"",bank:"",bill:"",internal:"",voucher:"",invid:"",billmoney:""};
-									this.findAccounts();
+									vm.findAccounts();
 								}
 							},error:function(error){
 								alert("发生错误");

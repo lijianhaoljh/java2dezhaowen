@@ -102,6 +102,7 @@ LEFT JOIN `vip` AS v
 ON c.cno=v.cno
 LEFT JOIN account AS a
 ON b.bid=a.bid
+where b.bstate &lt; 3
 ORDER BY b.ordertime DESC
 </select>
   
@@ -119,7 +120,7 @@ LEFT JOIN `vip` AS v
 ON ct.cno=v.cno
 LEFT JOIN `account` AS a
 ON b.bid=a.bid
-where b.cdlicense like concat('%',#{cdlicense},'%')
+where b.cdlicense like concat('%',#{cdlicense},'%') and b.bstate &lt; 3
 order by b.ordertime desc
 </select>
 <select id="findByCdlicenseTwo" resultMap="BaseResultMap">
@@ -138,7 +139,7 @@ LEFT JOIN `price_class` AS pc
 ON dm.pcid=pc.pcid
 LEFT JOIN people AS p
 ON dm.pno=p.pno
-WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%') and b.bstate &lt; 3
 ORDER BY b.ordertime DESC
 </select> 
 <select id="findByCdlicenseThree" resultMap="BaseResultMap">
@@ -161,7 +162,7 @@ r.Bpreferential,r.apreferential,r.bpreferentialM,ps.pname AS psname,r.num
  ON r.servicepeo=ps.pno
  LEFT JOIN account AS a
  ON r.bid=a.bid
-WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%')
+WHERE b.`cdlicense` LIKE concat('%',#{cdlicense},'%') and b.bstate &lt; 3
 ORDER BY b.ordertime DESC
 </select> 
 <select id="findCompletions" resultMap="BaseResultMap">
