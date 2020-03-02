@@ -88,6 +88,33 @@
 		b.gname  LIKE  CONCAT ('%',#{cbno},'%') 
 		
   </select>
+  <select id="findCommodityInfo" resultMap="BaseResultMap">
+  SELECT ci.cno,ci.cname,cb.`cbname`,ci.vehicletype,cu.cuname,gcb.gname AS gcbname,gcc.gname AS gccname,gcs.gname AS gcsname,
+it.toname,co.coname,gc.gcname,po.pname,mf.mfname,ci.origin,ci.barcode,ci.pack,ci.volume,ci.grossweight,ci.netweight,ci.markup,ci.exchangecode,
+ci.standardprice,ci.memberprice,ci.vipprice,ci.agreementprice,ci.Insuranceprice,ci.claimprice
+FROM `commodity_info` AS ci
+LEFT JOIN `commodity_brand` AS cb
+ON ci.cbid=cb.cbid
+LEFT JOIN `commodity_unit` AS cu
+ON ci.cuid=cu.cuid
+LEFT JOIN `goods_category` AS gcs
+ON ci.gid=gcs.gid
+LEFT JOIN `goods_category` AS gcc
+ON gcs.parentid=gcc.gid
+LEFT JOIN `goods_category` AS gcb
+ON gcc.parentid=gcb.gid
+LEFT JOIN `income_type` AS it
+ON ci.toino=it.toino
+LEFT JOIN `country_origin` AS co
+ON ci.coid=co.coid
+LEFT JOIN`grade_commodity` AS gc
+ON ci.gcid=gc.gcid
+LEFT JOIN `place_origin` AS po
+ON ci.pid=po.pid
+LEFT JOIN `manufacturer` AS mf
+ON ci.mfid=mf.mfid
+WHERE ci.gid=#{gid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

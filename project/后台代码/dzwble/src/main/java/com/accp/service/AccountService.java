@@ -47,6 +47,7 @@ public class AccountService {
 	public int shouyin(Account addAccount){
 		Date time = new Date();
 		addAccount.setAtime(time);
+		addAccount.setId(0);
 		AccountExample ex = new AccountExample();
 		ex.createCriteria().andBidEqualTo(addAccount.getBid());
 		int a = accountMapper.updateByExample(addAccount, ex);

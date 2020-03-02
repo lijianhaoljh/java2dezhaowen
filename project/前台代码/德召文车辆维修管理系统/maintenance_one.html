@@ -62,8 +62,8 @@
 			<div class="row">
 				<div class="panel panel-success" >
 				  <div class="panel-heading">
-				   		<table class="table table-hover table-condensed">
 				   			<thead>
+				   		<table class="table table-hover table-condensed" style="1500px">
 					   			<tr>
 					   				<th colspan="5">信息:</th>
 					   			</tr>
@@ -139,9 +139,9 @@
 							<li role="presentation"><a href="#acq" data-toggle="tab">领料情况</a></li>
 							<li role="presentation"><a href="#hv" data-toggle="tab">历史回访</a></li>
 						</ul>
-						<div class="tab-content" style="padding: 5px;;">
-							<div id="carInfo" class="active tab-pane bg-warning pane1">
-								<table class="table table-hover">
+						<div class="tab-content" style="padding: 5px;;" style="1500px">
+							<div id="carInfo" class="active tab-pane bg-warning pane1" style="1500px">
+								<table class="table table-hover" style="1500px">
 									<thead>
 										<tr>
 											<td>##</td>
@@ -236,7 +236,7 @@
 							</div>
 							
 							<div id="mh" class="tab-pane bg-warning pane1">
-								<table class="table table-hover">
+								<table class="table table-hover" style="1500px">
 									<thead>
 										<tr>
 											<td>维修单号</td>
@@ -301,7 +301,7 @@
 							</div>
 							
 							<div id="mp" class="tab-pane bg-warning pane1">
-								<table class="table table-hover">
+								<table class="table table-hover" style="1500px">
 									<thead>
 										<tr>
 											<td>维修单号</td>
@@ -378,7 +378,7 @@
 							</div>
 							
 							<div id="acq" class="tab-pane bg-warning pane1">
-								<table class="table table-hover">
+								<table class="table table-hover" style="1500px">
 									<thead>
 										<tr>
 											<td>维修单号</td>
@@ -640,9 +640,9 @@
 											<td>{{item.sidname}}</td>
 											<td>{{item.num}}</td>
 											<td>{{item.pc.pcname}}</td>
-											<td>{{item.bpreferential==null?0.00:item.bpreferential.toFixed(2)}}</td>
-											<td>{{item.apreferential==null?0.00:item.apreferential.toFixed(2)}}</td>
-											<td>{{item.bpreferentialm==null?0.00:item.bpreferentialm.toFixed(2)}}</td>
+											<td>{{item.bpreferential==null?0.00:item.bpreferential}}</td>
+											<td>{{item.apreferential==null?0.00:item.apreferential}}</td>
+											<td>{{item.bpreferentialm==null?0.00:item.bpreferentialm}}</td>
 											<td>{{item.faultdescription}}</td>
 											<td>{{item.problem}}</td>
 											<td>{{item.team.tname}}</td>
@@ -653,8 +653,8 @@
 									</tbody>
 								</table>
 							</div>
-							<div id="llqk" class="tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+							<div id="llqk" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -665,11 +665,14 @@
 									       	<li><a href="#">物料需求</a></li>
 									        <li><a href="#" @click="openCategoryModal">领料</a></li>
 									        <li><a href="#">重置价格</a></li>
+									        <li><a href="#">修改</a></li>
+									        <li><a href="#">删除</a></li>
 								        </ul>
 								  </div>
 								</nav>
-								<table class="table">
+								<table class="table" style="width: 1500px;">
 									<tr>
+										<td>##</td>
 										<td>类别</td>
 										<td>领料日期</td>
 										<td>领料人</td>
@@ -684,25 +687,27 @@
 										<td>服务顾问</td>
 										<td>免单原因</td>
 									</tr>
-									<tr>
-										<td>类别</td>
-										<td>领料日期</td>
-										<td>领料人</td>
-										<td>物料编码</td>
-										<td>物料名称</td>
-										<td>单位</td>
-										<td>价类</td>
-										<td>数量</td>
-										<td>优惠前单价</td>
-										<td>优惠后单价</td>
-										<td>优惠后金额</td>
-										<td>服务顾问</td>
-										<td>免单原因</td>
+									<tr v-for="item in bills.requisition">
+										<td><input type="radio" name="re"/></td>
+										<td v-if="item.rtype==0">需求</td>
+										<td v-else>领料</td>
+										<td>{{item.rtime}}</td>
+										<td>{{item.peo.pname}}</td>
+										<td>{{item.cno}}</td>
+										<td>{{item.cname}}</td>
+										<td>{{item.cuname}}</td>
+										<td>{{item.pc.pcname}}</td>
+										<td>{{item.num}}</td>
+										<td>{{item.bpreferential==null?0.00:item.bpreferential.toFixed(2)}}</td>
+										<td>{{item.apreferential==null?0.00:item.apreferential.toFixed(2)}}</td>
+										<td>{{item.bpreferentialm==null?0.00:item.bpreferentialm.toFixed(2)}}</td>
+										<td>{{item.pick.pname}}</td>
+										<td>{{item.free}}</td>
 									</tr>
 								</table>
 							</div>
-							<div id="fjxm" class="tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+							<div id="fjxm" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="margin: 0px;"> 
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -710,23 +715,36 @@
 								      </a>
 								    </div>
 								    <ul class="nav navbar-nav">
-									       	<li><a href="#">添加项目</a></li>
-									        <li><a href="#">修改项目</a></li>
-									        <li><a href="#">删除项目</a></li>
+									       	<li><a href="#" @click="openAddtionModal(0)">添加项目</a></li>
+									        <li><a href="#" @click="openAddtionModal(1)">修改项目</a></li>
+									        <li><a href="#" @click="delAddtion">删除项目</a></li>
 								        </ul>
 								  </div>
 								</nav>
-								<table>
-									<tr>
-										<td>附加项目</td>
-										<td>价类</td>
-										<td>金额</td>
-										<td>备注</td>
-									</tr>
+								<table class="table">
+									<thead>
+										<tr>
+											<td>##</td>
+											<td>附加项目</td>
+											<td>价类</td>
+											<td>金额</td>
+											<td>备注</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item,index in bills.addtions" @click="xzAddtion($event,item)">
+											<td><input type="radio" name="addtion" v-if="index==0" checked="checked"/>
+											<input type="radio" name="addtion" v-else/></td>
+											<td>{{item.aname}}</td>
+											<td>{{item.pc.pcname}}</td>
+											<td>{{item.aprice}}</td>
+											<td>{{item.remark1}}</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
-							<div id="lshf" class="tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+							<div id="lshf" class="tab-pane bg-warning"style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -735,7 +753,8 @@
 								    </div>
 								  </div>
 								</nav>
-								<table>
+								<table class="table table-hover" style="width: 1500px;">
+									<thead>
 									<tr>
 										<td>结算状态</td>
 										<td>优惠前金额</td>
@@ -761,6 +780,34 @@
 										<td>发票号</td>
 										<td>发票金额</td>
 									</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>预算金额</td>
+											<td>{{bills.account.beforeMoney}}</td>
+											<td>{{bills.account.total}}</td>
+											<td>{{bills.account.materialsExpenses}}</td>
+											<td>{{bills.account.crash}}</td>
+											<td>{{bills.account.addition}}</td>
+											<td>{{bills.account.atime}}</td>
+											<td>{{bills.account.aname}}</td>
+											<td>{{bills.account.cash}}</td>
+											<td>{{bills.account.bank}}</td>
+											<td>{{bills.account.bill}}</td>
+											<td>{{bills.account.buying}}</td>
+											<td>{{bills.account.atCard}}</td>
+											<td>{{bills.account.atDeposit}}</td>
+											<td>{{bills.account.collectTaxes}}</td>
+											<td>{{bills.account.voucher}}</td>
+											<td>{{bills.account.wipeMantissa}}</td>
+											<td>{{bills.account.internal}}</td>
+											<td>{{bills.account.pointsDeduction}}</td>
+											<td>{{bills.account.profitLoss}}</td>
+											<td></td>
+											<td></td>
+											<td>0.00</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						</div>
@@ -768,7 +815,10 @@
 			      <div class="modal-footer">
 				    <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
 				    <button class="btn btn-danger"  v-else-if="bills.bstate==1">竣工检验</button>
-				    <button class="btn btn-danger"  v-else>完工待结</button>
+				    <span v-else>
+				    <button class="btn btn-danger"  >完工待结</button>
+				    <button class="btn btn-danger" >回滚</button>
+				    </span>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			      	<button type="button" class="btn btn-default">保存</button>
 			      </div>
@@ -780,17 +830,12 @@
             	时间：2020-02-16
             	描述：救援单
             -->
-			<div id="openRmodal" class="modal fade" tabindex="-1" role="dialog">
+			<div id="openRmodal" class="modal fade" tabindex="-1" role="dialog" style="overflow: scroll;">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title">救援单</h4>
-			        <div class="form-inline" style="float: right;">
-				        <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
-				        <button class="btn btn-danger"  v-else-if="bills.bstate==1">竣工检验</button>
-				        <button class="btn btn-danger"  v-else>完工待结</button>
-			        </div>
 			      </div>
 			      <div class="modal-body">
 			        	<table class="table">
@@ -879,9 +924,9 @@
 							<li role="presentation"><a href="#fjxm2" data-toggle="tab">附加项目</a></li>
 							<li role="presentation"><a href="#lshf2" data-toggle="tab">历史回访</a></li>
 						</ul>
-						<div class="tab-content" style="padding: 5px;;">
-							<div id="wxls2" class="active tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+						<div class="tab-content" style="padding: 5px;">
+							<div id="wxls" class="active tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -889,50 +934,57 @@
 								      </a>
 									</div>
 									    <ul class="nav navbar-nav">
-									       	<li><a href="#" @click="openMainModal">多项添加</a></li>
-									        <li><a href="#">修改项目</a></li>
-									        <li><a href="#">删除项目</a></li>
-									        <li><a href="#">重置价格</a></li>
+									       	<li><a href="#" @click="openMainModal">多项项目</a></li>
+									        <li><a href="#" @click="openUpMainModal">修改项目</a></li>
+									        <li><a href="#" @click="openDelMainModal">删除项目</a></li>
+									        <li><a href="#" @click="openResetMainPriceModal">重置价格</a></li>
 								        </ul>
 								  </div>
 								</nav>
-								<table class="table">
-									<tr>
-										<td>选择</td>
-										<td>项目编码</td>
-										<td>项目名称</td>
-										<td>数量</td>
-										<td>价类</td>
-										<td>优惠前单价</td>
-										<td>优惠后单价</td>
-										<td>优惠后金额</td>
-										<td>故障描述</td>
-										<td>故障原因</td>
-										<td>维修班组</td>
-										<td>作业人员</td>
-										<td>服务顾问</td>
-										<td>免单原因</td>
-									</tr>
-									<tr>
-										<td>选择</td>
-										<td>项目编码</td>
-										<td>项目名称</td>
-										<td>数量</td>
-										<td>价类</td>
-										<td>优惠前单价</td>
-										<td>优惠后单价</td>
-										<td>优惠后金额</td>
-										<td>故障描述</td>
-										<td>故障原因</td>
-										<td>维修班组</td>
-										<td>作业人员</td>
-										<td>服务顾问</td>
-										<td>免单原因</td>
-									</tr>
+								<table class="table table-hover" style="width: 1500px;">
+									<thead>
+										<tr>
+											<td>选择</td>
+											<td>项目编码</td>
+											<td>项目名称</td>
+											<td>数量</td>
+											<td>价类</td>
+											<td>优惠前单价</td>
+											<td>优惠后单价</td>
+											<td>优惠后金额</td>
+											<td>故障描述</td>
+											<td>故障原因</td>
+											<td>维修班组</td>
+											<td>作业人员</td>
+											<td>服务顾问</td>
+											<td>免单原因</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item,index in bills.maintenance" @click="xzMaintenance($event,item)">
+											<td>
+												<input type="radio" name="mainten" v-if="index==0" checked="checked"/>
+												<input type="radio" name="mainten" v-else/>
+											</td>
+											<td>{{item.sidno}}</td>
+											<td>{{item.sidname}}</td>
+											<td>{{item.num}}</td>
+											<td>{{item.pc.pcname}}</td>
+											<td>{{item.bpreferential==null?0.00:item.bpreferential}}</td>
+											<td>{{item.apreferential==null?0.00:item.apreferential}}</td>
+											<td>{{item.bpreferentialm==null?0.00:item.bpreferentialm}}</td>
+											<td>{{item.faultdescription}}</td>
+											<td>{{item.problem}}</td>
+											<td>{{item.team.tname}}</td>
+											<td>{{item.peo.pname}}</td>
+											<td>{{item.pick.pname}}</td>
+											<td>{{item.free}}</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
-							<div id="llqk2" class="tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+							<div id="llqk" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -941,8 +993,9 @@
 								    </div>
 								  </div>
 								</nav>
-								<table class="table">
+								<table class="table" style="width: 1500px;">
 									<tr>
+										<td>##</td>
 										<td>类别</td>
 										<td>领料日期</td>
 										<td>领料人</td>
@@ -959,8 +1012,8 @@
 									</tr>
 								</table>
 							</div>
-							<div id="fjxm2" class="tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+							<div id="fjxm" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="margin: 0px;"> 
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -968,23 +1021,36 @@
 								      </a>
 								    </div>
 								    <ul class="nav navbar-nav">
-									       	<li><a href="#">添加项目</a></li>
-									        <li><a href="#">修改项目</a></li>
-									        <li><a href="#">删除项目</a></li>
+									       	<li><a href="#" @click="openAddtionModal(0)">添加项目</a></li>
+									        <li><a href="#" @click="openAddtionModal(1)">修改项目</a></li>
+									        <li><a href="#" @click="delAddtion">删除项目</a></li>
 								        </ul>
 								  </div>
 								</nav>
-								<table>
-									<tr>
-										<td>附加项目</td>
-										<td>价类</td>
-										<td>金额</td>
-										<td>备注</td>
-									</tr>
+								<table class="table">
+									<thead>
+										<tr>
+											<td>##</td>
+											<td>附加项目</td>
+											<td>价类</td>
+											<td>金额</td>
+											<td>备注</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item,index in bills.addtions" @click="xzAddtion($event,item)">
+											<td><input type="radio" name="addtion" v-if="index==0" checked="checked"/>
+											<input type="radio" name="addtion" v-else/></td>
+											<td>{{item.aname}}</td>
+											<td>{{item.pc.pcname}}</td>
+											<td>{{item.aprice}}</td>
+											<td>{{item.remark1}}</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
-							<div id="lshf2" class="tab-pane bg-warning">
-								<nav class="navbar navbar-default">
+							<div id="lshf" class="tab-pane bg-warning"style="width: 970px; overflow: scroll;">
+								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
 								      <a class="navbar-brand" href="#">
@@ -993,7 +1059,8 @@
 								    </div>
 								  </div>
 								</nav>
-								<table>
+								<table class="table table-hover" style="width: 1500px;">
+									<thead>
 									<tr>
 										<td>结算状态</td>
 										<td>优惠前金额</td>
@@ -1019,11 +1086,46 @@
 										<td>发票号</td>
 										<td>发票金额</td>
 									</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>预算金额</td>
+											<td>{{bills.account.beforeMoney}}</td>
+											<td>{{bills.account.total}}</td>
+											<td>{{bills.account.materialsExpenses}}</td>
+											<td>{{bills.account.crash}}</td>
+											<td>{{bills.account.addition}}</td>
+											<td>{{bills.account.atime}}</td>
+											<td>{{bills.account.aname}}</td>
+											<td>{{bills.account.cash}}</td>
+											<td>{{bills.account.bank}}</td>
+											<td>{{bills.account.bill}}</td>
+											<td>{{bills.account.buying}}</td>
+											<td>{{bills.account.atCard}}</td>
+											<td>{{bills.account.atDeposit}}</td>
+											<td>{{bills.account.collectTaxes}}</td>
+											<td>{{bills.account.voucher}}</td>
+											<td>{{bills.account.wipeMantissa}}</td>
+											<td>{{bills.account.internal}}</td>
+											<td>{{bills.account.pointsDeduction}}</td>
+											<td>{{bills.account.profitLoss}}</td>
+											<td></td>
+											<td></td>
+											<td>0.00</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						</div>
 			      </div>
 			      <div class="modal-footer">
+				    <button class="btn btn-danger"  v-if="bills.bstate==0">竣工检验</button>
+				    <span v-else>
+				    <button class="btn btn-danger"  >完工待结</button>
+				    <button class="btn btn-danger" >回滚</button>
+				    </span>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			      	<button type="button" class="btn btn-default">保存</button>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			      	<button type="button" class="btn btn-default" >保存</button>
 			      </div>
@@ -1091,68 +1193,63 @@
             	时间：2020-02-23
             	描述：修改维修项目信息
             -->
-            <div id="" class="modal fade" tabindex="-1" role="dialog">
-			  <div class="modal-dialog"  role="document">
-			    <div class="modal-content" >
+            <div id="upMainModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog"  role="document" style="width: 1000px;">
+			    <div class="modal-content" style="width: 1000px;">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title" id="myModalLabel">修改项目信息</h4>
 			      </div>
 			      <div class="modal-body">
-			      	<table border="" cellspacing="" cellpadding="">
+			      	<table class="table">
 			      		<tr>
 			      			<td>维修项目:</td>
-			      			<td colspan="3"><input type="text" /></td>
-			      		</tr>
-			      		<tr>
+			      			<td><input type="text" v-model="m.sidname" readonly="readonly"/></td>
 			      			<td>价类:</td>
 			      			<td>
-			      				<select>
-			      					
-			      				</select>
-			      			</td>
-			      			<td>免单原因</td>
-			      			<td>
-			      				<select>
-			      					
+			      				<select v-model="m.pcid">
+			      					<option v-for="item in pc" :value="item.id">{{item.pcname}}</option>
 			      				</select>
 			      			</td>
 			      		</tr>
 			      		<tr>
+			      			<td>免单原因：</td>
+			      			<td>
+			      				<select disabled="disabled"></select>
+			      			</td>
 			      			<td>服务顾问:</td>
 			      			<td>
-			      				<select>
-			      				
-			      				</select>
+			      				<input type="text" v-if="m.pick" v-model="m.pick.pname" readonly="readonly"/>
+			      				<button class="btn btn-success" type="button" @click="peoModal">选择</button>
 			      			</td>
+			      		</tr>
+			      		<tr>
 			      			<td>数量:</td>
-			      			<td><input type="text" /></td>
-			      		</tr>
-			      		<tr>
+			      			<td><input type="text" v-model="m.num"/></td>
 			      			<td>优惠前单价:</td>
-			      			<td><input type="text" /></td>
-			      			<td>优惠后单价:</td>
-			      			<td><input type="text" /></td>
+			      			<td><input type="text" v-model="m.bpreferential"/></td>
 			      		</tr>
 			      		<tr>
+			      			<td>优惠后单价:</td>
+			      			<td><input type="text" v-model="m.apreferential"/></td>
 			      			<td>故障描述:</td>
-			      			<td colspan="3"><textarea name="" rows="" cols=""></textarea></td>
+			      			<td><textarea v-model="m.faultdescription"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>故障原因:</td>
-			      			<td colspan="3"><select name="" id=""></select></td>
-			      		</tr>
-			      		<tr>
+			      			<td><select v-model="m.problem">
+			      				<option value="环境开会">环境开会</option>
+			      				<option value="电路故障">电路故障</option>
+			      				<option value="水箱漏水">水箱漏水</option>
+			      			</select></td>
 			      			<td>维修班组:</td>
-			      			<td><input type="text" readonly="readonly"><button class="btn btn-success">选择</button></td>
-			      			<td>工单号:</td>
-			      			<td><input type="text" /></td>
+			      			<td><input type="text" v-if="m.team" v-model="m.team.tname"  readonly="readonly" >
+			      			<button class="btn btn-success" type="button" @click="openTeamModal">班组</button></td>
 			      		</tr>
 			      	</table>
 			      </div>
 			      <div class="modal-footer">
 			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			        <button type="button" class="btn btn-primary" >修改</button>
 			      </div>
 			    </div>
 			  </div>
@@ -1162,6 +1259,26 @@
             	时间：2020-02-23
             	描述：维修项目重置价格
            -->
+           <div id="resetMainPriceModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" >
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">修改项目价格</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<div class="input-group">
+					  <span class="input-group-addon" id="basic-addon1">价格:</span>
+					  <input type="text" v-model="m.bpreferentialm" class="form-control" placeholder="commodityInfoPrice" aria-describedby="basic-addon1">
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary" @click="resetMainPrice">保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
             <!--
             	作者：2315588974@qq.com
             	时间：2020-02-23
@@ -1299,22 +1416,102 @@
 			</div>
 			<!--
             	作者：2315588974@qq.com
-            	时间：2020-02-17
-            	描述：附加项目模态框
+            	时间：2020-03-01
+            	描述：班组模态框
             -->
-			<div id="" class="modal fade" tabindex="-1" role="dialog">
-			  <div class="modal-dialog" style="width: 1000px;" role="document">
-			    <div class="modal-content" style="width: 1000px;position: relative;left: -200px;">
+            <div id="teamModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content" >
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">修改会员信息</h4>
+			        <h4 class="modal-title" id="myModalLabel">维修班组</h4>
 			      </div>
 			      <div class="modal-body">
-			      	
+			      	<table class="table table-hover">
+			      		<thead>
+			      			<tr>
+			      				<td>##</td>
+			      				<td>班组编号</td>
+			      				<td>班组</td>
+			      			</tr>
+			      		</thead>
+			      		<tbody>
+			      			<tr v-for="item,index in team" @click="xzTeam($event,item)">
+			      				<td><input type="radio" name="team" v-if="index==0" checked="checked"/>
+			      				<input type="radio" name="team" v-else/>
+			      				</td>
+			      				<td>{{item.tid}}</td>
+			      				<td>{{item.tname}}</td>
+			      			</tr>
+			      		</tbody>
+			      	</table>
 			      </div>
 			      <div class="modal-footer">
 			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			        <button type="button" class="btn btn-primary" >保存</button>
+			        <button type="button" class="btn btn-primary" @click="confirmTeam">保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!--
+            	作者：2315588974@qq.com
+            	时间：2020-02-17
+            	描述：附加项目模态框
+            -->
+			<div id="addtionModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content" >
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">附加项目</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<table class="table">
+			      		<tr>
+			      			<td>
+				      			<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">项目:</span>
+								  <select v-model="addtion.aname" class="form-control">
+								  	<option value="燃油费">燃油费</option>
+								  	<option value="施救费">施救费</option>
+								  	<option value="辅料费">辅料费</option>
+								  	<option value="包工料">包工料</option>
+								  	<option value="加油费">加油费</option>
+								  </select>
+								</div>
+							</td>
+			      		</tr>
+			      		<tr>
+			      			<td>
+				      			<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">价类:</span>
+								  <select v-model="addtion.pc" class="form-control">
+								  	<option v-for="item in pc" :value="item">{{item.pcname}}</option>
+								  </select>
+								</div>
+							</td>
+			      		</tr>
+			      		<tr>
+			      			<td>
+				      			<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">金额:</span>
+								  <input type="text" class="form-control" v-model="addtion.aprice" placeholder="Username" aria-describedby="basic-addon1">
+								</div>
+							</td>
+			      		</tr>
+			      		<tr>
+			      			<td>
+				      			<div class="input-group">
+								  <span class="input-group-addon" id="basic-addon1">备注:</span>
+								  <input type="text" class="form-control" v-model="addtion.remark1" placeholder="Username" aria-describedby="basic-addon1">
+								</div>
+							</td>
+			      		</tr>
+			      	</table>
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <button type="button" class="btn btn-primary up" @click="insertAddtion">保存</button>
 			      </div>
 			    </div>
 			  </div>
@@ -1453,6 +1650,7 @@
 						inBills:true, //所选车辆是否未完工,
 						peoples:[],//服务顾问
 						team:[],//班组
+						t:{},
 						business:[],//业务类型
 						pm:[],//支付方式
 						insurance:[],//保险公司
@@ -1463,42 +1661,173 @@
 						pc:[],//价类查询
 						m:{},//当前选中维修项目
 						com:[],//商品资料
-						
+						addtion:{aname:"",aprice:0.00,pcid:"",remark1:""}
 					}
 				},
 				methods:{
 					openBills(){
 						//打开单据
 					},
-					computedPrice(){
-						//计算价格
+					saveBills(){
+						//保存单据 查询数据库有单据执行修改否则新增
+						
+					},
+					pickCarOver(){
+						//接车完 
+					},
+					openCompletedModal(){
+						//打开竣工检验模态框
+					},
+					confirmCompleted(){
+						//确定竣工
+					},
+					rollBackBill(){
+						//竣工回滚
 					}
 					,
-					openAddition(){
+					xzAddtion(e,ite){
+						//选择附加项目
+						this.addtion=ite;
+						$(e.target).parent().find("input").prop("checked",true);
+					}
+					,
+					openAddtionModal(num){
 						//打开附加项目模态框
+						if(num==0){
+							if(this.bills.btid==""){
+							alert("请选择业务类型");
+							return;
+							}
+							if(this.bills.pno==""){
+								alert("请选择服务顾问");
+								return;
+							}
+							this.addtion={};
+							$(".up").show();
+						}else{
+							if(JSON.stringify(this.addtion)=="{}"){
+							alert("请选择附加项目")
+							return;
+							}
+							if(JSON.stringify(this.bills.addtions)=="[]"){
+								alert("请选择附加项目");
+								this.addtion={};
+								return;
+							}
+							$(".up").hide();
+						}
+						$("#addtionModal").modal("show");
+					}
+					,insertAddtion(){
+						//添加附加项目
+						vm.addtion.pcid=vm.addtion.pc.pcid;
+						vm.addtion.aprice=parseFloat(vm.addtion.aprice);
+						vm.bills.addtions.push(vm.addtion);
+						vm.addtion=vm.bills.addtions[0];
+						$("#addtionModal").modal("hide");
+					},
+					delAddtion(){
+						//删除附加项目
+						if(JSON.stringify(this.addtion)=="{}"){
+							alert("请选择附加项目")
+							return;
+						}
+						if(JSON.stringify(this.bills.addtions)=="[]"){
+							alert("请选择附加项目");
+							this.addtion={};
+							return;
+						}
+						this.bills.addtions.splice(this.bills.addtions.indexOf(this.addtion),1);
+					},
+					openUpAddtionModal(){
+						//打开修改附加项目模态框
+					},
+					confirmTeam(){
+						//确定选择班组
+						vm.m.team=this.t;
+						vm.bills.maintenance.forEach((it,index)=>{
+							if(it.sidno=vm.m.sidno){
+								this.bills.maintenance.splice(index,1,vm.m);
+							}
+						})
+						$("#teamModal").modal("hide");
+					},
+					xzTeam(e,item){
+						//选择班组
+						vm.t=item;
+						$(e.target).parent().find("input").prop("checked",true);
+					},
+					openTeamModal(){
+						//打开班组模态框
+						$("#teamModal input").prop("checked",false);
+						vm.m.vipprice=parseFloat(this.m.vipprice);
+						vm.m.standardprice=parseFloat(this.m.standardprice);
+						vm.m.bpreferential=parseFloat(this.m.bpreferential);
+						if(JSON.stringify(this.t)=="{}"){
+							vm.t=vm.team[0];
+						}else{
+							vm.t={};
+						}
+						$("#teamModal").modal("show");
 					}
 					,
 					confirmCommodityInfo(){
 						//添加领料
 						//确定选择,遍历添加数据
 						vm.com.forEach(it=>{
+							if(it.vipprice==null){
+											it.vipprice=0.00;
+							}
+							if(it.standardprice==null){
+								it.standardprice=0.00;
+							}
+							if(it.bpreferential==null){
+								it.bpreferential==0.00;
+							}
 							if(JSON.stringify(vm.bills.requisition)!="[]"){
 								vm.bills.requisition.forEach((ite,index)=>{
 									if(ite.sidno==it.sidno){
 										//出现重复
-										
+										ite.num+=1;
+										let sum=parseFloat(ite.vipprice)*parseFloat(ite.num);
+										let sum2=parseFloat(ite.standardprice)*parseFloat(ite.num);
+										ite.bpreferential=sum2;
+										ite.apreferential=sum;
+										ite.bpreferentialm=sum;
 									}else{
 										//未重复
-										
+										vm.bills.requisition.push(it);
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].num=1;
+										let sum=parseFloat(it.vipprice)*parseFloat(vm.bills.requisition[vm.bills.requisition.indexOf(it)].num);
+										let sum2=parseFloat(it.standardprice)*parseFloat(vm.bills.requisition[vm.bills.requisition.indexOf(it)].num);
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].bpreferential=sum2;
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].apreferential=sum;
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].bpreferentialm=sum;
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].peo=vm.user;
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].pc=vm.pc[0];
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].pick=vm.p;
+										vm.bills.requisition[vm.bills.requisition.indexOf(it)].rtime=da.getFullYear()+"-"+da.getMonth()+1+"-"+da.getDate();
 									}
 									this.bills.requisition.splice(index,1,ite);
 								})
 							}else{
+								let da=new Date();
 								//添加领料
+								vm.bills.requisition.push(it);
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].num=1;
+								let sum=parseFloat(it.vipprice)*parseFloat(vm.bills.requisition[vm.bills.requisition.indexOf(it)].num);
+								let sum2=parseFloat(it.standardprice)*parseFloat(vm.bills.requisition[vm.bills.requisition.indexOf(it)].num);
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].bpreferential=sum2;
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].apreferential=sum;
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].bpreferentialm=sum;
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].peo=vm.user;
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].pc=vm.pc[0];
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].pick=vm.p;
+								vm.bills.requisition[vm.bills.requisition.indexOf(it)].rtime=da.getFullYear()+"-"+da.getMonth()+1+"-"+da.getDate();
 							}
 						});
-						$("#").modal("hide");
-						//重新计算预算金额以及结算信息
+						$("#categoryModal").modal("hide");
+						console.log(this.bills.requisition);
 					}
 					,
 					xzCommodity(e,item){
@@ -1532,24 +1861,48 @@
 						$("#categoryModal input").prop("checked",false);
 						$("#categoryModal").modal("show");
 					},
-					confirmMainPrice(){
-						//保存价格修改
-						this.bills.maintenance.forEach(it=>{
+					resetMainPrice(){
+						//修改价格
+						this.bills.maintenance.forEach((it,index)=>{
+							if(it.sidno==vm.m.sidno){
+								it.bpreferentialm=parseFloat(vm.m.bpreferentialm);
+								vm.bills.maintenance.splice(index,1,it);
+							}
 						});
+						console.log(this.bills.maintenance);
+						$("#resetMainPriceModal").modal("hide");
 					},
 					openResetMainPriceModal(){
-						//维修项目充值价格模态框打开
+						//维修项目重置价格模态框打开
+						if(JSON.stringify(this.m)=="{}"){
+							alert("请选择维修项目")
+							return;
+						}
 						$("#resetMainPriceModal").modal("show");
 					},
 					confirmUpMain(){
 						//保存项目修改
+						
 					},
 					openUpMainModal(){
 						//修改维修项目模态框打开
+						if(JSON.stringify(this.m)=="{}"){
+							alert("请选择维修项目")
+							return;
+						}
 						$("#upMainModal").modal("show");
 					},
 					openDelMainModal(){
-						//删除维修项目模态框打开
+						//删除维修项目
+						if(JSON.stringify(this.m)=="{}"){
+							alert("请选择维修项目")
+							return;
+						}
+						if(JSON.stringify(this.bills.maintenance)=="[]"){
+							alert("请选择维修项目");
+							this.m={};
+							return;
+						}
 						this.bills.maintenance.splice(this.bills.maintenance.indexOf(this.m),1);
 					},
 					xzMaintenance(e,item){
@@ -1608,6 +1961,15 @@
 					confirmServiceItem(){
 						//确定选择,遍历添加数据
 						vm.it.forEach(it=>{
+										if(it.vipprice==null){
+											it.vipprice=0.00;
+										}
+										if(it.standardprice==null){
+											it.standardprice=0.00;
+										}
+										if(it.bpreferential==null){
+											it.bpreferential==0.00;
+										}
 							if(JSON.stringify(vm.bills.maintenance)!="[]"){
 								vm.bills.maintenance.forEach((ite,index)=>{
 									if(ite.sidno==it.sidno){
@@ -1645,6 +2007,7 @@
 										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].pick=vm.p;
 										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].team={};
 										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].pc=vm.pc[0];
+										this.m=vm.bills.maintenance[0];
 							}
 						});
 						$("#mainenance").modal("hide");
@@ -1780,6 +2143,12 @@
 					confirmPeo(){
 						this.bills.pno=this.p.pno;
 						this.bills.people=this.p;
+						if(JSON.stringify(this.m)!="{}"){
+							this.m.pick=this.p;
+							this.m.vipprice=parseFloat(this.m.vipprice);
+							this.m.standardprice=parseFloat(this.m.standardprice);
+							this.m.bpreferential=parseFloat(this.m.bpreferential);
+						}
 						$("#peoModal").modal("hide");
 					},
 					selectedPeople(e,it){
@@ -1790,6 +2159,7 @@
 					peoModal(){
 						//打开服务顾问模态框
 						$("#peoModal").modal("show");
+						$("#peoModal input").prop("checked",false);
 						if(JSON.stringify(this.p)=="{}"){
 							this.p=this.peoples[0];
 						}else{
@@ -1851,6 +2221,7 @@
 							dataType:"json",
 							success:function(result){
 								vm.team=result;
+								
 							}
 						});
 					},
@@ -2103,8 +2474,42 @@
 						let that=this;
 						return this.page4;
 					}
+				},watch:{
+					bills:{
+						handler:(newvalue,oldvalue)=>{
+							oldvalue=newvalue;
+							let sum=0.00;//总金额
+							let beforeMoney=0.00;//优惠前金额
+							let materialsExpenses=0.00;//材料费
+							let addition=0.00;//附加费
+							//计算附加费
+							newvalue.addtions.forEach(it=>{
+								sum+=parseFloat(it.aprice);
+								beforeMoney+=parseFloat(it.aprice);
+								addition+=parseFloat(it.aprice);
+							});
+							//计算维修费							
+							newvalue.maintenance.forEach(it=>{
+								sum+=parseFloat(it.bpreferentialm);
+								beforeMoney+=parseFloat(it.bpreferential);
+							})
+							//计算材料费
+							newvalue.requisition.forEach(it=>{
+								sum+=parseFloat(it.bpreferentialm);
+								beforeMoney+=parseFloat(it.bpreferential);
+								materialsExpenses+=parseFloat(it.bpreferentialm);
+							});
+							newvalue.forecastmoney=sum;
+							newvalue.account.total=sum;
+							newvalue.account.beforeMoney=beforeMoney;
+							newvalue.account.materialsExpenses=materialsExpenses;
+							newvalue.account.addition=addition;
+						},
+						deep:true
+					}
 				}
 			});
+			
 		</script>
 	</body>
 </html>

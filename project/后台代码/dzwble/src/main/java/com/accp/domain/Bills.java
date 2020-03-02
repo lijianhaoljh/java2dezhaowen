@@ -81,7 +81,7 @@ public class Bills {
     private String cphone;//电话
     private String vno;//会员编码
     private String pname;//服务顾问
-    private String pnames;//
+    private String pnames;
     private String btname;
     private Integer sidno;  //项目编号
     private String sidname; //项目名称
