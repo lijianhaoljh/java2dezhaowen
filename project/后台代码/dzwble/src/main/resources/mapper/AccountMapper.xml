@@ -534,7 +534,7 @@ WHERE b.pmid=2
   </update>
   <update id="updateByExample" parameterType="map" >
     update account
-    set id = #{record.id,jdbcType=INTEGER},
+    set
       bid = #{record.bid,jdbcType=VARCHAR},
       astate = #{record.astate,jdbcType=INTEGER},
       before_money = #{record.beforeMoney,jdbcType=REAL},
