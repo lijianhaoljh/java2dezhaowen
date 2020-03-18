@@ -1,6 +1,6 @@
 package com.accp.domain;
 
-public class ReworkReason {
+public class ReworkReason extends PageBean {
     private Integer rid;
 
     private String rname;
