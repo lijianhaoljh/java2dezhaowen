@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -104,8 +105,99 @@ public class Bills {
     private String ctname;//车主名称
     private String moiname;//车型
     private String cdframe;//车架号
+    private String cbname;
+    private String cddriver;
     
-    public String getMoiname() {
+    private MaintainBill m;
+    private RescueBill r;
+    private List<Addition> addtions;
+    private Account account;
+    private List<Requisition> requisition;
+    private List<DMaintenance> maintenance;
+    private People people;
+    private People pick;
+    
+    
+    public String getCddriver() {
+		return cddriver;
+	}
+
+	public void setCddriver(String cddriver) {
+		this.cddriver = cddriver;
+	}
+
+	public String getCbname() {
+		return cbname;
+	}
+
+	public void setCbname(String cbname) {
+		this.cbname = cbname;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public List<Requisition> getRequisition() {
+		return requisition;
+	}
+
+	public void setRequisition(List<Requisition> requisition) {
+		this.requisition = requisition;
+	}
+	public List<DMaintenance> getMaintenance() {
+		return maintenance;
+	}
+
+	public void setMaintenance(List<DMaintenance> maintenance) {
+		this.maintenance = maintenance;
+	}
+
+	public People getPeople() {
+		return people;
+	}
+
+	public void setPeople(People people) {
+		this.people = people;
+	}
+
+	public People getPick() {
+		return pick;
+	}
+
+	public void setPick(People pick) {
+		this.pick = pick;
+	}
+
+	public List<Addition> getAddtions() {
+		return addtions;
+	}
+
+	public void setAddtions(List<Addition> addtions) {
+		this.addtions = addtions;
+	}
+
+	public MaintainBill getM() {
+		return m;
+	}
+
+	public void setM(MaintainBill m) {
+		this.m = m;
+	}
+
+	public RescueBill getR() {
+		return r;
+	}
+
+	public void setR(RescueBill r) {
+		this.r = r;
+	}
+
+	public String getMoiname() {
 		return moiname;
 	}
 

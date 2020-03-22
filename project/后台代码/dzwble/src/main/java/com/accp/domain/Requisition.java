@@ -38,8 +38,54 @@ public class Requisition {
     private String remark4;
 
     private String remark5;
+    
+    private String cname;
+    private String cuname;
+    private People peo;//领料人
+    private PriceClass pc;//价类
+    private People pick;//服务顾问
+    
+    public String getCuname() {
+		return cuname;
+	}
 
-    public Integer getId() {
+	public void setCuname(String cuname) {
+		this.cuname = cuname;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public People getPeo() {
+		return peo;
+	}
+
+	public void setPeo(People peo) {
+		this.peo = peo;
+	}
+
+	public PriceClass getPc() {
+		return pc;
+	}
+
+	public void setPc(PriceClass pc) {
+		this.pc = pc;
+	}
+
+	public People getPick() {
+		return pick;
+	}
+
+	public void setPick(People pick) {
+		this.pick = pick;
+	}
+
+	public Integer getId() {
         return id;
     }
 

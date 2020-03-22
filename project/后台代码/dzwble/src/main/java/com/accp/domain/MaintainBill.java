@@ -2,10 +2,14 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class MaintainBill {
     private String bid;
 
-    private String mbname;
+    private String mbname="维修单";
 
     private Float factorymeil;
 
@@ -13,8 +17,12 @@ public class MaintainBill {
 
     private Float mileage;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date intotime;
 
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date lastinto;
 
     private String receptionnote;

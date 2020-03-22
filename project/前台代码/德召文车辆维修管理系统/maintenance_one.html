@@ -813,14 +813,14 @@
 						</div>
 			      </div>
 			      <div class="modal-footer">
-				    <button class="btn btn-success" v-if="bills.bstate==0">接车</button>
-				    <button class="btn btn-danger"  v-else-if="bills.bstate==1">竣工检验</button>
+				    <button class="btn btn-success" v-if="bills.bstate==0" @click="pickCarOver">接车完</button>
+				    <button class="btn btn-danger"  v-else-if="bills.bstate==1" @click="openCompletedModal">竣工检验</button>
 				    <span v-else>
 				    <button class="btn btn-danger"  >完工待结</button>
 				    <button class="btn btn-danger" >回滚</button>
 				    </span>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			      	<button type="button" class="btn btn-default">保存</button>
+			      	<button type="button" class="btn btn-default" @click="saveBills(0)">保存</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
@@ -925,7 +925,7 @@
 							<li role="presentation"><a href="#lshf2" data-toggle="tab">历史回访</a></li>
 						</ul>
 						<div class="tab-content" style="padding: 5px;">
-							<div id="wxls" class="active tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+							<div id="wxls2" class="active tab-pane bg-warning" style="width: 970px; overflow: scroll;">
 								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
@@ -983,7 +983,7 @@
 									</tbody>
 								</table>
 							</div>
-							<div id="llqk" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+							<div id="llqk2" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
 								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
@@ -1012,7 +1012,7 @@
 									</tr>
 								</table>
 							</div>
-							<div id="fjxm" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
+							<div id="fjxm2" class="tab-pane bg-warning" style="width: 970px; overflow: scroll;">
 								<nav class="navbar navbar-default" style="margin: 0px;"> 
 								  <div class="container-fluid">
 								    <div class="navbar-header">
@@ -1049,7 +1049,7 @@
 									</tbody>
 								</table>
 							</div>
-							<div id="lshf" class="tab-pane bg-warning"style="width: 970px; overflow: scroll;">
+							<div id="lshf2" class="tab-pane bg-warning"style="width: 970px; overflow: scroll;">
 								<nav class="navbar navbar-default" style="width: 1500px;margin: 0px;">
 								  <div class="container-fluid">
 								    <div class="navbar-header">
@@ -1111,7 +1111,7 @@
 											<td>{{bills.account.profitLoss}}</td>
 											<td></td>
 											<td></td>
-											<td>0.00</td>
+											<td>0.00</td> 
 										</tr>
 									</tbody>
 								</table>
@@ -1119,15 +1119,13 @@
 						</div>
 			      </div>
 			      <div class="modal-footer">
-				    <button class="btn btn-danger"  v-if="bills.bstate==0">竣工检验</button>
+				    <button class="btn btn-danger"  v-if="bills.bstate==0" @click="openCompletedModal">竣工检验</button>
 				    <span v-else>
 				    <button class="btn btn-danger"  >完工待结</button>
 				    <button class="btn btn-danger" >回滚</button>
 				    </span>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			      	<button type="button" class="btn btn-default">保存</button>
-			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			      	<button type="button" class="btn btn-default" >保存</button>
+			      	<button type="button" class="btn btn-default" @click="saveBills(1)">保存</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
@@ -1376,8 +1374,53 @@
             <!--
             	作者：2315588974@qq.com
             	时间：2020-02-23
-            	描述：物料重置价格
+            	描述：竣工检验
             -->
+            <div id="openCompletedModal" class="modal fade" tabindex="-1" role="dialog">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content" >
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">竣工检验</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<table class="table">
+			      		<tr>
+			      			<td><input type="radio" name="qualified" id="q1"/> <label for="q1">合格</label></td>
+			      			<td><input type="radio" name="qualified" id="q2"/> <label for="q2">不合格</label> 
+			      				第<span></span>次返工
+			      			</td>
+			      		</tr>
+			      		<tr>
+			      			<td>预计完工时间: <input type="date"/></td>
+			      			<td>返工原因: <input type="text" /></td>
+			      		</tr>
+			      		<tr>
+			      			<td>实际完工时间: <input type="date"/></td>
+			      			<td>责任人: <input type="text" /><button>选择</button></td>
+			      		</tr>
+			      		<tr>
+			      			<td>误工原因: <input type="text" /></td>
+			      			<td>处罚金额: <input type="text" /></td>
+			      		</tr>
+			      		<tr>
+			      			<td colspan="2">质检员: <input type="text" /><button>选择</button></td>
+			      		</tr>
+			      		<tr>
+			      			<td colspan="2">责任人: <input type="text" /><button>选择</button></td>
+			      		</tr>
+			      		<tr>
+			      			<td colspan="2">处罚金额: <input type="text" /></td>
+			      		</tr>
+			      	</table>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary">确定</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 			<!--
             	作者：2315588974@qq.com
             	时间：2020-02-16
@@ -1583,6 +1626,7 @@
 				el:"#ctx",
 				data(){
 					return{
+						bill:{},
 						cdlicense:"",//车牌
 						cardataPage:{},
 						cPageSize:2,
@@ -1667,24 +1711,119 @@
 				methods:{
 					openBills(){
 						//打开单据
+						$.ajax({
+							url:data.ip+"bills/openBills",
+							type:"get",
+							xhrFields:{
+								withCredentials:true
+							},
+							data:{
+								bid:vm.bill.bid
+							},
+							dataType:"json",
+							success:function(result){
+								vm.bills=result;
+								if(vm.bill.mbname!=null){
+									$("#openMmodal").modal("show");
+								}else{
+									$("#openRmodal").modal("show");
+								}
+							},error:function(e){
+								console.log(e)
+							}
+						})
 					},
-					saveBills(){
+					saveBills(state){
 						//保存单据 查询数据库有单据执行修改否则新增
-						
+						if(this.bills.btid==""){
+							alert("请选择业务类型");
+							return;
+							}
+							if(this.bills.pno==""){
+								alert("请选择服务顾问");
+								return;
+							}
+							$.ajax({
+								url:data.ip+"bills/saveBills/"+state,
+								type:"post",
+								xhrFields:{
+									withCredentials:true
+								},
+								contentType:"application/json;charset=utf-8",
+								data:JSON.stringify(vm.bills),
+								dataType:"text",
+								success:function(result){
+									$("#openMmodal").modal("hide");
+									$("#openRmodal").modal("hide");
+									vm.findBills(1); //查询单据
+								}
+							})
+							
 					},
 					pickCarOver(){
 						//接车完 查询单据是否存在，不存在提示请先保存后接车
+						if(confirm("是否确认接车完？")){
+							$.ajax({
+								url:data.ip+"bills/verifyBill",
+								type:"post",
+								xhrFields:{
+									withCredentials:true
+								},
+								data:{
+									bid:vm.bills.bid
+								},
+								async:false,
+								dataType:"text",
+								success:function(result){
+									if(result.indexOf('1')!=-1){
+										$.ajax({
+											url:data.ip+"bills/pickcarOverBill",
+											type:"post",
+											xhrFields:{
+												withCredentials:true
+											},
+											data:JSON.stringify(vm.bills),
+											contentType:"application/json;charset=utf-8",
+											dataType:"text",
+											success:function(result){
+												$("#openMmodal").modal("hide");
+												$("#openRmodal").modal("hide");
+												vm.findBills(1); //查询单据
+											}
+										})
+									}else{
+										alert("请先保存单据!");
+									}
+								}
+							})
+						}
 					},
 					openCompletedModal(){
 						//打开竣工检验模态框
+						if(confirm("确定竣工吗?")){
+							$.ajax({
+								url:data.ip+"bills/completed",
+								type:"post",
+								xhrFields:{
+									withCredentials:true
+								},
+								data:JSON.stringify(vm.bills),
+								contentType:"application/json;charset=utf-8",
+								dataType:"text",
+								success:function(result){
+									$("#openMmodal").modal("hide");
+									$("#openRmodal").modal("hide");
+									vm.findBills(1); //查询单据
+								}
+							})
+						}
 					},
 					confirmCompleted(){
 						//确定竣工
 					},
 					rollBackBill(){
 						//竣工回滚
-					}
-					,
+					},
 					xzAddtion(e,ite){
 						//选择附加项目
 						this.addtion=ite;
@@ -1982,6 +2121,7 @@
 										ite.bpreferentialm=sum;
 									}else{
 										vm.bills.maintenance.push(it);
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].cno=vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].sidno;
 										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num=1;
 										let sum=parseFloat(it.vipprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
 										let sum2=parseFloat(it.standardprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
@@ -1998,6 +2138,7 @@
 							}else{
 										vm.bills.maintenance.push(it);
 										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num=1;
+										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].cno=vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].sidno;
 										let sum=parseFloat(it.vipprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
 										let sum2=parseFloat(it.standardprice)*parseFloat(vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].num);
 										vm.bills.maintenance[vm.bills.maintenance.indexOf(it)].bpreferential=sum2;
@@ -2339,6 +2480,7 @@
 							},dataType:"json",
 							success:function(response){
 								vm.page=response;
+								vm.bill=response.list[0];
 								console.log(vm.page);
 							},error:function(error){
 								console.log(error);
@@ -2443,6 +2585,7 @@
 					},obtainCdlicense(item,e){
 						vm.cdlicense=item.cdlicense;
 						this.findByCdlicense();
+						this.bill=item;
 						$(e.target).parent().find("input").prop("checked",true);
 					},bindCardata(e,data){
 						$(e.target).parent().find("input").prop("checked",true);

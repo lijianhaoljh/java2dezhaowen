@@ -39,6 +39,18 @@
     <result column="total" property="total" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="findOpenBills" resultMap="BaseResultMap">
+  SELECT b.*,mo.moiname,ct.cname,cd.cbname mname,c.cddriver,ct.cphone FROM `bills` AS b
+LEFT JOIN `cardata` AS c
+ON b.cdlicense=c.cdlicense
+LEFT JOIN `motorcycle` AS mo
+ON c.moid=mo.moid
+LEFT JOIN `carbrand` AS cd
+ON c.cdno=cd.cbno
+LEFT JOIN `customer` AS ct
+ON c.cno=ct.cno
+WHERE b.bid=#{bid}
+</select>
   <select id="querytodayCount" parameterType="com.accp.domain.Bills" resultType="java.lang.Integer">
   	SELECT COUNT(*) FROM bills WHERE YEAR(Ordertime) = YEAR(NOW()) AND MONTH(Ordertime) = MONTH(NOW()) AND DAY(Ordertime) = DAY(NOW())
   </select>
@@ -103,7 +115,7 @@ ON c.cno=v.cno
 LEFT JOIN account AS a
 ON b.bid=a.bid
 where b.bstate &lt; 3
-ORDER BY b.ordertime DESC
+ORDER BY b.ordertime asc
 </select>
   
   <select id="findByCdlicenseOne" resultMap="BaseResultMap">

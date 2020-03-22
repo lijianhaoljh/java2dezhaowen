@@ -38,8 +38,64 @@ public class DMaintenance {
     private String remark4;
 
     private String remark5;
+    
+    private Integer sidno;
+    private String sidname;
+    
+    public Integer getSidno() {
+		return sidno;
+	}
 
-    public Integer getId() {
+	public void setSidno(Integer sidno) {
+		this.sidno = sidno;
+	}
+
+	public String getSidname() {
+		return sidname;
+	}
+
+	public void setSidname(String sidname) {
+		this.sidname = sidname;
+	}
+
+	private People pick;//服务顾问
+    private People peo;//作业人员
+    private Team team;//班组
+    private PriceClass pc;//价类
+    
+    public People getPick() {
+		return pick;
+	}
+
+	public void setPick(People pick) {
+		this.pick = pick;
+	}
+
+	public People getPeo() {
+		return peo;
+	}
+
+	public void setPeo(People peo) {
+		this.peo = peo;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	public PriceClass getPc() {
+		return pc;
+	}
+
+	public void setPc(PriceClass pc) {
+		this.pc = pc;
+	}
+
+	public Integer getId() {
         return id;
     }
 

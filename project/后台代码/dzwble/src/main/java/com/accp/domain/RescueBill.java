@@ -5,7 +5,7 @@ import java.util.Date;
 public class RescueBill {
     private String bid;
 
-    private String rbname;
+    private String rbname="救援单";
 
     private Float currentmileage;
 

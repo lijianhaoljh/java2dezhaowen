@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BillsMapper {
+	//查询单据
+	Bills findOpenBills(String bid);
 	//竣工检验查询
 	List<Bills> findCompletions(@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("bid")String bid,@Param("bstate")Integer bstate);
 	//查询维修历史
