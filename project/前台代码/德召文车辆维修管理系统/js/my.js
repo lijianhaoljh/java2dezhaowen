@@ -1,6 +1,6 @@
 //全局参数定义
 var data = {
-	ip:"http://localhost:8080/",
+	ip = "http://120.27.93.156:8087",
 	perms:[],
 	params:{}
 }
