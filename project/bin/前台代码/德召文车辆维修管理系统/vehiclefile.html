@@ -18,7 +18,7 @@
 	<body>
 		 <div class="container-fluid" id="ctx">
 		 	<div class="row">
-		 		<div id="title"  style="padding: 20px;background: #F7F7F7;">
+		 		<div id="title"  style="padding: 20px;background: #C9E2B3;margin-bottom: 10px;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>品牌车型</strong>
 				 	</span>
@@ -111,19 +111,19 @@
 				      <div class="modal-body">
 				         	<table class="table table-hover metable">
 				         		<tr>
-				         			<td>品牌名称:</td>
+				         			<td><span style="color: red;">*</span>品牌名称:</td>
 				         			<td><input type="text" v-model="carbrand.cbname" id="input_1"/></td>
 				         		</tr>
 				         		<tr>
-				         			<td>首字母:</td>
+				         			
+				         			<td><span style="color: red;">*</span>首字母:</td>
 				         			<td><input type="text" v-model="carbrand.cbfirst" id="input_2"/></td>
 				         		</tr>
 				         	</table>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				        <button type="button"  class="btn btn-default" @click="upda">修改</button>
-				        <button type="button"  class="btn btn-default" @click="add">保存</button>
+				        <button type="button" v-if="!isok" class="btn btn-default" @click="upda">修改</button>
+				        <button type="button"  v-if="isok" class="btn btn-default" @click="add">保存</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -142,11 +142,11 @@
 				        <h4 class="modal-title" style="display: inline-block;">
 				       		 <strong>车型定义</strong>
 				        </h4>				 		
-				        <button type="button" class="btn btn-default" style="float: right;"  @click="updaTwo">修改</button>
-				        <button type="button" class="btn btn-default" style="float: right;"  @click="addtwo">新增</button>
+				        <button type="button" class="btn btn-default" style="float: right;" v-if="!isok" @click="updaTwo">修改</button>
+				        <button type="button" class="btn btn-default" style="float: right;" v-if="isok"  @click="addtwo">新增</button>
 				      </div>
 				      <div class="modal-body">
-				         	车辆品牌:<input type="text" v-model="cbbr.cbno" readonly="readonly"/>
+				         	<span style="color: red;">*</span>车辆品牌:<input type="text" v-model="cbbr.cbno" readonly="readonly"/>
 				         	<input type="text" v-model="cbbr.cbname" readonly="readonly"/>
 				         	<br/><br/><br/>
 				         	车辆载重:<input type="text" id="input_8" v-model="cbbr.load"/>
@@ -159,7 +159,7 @@
 							车型名称:<input type="text" id="input_3" v-model="cbbr.moiname"/>
 							燃油标号:<input type="text" id="input_7" v-model="cbbr.mofuel"/>
 							<br/><br/><br/>
-							发动机品牌:<select v-model="cbbr.mid" style="width: 100px;">
+							发动机品牌:<select id="a" v-model="cbbr.mid" style="width: 100px;">
 									  <option  v-for="item3 in fdjs" 
 									  :value ="item3.mid"> {{item3.mname}}
 									  </option>
@@ -199,7 +199,8 @@
     				Motorcycle:[],	 //查询车型集合
     				cbnos:"",		 //查询车型
     				condition:"",	 //查询车品牌
-    				tabletwo:{}		 //
+    				tabletwo:{},		 //
+    				isok:true
         		};
 			},
 			created:function() {
@@ -314,10 +315,12 @@
 				},
 				
 				addis:function(){
+					vm.isok=true;
 					vm.carbrand={};
 					$("#myModal").modal("show");
 				},
 				Adds:function(){
+					vm.isok=true;
 					$("#myModal1").modal("show");
 				},
 				
@@ -325,7 +328,8 @@
 				 * 新增车型
 				 */
 				add:function(){
-					if($("#input_1").val()=="" && $("#input_2").val()==""){
+					if($("#input_1").val()=="" && $("#input_2").val()==""
+					){
 						alert("请完善信息!")
 						return false;
 					}else{
@@ -351,6 +355,7 @@
 				 * @param {Object} 
 				 */
 				updaID:function(){
+					vm.isok=false;
 					$("#myModal").modal("show");
 						vm.isShow=true;
 						$.ajax({
@@ -464,6 +469,7 @@
 				 * id查询车型做修改
 				 */
 				updaQuery:function(){		
+					vm.isok=false;
 					$("#myModal1").modal("show");
 						$.ajax({
 							url:data.ip+"CarbrandRest/updaQuery",

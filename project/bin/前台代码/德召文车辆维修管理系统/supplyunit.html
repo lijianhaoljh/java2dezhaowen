@@ -19,7 +19,7 @@
 	</style>
 	<body>
 			<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #F7F7F7;">
+				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>供货单位</strong>
 				 	</span>
@@ -117,7 +117,7 @@
 				        <h4 class="modal-title">品牌定义</h4>
 				      </div>
 				      <div class="modal-body" id="inputx">
-				         	厂商名称:<input type="text" id="input_2" v-model="maun.mfname"/>
+				         	<span style="color: red;">*</span>厂商名称:<input type="text" id="input_2" v-model="maun.mfname"/>
 				         	厂商地址:<input type="text" v-model="maun.mfaddress" />
 				         	经营情况:<input type="text" v-model="maun.mfsituation"/>
 				         	<br /> <br /><br /> <br />
@@ -151,8 +151,8 @@
 				      </div>
 				      <div class="modal-footer">
 				      	    
-				       		<span><button  type="button" class="btn btn-default" @click="Upda" >修改</button></span> 	
-				        	<span><button  type="button" class="btn btn-default" @click="Addt" >新增</button></span>
+				       		<span><button v-if="!isok" type="button" class="btn btn-default" @click="Upda" >修改</button></span> 	
+				        	<span><button v-if="isok" type="button" class="btn btn-default" @click="Addt" >新增</button></span>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -175,7 +175,7 @@
 				      			
 				      			
 				      			<br /> <br />
-				     			联系人:<input type="text" id="input_a1" v-model="limiande.zlinkname"/>
+				     			<span style="color: red;">*</span>联系人:<input type="text" id="input_a1" v-model="limiande.zlinkname"/>
 				         		手机:<input type="text" v-model="limiande.zlinkphone"/>	 				
 								职位:<input type="text" v-model="limiande.zposition"/>
 								<br /> <br />
@@ -326,7 +326,8 @@
 							maun:{},		//新增信息
 							waimiande:{},//外面的点击对象
 							limiande:{mfcontacts:"",zmfid:""}, //模态框里面的点击对象
-							kk:"0"
+							kk:"0",
+							isok:true
 							
 						}
 					},
@@ -452,6 +453,7 @@
 								 * 新增模态框
 								 */
 								Adds:function(){
+									vm.isok=true
 									vm.maun={};
 									$("#myModal").modal("show");
 								},
@@ -482,7 +484,7 @@
 									}
 								},
 								Updaid:function(){
-									
+									vm.isok=false;
 									if(vm.waimiande.mfid==undefined){
 											alert("请选择厂商");
 											return false;

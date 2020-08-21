@@ -159,7 +159,7 @@
 							车型名称:<input type="text" id="input_3" v-model="cbbr.moiname"/>
 							燃油标号:<input type="text" id="input_7" v-model="cbbr.mofuel"/>
 							<br/><br/><br/>
-							发动机品牌:<select v-model="cbbr.mid" style="width: 100px;">
+							发动机品牌:<select id="a" v-model="cbbr.mid" style="width: 100px;">
 									  <option  v-for="item3 in fdjs" 
 									  :value ="item3.mid"> {{item3.mname}}
 									  </option>
@@ -320,7 +320,6 @@
 					$("#myModal").modal("show");
 				},
 				Adds:function(){
-					
 					vm.isok=true;
 					$("#myModal1").modal("show");
 				},
@@ -329,7 +328,8 @@
 				 * 新增车型
 				 */
 				add:function(){
-					if($("#input_1").val()=="" && $("#input_2").val()==""){
+					if($("#input_1").val()=="" && $("#input_2").val()==""
+					){
 						alert("请完善信息!")
 						return false;
 					}else{

@@ -21,7 +21,7 @@
 	</style>
 	<body>
 		<div class="container-fluid" style="margin: 20px;" id="ctx">
-				<div id="title"  style="padding: 20px;background: #F7F7F7;">
+				<div id="title"  style="padding: 20px;background: #C9E2B3;">
 				 	<span style="font-size: 30px;"> 
 				 		<strong>商品资料</strong>
 				 	</span>
@@ -101,7 +101,7 @@
 				      </div>
 				      <div class="modal-body" id="inputx">
 				      		<p>
-				         	商品名称:<input type="text" id="input_1" v-model="comc.cname"/>
+				         	<span style="color: red;">*</span>商品名称:<input type="text" id="input_1" v-model="comc.cname"/>
 				         	
 							适用车辆:<input type="text" id="input_2" v-model="comc.vehicletype"/>		
 				       		</p>
@@ -170,8 +170,8 @@
 							</p>
 				      </div>
 				      <div class="modal-footer">
-				        	<button @click="UpdaCommd"  type="button" class="btn btn-default">修改</button>
-				        	<button @click="addCommd"    type="button" class="btn btn-default">新增</button>
+				        	<button @click="UpdaCommd" v-if="!isok"  type="button" class="btn btn-default">修改</button>
+				        	<button @click="addCommd"  v-if="isok"  type="button" class="btn btn-default">新增</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -202,7 +202,7 @@
     				queryef:[],         //商品产地
     				queryeg:[],          //产商名称
     				comc:{},          //新增
-    				isok:false
+    				isok:true
         		};
 			},
 			created:function() {
@@ -261,6 +261,7 @@
 				 */
 				
 				toAdd:function(){
+					vm.isok=true;
 					vm.comc={};
 					$("#myModal").modal("show");
 				},
@@ -478,6 +479,7 @@
 						}
 				},
 				QueryByid:function(){
+						vm.isok=false;
 						$("#myModal").modal("show");
 					
 						$.ajax({
